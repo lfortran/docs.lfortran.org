@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Developer Tutorial - LFortran Documentation</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Developer Tutorial";
+    var mkdocs_page_input_path = "developer_tutorial.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/fortran.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> LFortran Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../installation/">Installation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../language/">Fortran Language</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../design/">LFortran Design</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Developer Tutorial</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#developer-tutorial">Developer Tutorial</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#introduction">Introduction</a></li>
+        
+            <li><a class="toctree-l3" href="#abstract-syntax-tree-ast">Abstract Syntax Tree (AST)</a></li>
+        
+            <li><a class="toctree-l3" href="#abstract-semantic-representation-asr">Abstract Semantic Representation (ASR)</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">LFortran Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Developer Tutorial</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://gitlab.com/lfortran/lfortran/blob/master/doc/src/developer_tutorial.md"
+          class="icon icon-gitlab"
+        > Edit on GitLab</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="developer-tutorial">Developer Tutorial</h1>
+<p>This is a tutorial for anybody who wants to either develop LFortran or build
+tools on top.</p>
+<h2 id="introduction">Introduction</h2>
+<p>LFortran is structured around two independent modules, AST and ASR, both of
+which are standalone (completely independent of the rest of LFortran) and users
+are encouraged to use them independently for other applications and build tools
+on top:</p>
+<ul>
+<li>
+<p>Abstract Syntax Tree (AST), module <code>lfortran.ast</code>: Represents any Fortran
+  source code, strictly based on syntax, no semantic is included. The AST
+  module can convert itself to Fortran source code.</p>
+</li>
+<li>
+<p>Abstract Semantic Representation (ASR), module <code>lfortran.asr</code>: Represents a
+  valid Fortran source code, all semantic is included. Invalid Fortran code is
+  not allowed (an error will be given). The ASR module can convert itself to an
+  AST.</p>
+</li>
+</ul>
+<h2 id="abstract-syntax-tree-ast">Abstract Syntax Tree (AST)</h2>
+<p>Fortran source code can be parsed into an AST using the <code>src_to_ast()</code>
+function:</p>
+<pre><code class="python">from lfortran.ast import src_to_ast, print_tree
+from lfortran.ast.ast_to_src import ast_to_src
+src = &quot;&quot;&quot;\
+integer function f(a, b) result(r)
+integer, intent(in) :: a, b
+r = a + b
+end function
+&quot;&quot;&quot;
+ast = src_to_ast(src, translation_unit=False)
+</code></pre>
+
+<p>We can pretty print it using <code>print_tree()</code> (<a href="https://gitlab.com/lfortran/lfortran/issues/59">#59</a>):</p>
+<pre><code class="python">print_tree(ast)
+</code></pre>
+
+<p>This will print (in color):</p>
+<pre><code>Legend: Node, Field, Token
+program_unit.Function
+├─name='f'
+├─args=↓
+│ ├─AST.arg
+│ │ ╰─arg='a'
+│ ╰─AST.arg
+│   ╰─arg='b'
+├─return_type=None
+├─return_var=expr.Name
+│ ╰─id='r'
+├─bind=None
+├─use=[]
+├─decl=↓
+│ ╰─unit_decl2.Declaration
+│   ╰─vars=↓
+│     ├─AST.decl
+│     │ ├─sym='a'
+│     │ ├─sym_type='integer'
+│     │ ├─dims=[]
+│     │ ╰─attrs=↓
+│     │   ╰─attribute.Attribute
+│     │     ├─name='intent'
+│     │     ╰─args=↓
+│     │       ╰─AST.attribute_arg
+│     │         ╰─arg='in'
+│     ╰─AST.decl
+│       ├─sym='b'
+│       ├─sym_type='integer'
+│       ├─dims=[]
+│       ╰─attrs=↓
+│         ╰─attribute.Attribute
+│           ├─name='intent'
+│           ╰─args=↓
+│             ╰─AST.attribute_arg
+│               ╰─arg='in'
+├─body=↓
+│ ╰─stmt.Assignment
+│   ├─target=expr.Name
+│   │ ╰─id='r'
+│   ╰─value=expr.BinOp
+│     ├─left=expr.Name
+│     │ ╰─id='a'
+│     ├─op=operator.Add
+│     ╰─right=expr.Name
+│       ╰─id='b'
+╰─contains=[]
+</code></pre>
+
+<p>We can convert AST to Fortran source code using <code>ast_to_src()</code>:</p>
+<pre><code class="python">print(ast_to_src(ast))
+</code></pre>
+
+<p>This will print:</p>
+<pre><code class="fortran">function f(a, b) result(r)
+integer, intent(in) :: a
+integer, intent(in) :: b
+r = a + b
+end function
+</code></pre>
+
+<p>All AST nodes and their arguments are described in
+<a href="https://gitlab.com/lfortran/lfortran/blob/master/grammar/AST.asdl">AST.asdl</a>.</p>
+<h2 id="abstract-semantic-representation-asr">Abstract Semantic Representation (ASR)</h2>
+<p>We can convert AST to ASR using the <code>ast_to_asr()</code> function:</p>
+<pre><code class="python">from lfortran.semantic.ast_to_asr import ast_to_asr
+asr = ast_to_asr(ast)
+</code></pre>
+
+<p>For example to print the variables defined in the function scope:</p>
+<pre><code class="python">print(asr.global_scope.symbols[&quot;f&quot;].symtab.symbols.keys())
+</code></pre>
+
+<p>it prints:</p>
+<pre><code>dict_keys(['a', 'b', 'r'])
+</code></pre>
+
+<p>We can convert ASR to AST and to source code:</p>
+<pre><code class="python">from lfortran.asr.asr_to_ast import asr_to_ast
+print(ast_to_src(asr_to_ast(asr)))
+</code></pre>
+
+<p>it prints:</p>
+<pre><code class="fortran">integer function f(a, b) result(r)
+integer, intent(in) :: a
+integer, intent(in) :: b
+r = a + b
+end function
+</code></pre>
+
+<p>All ASR nodes and their arguments are described in
+<a href="https://gitlab.com/lfortran/lfortran/blob/master/grammar/ASR.asdl">ASR.asdl</a>.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../design/" class="btn btn-neutral" title="LFortran Design"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://gitlab.com/lfortran/lfortran/" class="icon icon-gitlab" style="float: left; color: #fcfcfc"> GitLab</a>
+      
+      
+        <span><a href="../design/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
