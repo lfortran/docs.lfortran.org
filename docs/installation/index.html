@@ -150,7 +150,7 @@ git directly, the tarball does not depend on Java in any way.</p>
 Download the latest tarball from
 <a href="https://lfortran.org/download/">https://lfortran.org/download/</a>.</p>
 <p>Install prerequisites and LFortran (works on both Linux and Mac):</p>
-<pre><code class="bash">conda create -n lfortran python=3.7 pytest llvmlite prompt_toolkit
+<pre><code class="bash">conda create -n lfortran python=3.7 pytest llvmlite prompt_toolkit cmake make
 conda activate lfortran
 pip install antlr4-python3-runtime
 wget https://lfortran.github.io/tarballs/release/lfortran-0.1.11.tar.gz
@@ -169,7 +169,7 @@ options using <code>lfort -h</code>.</p>
 
 <h2 id="from-git">From Git</h2>
 <p>This works both on Linux and a Mac:</p>
-<pre><code class="bash">conda create -n lfortran python=3.7 pytest llvmlite prompt_toolkit
+<pre><code class="bash">conda create -n lfortran python=3.7 pytest llvmlite prompt_toolkit cmake make
 conda activate lfortran
 pip install antlr4-python3-runtime
 </code></pre>
