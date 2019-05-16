@@ -149,7 +149,7 @@ git directly, the tarball does not depend on Java in any way.</p>
 <p>This is the easiest way.
 Download the latest tarball from
 <a href="https://lfortran.org/download/">https://lfortran.org/download/</a>.</p>
-<p>Install prerequisites and LFortran (works on both Linux and Mac):</p>
+<p>Install prerequisites and LFortran (works on Linux, macOS and Windows):</p>
 <pre><code class="bash">conda create -n lfortran python=3.7 pytest llvmlite prompt_toolkit cmake make
 conda activate lfortran
 pip install antlr4-python3-runtime scikit-build
@@ -162,12 +162,15 @@ pip install .
 <p>Now the <code>lfortran</code> environment has the <code>lfort</code> compiler available, you can
 start the interactive prompt by executing <code>lfort</code>, or see the command line
 options using <code>lfort -h</code>.</p>
+<p>Note: besides the above prerequisites installed by <code>conda</code>, you also have to
+have a C compiler.</p>
+<p>Note on macOS: if <code>wget</code> is not present, use <code>curl -O</code> instead.</p>
 <p>Optional: run tests:</p>
-<pre><code class="bash">py.test --pyargs lfortran
+<pre><code class="bash">pytest --pyargs lfortran
 </code></pre>
 
 <h2 id="from-git">From Git</h2>
-<p>This works both on Linux and a Mac:</p>
+<p>This works both on Linux, macOS and Windows:</p>
 <pre><code class="bash">conda create -n lfortran python=3.7 pytest llvmlite prompt_toolkit cmake make
 conda activate lfortran
 pip install antlr4-python3-runtime scikit-build
@@ -182,7 +185,7 @@ pip install antlr4-python3-runtime scikit-build
 </code></pre>
 
 <p>Run tests:</p>
-<pre><code class="bash">py.test
+<pre><code class="bash">pytest
 </code></pre>
 
 <p>Run an interactive prompt:</p>
