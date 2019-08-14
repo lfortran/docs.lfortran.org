@@ -67,6 +67,11 @@
           
             <li class="toctree-l1">
 		
+    <a class="" href="../progress/">LFortran Development Status</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
     <span class="caption-text">Developer's Guide</span>
     <ul class="subnav">
                 <li class=" current">
@@ -81,6 +86,8 @@
             <li><a class="toctree-l4" href="#high-level-overview">High Level Overview</a></li>
         
             <li><a class="toctree-l4" href="#asr-design-details">ASR Design Details</a></li>
+        
+            <li><a class="toctree-l4" href="#notes">Notes:</a></li>
         
             <li><a class="toctree-l4" href="#fortran-2008">Fortran 2008</a></li>
         
@@ -224,14 +231,12 @@ always be done unless the code is invalid.</p>
   of LFortran can depend on it.</p>
 </li>
 </ul>
-<p>Note: Information that is lost when parsing source to AST: whitespace,
-multiline/single line if statement distinction, case sensitivity of keywords.
-Information that is lost when going from AST to ASR: detailed syntax how
-variables were defined and the order of type attributes (whether array
-dimension is using the <code>dimension</code> attribute, or parentheses at the variable;
-or how many variables there are per declaration line or their order), as ASR
-only represents the aggregated type information in the symbol table.</p>
-<p>Note: ASR is the simplest way to generate Fortran code, as one does not
+<h2 id="notes">Notes:</h2>
+<p>Information that is lost when parsing source to AST:
+whitespace, multiline/single line if statement distinction, case sensitivity of keywords.</p>
+<p>Information that is lost when going from AST to ASR:
+detailed syntax how variables were defined and the order of type attributes (whether array dimension is using the <code>dimension</code> attribute, or parentheses at the variable; or how many variables there are per declaration line or their order), as ASR only represents the aggregated type information in the symbol table.</p>
+<p>ASR is the simplest way to generate Fortran code, as one does not
 have to worry about the detailed syntax (as in AST) about how and where
 things are declared. One specifies the symbol table for a module, then for
 each symbol (functions, global variables, types, ...) one specifies the local
@@ -359,7 +364,7 @@ Fortran compiler.</p>
         <a href="../developer_tutorial/" class="btn btn-neutral float-right" title="Developer Tutorial">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../language/" class="btn btn-neutral" title="Fortran Language"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../progress/" class="btn btn-neutral" title="LFortran Development Status"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -385,7 +390,7 @@ Fortran compiler.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../language/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../progress/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../developer_tutorial/" style="color: #fcfcfc">Next &raquo;</a></span>
