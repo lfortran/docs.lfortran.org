@@ -7,14 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
+  
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>Developer Tutorial - LFortran Documentation</title>
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
-  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-  <link href="../ansi.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../ansi.css" rel="stylesheet" />
   
   <script>
     // Current page data
@@ -25,8 +26,8 @@
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
   <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/fortran.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/fortran.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
 </head>
@@ -37,6 +38,7 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
         <a href=".." class="icon icon-home"> LFortran Documentation</a>
         <div role="search">
@@ -47,67 +49,41 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="..">Home</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../installation/">Installation</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../language/">Fortran Language</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../progress/">LFortran Development Status</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Developer's Guide</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../design/">LFortran Design</a>
-                </li>
-                <li class=" current">
-                    
-    <a class="current" href="./">Developer Tutorial</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#developer-tutorial">Developer Tutorial</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#introduction">Introduction</a></li>
-        
-            <li><a class="toctree-l4" href="#abstract-syntax-tree-ast">Abstract Syntax Tree (AST)</a></li>
-        
-            <li><a class="toctree-l4" href="#abstract-semantic-representation-asr">Abstract Semantic Representation (ASR)</a></li>
-        
-        </ul>
-    
-
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../language/">Fortran Language</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../progress/">LFortran Development Status</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Developer's Guide</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../design/">LFortran Design</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Developer Tutorial</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#abstract-syntax-tree-ast">Abstract Syntax Tree (AST)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#abstract-semantic-representation-asr">Abstract Semantic Representation (ASR)</a>
+    </li>
     </ul>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../AST and ASR/">Difference between an AST and ASR</a>
-                </li>
-    </ul>
-	    </li>
-          
-        </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../AST%20and%20ASR/">Difference between an AST and ASR</a>
+                    </li>
+                </ul>
       </div>
-      &nbsp;
+    </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -136,6 +112,7 @@
       
     </li>
   </ul>
+  
   <hr/>
 </div>
           <div role="main">
@@ -339,7 +316,7 @@ end function
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../AST and ASR/" class="btn btn-neutral float-right" title="Difference between an AST and ASR">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../AST%20and%20ASR/" class="btn btn-neutral float-right" title="Difference between an AST and ASR">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../design/" class="btn btn-neutral" title="LFortran Design"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -354,7 +331,7 @@ end function
     
   </div>
 
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
       
         </div>
@@ -364,20 +341,25 @@ end function
 
   </div>
 
-  <div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
         <span><a href="../design/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../AST and ASR/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../AST%20and%20ASR/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
     <script>var base_url = '..';</script>
     <script src="../js/theme.js" defer></script>
       <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
 
 </body>
 </html>
