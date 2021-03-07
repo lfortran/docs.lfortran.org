@@ -128,12 +128,12 @@ are encouraged to use them independently for other applications and build tools
 on top:</p>
 <ul>
 <li>
-<p>Abstract Syntax Tree (AST), module <code>lfortran.ast</code>: Represents any Fortran
+<p>Abstract Syntax Tree (AST): Represents any Fortran
   source code, strictly based on syntax, no semantic is included. The AST
   module can convert itself to Fortran source code.</p>
 </li>
 <li>
-<p>Abstract Semantic Representation (ASR), module <code>lfortran.asr</code>: Represents a
+<p>Abstract Semantic Representation (ASR): Represents a
   valid Fortran source code, all semantic is included. Invalid Fortran code is
   not allowed (an error will be given). The ASR module can convert itself to an
   AST.</p>
@@ -142,169 +142,50 @@ on top:</p>
 <h2 id="abstract-syntax-tree-ast">Abstract Syntax Tree (AST)</h2>
 <p>Fortran source code can be parsed into an AST using the <code>src_to_ast()</code>
 function:</p>
-<pre><code class="python">from lfortran.ast import src_to_ast, print_tree
-from lfortran.ast.ast_to_src import ast_to_src
-src = &quot;&quot;&quot;\
+<pre><code class="language-fortran">integer function f(a, b) result(r)
+integer, intent(in) :: a, b
+r = a + b
+end function
+</code></pre>
+<p>We can pretty print it using the <code>%%showast</code> magic:</p>
+<pre><code class="language-fortran">%%showast
 integer function f(a, b) result(r)
 integer, intent(in) :: a, b
 r = a + b
 end function
-&quot;&quot;&quot;
-ast = src_to_ast(src, translation_unit=False)
 </code></pre>
-
-<p>We can pretty print it using <code>print_tree()</code> (<a href="https://gitlab.com/lfortran/lfortran/issues/59">#59</a>):</p>
-<pre><code class="python">print_tree(ast)
-</code></pre>
-
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Legend: <span class="ansi-blue-intense-fg ansi-bold">Node</span>, Field, <span class="ansi-green-fg">Token</span>
-<span class="ansi-blue-intense-fg ansi-bold">program_unit.Function</span>
-<span class="ansi-green-intense-fg ansi-bold">├─</span>name=<span class="ansi-green-fg">&#39;f&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">├─</span>args=↓
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span><span class="ansi-blue-intense-fg ansi-bold">AST.arg</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>arg=<span class="ansi-green-fg">&#39;a&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span><span class="ansi-blue-intense-fg ansi-bold">AST.arg</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>arg=<span class="ansi-green-fg">&#39;b&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">├─</span>return_type=<span class="ansi-green-fg">None</span>
-<span class="ansi-green-intense-fg ansi-bold">├─</span>return_var=<span class="ansi-blue-intense-fg ansi-bold">expr.Name</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>id=<span class="ansi-green-fg">&#39;r&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">├─</span>bind=<span class="ansi-green-fg">None</span>
-<span class="ansi-green-intense-fg ansi-bold">├─</span>use=[]
-<span class="ansi-green-intense-fg ansi-bold">├─</span>decl=↓
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span><span class="ansi-blue-intense-fg ansi-bold">unit_decl2.Declaration</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>vars=↓
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span><span class="ansi-blue-intense-fg ansi-bold">AST.decl</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span>sym=<span class="ansi-green-fg">&#39;a&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span>sym_type=<span class="ansi-green-fg">&#39;integer&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span>dims=[]
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span>attrs=↓
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span><span class="ansi-blue-intense-fg ansi-bold">attribute.Attribute</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>name=<span class="ansi-green-fg">&#39;intent&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>args=↓
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span><span class="ansi-blue-intense-fg ansi-bold">AST.attribute_arg</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>arg=<span class="ansi-green-fg">&#39;in&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>initializer=<span class="ansi-green-fg">None</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span><span class="ansi-blue-intense-fg ansi-bold">AST.decl</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>sym=<span class="ansi-green-fg">&#39;b&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>sym_type=<span class="ansi-green-fg">&#39;integer&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>dims=[]
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>attrs=↓
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span><span class="ansi-blue-intense-fg ansi-bold">attribute.Attribute</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>name=<span class="ansi-green-fg">&#39;intent&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>args=↓
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span><span class="ansi-blue-intense-fg ansi-bold">AST.attribute_arg</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>arg=<span class="ansi-green-fg">&#39;in&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>initializer=<span class="ansi-green-fg">None</span>
-<span class="ansi-green-intense-fg ansi-bold">├─</span>body=↓
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span><span class="ansi-blue-intense-fg ansi-bold">stmt.Assignment</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>target=<span class="ansi-blue-intense-fg ansi-bold">expr.Name</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>id=<span class="ansi-green-fg">&#39;r&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>value=<span class="ansi-blue-intense-fg ansi-bold">expr.BinOp</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>left=<span class="ansi-blue-intense-fg ansi-bold">expr.Name</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>id=<span class="ansi-green-fg">&#39;a&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>op=<span class="ansi-blue-intense-fg ansi-bold">operator.Add</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>right=<span class="ansi-blue-intense-fg ansi-bold">expr.Name</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>id=<span class="ansi-green-fg">&#39;b&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">╰─</span>contains=[]
-</pre>
+<pre>(<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span> [(<span class="ansi-magenta-intense-fg ansi-bold">Function</span> f [(a) (b)] &#34;integer&#34; <span class="ansi-yellow-fg">r</span> () [] [(<span class="ansi-magenta-intense-fg ansi-bold">Declaration</span> [(a &#34;integer&#34; [] [] [(<span class="ansi-magenta-intense-fg ansi-bold">Attribute</span> intent [(in)] [])] ()) (b &#34;integer&#34; [] [] [(<span class="ansi-magenta-intense-fg ansi-bold">Attribute</span> intent [(in)] [])] ())])] [(<span class="ansi-magenta-intense-fg ansi-bold">=</span> <span class="ansi-yellow-fg">r</span> (+ <span class="ansi-yellow-fg">a</span> <span class="ansi-yellow-fg">b</span>))] [])])</pre>
 </div>
 
-<p>We can convert AST to Fortran source code using <code>ast_to_src()</code>:</p>
-<pre><code class="python">print(ast_to_src(ast))
-</code></pre>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>function f(a, b) result(r)
-integer, intent(in) :: a
-integer, intent(in) :: b
+<p>We can convert AST to Fortran source code using <code>%%showfmt</code>:</p>
+<pre><code class="language-fortran">%%showfmt
+integer function f(a, b) result(r)
+integer, intent(in) :: a, b
 r = a + b
 end function
-
+</code></pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansi-green-intense-fg">integer</span> <span class="ansi-cyan-intense-fg">function</span> f(a, b) <span class="ansi-cyan-intense-fg">result</span>(r) 
+<span class="ansi-green-intense-fg">integer</span>, <span class="ansi-green-intense-fg">intent</span>(<span class="ansi-green-intense-fg">in</span>) :: a
+<span class="ansi-green-intense-fg">integer</span>, <span class="ansi-green-intense-fg">intent</span>(<span class="ansi-green-intense-fg">in</span>) :: b
+r = (a) + (b)
+<span class="ansi-cyan-intense-fg">end function</span> f
 </pre>
 </div>
 
 <p>All AST nodes and their arguments are described in
 <a href="https://gitlab.com/lfortran/lfortran/blob/master/grammar/AST.asdl">AST.asdl</a>.</p>
 <h2 id="abstract-semantic-representation-asr">Abstract Semantic Representation (ASR)</h2>
-<p>We can convert AST to ASR using the <code>ast_to_asr()</code> function:</p>
-<pre><code class="python">from lfortran.semantic.ast_to_asr import ast_to_asr
-from lfortran.asr.pprint import pprint_asr
-asr = ast_to_asr(ast)
-</code></pre>
-
-<p>We can pretty print using the <code>pprint_asr()</code> function:</p>
-<pre><code class="python">pprint_asr(asr)
-</code></pre>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-blue-intense-fg ansi-bold">unit.TranslationUnit</span>
-<span class="ansi-green-intense-fg ansi-bold">├─</span>global_scope=Scope
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>f = <span class="ansi-blue-intense-fg ansi-bold">fn.Function</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>name=<span class="ansi-green-fg">&#39;f&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>args=↓
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span><span class="ansi-yellow-fg">a</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span><span class="ansi-yellow-fg">b</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>body=↓
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span><span class="ansi-blue-intense-fg ansi-bold">stmt.Assignment</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>target=<span class="ansi-yellow-fg">r</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>value=<span class="ansi-blue-intense-fg ansi-bold">expr.BinOp</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>left=<span class="ansi-yellow-fg">a</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>op=<span class="ansi-blue-intense-fg ansi-bold">operator.Add</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>right=<span class="ansi-yellow-fg">b</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>type=<span class="ansi-blue-intense-fg ansi-bold">ttype.Integer</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>kind=<span class="ansi-green-fg">4</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>dims=[]
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>bind=<span class="ansi-green-fg">None</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>return_var=<span class="ansi-yellow-fg">r</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>module=<span class="ansi-green-fg">None</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>symtab=Scope
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>a = <span class="ansi-blue-intense-fg ansi-bold">expr.VariableOld</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span>name=<span class="ansi-green-fg">&#39;a&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span>intent=<span class="ansi-green-fg">&#39;in&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span>dummy=<span class="ansi-green-fg">True</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>type=<span class="ansi-blue-intense-fg ansi-bold">ttype.Integer</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>kind=<span class="ansi-green-fg">4</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>dims=[]
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>b = <span class="ansi-blue-intense-fg ansi-bold">expr.VariableOld</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span>name=<span class="ansi-green-fg">&#39;b&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span>intent=<span class="ansi-green-fg">&#39;in&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">├─</span>dummy=<span class="ansi-green-fg">True</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>type=<span class="ansi-blue-intense-fg ansi-bold">ttype.Integer</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>kind=<span class="ansi-green-fg">4</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>dims=[]
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>r = <span class="ansi-blue-intense-fg ansi-bold">expr.VariableOld</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>name=<span class="ansi-green-fg">&#39;r&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>intent=<span class="ansi-green-fg">None</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>dummy=<span class="ansi-green-fg">True</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>type=<span class="ansi-blue-intense-fg ansi-bold">ttype.Integer</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">├─</span>kind=<span class="ansi-green-fg">4</span>
-<span class="ansi-green-intense-fg ansi-bold">│ </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">  </span><span class="ansi-green-intense-fg ansi-bold">╰─</span>dims=[]
-<span class="ansi-green-intense-fg ansi-bold">╰─</span>items=[]
-</pre>
-</div>
-
-<p>For example to get the variables defined in the function scope:</p>
-<pre><code class="python">asr.global_scope.symbols[&quot;f&quot;].symtab.symbols.keys()
-</code></pre>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>dict_keys([&#39;a&#39;, &#39;b&#39;, &#39;r&#39;])</pre>
-</div>
-
-<p>We can convert ASR to AST and to source code:</p>
-<pre><code class="python">from lfortran.asr.asr_to_ast import asr_to_ast
-print(ast_to_src(asr_to_ast(asr)))
-</code></pre>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>integer function f(a, b) result(r)
-integer, intent(in) :: a
-integer, intent(in) :: b
+<p>We can pretty print using the <code>%%showasr</code> magic:</p>
+<pre><code class="language-fortran">%%showasr
+integer function f(a, b) result(r)
+integer, intent(in) :: a, b
 r = a + b
 end function
-
-</pre>
+</code></pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span> (<span class="ansi-yellow-fg">SymbolTable</span> 1 {f: (<span class="ansi-magenta-intense-fg ansi-bold">Function</span> (<span class="ansi-yellow-fg">SymbolTable</span> 3 {a: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 a <span class="ansi-green-intense-fg ansi-bold">In</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])), b: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 b <span class="ansi-green-intense-fg ansi-bold">In</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])), r: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 r <span class="ansi-green-intense-fg ansi-bold">ReturnVar</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []))}) f [(<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">a</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">b</span>)] [(<span class="ansi-magenta-intense-fg ansi-bold">=</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">r</span>) (<span class="ansi-magenta-intense-fg ansi-bold">BinOp</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">a</span>) <span class="ansi-green-intense-fg ansi-bold">Add</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">b</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])))] () (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">r</span>) ())}) [])</pre>
 </div>
 
 <p>All ASR nodes and their arguments are described in

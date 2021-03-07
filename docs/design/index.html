@@ -301,12 +301,11 @@ functions and by adding type declarations) and compile it with <code>lfortran</c
 any other Fortran compiler.</p>
 <p>Here are some examples of valid code in <em>global scope</em>:</p>
 <h3 id="example-1">Example 1</h3>
-<pre><code class="fortran">a = 5
+<pre><code class="language-fortran">a = 5
 print *, a
 </code></pre>
-
 <h3 id="example-2">Example 2</h3>
-<pre><code class="fortran">a = 5
+<pre><code class="language-fortran">a = 5
 
 subroutine p()
 print *, a
@@ -314,9 +313,8 @@ end subroutine
 
 call p()
 </code></pre>
-
 <h3 id="example-3">Example 3</h3>
-<pre><code class="fortran">module a
+<pre><code class="language-fortran">module a
 implicit none
 integer :: i
 end module
@@ -324,13 +322,11 @@ end module
 use a, only: i
 i = 5
 </code></pre>
-
 <h3 id="example-4">Example 4</h3>
-<pre><code class="fortran">x = [1, 2, 3]
+<pre><code class="language-fortran">x = [1, 2, 3]
 y = [1, 2, 1]
 call plot(x, y, &quot;o-&quot;)
 </code></pre>
-
 <h2 id="design-considerations">Design Considerations</h2>
 <p>The LFortran extension of Fortran was chosen in a way so as to minimize the
 number of changes. In particular, only the top level of the <em>global scope</em>
