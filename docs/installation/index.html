@@ -76,6 +76,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#note-for-users-who-do-not-use-conda">Note for users who do not use Conda</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#stacktraces">Stacktraces</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -247,6 +249,25 @@ repository in development mode,</p>
 <li><a href="https://re2c.org/install/install.html">re2c - 2.0.3</a></li>
 <li><a href="ftp://sourceware.org/pub/binutils/snapshots/binutils-2.31.90.tar.xz">binutils - 2.31.90</a> - Make sure that you should enable the required options related to this dependency to build the dynamic libraries (the ones ending with <code>.so</code>).</li>
 </ul>
+<h2 id="stacktraces">Stacktraces</h2>
+<p>LFortran can print stacktraces when there is an unhandled exception, as well as
+on any compiler error with the <code>--show-stacktrace</code> option. This is very helpful
+for developing the compiler itself to see where in LFortran the problem is. The
+stacktrace support is turned off by default, to enable it, install <code>binutils</code>
+and compile LFortran with the <code>-DWITH_STACKTRACE=yes</code> cmake option.</p>
+<p>In Ubuntu, <code>apt install binutils-dev</code>.</p>
+<p>On macOS, you can install <a href="https://spack.io/">Spack</a>, then:</p>
+<pre><code>spack install binutils
+spack find -p binutils
+</code></pre>
+<p>The last command will show a full path to the installed <code>binutils</code> package. Add
+this path to your shell config file, e.g.:</p>
+<pre><code>export CMAKE_PREFIX_PATH_LFORTRAN=/Users/ondrej/repos/spack/opt/spack/darwin-catalina-broadwell/apple-clang-11.0.0/binutils-2.36.1-wy6osfm6bp2323g3jpv2sjuttthwx3gd
+</code></pre>
+<p>and compile LFortran with the
+<code>-DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH_LFORTRAN;$CONDA_PREFIX"</code> cmake option.
+The <code>$CONDA_PREFIX</code> is there if you install some other dependencies (such as
+<code>llvm</code>) using Conda, otherwise you can remove it.</p>
               
             </div>
           </div>
