@@ -86,7 +86,9 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#currently-supported_1">Currently Supported:</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#not-suportedcurrently-in-development">Not Suported/Currently in Development:</a>
+    <li class="toctree-l3"><a class="reference internal" href="#not-supportedcurrently-in-development_1">Not Supported/Currently in Development:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#implementation-details">Implementation Details</a>
     </li>
         </ul>
     </li>
@@ -138,7 +140,7 @@
 <h2 id="development">Development</h2>
 <p><strong>LFortran</strong> is currently under development and some of the features of Fortran might not be supported currently. The information regarding which functions are currently supported and which one's are still being worked on will be available in this section. You can submit any new issue you find while using LFortran to our <a href="https://gitlab.com/lfortran/lfortran/issues">issue tracker</a>. You can also check out any of the issues mentioned in the sections below and provide suggestions and ideas to help us get the feature implemented.</p>
 <h2 id="fortran-standards-supported">Fortran Standards Supported</h2>
-<p>LFortran currently supports a subset of the latest Fortran standard Fortran 2018. This document describes details about which features are supported and which are not.</p>
+<p>LFortran currently supports a subset of the latest Fortran standard <a href="https://j3-fortran.org/doc/year/18/18-007r1.pdf">Fortran 2018 standard</a>. This document describes details about which features are supported and which are not.</p>
 <h3 id="related-issues">Related Issues:</h3>
 <ul>
 <li><a href="https://gitlab.com/lfortran/lfortran/issues/120">#120</a></li>
@@ -166,11 +168,11 @@
 <li>ASR not created for a few features supported by LFortran<ul>
 <li>Conditional and iterative statements</li>
 <li>Function Calls</li>
-<li>Arithmatic assignment(like a = 10)</li>
+<li>Arithmetic assignment(like a = 10)</li>
 <li>Assignments with binary operations including any number</li>
 <li>Logical Variables</li>
 <li>Print Statements</li>
-<li>Intrinsic Fortran Functions like abs, sin, cos etc.</li>
+<li>Some intrinsic Fortran Functions (see below)</li>
 </ul>
 </li>
 </ul>
@@ -187,14 +189,17 @@
 <h3 id="currently-supported_1">Currently Supported:</h3>
 <ul>
 <li>log</li>
-</ul>
-<h3 id="not-suportedcurrently-in-development">Not Suported/Currently in Development:</h3>
-<ul>
-<li>abs</li>
-<li>sqrt</li>
 <li>sin</li>
 <li>cos</li>
 <li>tan</li>
+<li>sinh</li>
+<li>cosh</li>
+<li>tanh</li>
+</ul>
+<h3 id="not-supportedcurrently-in-development_1">Not Supported/Currently in Development:</h3>
+<ul>
+<li>abs</li>
+<li>sqrt</li>
 <li>asin</li>
 <li>acos</li>
 <li>atan</li>
@@ -209,6 +214,8 @@
 <li>min</li>
 <li>mod</li>
 </ul>
+<h3 id="implementation-details">Implementation Details</h3>
+<p>This section is still subject to change. At the moment; the intrinsic functions are dispatched to <code>libm</code> and <code>glibc</code>. However, all functions are also being implemented so as to be usable from the Fortran runtime as well.</p>
               
             </div>
           </div>
