@@ -62,6 +62,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#build-from-git">Build From Git</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#enabling-the-jupyter-kernel">Enabling the Jupyter Kernel</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#build-from-git-with-nix">Build From Git with Nix</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#with-root">With Root</a>
@@ -203,6 +205,31 @@ make -j8
 </code></pre>
 <p>Run an interactive prompt:</p>
 <pre><code class="language-bash">./src/bin/lfortran
+</code></pre>
+<h2 id="enabling-the-jupyter-kernel">Enabling the Jupyter Kernel</h2>
+<p>To install the Jupyter kernel, install the following Conda packages also:</p>
+<pre><code>conda install xeus xtl nlohmann_json cppzmq
+</code></pre>
+<p>and enable the kernel by <code>-DWITH_XEUS=yes</code> and install into <code>$CONDA_PREFIX</code>. For
+example:</p>
+<pre><code>cmake \
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DWITH_LLVM=yes \
+    -DWITH_XEUS=yes \
+    -DCMAKE_PREFIX_PATH=&quot;$CONDA_PREFIX&quot; \
+    -DCMAKE_INSTALL_PREFIX=&quot;$CONDA_PREFIX&quot; \
+    .
+cmake --build . -j4 --target install
+</code></pre>
+<p>To use it, install Jupyter (<code>conda install jupyter</code>) and test that the LFortran
+kernel was found:</p>
+<pre><code>jupyter kernelspec list --json
+</code></pre>
+<p>Then launch a Jupyter notebook as follows:</p>
+<pre><code>jupyter notebook
+</code></pre>
+<p>Click <code>New-&gt;Fortran</code>. To launch a terminal jupyter LFortran console:</p>
+<pre><code>jupyter console --kernel=fortran
 </code></pre>
 <h2 id="build-from-git-with-nix">Build From Git with Nix</h2>
 <p>One of the ways to ensure exact environment and dependencies is with <code>nix</code>. This will ensure that system dependencies do not interfere with the development environment. If you want, you can report bugs in a <code>nix-shell</code> environment to make it easier for others to reproduce.</p>
