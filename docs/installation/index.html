@@ -78,6 +78,12 @@
     <li class="toctree-l2"><a class="reference internal" href="#note-for-users-who-do-not-use-conda">Note for users who do not use Conda</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#stacktraces">Stacktraces</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ubuntu">Ubuntu</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#macos">macOS</a>
+    </li>
+        </ul>
     </li>
     </ul>
                     </li>
@@ -280,10 +286,20 @@ repository in development mode,</p>
 <p>LFortran can print stacktraces when there is an unhandled exception, as well as
 on any compiler error with the <code>--show-stacktrace</code> option. This is very helpful
 for developing the compiler itself to see where in LFortran the problem is. The
-stacktrace support is turned off by default, to enable it, install <code>binutils</code>
-and compile LFortran with the <code>-DWITH_STACKTRACE=yes</code> cmake option.</p>
+stacktrace support is turned off by default, to enable it,
+compile LFortran with the <code>-DWITH_STACKTRACE=yes</code> cmake option after installing
+the prerequisites on each platform per the instructions below.</p>
+<h3 id="ubuntu">Ubuntu</h3>
 <p>In Ubuntu, <code>apt install binutils-dev</code>.</p>
-<p>On macOS, you can install <a href="https://spack.io/">Spack</a>, then:</p>
+<h3 id="macos">macOS</h3>
+<p>If you use the default Clang compiler on macOS, then the stacktraces should
+just work on both Intel and M1 based macOS (the CMake build system
+automatically invokes the <code>dsymtuil</code> tool and our Python scripts to store the
+debug information, see <code>src/bin/CMakeLists.txt</code> for more details). If it does
+not work, please report a bug.</p>
+<p>If you do not like the default way, an alternative is to use bintutils. For
+that, first install
+<a href="https://spack.io/">Spack</a>, then:</p>
 <pre><code>spack install binutils
 spack find -p binutils
 </code></pre>
