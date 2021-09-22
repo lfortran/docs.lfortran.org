@@ -491,7 +491,7 @@ Default target: x86_64-apple-darwin20.3.0
 </thead>
 <tbody>
 <tr>
-<td><code>+,-,*,/</code></td>
+<td><code>+,-,*,/,**</code></td>
 <td>✅</td>
 <td>✅</td>
 <td>✅</td>
@@ -525,6 +525,24 @@ Default target: x86_64-apple-darwin20.3.0
 <td>✅</td>
 <td><a href="https://gitlab.com/lfortran/compiler_tester/-/blob/master/tests/expressions/integers/integer_kind.f90">integer_kind.f90</a></td>
 </tr>
+<tr>
+<td><code>relational operations</code></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td><a href="https://gitlab.com/lfortran/compiler_tester/-/blob/master/tests/expressions/integers/t01_rel_operations.f90">t01_rel_operations.f90</a></td>
+</tr>
+<tr>
+<td><code>logical operations</code></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td><a href="https://gitlab.com/lfortran/compiler_tester/-/blob/master/tests/expressions/integers/t02_logical_operations.f90">t02_logical_operations.f90</a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="real-numbers">Real Numbers</h3>
@@ -550,6 +568,15 @@ Default target: x86_64-apple-darwin20.3.0
 <td>✅</td>
 <td>✅</td>
 <td><a href="https://gitlab.com/lfortran/compiler_tester/-/blob/master/tests/expressions/reals/real_kind.f90">real_kind.f90</a></td>
+</tr>
+<tr>
+<td><code>defined operator</code></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td><a href="https://gitlab.com/lfortran/compiler_tester/-/blob/master/tests/expressions/reals/t01_def_op.f90">t01_def_op.f90</a></td>
 </tr>
 </tbody>
 </table>
@@ -603,6 +630,15 @@ Default target: x86_64-apple-darwin20.3.0
 <td>✅</td>
 <td><a href="https://gitlab.com/lfortran/compiler_tester/-/blob/master/tests/expressions/character/t01_character.f90">t01_character.f90</a></td>
 </tr>
+<tr>
+<td><code>string concatenation</code></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td><a href="https://gitlab.com/lfortran/compiler_tester/-/blob/master/tests/expressions/character/t02_concat_operation.f90">t02_concat_operation.f90</a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="derived-types">Derived Types</h3>
@@ -632,6 +668,93 @@ Default target: x86_64-apple-darwin20.3.0
 </tbody>
 </table>
 <h2 id="statements">Statements</h2>
+<h3 id="allocate-statement">Allocate Statement</h3>
+<p>Directory: <code>tests/statements/allocate</code></p>
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>AST</th>
+<th>ASR</th>
+<th>LLVM</th>
+<th>BIN</th>
+<th>RUN</th>
+<th>Filename</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allocate statement</code></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td><a href="https://gitlab.com/lfortran/compiler_tester/-/blob/master/tests/statements/allocate/t01.f90">t01.f90</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="block-statement">Block Statement</h3>
+<p>Directory: <code>tests/statements/block</code></p>
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>AST</th>
+<th>ASR</th>
+<th>LLVM</th>
+<th>BIN</th>
+<th>RUN</th>
+<th>Filename</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>block statement</code></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td><a href="https://gitlab.com/lfortran/compiler_tester/-/blob/master/tests/statements/block/t01.f90">t01.f90</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="goto-statement">Goto Statement</h3>
+<p>Directory: <code>tests/statements/goto</code></p>
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>AST</th>
+<th>ASR</th>
+<th>LLVM</th>
+<th>BIN</th>
+<th>RUN</th>
+<th>Filename</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>computed go-to statement</code></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td><a href="https://gitlab.com/lfortran/compiler_tester/-/blob/master/tests/statements/goto/t01.f90">t01.f90</a></td>
+</tr>
+<tr>
+<td><code>go-to statement</code></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td><a href="https://gitlab.com/lfortran/compiler_tester/-/blob/master/tests/statements/goto/t02.f90">t02.f90</a></td>
+</tr>
+</tbody>
+</table>
 <h3 id="if-statement">If Statement</h3>
 <p>Directory: <code>tests/statements/if</code></p>
 <table>
