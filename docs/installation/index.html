@@ -253,6 +253,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#build-on-windows-with-visual-studio" class="md-nav__link">
+    Build on Windows with Visual Studio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#enabling-the-jupyter-kernel" class="md-nav__link">
     Enabling the Jupyter Kernel
   </a>
@@ -510,6 +517,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#build-on-windows-with-visual-studio" class="md-nav__link">
+    Build on Windows with Visual Studio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#enabling-the-jupyter-kernel" class="md-nav__link">
     Enabling the Jupyter Kernel
   </a>
@@ -678,6 +692,21 @@ make -j8
 <p>Run an interactive prompt:</p>
 <pre><code class="language-bash">./src/bin/lfortran
 </code></pre>
+<h2 id="build-on-windows-with-visual-studio">Build on Windows with Visual Studio</h2>
+<p>Install Conda for example by installing the Miniconda installation by following instructions there for your platform. If not already done, activate the Conda-Installation (cf. Conda installation instructions).</p>
+<p>First, clone the repo to a local folder.</p>
+<p>Launch a Conda command interpreter and run the following commands:</p>
+<pre><code class="language-bash">conda update -q conda
+conda install -c conda-forge python=3.7 re2c m2-bison xonsh llvmdev=11.1.0 jupyter xeus=1.0.1 xtl nlohmann_json cppzmq jupyter_kernel_test pytest
+</code></pre>
+<p>Next, <code>cd</code> to the root of the repository and run</p>
+<pre><code class="language-bash">.\build0.bat
+</code></pre>
+<p>Now, you can launch Visual Studio and open the LFortran folder.
+Before the first build you have to set up the <code>ZLib</code>-pathes: Go to the CMake-Settings (Project -&gt; CMake Setttings for lfortran) and check <code>Show advanced variables</code>. Scroll to the <code>ZLIB_...</code> variables and set:
+- <code>ZLIB_INCLUDE_DIR</code> = \&lt;Conda-Installation-Path>\Library\include
+- <code>ZLIB_LIBRARY_[DEBUG|RELEASE]</code> = \&lt;Conda-Installation-Path>\Library\lib\zlib.lib</p>
+<p>Then you can generate the CMake-Cache and build the project.</p>
 <h2 id="enabling-the-jupyter-kernel">Enabling the Jupyter Kernel</h2>
 <p>To install the Jupyter kernel, install the following Conda packages also:</p>
 <pre><code>conda install xeus xtl nlohmann_json cppzmq
