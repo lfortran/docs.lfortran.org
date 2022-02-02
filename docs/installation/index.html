@@ -705,7 +705,7 @@ conda install -c conda-forge python=3.7 re2c m2-bison xonsh llvmdev=11.1.0 jupyt
 <p>Now, you can launch Visual Studio and open the LFortran folder.
 Before the first build you have to set up the <code>ZLib</code>-pathes: Go to the CMake-Settings (Project -&gt; CMake Setttings for lfortran) and check <code>Show advanced variables</code>. Scroll to the <code>ZLIB_...</code> variables and set:
 - <code>ZLIB_INCLUDE_DIR</code> = \&lt;Conda-Installation-Path>\Library\include
-- <code>ZLIB_LIBRARY_[DEBUG|RELEASE]</code> = \&lt;Conda-Installation-Path>\Library\lib\zlib.lib</p>
+- <code>ZLIB_LIBRARY_[DEBUG|RELEASE]</code> = \&lt;Conda-Installation-Path>\Library\lib\zlibstatic.lib</p>
 <p>Then you can generate the CMake-Cache and build the project.</p>
 <h2 id="enabling-the-jupyter-kernel">Enabling the Jupyter Kernel</h2>
 <p>To install the Jupyter kernel, install the following Conda packages also:</p>
