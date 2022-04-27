@@ -659,10 +659,10 @@ public:
     if (LFortran::ASRUtils::expr_value(left) != nullptr &amp;&amp;
         LFortran::ASRUtils::expr_value(right) != nullptr) {
       if (ASR::is_a&lt;LFortran::ASR::Integer_t&gt;(*dest_type)) {
-        int64_t left_value = ASR::down_cast&lt;ASR::ConstantInteger_t&gt;(
+        int64_t left_value = ASR::down_cast&lt;ASR::IntegerConstant_t&gt;(
                                  LFortran::ASRUtils::expr_value(left))
                                  -&gt;m_n;
-        int64_t right_value = ASR::down_cast&lt;ASR::ConstantInteger_t&gt;(
+        int64_t right_value = ASR::down_cast&lt;ASR::IntegerConstant_t&gt;(
                                   LFortran::ASRUtils::expr_value(right))
                                   -&gt;m_n;
         int64_t result;
