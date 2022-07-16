@@ -1153,8 +1153,8 @@ Next, <code>cd</code> to the root of the repository and run
 </code></pre></div></p>
 <p>Now, you can launch Visual Studio and open the LFortran folder.
 Before the first build you have to set up the <code>ZLib</code>-pathes: Go to the CMake-Settings (Project -&gt; CMake Setttings for lfortran) and check <code>Show advanced variables</code>. Scroll to the <code>ZLIB_...</code> variables and set:
-- <code>ZLIB_INCLUDE_DIR</code> = \&lt;Conda-Installation-Path>\Library\include
-- <code>ZLIB_LIBRARY_[DEBUG|RELEASE]</code> = \&lt;Conda-Installation-Path>\Library\lib\zlibstatic.lib</p>
+- <code>ZLIB_INCLUDE_DIR</code> = \&lt;Conda-Installation-Path&gt;\Library\include
+- <code>ZLIB_LIBRARY_[DEBUG|RELEASE]</code> = \&lt;Conda-Installation-Path&gt;\Library\lib\zlibstatic.lib</p>
 <p>Then you can generate the CMake-Cache and build the project.</p>
 <h2 id="enabling-the-jupyter-kernel">Enabling the Jupyter Kernel</h2>
 <p>To install the Jupyter kernel, install the following Conda packages also:
