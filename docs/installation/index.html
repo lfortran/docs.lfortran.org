@@ -442,7 +442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AST%20and%20ASR/" class="md-nav__link">
+      <a href="../ast_and_asr/" class="md-nav__link">
         Difference between an AST and ASR
       </a>
     </li>
@@ -456,7 +456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CONTRIBUTING/" class="md-nav__link">
+      <a href="../contributing/" class="md-nav__link">
         Contributing
       </a>
     </li>
@@ -638,8 +638,36 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/character/len_trim/" class="md-nav__link">
-        len_trim(string)
+      <a href="../intrinsics/character/achar/" class="md-nav__link">
+        achar(x, kind)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/character/adjustl/" class="md-nav__link">
+        adjustl(string)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/character/adjustr/" class="md-nav__link">
+        adjustr(string)
       </a>
     </li>
   
@@ -654,6 +682,20 @@
     <li class="md-nav__item">
       <a href="../intrinsics/character/lge/" class="md-nav__link">
         lge(x, y)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/character/len_trim/" class="md-nav__link">
+        len_trim(string)
       </a>
     </li>
   
@@ -760,6 +802,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../intrinsics/mathematical/trigonometric/acosh/" class="md-nav__link">
+        acosh(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../intrinsics/mathematical/trigonometric/asin/" class="md-nav__link">
         asin(x)
       </a>
@@ -814,6 +870,48 @@
           Numeric Intrinsic Functions
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/numeric/abs/" class="md-nav__link">
+        abs(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/numeric/aimag/" class="md-nav__link">
+        aimag(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/numeric/aint/" class="md-nav__link">
+        aint(x, [kind])
+      </a>
+    </li>
+  
+
+            
           
             
               
@@ -1097,8 +1195,8 @@ and selecting <code>New-&gt;Fortran</code>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>conda create -n lf python cmake llvmdev
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>conda activate lf
 </code></pre></div>
-Then download a tarball from 
-<a href="https://lfortran.org/download/">https://lfortran.org/download/</a>, 
+Then download a tarball from
+<a href="https://lfortran.org/download/">https://lfortran.org/download/</a>,
 e.g.:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>wget https://lfortran.github.io/tarballs/dev/lfortran-0.9.0.tar.gz
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>tar xzf lfortran-0.9.0.tar.gz
@@ -1124,7 +1222,7 @@ Then prepare the environment:
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>conda activate lf
 </code></pre></div>
 Clone the LFortran git repository:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git clone https://gitlab.com/lfortran/lfortran.git
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git clone https://github.com/lfortran/lfortran.git
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>cd lfortran
 </code></pre></div>
 Generate files that are needed for the build (this step depends on <code>re2c</code>, <code>bison</code> and <code>python</code>):

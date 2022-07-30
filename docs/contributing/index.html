@@ -300,7 +300,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AST%20and%20ASR/" class="md-nav__link">
+      <a href="../ast_and_asr/" class="md-nav__link">
         Difference between an AST and ASR
       </a>
     </li>
@@ -605,8 +605,36 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/character/len_trim/" class="md-nav__link">
-        len_trim(string)
+      <a href="../intrinsics/character/achar/" class="md-nav__link">
+        achar(x, kind)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/character/adjustl/" class="md-nav__link">
+        adjustl(string)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/character/adjustr/" class="md-nav__link">
+        adjustr(string)
       </a>
     </li>
   
@@ -621,6 +649,20 @@
     <li class="md-nav__item">
       <a href="../intrinsics/character/lge/" class="md-nav__link">
         lge(x, y)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/character/len_trim/" class="md-nav__link">
+        len_trim(string)
       </a>
     </li>
   
@@ -727,6 +769,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../intrinsics/mathematical/trigonometric/acosh/" class="md-nav__link">
+        acosh(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../intrinsics/mathematical/trigonometric/asin/" class="md-nav__link">
         asin(x)
       </a>
@@ -781,6 +837,48 @@
           Numeric Intrinsic Functions
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/numeric/abs/" class="md-nav__link">
+        abs(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/numeric/aimag/" class="md-nav__link">
+        aimag(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/numeric/aint/" class="md-nav__link">
+        aint(x, [kind])
+      </a>
+    </li>
+  
+
+            
           
             
               
@@ -1012,15 +1110,15 @@ your contribution so that it can be merged.</p>
 <li>Your shell prompt to display the current branch name</li>
 </ul>
 <h3 id="fork-lfortran">Fork LFortran</h3>
-<p>Step 1. Create a fork of the <a href="https://gitlab.com/lfortran/lfortran">project repository</a></p>
-<p>Step 2. Set up your <a href="https://docs.gitlab.com/ee/ssh/">SSH key</a> with GitLab</p>
-<p>Step 3. Clone the project repository from GitLab and set up your remote repository</p>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git clone https://gitlab.com/lfortran/lfortran.git
+<p>Step 1. Create a fork of the <a href="https://github.com/lfortran/lfortran">project repository</a></p>
+<p>Step 2. Set up your <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">SSH key</a> with GitHub</p>
+<p>Step 3. Clone the project repository from GitHub and set up your remote repository</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git clone https://github.com/lfortran/lfortran.git
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>cd lfortran
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>git remote add REMOTE_NAME git@gitlab.com:YOUR_GITLAB_ID/lfortran.git
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>git remote add REMOTE_NAME git@github.com:YOUR_GITHUB_ID/lfortran.git
 </code></pre></div>
 :fontawesome-solid-edit: <code>REMOTE_NAME</code> is the name of your remote repository and could be any name you like, for example your first name.</p>
-<p>:fontawesome-solid-edit: <code>YOUR_GITLAB_ID</code> is your user ID on GitLab and should be part of your account path.</p>
+<p>:fontawesome-solid-edit: <code>YOUR_GITHUB_ID</code> is your user ID on GitHub and should be part of your account path.</p>
 <p>You can use <code>git remote -v</code> to check if the new remote is set up correctly.</p>
 <h3 id="send-a-new-merge-request">Send a New Merge Request</h3>
 <p>Step 1. Create a new branch
@@ -1085,7 +1183,7 @@ The added code is tested with <code>lfortran --show-tokens examples2/expr2.f90</
 </code></pre></div>
 The section is tested with <code>lfortran --show-ast examples/expr2.f90</code></p>
 <h3 id="implement-the-semantics-of-the-new-token">Implement the Semantics of the New Token</h3>
-<p>We first extend the ASR in <em>ASR.asdl</em> and add ^ as a BinOp operator option. </p>
+<p>We first extend the ASR in <em>ASR.asdl</em> and add ^ as a BinOp operator option.</p>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="m414.8 40.79-128 448.01c-4.9 17-22.6 26.8-39.6 22-17-4.9-26.8-22.6-22-39.6l128-447.99c4.9-16.994 22.6-26.834 39.6-21.978 17 4.855 26.8 22.568 22 39.558zm103.8 80.61 112 112c12.5 12.5 12.5 32.7 0 45.2l-112 112c-12.5 12.5-32.7 12.5-45.2 0s-12.5-32.7 0-45.2l89.3-89.4-89.3-89.4c-12.5-12.5-12.5-32.7 0-45.2s32.7-12.5 45.2 0zm-352 45.2L77.25 256l89.35 89.4c12.5 12.5 12.5 32.7 0 45.2s-32.7 12.5-45.2 0L9.372 278.6c-12.496-12.5-12.496-32.7 0-45.2l112.028-112c12.5-12.5 32.7-12.5 45.2 0s12.5 32.7 0 45.2z"/></svg></span><em>src/libasr/ASR.asdl</em>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>binop = Add | Sub | Mul | Div | Pow | Caret
 </code></pre></div>
@@ -1124,7 +1222,7 @@ The section is tested with <code>lfortran --show-ast examples/expr2.f90</code></
 <a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>}
 <a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>}
 </code></pre></div></p>
-<p>Then we transform it from AST to ASR by extending <em>src/lfortran/semantics/ast_common_visitor.h</em>. </p>
+<p>Then we transform it from AST to ASR by extending <em>src/lfortran/semantics/ast_common_visitor.h</em>.</p>
 <p>We also add it into compile time evaluation triggered by expressions such as <code>e = (2+3)^5</code> which is evaluated at compile time. An expression such as <code>e = x^5</code> is evaluated at run time only.</p>
 <p>The section is tested with <code>lfortran --show-asr examples/expr2.f90</code></p>
 <h3 id="implement-the-new-token-in-llvm">Implement the New Token in LLVM</h3>
@@ -1141,7 +1239,7 @@ divide by two.
 <a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>        llvm::Value *left_val = tmp;
 <a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>        this-&gt;visit_expr_wrapper(x.m_right, true);
 <a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>        llvm::Value *right_val = tmp;
-<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>        if (x.m_type-&gt;type == ASR::ttypeType::Integer || 
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>        if (x.m_type-&gt;type == ASR::ttypeType::Integer ||
 <a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>            x.m_type-&gt;type == ASR::ttypeType::IntegerPointer) {
 <a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>            switch (x.m_op) {
 <a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
@@ -1184,7 +1282,7 @@ And it should print 6.</p>
 <p>Please note that all participants of this project are expected to follow our
 Code of Conduct. By participating in this project you agree to abide by its
 terms. See <a href="CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a>.</p>
-<p>By submitting an MR you agree to license your contribution under
+<p>By submitting a PR you agree to license your contribution under
 the LFortran's BSD <a href="LICENSE">license</a> unless explicitly noted otherwise.</p>
 
               
@@ -1199,7 +1297,7 @@ the LFortran's BSD <a href="LICENSE">license</a> unless explicitly noted otherwi
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../AST%20and%20ASR/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Difference between an AST and ASR" rel="prev">
+        <a href="../ast_and_asr/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Difference between an AST and ASR" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>

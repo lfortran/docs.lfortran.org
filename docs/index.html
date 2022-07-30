@@ -366,7 +366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="AST%20and%20ASR/" class="md-nav__link">
+      <a href="ast_and_asr/" class="md-nav__link">
         Difference between an AST and ASR
       </a>
     </li>
@@ -380,7 +380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="CONTRIBUTING/" class="md-nav__link">
+      <a href="contributing/" class="md-nav__link">
         Contributing
       </a>
     </li>
@@ -562,8 +562,36 @@
   
   
     <li class="md-nav__item">
-      <a href="intrinsics/character/len_trim/" class="md-nav__link">
-        len_trim(string)
+      <a href="intrinsics/character/achar/" class="md-nav__link">
+        achar(x, kind)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="intrinsics/character/adjustl/" class="md-nav__link">
+        adjustl(string)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="intrinsics/character/adjustr/" class="md-nav__link">
+        adjustr(string)
       </a>
     </li>
   
@@ -578,6 +606,20 @@
     <li class="md-nav__item">
       <a href="intrinsics/character/lge/" class="md-nav__link">
         lge(x, y)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="intrinsics/character/len_trim/" class="md-nav__link">
+        len_trim(string)
       </a>
     </li>
   
@@ -684,6 +726,20 @@
   
   
     <li class="md-nav__item">
+      <a href="intrinsics/mathematical/trigonometric/acosh/" class="md-nav__link">
+        acosh(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="intrinsics/mathematical/trigonometric/asin/" class="md-nav__link">
         asin(x)
       </a>
@@ -738,6 +794,48 @@
           Numeric Intrinsic Functions
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="intrinsics/numeric/abs/" class="md-nav__link">
+        abs(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="intrinsics/numeric/aimag/" class="md-nav__link">
+        aimag(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="intrinsics/numeric/aint/" class="md-nav__link">
+        aint(x, [kind])
+      </a>
+    </li>
+  
+
+            
           
             
               
@@ -924,7 +1022,7 @@ user's code on modern architectures such as multi-core CPUs and GPUs.</p>
 <p>Website:
 <a href="https://lfortran.org/">https://lfortran.org/</a><br />
 Main repository:
-<a href="https://gitlab.com/lfortran/lfortran">https://gitlab.com/lfortran/lfortran</a><br />
+<a href="https://github.com/lfortran/lfortran">https://github.com/lfortran/lfortran</a><br />
 Try online using Binder:
 <a href="https://mybinder.org/v2/gl/lfortran%2Fweb%2Flfortran-binder/master?filepath=Demo.ipynb"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a></p>
 <h2 id="feature-highlights">Feature Highlights</h2>
@@ -933,7 +1031,7 @@ features that are being implemented. You can also check out the <a href="progres
 <h3 id="works-today">Works today</h3>
 <ul>
 <li>
-<p><strong>Interactive, Jupyter support</strong><br />
+<p><strong>Interactive, Jupyter support</strong>
     LFortran can be used from Jupyter as a Fortran kernel, allowing a
     Python/Julia style rapid prototyping and exploratory workflow
     (see the <a href="https://nbviewer.jupyter.org/gist/certik/f1d28a486510810d824869ab0c491b1c">static</a>
@@ -943,7 +1041,7 @@ features that are being implemented. You can also check out the <a href="progres
     Or it can be used from the command-line in an interactive prompt (REPL).</p>
 </li>
 <li>
-<p><strong>Clean, modular design, usable as a library</strong><br />
+<p><strong>Clean, modular design, usable as a library</strong>
     LFortran is structured around two independent modules, AST and ASR, both of
     which are standalone (completely independent of the rest of LFortran) and
     users are encouraged to use them independently for other applications and
@@ -951,17 +1049,17 @@ features that are being implemented. You can also check out the <a href="progres
     and <a href="developer_tutorial/">Developer Tutorial</a> documents for more details.</p>
 </li>
 <li>
-<p><strong>Interoperation with GFortran</strong><br />
+<p><strong>Interoperation with GFortran</strong>
     LFortran can parse GFortran module files into an ASR and generate a Fortran
     wrapper that can be compiled with any Fortran compiler and linked with the
     original GFortran compiled module.</p>
 </li>
 <li>
-<p><strong>Create executables</strong><br />
+<p><strong>Create executables</strong>
     It can create executables just like other Fortran compilers.</p>
 </li>
 <li>
-<p><strong>Runs on Linux, Mac and Windows</strong><br />
+<p><strong>Runs on Linux, Mac and Windows</strong>
     All three platforms are regularly tested by our CI.</p>
 </li>
 </ul>
@@ -970,7 +1068,7 @@ features that are being implemented. You can also check out the <a href="progres
 issue so that you can track the progress by following it.</p>
 <ul>
 <li>
-<p><strong>Native interoperation with other languages (and other Fortran compilers)</strong><br />
+<p><strong>Native interoperation with other languages (and other Fortran compilers)</strong>
     It can automatically call code written in other languages (such as C or
     Python) just by using the <code>use</code> statement, see
     <a href="https://gitlab.com/lfortran/lfortran/issues/44">#44</a>. It understands
@@ -980,14 +1078,14 @@ issue so that you can track the progress by following it.</p>
     use LFortran with production codes today.</p>
 </li>
 <li>
-<p><strong>Modern hardware support</strong><br />
+<p><strong>Modern hardware support</strong>
     Thanks to LLVM, the goal of LFortran is to run on modern hardware and take
     advantage of native Fortran language constructs (such as <code>do concurrent</code>)
     to run on multi-core CPUs and GPUs, see
     <a href="https://gitlab.com/lfortran/lfortran/issues/57">#57</a>.</p>
 </li>
 <li>
-<p><strong>Full Fortran 2018 support</strong><br />
+<p><strong>Full Fortran 2018 support</strong>
     Currently only a subset of Fortran is implemented, but the goal is to have
     a full implementation of the latest Fortran 2018 standard, see
     <a href="https://gitlab.com/lfortran/lfortran/issues/58">#58</a>.</p>

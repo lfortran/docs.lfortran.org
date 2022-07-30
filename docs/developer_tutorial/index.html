@@ -355,7 +355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AST%20and%20ASR/" class="md-nav__link">
+      <a href="../ast_and_asr/" class="md-nav__link">
         Difference between an AST and ASR
       </a>
     </li>
@@ -369,7 +369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CONTRIBUTING/" class="md-nav__link">
+      <a href="../contributing/" class="md-nav__link">
         Contributing
       </a>
     </li>
@@ -551,8 +551,36 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/character/len_trim/" class="md-nav__link">
-        len_trim(string)
+      <a href="../intrinsics/character/achar/" class="md-nav__link">
+        achar(x, kind)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/character/adjustl/" class="md-nav__link">
+        adjustl(string)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/character/adjustr/" class="md-nav__link">
+        adjustr(string)
       </a>
     </li>
   
@@ -567,6 +595,20 @@
     <li class="md-nav__item">
       <a href="../intrinsics/character/lge/" class="md-nav__link">
         lge(x, y)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/character/len_trim/" class="md-nav__link">
+        len_trim(string)
       </a>
     </li>
   
@@ -673,6 +715,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../intrinsics/mathematical/trigonometric/acosh/" class="md-nav__link">
+        acosh(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../intrinsics/mathematical/trigonometric/asin/" class="md-nav__link">
         asin(x)
       </a>
@@ -727,6 +783,48 @@
           Numeric Intrinsic Functions
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/numeric/abs/" class="md-nav__link">
+        abs(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/numeric/aimag/" class="md-nav__link">
+        aimag(x)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsics/numeric/aint/" class="md-nav__link">
+        aint(x, [kind])
+      </a>
+    </li>
+  
+
+            
           
             
               
@@ -947,7 +1045,7 @@ r = a + b
 </div>
 
 <p>All AST nodes and their arguments are described in
-<a href="https://gitlab.com/lfortran/lfortran/blob/master/grammar/AST.asdl">AST.asdl</a>.</p>
+<a href="https://github.com/lfortran/lfortran/blob/master/grammar/AST.asdl">AST.asdl</a>.</p>
 <h2 id="abstract-semantic-representation-asr">Abstract Semantic Representation (ASR)</h2>
 <p>We can pretty print using the <code>%%showasr</code> magic:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">%%</span><span class="n">showasr</span><span class="w"></span>
@@ -957,11 +1055,11 @@ r = a + b
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">end function</span><span class="w"></span>
 </code></pre></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span> (<span class="ansi-yellow-fg">SymbolTable</span> 1 {f: (<span class="ansi-magenta-intense-fg ansi-bold">Function</span> (<span class="ansi-yellow-fg">SymbolTable</span> 3 {a: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 a <span class="ansi-green-intense-fg ansi-bold">In</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), b: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 b <span class="ansi-green-intense-fg ansi-bold">In</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), r: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 r <span class="ansi-green-intense-fg ansi-bold">ReturnVar</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.)}) f [(<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">a</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">b</span>)] [(<span class="ansi-magenta-intense-fg ansi-bold">=</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">r</span>) (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">a</span>) <span class="ansi-green-intense-fg ansi-bold">Add</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">b</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) ()) ())] (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">r</span>) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Implementation</span> ())}) [])</pre>
+<pre>(<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span> (<span class="ansi-yellow-fg">SymbolTable</span> 1 {f: (<span class="ansi-magenta-intense-fg ansi-bold">Function</span> (<span class="ansi-yellow-fg">SymbolTable</span> 3 {a: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 a <span class="ansi-green-intense-fg ansi-bold">In</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), b: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 b <span class="ansi-green-intense-fg ansi-bold">In</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), r: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 r <span class="ansi-green-intense-fg ansi-bold">ReturnVar</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.)}) f [(<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">a</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">b</span>)] [(<span class="ansi-magenta-intense-fg ansi-bold">=</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">r</span>) (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">a</span>) <span class="ansi-green-intense-fg ansi-bold">Add</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">b</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) ()) ())] (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">r</span>) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Implementation</span> .false. ())}) [])</pre>
 </div>
 
 <p>All ASR nodes and their arguments are described in
-<a href="https://gitlab.com/lfortran/lfortran/blob/master/src/libasr/ASR.asdl">ASR.asdl</a>.</p>
+<a href="https://github.com/lfortran/lfortran/blob/master/src/libasr/ASR.asdl">ASR.asdl</a>.</p>
 
               
             </article>
@@ -991,7 +1089,7 @@ r = a + b
       
       
         
-        <a href="../AST%20and%20ASR/" class="md-footer__link md-footer__link--next" aria-label="Next: Difference between an AST and ASR" rel="next">
+        <a href="../ast_and_asr/" class="md-footer__link md-footer__link--next" aria-label="Next: Difference between an AST and ASR" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
