@@ -8,19 +8,19 @@
       
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.16">
     
     
       
-        <title>Developer Tutorial - LFortran Documentation</title>
+        <title>anint(x, [kind]) - LFortran Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1c3799f8.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.1c3799f8.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.cc9b2e1e.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
         
           
           
@@ -39,9 +39,9 @@
       
     
     
-      <link rel="stylesheet" href="../ansi.css">
+      <link rel="stylesheet" href="../../../ansi.css">
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#developer-tutorial" class="md-skip">
+        <a href="#anintx-kind" class="md-skip">
           Skip to content
         </a>
       
@@ -79,7 +79,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="LFortran Documentation" class="md-header__button md-logo" aria-label="LFortran Documentation" data-md-component="logo">
+    <a href="../../.." title="LFortran Documentation" class="md-header__button md-logo" aria-label="LFortran Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Developer Tutorial
+              anint(x, [kind])
             
           </span>
         </div>
@@ -165,7 +165,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="LFortran Documentation" class="md-nav__button md-logo" aria-label="LFortran Documentation" data-md-component="logo">
+    <a href="../../.." title="LFortran Documentation" class="md-nav__button md-logo" aria-label="LFortran Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -184,7 +184,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         Home
       </a>
     </li>
@@ -199,7 +199,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/" class="md-nav__link">
+      <a href="../../../installation/" class="md-nav__link">
         Installation
       </a>
     </li>
@@ -214,7 +214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../language/" class="md-nav__link">
+      <a href="../../../language/" class="md-nav__link">
         Fortran Language
       </a>
     </li>
@@ -229,7 +229,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../progress/" class="md-nav__link">
+      <a href="../../../progress/" class="md-nav__link">
         LFortran Development Status
       </a>
     </li>
@@ -242,14 +242,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
       
       
@@ -272,7 +270,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design/" class="md-nav__link">
+      <a href="../../../design/" class="md-nav__link">
         LFortran Design
       </a>
     </li>
@@ -284,66 +282,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Developer Tutorial
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../developer_tutorial/" class="md-nav__link">
         Developer Tutorial
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#abstract-syntax-tree-ast" class="md-nav__link">
-    Abstract Syntax Tree (AST)
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#abstract-semantic-representation-asr" class="md-nav__link">
-    Abstract Semantic Representation (ASR)
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -355,7 +298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ast_and_asr/" class="md-nav__link">
+      <a href="../../../ast_and_asr/" class="md-nav__link">
         Difference between an AST and ASR
       </a>
     </li>
@@ -369,7 +312,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../contributing/" class="md-nav__link">
+      <a href="../../../contributing/" class="md-nav__link">
         Contributing
       </a>
     </li>
@@ -389,12 +332,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
       
       
       
@@ -443,7 +388,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/array/size/" class="md-nav__link">
+      <a href="../../array/size/" class="md-nav__link">
         size(x)
       </a>
     </li>
@@ -457,7 +402,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/array/allocated/" class="md-nav__link">
+      <a href="../../array/allocated/" class="md-nav__link">
         allocated(x)
       </a>
     </li>
@@ -504,7 +449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/bit/shiftl/" class="md-nav__link">
+      <a href="../../bit/shiftl/" class="md-nav__link">
         shiftl(x, shift)
       </a>
     </li>
@@ -518,7 +463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/bit/shiftr/" class="md-nav__link">
+      <a href="../../bit/shiftr/" class="md-nav__link">
         shiftr(x, shift)
       </a>
     </li>
@@ -565,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/character/achar/" class="md-nav__link">
+      <a href="../../character/achar/" class="md-nav__link">
         achar(x, kind)
       </a>
     </li>
@@ -579,7 +524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/character/adjustl/" class="md-nav__link">
+      <a href="../../character/adjustl/" class="md-nav__link">
         adjustl(string)
       </a>
     </li>
@@ -593,7 +538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/character/adjustr/" class="md-nav__link">
+      <a href="../../character/adjustr/" class="md-nav__link">
         adjustr(string)
       </a>
     </li>
@@ -607,7 +552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/character/lge/" class="md-nav__link">
+      <a href="../../character/lge/" class="md-nav__link">
         lge(x, y)
       </a>
     </li>
@@ -621,7 +566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/character/len_trim/" class="md-nav__link">
+      <a href="../../character/len_trim/" class="md-nav__link">
         len_trim(string)
       </a>
     </li>
@@ -668,7 +613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/kind-type/kind/" class="md-nav__link">
+      <a href="../../kind-type/kind/" class="md-nav__link">
         kind(x)
       </a>
     </li>
@@ -715,7 +660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/mathematical/acos/" class="md-nav__link">
+      <a href="../../mathematical/acos/" class="md-nav__link">
         acos(x)
       </a>
     </li>
@@ -729,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/mathematical/acosh/" class="md-nav__link">
+      <a href="../../mathematical/acosh/" class="md-nav__link">
         acosh(x)
       </a>
     </li>
@@ -743,7 +688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/mathematical/asin/" class="md-nav__link">
+      <a href="../../mathematical/asin/" class="md-nav__link">
         asin(x)
       </a>
     </li>
@@ -757,7 +702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/mathematical/asinh/" class="md-nav__link">
+      <a href="../../mathematical/asinh/" class="md-nav__link">
         asinh(x)
       </a>
     </li>
@@ -771,7 +716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/mathematical/atan/" class="md-nav__link">
+      <a href="../../mathematical/atan/" class="md-nav__link">
         atan(x)
       </a>
     </li>
@@ -785,7 +730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/mathematical/atan2/" class="md-nav__link">
+      <a href="../../mathematical/atan2/" class="md-nav__link">
         atan2(y, x)
       </a>
     </li>
@@ -799,7 +744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/mathematical/atanh/" class="md-nav__link">
+      <a href="../../mathematical/atanh/" class="md-nav__link">
         atanh(x)
       </a>
     </li>
@@ -813,7 +758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/mathematical/fraction/" class="md-nav__link">
+      <a href="../../mathematical/fraction/" class="md-nav__link">
         fraction(x)
       </a>
     </li>
@@ -832,12 +777,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" checked>
       
       
       
@@ -860,7 +807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/numeric/abs/" class="md-nav__link">
+      <a href="../abs/" class="md-nav__link">
         abs(x)
       </a>
     </li>
@@ -874,7 +821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/numeric/aimag/" class="md-nav__link">
+      <a href="../aimag/" class="md-nav__link">
         aimag(x)
       </a>
     </li>
@@ -888,7 +835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/numeric/aint/" class="md-nav__link">
+      <a href="../aint/" class="md-nav__link">
         aint(x, [kind])
       </a>
     </li>
@@ -900,11 +847,107 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../intrinsics/numeric/anint/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          anint(x, [kind])
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         anint(x, [kind])
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#declaration" class="md-nav__link">
+    Declaration
+  </a>
+  
+    <nav class="md-nav" aria-label="Declaration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-values" class="md-nav__link">
+    Return values
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    Types
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -916,7 +959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/numeric/ceiling/" class="md-nav__link">
+      <a href="../ceiling/" class="md-nav__link">
         ceiling(x)
       </a>
     </li>
@@ -930,7 +973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/numeric/floor/" class="md-nav__link">
+      <a href="../floor/" class="md-nav__link">
         floor(x, kind)
       </a>
     </li>
@@ -944,7 +987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/numeric/mod/" class="md-nav__link">
+      <a href="../mod/" class="md-nav__link">
         mod(x, y)
       </a>
     </li>
@@ -991,7 +1034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intrinsics/misc/new_line/" class="md-nav__link">
+      <a href="../../misc/new_line/" class="md-nav__link">
         new_line(x)
       </a>
     </li>
@@ -1039,22 +1082,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
+  <a href="#declaration" class="md-nav__link">
+    Declaration
+  </a>
+  
+    <nav class="md-nav" aria-label="Declaration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-values" class="md-nav__link">
+    Return values
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#abstract-syntax-tree-ast" class="md-nav__link">
-    Abstract Syntax Tree (AST)
+  <a href="#types" class="md-nav__link">
+    Types
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#abstract-semantic-representation-asr" class="md-nav__link">
-    Abstract Semantic Representation (ASR)
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
   </a>
   
 </li>
@@ -1073,77 +1157,40 @@
                 
 
 
-<h1 id="developer-tutorial">Developer Tutorial</h1>
-<p>This is a tutorial for anybody who wants to either develop LFortran or build
-tools on top.</p>
-<h2 id="introduction">Introduction</h2>
-<p>LFortran is structured around two independent modules, AST and ASR, both of
-which are standalone (completely independent of the rest of LFortran) and users
-are encouraged to use them independently for other applications and build tools
-on top:</p>
-<ul>
-<li>
-<p>Abstract Syntax Tree (AST): Represents any Fortran
-  source code, strictly based on syntax, no semantic is included. The AST
-  module can convert itself to Fortran source code.</p>
-</li>
-<li>
-<p>Abstract Semantic Representation (ASR): Represents a
-  valid Fortran source code, all semantic is included. Invalid Fortran code is
-  not allowed (an error will be given). The ASR module can convert itself to an
-  AST.</p>
-</li>
-</ul>
-<h2 id="abstract-syntax-tree-ast">Abstract Syntax Tree (AST)</h2>
-<p>Fortran source code can be parsed into an AST using the <code>src_to_ast()</code>
-function:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">integer </span><span class="k">function </span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="w"></span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">end function</span><span class="w"></span>
+<h1 id="anintx-kind">anint(x, [kind])</h1>
+<p>Round to nearest whole number.</p>
+<h2 id="declaration">Declaration</h2>
+<h3 id="syntax">Syntax</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">anint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nb">kind</span><span class="p">])</span><span class="w"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">elemental </span><span class="kt">real </span><span class="k">function </span><span class="nb">anint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nb">kind</span><span class="p">])</span><span class="w"></span>
 </code></pre></div>
-<p>We can pretty print it using the <code>%%showast</code> magic:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">%%</span><span class="n">showast</span><span class="w"></span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kt">integer </span><span class="k">function </span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="w"></span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">end function</span><span class="w"></span>
+<h3 id="arguments">Arguments</h3>
+<p><code>x</code> the input value must be of type real.</p>
+<p><code>kind</code> the optional input parameter initialises the kind of the result.</p>
+<h3 id="return-values">Return values</h3>
+<p>The return value is of type integer(kind) if kind is passed as input parameter.
+If not, default kind real is returned.</p>
+<p>The return value is equal to rounded whole number.</p>
+<h2 id="description">Description</h2>
+<p><strong>anint(x)</strong> calculates rounded value of input parameter <code>x</code>.</p>
+<p>If <code>x</code> is less than or equal to 0 i.e., if <code>x</code> is negative or 0, <code>anint(x)</code>
+returns <code>aint(x - 0.5)</code>.</p>
+<p>If <code>x</code> is greater than 0, <code>anint(x)</code> returns <code>aint(x + 0.5)</code>.</p>
+<p>The optional parameter <code>kind</code> specifies the kind of the result.</p>
+<h2 id="types">Types</h2>
+<p>Supported argument types is real.</p>
+<h2 id="examples">Examples</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">program </span><span class="n">intrinsics_anint</span><span class="w"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="nb">anint</span><span class="p">(</span><span class="mf">2.6</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="nb">anint</span><span class="p">(</span><span class="o">-</span><span class="mf">2.6</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">end program</span><span class="w"></span>
 </code></pre></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>(<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span> [(<span class="ansi-magenta-intense-fg ansi-bold">Function</span> f [(a) (b)] [(<span class="ansi-magenta-intense-fg ansi-bold">AttrType</span> <span class="ansi-green-intense-fg ansi-bold">TypeInteger</span> [] () <span class="ansi-green-intense-fg ansi-bold">None</span>)] <span class="ansi-yellow-fg">r</span> () () [] [] [] [(<span class="ansi-magenta-intense-fg ansi-bold">Declaration</span> (<span class="ansi-magenta-intense-fg ansi-bold">AttrType</span> <span class="ansi-green-intense-fg ansi-bold">TypeInteger</span> [] () <span class="ansi-green-intense-fg ansi-bold">None</span>) [(<span class="ansi-magenta-intense-fg ansi-bold">AttrIntent</span> <span class="ansi-green-intense-fg ansi-bold">In</span>)] [(a [] [] () <span class="ansi-green-intense-fg ansi-bold">None</span> ()) (b [] [] () <span class="ansi-green-intense-fg ansi-bold">None</span> ())] ())] [(<span class="ansi-magenta-intense-fg ansi-bold">=</span> 0 <span class="ansi-yellow-fg">r</span> (+ <span class="ansi-yellow-fg">a</span> <span class="ansi-yellow-fg">b</span>) ())] [])])</pre>
-</div>
-
-<p>We can convert AST to Fortran source code using <code>%%showfmt</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">%%</span><span class="n">showfmt</span><span class="w"></span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kt">integer </span><span class="k">function </span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="w"></span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">end function</span><span class="w"></span>
+<p><strong>Result:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>3.0
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>-3.0
 </code></pre></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre><span class="ansi-green-intense-fg">integer</span> <span class="ansi-cyan-intense-fg">function</span> f(a, b) <span class="ansi-cyan-intense-fg">result</span>(r)
-<span class="ansi-green-intense-fg">integer</span>, <span class="ansi-green-intense-fg">intent</span>(<span class="ansi-green-intense-fg">in</span>) :: a, b
-r = a + b
-<span class="ansi-cyan-intense-fg">end function</span> f
-</pre>
-</div>
-
-<p>All AST nodes and their arguments are described in
-<a href="https://github.com/lfortran/lfortran/blob/master/grammar/AST.asdl">AST.asdl</a>.</p>
-<h2 id="abstract-semantic-representation-asr">Abstract Semantic Representation (ASR)</h2>
-<p>We can pretty print using the <code>%%showasr</code> magic:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">%%</span><span class="n">showasr</span><span class="w"></span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">integer </span><span class="k">function </span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="w"></span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">end function</span><span class="w"></span>
-</code></pre></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>(<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span> (<span class="ansi-yellow-fg">SymbolTable</span> 1 {f: (<span class="ansi-magenta-intense-fg ansi-bold">Function</span> (<span class="ansi-yellow-fg">SymbolTable</span> 3 {a: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 a <span class="ansi-green-intense-fg ansi-bold">In</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), b: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 b <span class="ansi-green-intense-fg ansi-bold">In</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), r: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 3 r <span class="ansi-green-intense-fg ansi-bold">ReturnVar</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.)}) f [(<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">a</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">b</span>)] [] [(<span class="ansi-magenta-intense-fg ansi-bold">=</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">r</span>) (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">a</span>) <span class="ansi-green-intense-fg ansi-bold">Add</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">b</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) ()) ())] (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">r</span>) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Implementation</span> () .false. .false. .false.)}) [])</pre>
-</div>
-
-<p>All ASR nodes and their arguments are described in
-<a href="https://github.com/lfortran/lfortran/blob/master/src/libasr/ASR.asdl">ASR.asdl</a>.</p>
+<h2 id="see-also">See Also</h2>
+<p><a href="../aint/">aint</a>.</p>
 
               
             </article>
@@ -1157,7 +1204,7 @@ r = a + b
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../design/" class="md-footer__link md-footer__link--prev" aria-label="Previous: LFortran Design" rel="prev">
+        <a href="../aint/" class="md-footer__link md-footer__link--prev" aria-label="Previous: aint(x, [kind])" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -1166,20 +1213,20 @@ r = a + b
               <span class="md-footer__direction">
                 Previous
               </span>
-              LFortran Design
+              aint(x, [kind])
             </div>
           </div>
         </a>
       
       
         
-        <a href="../ast_and_asr/" class="md-footer__link md-footer__link--next" aria-label="Next: Difference between an AST and ASR" rel="next">
+        <a href="../ceiling/" class="md-footer__link md-footer__link--next" aria-label="Next: ceiling(x)" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Difference between an AST and ASR
+              ceiling(x)
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -1209,12 +1256,12 @@ r = a + b
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.3a4b43e5.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.3a4b43e5.min.js"></script>
       
-        <script src="../javascripts/mathjax.js"></script>
+        <script src="../../../javascripts/mathjax.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
