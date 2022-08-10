@@ -261,6 +261,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#build-from-git-on-windows-with-wsl" class="md-nav__link">
+    Build from Git on Windows with WSL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#enabling-the-jupyter-kernel" class="md-nav__link">
     Enabling the Jupyter Kernel
   </a>
@@ -1154,6 +1161,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#build-from-git-on-windows-with-wsl" class="md-nav__link">
+    Build from Git on Windows with WSL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#enabling-the-jupyter-kernel" class="md-nav__link">
     Enabling the Jupyter Kernel
   </a>
@@ -1358,58 +1372,124 @@ LFortran's linking will fail.</p>
 <code>/usr</code> and several commands available such as <code>ls</code>, <code>which</code>, <code>git</code>, <code>vim</code>.  For
 this reason the Conda build <code>environment_win.yml</code> contains everything needed,
 including <code>git</code>.</p>
+<h2 id="build-from-git-on-windows-with-wsl">Build from Git on Windows with WSL</h2>
+<ul>
+<li>In windows search "turn windows features on or off".</li>
+<li>Tick Windows subsystem for Linux.</li>
+<li>Press OK and restart computer.</li>
+<li>Go to Microsoft store and download Ubuntu 20.04, and launch it.</li>
+<li>Run the following commands.</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>wget  https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O miniconda.sh
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>bash miniconda.sh -b -p <span class="nv">$HOME</span>/conda_root
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</code></pre></div>
+* Now do the following to configure the path
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>sudo nano .bashrc
+</code></pre></div>
+* Then go to the bottom of the file and paste the following
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+</code></pre></div>
+* Then press ctrl + O (save), Enter (confirm), ctrl + X (exit)
+* After that restart Ubuntu
+* Run the following
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>conda create -n lf -c conda-forge <span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1 <span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4 re2c python cmake make toml
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>conda init bash
+</code></pre></div>
+* Restart Ubuntu again
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>conda activate lf
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>sudo apt update
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>sudo apt-get install build-essential
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>sudo apt-get install zlib1g-dev
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>sudo apt install clang
+</code></pre></div>
+* You can change the directory to a Windows location using <code>cd /mnt/[drive letter]/[windows location]</code>.
+* e.g. <code>cd mnt/c/Users/name/source/repos/</code></p>
+<ul>
+<li>
+<p>Now clone the LFortran git repository
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>git clone https://github.com/lfortran/lfortran.git
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nb">cd</span> lfortran
+</code></pre></div></p>
+</li>
+<li>
+<p>Run the following commands
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>conda activate lf
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>./build0.sh
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>cmake -DCMAKE_BUILD_TYPE<span class="o">=</span>Debug -DWITH_LLVM<span class="o">=</span>yes -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/inst .<span class="se">\</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>make -j8
+</code></pre></div></p>
+</li>
+<li>
+<p>If everything compiles, you can use LFortran as follows
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>./src/bin/lfortran ./examples/expr2.f90
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>./a.out
+</code></pre></div></p>
+</li>
+<li>
+<p>Run an interactive prompt
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>./src/bin/lfortran
+</code></pre></div></p>
+</li>
+<li>
+<p>Run tests
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>ctest
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>./run_tests.py
+</code></pre></div></p>
+</li>
+</ul>
 <h2 id="enabling-the-jupyter-kernel">Enabling the Jupyter Kernel</h2>
 <p>To install the Jupyter kernel, install the following Conda packages also:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>conda install xeus xtl nlohmann_json cppzmq
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>conda install xeus xtl nlohmann_json cppzmq
 </code></pre></div>
 and enable the kernel by <code>-DWITH_XEUS=yes</code> and install into <code>$CONDA_PREFIX</code>. For
 example:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>cmake \
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    -DCMAKE_BUILD_TYPE=Debug \
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    -DWITH_LLVM=yes \
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    -DWITH_XEUS=yes \
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    -DCMAKE_PREFIX_PATH=&quot;$CONDA_PREFIX&quot; \
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>    -DCMAKE_INSTALL_PREFIX=&quot;$CONDA_PREFIX&quot; \
-<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>    .
-<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>cmake --build . -j4 --target install
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>cmake \
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>    -DCMAKE_BUILD_TYPE=Debug \
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    -DWITH_LLVM=yes \
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>    -DWITH_XEUS=yes \
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>    -DCMAKE_PREFIX_PATH=&quot;$CONDA_PREFIX&quot; \
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>    -DCMAKE_INSTALL_PREFIX=&quot;$CONDA_PREFIX&quot; \
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>    .
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>cmake --build . -j4 --target install
 </code></pre></div>
 To use it, install Jupyter (<code>conda install jupyter</code>) and test that the LFortran
 kernel was found:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>jupyter kernelspec list --json
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>jupyter kernelspec list --json
 </code></pre></div>
 Then launch a Jupyter notebook as follows:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>jupyter notebook
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>jupyter notebook
 </code></pre></div>
 Click <code>New-&gt;Fortran</code>. To launch a terminal jupyter LFortran console:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>jupyter console --kernel=fortran
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>jupyter console --kernel=fortran
 </code></pre></div></p>
 <h2 id="build-from-git-with-nix">Build From Git with Nix</h2>
 <p>One of the ways to ensure exact environment and dependencies is with <code>nix</code>. This will ensure that system dependencies do not interfere with the development environment. If you want, you can report bugs in a <code>nix-shell</code> environment to make it easier for others to reproduce.</p>
 <h3 id="with-root">With Root</h3>
 <p>We start by getting <code>nix</code>. The following multi-user installation will work on any machine with a Linux distribution, MacOS or Windows (via WSL):
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>sh &lt;<span class="o">(</span>curl -L https://nixos.org/nix/install<span class="o">)</span> --daemon
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>sh &lt;<span class="o">(</span>curl -L https://nixos.org/nix/install<span class="o">)</span> --daemon
 </code></pre></div></p>
 <h3 id="without-root">Without Root</h3>
 <p>If you would like to not provide <code>nix</code> with root access to your machine, on Linux distributions we can use <a href="https://github.com/DavHau/nix-portable">nix-portable</a>.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>wget https://github.com/DavHau/nix-portable/releases/download/v003/nix-portable
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>wget https://github.com/DavHau/nix-portable/releases/download/v003/nix-portable
 </code></pre></div>
 Now just prepend all <code>nix-shell</code> commands with <code>NP_RUNTIME=bwrap ./nix-portable</code>. So:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Do not</span>
-<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>nix-shell --run <span class="s2">&quot;bash&quot;</span>
-<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="c1"># Do</span>
-<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="nv">NP_RUNTIME</span><span class="o">=</span>bwrap ./nix-portable nix-shell --run <span class="s2">&quot;bash&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Do not</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>nix-shell --run <span class="s2">&quot;bash&quot;</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="c1"># Do</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="nv">NP_RUNTIME</span><span class="o">=</span>bwrap ./nix-portable nix-shell --run <span class="s2">&quot;bash&quot;</span>
 </code></pre></div></p>
 <h3 id="development">Development</h3>
 <p>Now we can enter the development environment:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>nix-shell --run <span class="s2">&quot;bash&quot;</span> --cores <span class="m">4</span> -j4 --pure ci/shell.nix
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>nix-shell --run <span class="s2">&quot;bash&quot;</span> --cores <span class="m">4</span> -j4 --pure ci/shell.nix
 </code></pre></div>
 The <code>--pure</code> flag ensures no system dependencies are used in the environment.</p>
 <p>The build steps are the same as with the <code>ci</code>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>./build0.sh
-<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>./build1.sh
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>./build0.sh
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>./build1.sh
 </code></pre></div></p>
 <p>To change the compilation environment from <code>gcc</code> (default) to <code>clang</code> we can use <code>--argstr</code>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>nix-shell --run <span class="s2">&quot;bash&quot;</span> --cores <span class="m">4</span> -j4 --pure ci/shell.nix --argstr clangOnly <span class="s2">&quot;yes&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>nix-shell --run <span class="s2">&quot;bash&quot;</span> --cores <span class="m">4</span> -j4 --pure ci/shell.nix --argstr clangOnly <span class="s2">&quot;yes&quot;</span>
 </code></pre></div></p>
 <h2 id="note-about-dependencies">Note About Dependencies</h2>
 <p>End users (and distributions) are encouraged to use the tarball
@@ -1446,12 +1526,12 @@ not work, please report a bug.</p>
 <p>If you do not like the default way, an alternative is to use bintutils. For
 that, first install
 <a href="https://spack.io/">Spack</a>, then:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>spack install binutils
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>spack find -p binutils
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>spack install binutils
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>spack find -p binutils
 </code></pre></div>
 The last command will show a full path to the installed <code>binutils</code> package. Add
 this path to your shell config file, e.g.:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>export CMAKE_PREFIX_PATH_LFORTRAN=/Users/ondrej/repos/spack/opt/spack/darwin-catalina-broadwell/apple-clang-11.0.0/binutils-2.36.1-wy6osfm6bp2323g3jpv2sjuttthwx3gd
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>export CMAKE_PREFIX_PATH_LFORTRAN=/Users/ondrej/repos/spack/opt/spack/darwin-catalina-broadwell/apple-clang-11.0.0/binutils-2.36.1-wy6osfm6bp2323g3jpv2sjuttthwx3gd
 </code></pre></div>
 and compile LFortran with the
 <code>-DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH_LFORTRAN;$CONDA_PREFIX"</code> cmake option.
