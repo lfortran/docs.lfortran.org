@@ -1,267 +1,267 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/ast_and_asr/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/contributing/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/design/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/developer_tutorial/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/installation/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/language/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/progress/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/array/allocated/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/array/cshift/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/array/size/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/bit/bge/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/bit/bgt/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/bit/bit_size/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/bit/ble/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/bit/blt/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/bit/btest/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/bit/shiftl/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/bit/shiftr/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/character/achar/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/character/adjustl/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/character/adjustr/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/character/char/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/character/len_trim/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/character/lge/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/kind-type/kind/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/mathematical/acos/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/mathematical/acosh/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/mathematical/asin/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/mathematical/asinh/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/mathematical/atan/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/mathematical/atan2/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/mathematical/atanh/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/mathematical/fraction/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/misc/command_argument_count/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/misc/cpu_time/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/misc/date_and_time/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/misc/new_line/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/abs/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/aimag/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/aint/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/anint/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/ceiling/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/cmplx/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/conjg/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/digits/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/dim/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/epsilon/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/erf/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/erfc/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/exp/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/floor/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/mod/</loc>
          <lastmod>2022-08-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
