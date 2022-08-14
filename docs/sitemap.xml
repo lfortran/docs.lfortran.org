@@ -261,6 +261,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.lfortran.org/intrinsics/numeric/gamma/</loc>
+         <lastmod>2022-08-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.lfortran.org/intrinsics/numeric/mod/</loc>
          <lastmod>2022-08-14</lastmod>
          <changefreq>daily</changefreq>
