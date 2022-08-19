@@ -66,8 +66,8 @@
     <link rel="shortcut icon" href="../_static/lfortran-logo.svg"/>
     <link rel="index" title="Stichwortverzeichnis" href="../genindex/" />
     <link rel="search" title="Suche" href="../search/" />
-    <link rel="next" title="Difference between an AST and ASR" href="../ast_and_asr/" />
-    <link rel="prev" title="LFortran Design" href="../design/" />
+    <link rel="next" title="Unterschied zwischen AST und ASR" href="../ast_and_asr/" />
+    <link rel="prev" title="LFortran-Design" href="../design/" />
   
    
 
@@ -287,7 +287,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../design/" class="md-nav__link">LFortran Design</a>
+      <a href="../design/" class="md-nav__link">LFortran-Design</a>
       
     
     </li>
@@ -307,9 +307,9 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#Introduction" class="md-nav__link">Introduction</a>
         </li>
-        <li class="md-nav__item"><a href="#Abstract-Syntax-Tree-(AST)" class="md-nav__link">Abstract Syntax Tree (AST)</a>
+        <li class="md-nav__item"><a href="#Abstrakter-Syntaxbaum-(AST)" class="md-nav__link">Abstrakter Syntaxbaum (AST)</a>
         </li>
-        <li class="md-nav__item"><a href="#Abstract-Semantic-Representation-(ASR)" class="md-nav__link">Abstract Semantic Representation (ASR)</a>
+        <li class="md-nav__item"><a href="#Abstrakte-semantische-Repräsentation-(ASR)" class="md-nav__link">Abstrakte semantische Repräsentation (ASR)</a>
         </li></ul>
             </nav>
         </li>
@@ -326,14 +326,14 @@
     <li class="md-nav__item">
     
     
-      <a href="#Abstract-Syntax-Tree-(AST)" class="md-nav__link">Abstract Syntax Tree (AST)</a>
+      <a href="#Abstrakter-Syntaxbaum-(AST)" class="md-nav__link">Abstrakter Syntaxbaum (AST)</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="#Abstract-Semantic-Representation-(ASR)" class="md-nav__link">Abstract Semantic Representation (ASR)</a>
+      <a href="#Abstrakte-semantische-Repräsentation-(ASR)" class="md-nav__link">Abstrakte semantische Repräsentation (ASR)</a>
       
     
     </li></ul>
@@ -342,7 +342,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../ast_and_asr/" class="md-nav__link">Difference between an AST and ASR</a>
+      <a href="../ast_and_asr/" class="md-nav__link">Unterschied zwischen AST und ASR</a>
       
     
     </li>
@@ -356,7 +356,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../contributing/" class="md-nav__link">Contributing</a>
+      <a href="../contributing/" class="md-nav__link">Beitragen</a>
       
     
     </li>
@@ -432,9 +432,9 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#Introduction" class="md-nav__link">Introduction</a>
         </li>
-        <li class="md-nav__item"><a href="#Abstract-Syntax-Tree-(AST)" class="md-nav__link">Abstract Syntax Tree (AST)</a>
+        <li class="md-nav__item"><a href="#Abstrakter-Syntaxbaum-(AST)" class="md-nav__link">Abstrakter Syntaxbaum (AST)</a>
         </li>
-        <li class="md-nav__item"><a href="#Abstract-Semantic-Representation-(ASR)" class="md-nav__link">Abstract Semantic Representation (ASR)</a>
+        <li class="md-nav__item"><a href="#Abstrakte-semantische-Repräsentation-(ASR)" class="md-nav__link">Abstrakte semantische Repräsentation (ASR)</a>
         </li></ul>
             </nav>
         </li>
@@ -708,14 +708,14 @@ div.rendered_html tbody tr:hover {
 <p>This is a tutorial for anybody who wants to either develop LFortran or build tools on top.</p>
 <section id="Introduction">
 <h2 id="Introduction">Introduction<a class="headerlink" href="#Introduction" title="Link zu dieser Überschrift">¶</a></h2>
-<p>LFortran is structured around two independent modules, AST and ASR, both of which are standalone (completely independent of the rest of LFortran) and users are encouraged to use them independently for other applications and build tools on top:</p>
+<p>LFortran ist um zwei unabhängige Module herum aufgebaut, AST und ASR, die beide eigenständig sind (völlig unabhängig vom Rest von LFortran), und die Benutzer werden ermutigt, sie unabhängig für andere Anwendungen zu verwenden und darauf aufbauende Werkzeuge zu erstellen:</p>
 <ul class="simple">
 <li><p>Abstract Syntax Tree (AST): Represents any Fortran source code, strictly based on syntax, no semantic is included. The AST module can convert itself to Fortran source code.</p></li>
 <li><p>Abstract Semantic Representation (ASR): Represents a valid Fortran source code, all semantic is included. Invalid Fortran code is not allowed (an error will be given). The ASR module can convert itself to an AST.</p></li>
 </ul>
 </section>
-<section id="Abstract-Syntax-Tree-(AST)">
-<h2 id="Abstract-Syntax-Tree-(AST)">Abstract Syntax Tree (AST)<a class="headerlink" href="#Abstract-Syntax-Tree-(AST)" title="Link zu dieser Überschrift">¶</a></h2>
+<section id="Abstrakter-Syntaxbaum-(AST)">
+<h2 id="Abstrakter-Syntaxbaum-(AST)">Abstrakter Syntaxbaum (AST)<a class="headerlink" href="#Abstrakter-Syntaxbaum-(AST)" title="Link zu dieser Überschrift">¶</a></h2>
 <p>Fortran source code can be parsed into an AST using the <code class="docutils literal notranslate"><span class="pre">src_to_ast()</span></code> function:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -775,8 +775,8 @@ r = a + b
 </div>
 <p>All AST nodes and their arguments are described in <a class="reference external" href="https://github.com/lfortran/lfortran/blob/master/grammar/AST.asdl">AST.asdl</a>.</p>
 </section>
-<section id="Abstract-Semantic-Representation-(ASR)">
-<h2 id="Abstract-Semantic-Representation-(ASR)">Abstract Semantic Representation (ASR)<a class="headerlink" href="#Abstract-Semantic-Representation-(ASR)" title="Link zu dieser Überschrift">¶</a></h2>
+<section id="Abstrakte-semantische-Repräsentation-(ASR)">
+<h2 id="Abstrakte-semantische-Repräsentation-(ASR)">Abstrakte semantische Repräsentation (ASR)<a class="headerlink" href="#Abstrakte-semantische-Repräsentation-(ASR)" title="Link zu dieser Überschrift">¶</a></h2>
 <p>We can pretty print using the <code class="docutils literal notranslate"><span class="pre">%%showasr</span></code> magic:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -812,7 +812,7 @@ r = a + b
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../design/" title="LFortran Design"
+            <a href="../design/" title="LFortran-Design"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -821,17 +821,17 @@ r = a + b
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> LFortran Design </span>
+                      class="md-footer-nav__direction"> Previous </span> LFortran-Design </span>
               </div>
             </a>
           
           
-            <a href="../ast_and_asr/" title="Difference between an AST and ASR"
+            <a href="../ast_and_asr/" title="Unterschied zwischen AST und ASR"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Difference between an AST and ASR </span>
+                class="md-footer-nav__direction"> Next </span> Unterschied zwischen AST und ASR </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

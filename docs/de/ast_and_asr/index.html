@@ -47,7 +47,7 @@
   
   
   
-    <title>Difference between an AST and ASR &#8212; LFortran</title>
+    <title>Unterschied zwischen AST und ASR &#8212; LFortran</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -66,7 +66,7 @@
     <link rel="shortcut icon" href="../_static/lfortran-logo.svg"/>
     <link rel="index" title="Stichwortverzeichnis" href="../genindex/" />
     <link rel="search" title="Suche" href="../search/" />
-    <link rel="next" title="Contributing" href="../contributing/" />
+    <link rel="next" title="Beitragen" href="../contributing/" />
     <link rel="prev" title="Developer Tutorial" href="../developer_tutorial/" />
   
    
@@ -105,7 +105,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">LFortran Documentation</span>
-          <span class="md-header-nav__topic"> Difference between an AST and ASR </span>
+          <span class="md-header-nav__topic"> Unterschied zwischen AST und ASR </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -287,7 +287,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../design/" class="md-nav__link">LFortran Design</a>
+      <a href="../design/" class="md-nav__link">LFortran-Design</a>
       
     
     </li>
@@ -302,15 +302,15 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> Difference between an AST and ASR </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Unterschied zwischen AST und ASR </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">Difference between an AST and ASR</a>
+      <a href="#" class="md-nav__link md-nav__link--active">Unterschied zwischen AST und ASR</a>
       
         
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">Difference between an AST and ASR</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">Unterschied zwischen AST und ASR</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#AST" class="md-nav__link">AST</a>
         </li></ul>
@@ -318,7 +318,7 @@
         </li>
         <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#Discussion" class="md-nav__link">Discussion</a>
+        <li class="md-nav__item"><a href="#Diskussion" class="md-nav__link">Diskussion</a>
         </li></ul>
             </nav>
         </li>
@@ -342,7 +342,7 @@
     <li class="md-nav__item">
     
     
-      <a href="#Discussion" class="md-nav__link">Discussion</a>
+      <a href="#Diskussion" class="md-nav__link">Diskussion</a>
       
     
     </li></ul>
@@ -351,7 +351,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../contributing/" class="md-nav__link">Contributing</a>
+      <a href="../contributing/" class="md-nav__link">Beitragen</a>
       
     
     </li>
@@ -423,7 +423,7 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">Difference between an AST and ASR</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">Unterschied zwischen AST und ASR</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#AST" class="md-nav__link">AST</a>
         </li></ul>
@@ -431,7 +431,7 @@
         </li>
         <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#Discussion" class="md-nav__link">Discussion</a>
+        <li class="md-nav__item"><a href="#Diskussion" class="md-nav__link">Diskussion</a>
         </li></ul>
             </nav>
         </li>
@@ -700,9 +700,9 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<section id="Difference-between-an-AST-and-ASR">
-<h1 id="ast-and-asr--page-root">Difference between an AST and ASR<a class="headerlink" href="#ast-and-asr--page-root" title="Link zu dieser Überschrift">¶</a></h1>
-<p>Let us take a simple Fortran code:</p>
+<section id="Unterschied-zwischen-AST-und-ASR">
+<h1 id="ast-and-asr--page-root">Unterschied zwischen AST und ASR<a class="headerlink" href="#ast-and-asr--page-root" title="Link zu dieser Überschrift">¶</a></h1>
+<p>Nehmen wir einen einfachen Fortran-Code:</p>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer </span><span class="k">function </span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="w"></span>
 <span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"></span>
 <span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="w"></span>
@@ -711,7 +711,7 @@ div.rendered_html tbody tr:hover {
 <span class="k">end function</span><span class="w"></span>
 </pre></div>
 </div>
-<p>and look at how the AST and ASR looks like.</p>
+<p>und sehen uns an, wie der AST und die ASR aussehen.</p>
 <section id="AST">
 <h2 id="AST">AST<a class="headerlink" href="#AST" title="Link zu dieser Überschrift">¶</a></h2>
 <div class="nbinput docutils container">
@@ -736,7 +736,7 @@ div.rendered_html tbody tr:hover {
 (<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span> [(<span class="ansi-magenta-intense-fg ansi-bold">Function</span> f [(a) (b)] [(<span class="ansi-magenta-intense-fg ansi-bold">AttrType</span> <span class="ansi-green-intense-fg ansi-bold">TypeInteger</span> [] () <span class="ansi-green-intense-fg ansi-bold">None</span>)] <span class="ansi-yellow-fg">r</span> () () [] [] [] [(<span class="ansi-magenta-intense-fg ansi-bold">Declaration</span> (<span class="ansi-magenta-intense-fg ansi-bold">AttrType</span> <span class="ansi-green-intense-fg ansi-bold">TypeInteger</span> [] () <span class="ansi-green-intense-fg ansi-bold">None</span>) [(<span class="ansi-magenta-intense-fg ansi-bold">AttrIntent</span> <span class="ansi-green-intense-fg ansi-bold">In</span>)] [(a [] [] () <span class="ansi-green-intense-fg ansi-bold">None</span> ()) (b [] [] () <span class="ansi-green-intense-fg ansi-bold">None</span> ())] ()) (<span class="ansi-magenta-intense-fg ansi-bold">Declaration</span> (<span class="ansi-magenta-intense-fg ansi-bold">AttrType</span> <span class="ansi-green-intense-fg ansi-bold">TypeInteger</span> [] () <span class="ansi-green-intense-fg ansi-bold">None</span>) [] [(c [] [] () <span class="ansi-green-intense-fg ansi-bold">None</span> ()) (d [] [] () <span class="ansi-green-intense-fg ansi-bold">None</span> ())] ())] [(<span class="ansi-magenta-intense-fg ansi-bold">=</span> 0 <span class="ansi-yellow-fg">c</span> (- (+ <span class="ansi-yellow-fg">a</span> <span class="ansi-yellow-fg">b</span>) <span class="ansi-yellow-fg">d</span>) ()) (<span class="ansi-magenta-intense-fg ansi-bold">=</span> 0 <span class="ansi-yellow-fg">r</span> (* <span class="ansi-yellow-fg">c</span> <span class="ansi-yellow-fg">a</span>) ())] [])])
 </pre></div></div>
 </div>
-<p>The AST does not have any semantic information, but has nodes to represent declarations such as <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">intent(in)</span> <span class="pre">::</span> <span class="pre">a</span></code>. Variables such as <code class="docutils literal notranslate"><span class="pre">a</span></code> are represented by a <code class="docutils literal notranslate"><span class="pre">Name</span></code> node, and are not connected to their declarations yet.</p>
+<p>Der AST enthält keine semantischen Informationen, hat aber Knoten zur Darstellung von Deklarationen wie <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">intent(in)</span> <span class="pre">::</span> <span class="pre">a</span></code>. Variablen wie <code class="docutils literal notranslate"><span class="pre">a</span></code> werden durch einen <code class="docutils literal notranslate"><span class="pre">Name</span></code> Knoten dargestellt und sind noch nicht mit ihren Deklarationen verbunden.</p>
 </section>
 </section>
 <section id="ASR">
@@ -763,10 +763,10 @@ div.rendered_html tbody tr:hover {
 (<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span> (<span class="ansi-yellow-fg">SymbolTable</span> 1 {f: (<span class="ansi-magenta-intense-fg ansi-bold">Function</span> (<span class="ansi-yellow-fg">SymbolTable</span> 2 {a: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 2 a <span class="ansi-green-intense-fg ansi-bold">In</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), b: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 2 b <span class="ansi-green-intense-fg ansi-bold">In</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), c: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 2 c <span class="ansi-green-intense-fg ansi-bold">Local</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), d: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 2 d <span class="ansi-green-intense-fg ansi-bold">Local</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), r: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 2 r <span class="ansi-green-intense-fg ansi-bold">ReturnVar</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.)}) f [(<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">a</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">b</span>)] [] [(<span class="ansi-magenta-intense-fg ansi-bold">=</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">c</span>) (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span> (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">a</span>) <span class="ansi-green-intense-fg ansi-bold">Add</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">b</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) ()) <span class="ansi-green-intense-fg ansi-bold">Sub</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">d</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) ()) ()) (<span class="ansi-magenta-intense-fg ansi-bold">=</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">r</span>) (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">c</span>) <span class="ansi-green-intense-fg ansi-bold">Mul</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">a</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) ()) ())] (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">r</span>) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Implementation</span> () .false. .false. .false.)}) [])
 </pre></div></div>
 </div>
-<p>The ASR has all the semantic information (types, etc.), nodes like <code class="docutils literal notranslate"><span class="pre">Function</span></code> have a symbol table and do not have any declaration nodes. Variables are simply pointers to the symbol table.</p>
-<section id="Discussion">
-<h2 id="Discussion">Discussion<a class="headerlink" href="#Discussion" title="Link zu dieser Überschrift">¶</a></h2>
-<p>The above was a simple example. Things get more apparent for more complicated examples, such as:</p>
+<p>Die ASR enthält alle semantischen Informationen (Typen usw.), Knoten wie <code class="docutils literal notranslate"><span class="pre">Function</span></code> haben eine Symboltabelle und keine Deklarationsknoten. Variablen sind einfach Zeiger auf die Symboltabelle.</p>
+<section id="Diskussion">
+<h2 id="Diskussion">Diskussion<a class="headerlink" href="#Diskussion" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Das obige Beispiel war ein einfaches. Bei komplizierteren Beispielen, wie z. B. dem folgenden, werden die Dinge deutlicher:</p>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer </span><span class="k">function </span><span class="n">f2b</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="w"></span>
 <span class="k">use </span><span class="n">gfort_interop</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">c_desc1_int32</span><span class="w"></span>
 <span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="p">(:)</span><span class="w"></span>
@@ -780,9 +780,9 @@ div.rendered_html tbody tr:hover {
 <span class="k">end function</span><span class="w"></span>
 </pre></div>
 </div>
-<p>AST must represent all the <code class="docutils literal notranslate"><span class="pre">use</span></code> statements and the <code class="docutils literal notranslate"><span class="pre">interface</span></code> block, and keep things semantically consistent.</p>
-<p>ASR, on the other hand, keeps track of the <code class="docutils literal notranslate"><span class="pre">c_desc1_int32</span></code>, <code class="docutils literal notranslate"><span class="pre">c_desc1_t</span></code> and <code class="docutils literal notranslate"><span class="pre">f2b_c_wrapper</span></code> in the symbol table and it knows they are defined in the <code class="docutils literal notranslate"><span class="pre">gfort_interop</span></code> module, and so ASR does not have any of these declaration nodes.</p>
-<p>When converting from ASR to AST, LFortran will create all the appropriate AST declaration nodes automatically and correctly.</p>
+<p>AST muss alle <code class="docutils literal notranslate"><span class="pre">use</span></code> Anweisungen und den <code class="docutils literal notranslate"><span class="pre">interface</span></code> Block repräsentieren und die Dinge semantisch konsistent halten.</p>
+<p>ASR hingegen verfolgt die <code class="docutils literal notranslate"><span class="pre">c_desc1_int32</span></code>, <code class="docutils literal notranslate"><span class="pre">c_desc1_t</span></code> und <code class="docutils literal notranslate"><span class="pre">f2b_c_wrapper</span></code> in der Symboltabelle und weiß, dass sie im Modul <code class="docutils literal notranslate"><span class="pre">gfort_interop</span></code> definiert sind, so dass ASR keinen dieser Deklarationsknoten hat.</p>
+<p>Bei der Konvertierung von ASR nach AST erstellt LFortran alle entsprechenden AST-Deklarationsknoten automatisch und korrekt.</p>
 </section>
 </section>
 
@@ -810,12 +810,12 @@ div.rendered_html tbody tr:hover {
             </a>
           
           
-            <a href="../contributing/" title="Contributing"
+            <a href="../contributing/" title="Beitragen"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Contributing </span>
+                class="md-footer-nav__direction"> Next </span> Beitragen </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
