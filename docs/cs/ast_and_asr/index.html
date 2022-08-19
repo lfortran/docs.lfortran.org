@@ -313,11 +313,9 @@
         <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">Rozdíly mezi AST a ASR</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#AST" class="md-nav__link">AST</a>
-        </li></ul>
-            </nav>
         </li>
-        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a><nav class="md-nav">
-              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a>
+        </li>
         <li class="md-nav__item"><a href="#Diskuze" class="md-nav__link">Diskuze</a>
         </li></ul>
             </nav>
@@ -331,14 +329,14 @@
       <a href="#AST" class="md-nav__link">AST</a>
       
     
-    </li></ul>
-    
     </li>
     <li class="md-nav__item">
     
     
       <a href="#ASR" class="md-nav__link">ASR</a>
-      <ul class="md-nav__list"> 
+      
+    
+    </li>
     <li class="md-nav__item">
     
     
@@ -426,11 +424,9 @@
         <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">Rozdíly mezi AST a ASR</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#AST" class="md-nav__link">AST</a>
-        </li></ul>
-            </nav>
         </li>
-        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a><nav class="md-nav">
-              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a>
+        </li>
         <li class="md-nav__item"><a href="#Diskuze" class="md-nav__link">Diskuze</a>
         </li></ul>
             </nav>
@@ -738,9 +734,8 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>AST nemá žádné semantické informace, ale má uzly které reprezentují deklarace jako <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">intent(in)</span> <span class="pre">::</span> <span class="pre">a</span></code>. Proměnné jako <code class="docutils literal notranslate"><span class="pre">a</span></code> jsou reprezentovány uzlem <code class="docutils literal notranslate"><span class="pre">Name</span></code> a nejsou ještě propojeny se svými deklaracemi.</p>
 </section>
-</section>
 <section id="ASR">
-<h1 id="ASR">ASR<a class="headerlink" href="#ASR" title="Trvalý odkaz na tento nadpis">¶</a></h1>
+<h2 id="ASR">ASR<a class="headerlink" href="#ASR" title="Trvalý odkaz na tento nadpis">¶</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -764,6 +759,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <p>ASR má všechny semantické informace (typy, atd.), uzly jako <code class="docutils literal notranslate"><span class="pre">Function</span></code> mají tabulku symbolů a nemají uzly s deklaracemi. Proměnné jsou přímo ukazatelé do tabulky symbolů.</p>
+</section>
 <section id="Diskuze">
 <h2 id="Diskuze">Diskuze<a class="headerlink" href="#Diskuze" title="Trvalý odkaz na tento nadpis">¶</a></h2>
 <p>Nahoře byl jednoduchý příklad. Věci budou jasnější když si rozebereme komplikovanější problémy, jako například:</p>

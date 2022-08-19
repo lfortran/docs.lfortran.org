@@ -313,11 +313,9 @@
         <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">Unterschied zwischen AST und ASR</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#AST" class="md-nav__link">AST</a>
-        </li></ul>
-            </nav>
         </li>
-        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a><nav class="md-nav">
-              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a>
+        </li>
         <li class="md-nav__item"><a href="#Diskussion" class="md-nav__link">Diskussion</a>
         </li></ul>
             </nav>
@@ -331,14 +329,14 @@
       <a href="#AST" class="md-nav__link">AST</a>
       
     
-    </li></ul>
-    
     </li>
     <li class="md-nav__item">
     
     
       <a href="#ASR" class="md-nav__link">ASR</a>
-      <ul class="md-nav__list"> 
+      
+    
+    </li>
     <li class="md-nav__item">
     
     
@@ -426,11 +424,9 @@
         <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">Unterschied zwischen AST und ASR</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#AST" class="md-nav__link">AST</a>
-        </li></ul>
-            </nav>
         </li>
-        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a><nav class="md-nav">
-              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a>
+        </li>
         <li class="md-nav__item"><a href="#Diskussion" class="md-nav__link">Diskussion</a>
         </li></ul>
             </nav>
@@ -738,9 +734,8 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>Der AST enthält keine semantischen Informationen, hat aber Knoten zur Darstellung von Deklarationen wie <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">intent(in)</span> <span class="pre">::</span> <span class="pre">a</span></code>. Variablen wie <code class="docutils literal notranslate"><span class="pre">a</span></code> werden durch einen <code class="docutils literal notranslate"><span class="pre">Name</span></code> Knoten dargestellt und sind noch nicht mit ihren Deklarationen verbunden.</p>
 </section>
-</section>
 <section id="ASR">
-<h1 id="ASR">ASR<a class="headerlink" href="#ASR" title="Link zu dieser Überschrift">¶</a></h1>
+<h2 id="ASR">ASR<a class="headerlink" href="#ASR" title="Link zu dieser Überschrift">¶</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -764,6 +759,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <p>Die ASR enthält alle semantischen Informationen (Typen usw.), Knoten wie <code class="docutils literal notranslate"><span class="pre">Function</span></code> haben eine Symboltabelle und keine Deklarationsknoten. Variablen sind einfach Zeiger auf die Symboltabelle.</p>
+</section>
 <section id="Diskussion">
 <h2 id="Diskussion">Diskussion<a class="headerlink" href="#Diskussion" title="Link zu dieser Überschrift">¶</a></h2>
 <p>Das obige Beispiel war ein einfaches. Bei komplizierteren Beispielen, wie z. B. dem folgenden, werden die Dinge deutlicher:</p>

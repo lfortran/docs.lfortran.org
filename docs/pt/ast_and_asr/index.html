@@ -313,11 +313,9 @@
         <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">Diferenças entre uma AST e uma ASR</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#AST" class="md-nav__link">AST</a>
-        </li></ul>
-            </nav>
         </li>
-        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a><nav class="md-nav">
-              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a>
+        </li>
         <li class="md-nav__item"><a href="#Discussão" class="md-nav__link">Discussão</a>
         </li></ul>
             </nav>
@@ -331,14 +329,14 @@
       <a href="#AST" class="md-nav__link">AST</a>
       
     
-    </li></ul>
-    
     </li>
     <li class="md-nav__item">
     
     
       <a href="#ASR" class="md-nav__link">ASR</a>
-      <ul class="md-nav__list"> 
+      
+    
+    </li>
     <li class="md-nav__item">
     
     
@@ -426,11 +424,9 @@
         <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">Diferenças entre uma AST e uma ASR</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#AST" class="md-nav__link">AST</a>
-        </li></ul>
-            </nav>
         </li>
-        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a><nav class="md-nav">
-              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a>
+        </li>
         <li class="md-nav__item"><a href="#Discussão" class="md-nav__link">Discussão</a>
         </li></ul>
             </nav>
@@ -738,9 +734,8 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>A AST não possui nenhuma informação semântica, mas sim «nós» que representam declarações do tipo <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">intent(in)</span> <span class="pre">::</span> <span class="pre">a</span></code>. Variáveis como <code class="docutils literal notranslate"><span class="pre">a</span></code> são representadas pelo nó <code class="docutils literal notranslate"><span class="pre">Name</span></code> e ainda não estão conectadas às suas declarações.</p>
 </section>
-</section>
 <section id="ASR">
-<h1 id="ASR">ASR<a class="headerlink" href="#ASR" title="Link permanente para este título">¶</a></h1>
+<h2 id="ASR">ASR<a class="headerlink" href="#ASR" title="Link permanente para este título">¶</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -764,6 +759,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <p>Uma ASR possui toda a informação semântica (tipos, etc.), nós do tipo <code class="docutils literal notranslate"><span class="pre">Function</span></code> possuem uma tabela de símbolos e não tem nenhuma nó de declaração. Variáveis são simplesmente ponteiros para a tabela de símbolos.</p>
+</section>
 <section id="Discussão">
 <h2 id="Discussão">Discussão<a class="headerlink" href="#Discussão" title="Link permanente para este título">¶</a></h2>
 <p>O exemplo acima foi simples. As coisas ficam mais evidentes para exemplos mais complicados, como:</p>

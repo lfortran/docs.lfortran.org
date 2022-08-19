@@ -313,11 +313,9 @@
         <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">AST 和 ASR 之间的区别</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#AST" class="md-nav__link">AST</a>
-        </li></ul>
-            </nav>
         </li>
-        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a><nav class="md-nav">
-              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a>
+        </li>
         <li class="md-nav__item"><a href="#讨论" class="md-nav__link">讨论</a>
         </li></ul>
             </nav>
@@ -331,14 +329,14 @@
       <a href="#AST" class="md-nav__link">AST</a>
       
     
-    </li></ul>
-    
     </li>
     <li class="md-nav__item">
     
     
       <a href="#ASR" class="md-nav__link">ASR</a>
-      <ul class="md-nav__list"> 
+      
+    
+    </li>
     <li class="md-nav__item">
     
     
@@ -426,11 +424,9 @@
         <li class="md-nav__item"><a href="#ast-and-asr--page-root" class="md-nav__link">AST 和 ASR 之间的区别</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#AST" class="md-nav__link">AST</a>
-        </li></ul>
-            </nav>
         </li>
-        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a><nav class="md-nav">
-              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#ASR" class="md-nav__link">ASR</a>
+        </li>
         <li class="md-nav__item"><a href="#讨论" class="md-nav__link">讨论</a>
         </li></ul>
             </nav>
@@ -738,9 +734,8 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>AST 没有任何语义信息，但具有表示声明的节点，例如 <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">intent(in)</span> <span class="pre">::</span> <span class="pre">a</span></code>。诸如 <code class="docutils literal notranslate"><span class="pre">a</span></code> 之类的变量由 <code class="docutils literal notranslate"><span class="pre">Name</span></code> 节点表示，并且尚未连接到它们的声明。</p>
 </section>
-</section>
 <section id="ASR">
-<h1 id="ASR">ASR<a class="headerlink" href="#ASR" title="永久链接至标题">¶</a></h1>
+<h2 id="ASR">ASR<a class="headerlink" href="#ASR" title="永久链接至标题">¶</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -764,6 +759,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <p>ASR 有所有的语义信息（类型等），像 <code class="docutils literal notranslate"><span class="pre">Function</span></code> 这样的节点有一个符号表，没有任何声明节点。变量只是指向符号表的指针。</p>
+</section>
 <section id="讨论">
 <h2 id="讨论">讨论<a class="headerlink" href="#讨论" title="永久链接至标题">¶</a></h2>
 <p>上面是一个简单的例子。对于更复杂的示例，事情变得更加明显，例如：</p>
