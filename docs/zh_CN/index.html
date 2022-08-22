@@ -64,7 +64,7 @@
     <link rel="shortcut icon" href="_static/lfortran-logo.svg"/>
     <link rel="index" title="索引" href="genindex/" />
     <link rel="search" title="搜索" href="search/" />
-    <link rel="next" title="Installation" href="installation/" />
+    <link rel="next" title="安装" href="installation/" />
   
    
 
@@ -246,7 +246,7 @@
     <li class="md-nav__item">
     
     
-      <a href="installation/" class="md-nav__link">Installation</a>
+      <a href="installation/" class="md-nav__link">安装</a>
       
     
     </li>
@@ -317,7 +317,7 @@
     <li class="md-nav__item">
     
     
-      <a href="intrinsics/array/" class="md-nav__link">Array Intrinsic Functions</a>
+      <a href="intrinsics/array/" class="md-nav__link">数组内在函数</a>
       
     
     </li>
@@ -387,7 +387,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#roadmap" class="md-nav__link">Roadmap</a>
+        <li class="md-nav__item"><a href="#roadmap" class="md-nav__link">路线图</a>
         </li></ul>
             </nav>
         </li>
@@ -425,57 +425,24 @@
 <li><p><strong>现代硬件支持</strong>感谢 LLVM，LFortran 的目标是在现代硬件上运行，并利用原生 Fortran 语言结构（例如 <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code>）在多核 CPU 和 GPU 上运行，请参阅 <a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/57"># 57</a>。</p></li>
 <li><p><strong>完整的 Fortran 2018 支持</strong> 目前只实现了 Fortran 的一个子集，但目标是完整实现最新的 Fortran 2018 标准，请参阅 <a class="reference external" href="https://gitlab.com/lfortran/lfortran/issue/58">#58</a>。</p></li>
 </ul>
-<p>Please vote on issues in our
-<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues">issue tracker</a> that you want us
-to prioritize (feel free to create new ones if we are missing anything).</p>
+<p>请在我们的 <a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues">问题跟踪器</a> 中对您希望我们优先考虑的问题进行投票（如果我们遗漏任何内容，请随时创建新问题）。</p>
 </section>
 </section>
 <section id="roadmap">
-<h2 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="永久链接至标题">¶</a></h2>
-<p>Here is our roadmap how to get all the planned features above implemented:</p>
+<h2 id="roadmap">路线图<a class="headerlink" href="#roadmap" title="永久链接至标题">¶</a></h2>
+<p>以下是我们如何实现上述所有计划功能的路线图：</p>
 <ol class="arabic">
-<li><p>Port code generation to use ASR and pass all the current tests
-(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/74">#74</a>).
-Remove the old code generation and old semantics, that used to annotate the AST tree, which was messy.</p></li>
-<li><p>Get GFortran module files working with <code class="docutils literal notranslate"><span class="pre">use</span></code> module, both assumed-size and
-assumed-shape arrays (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/52">#52</a>).
-This will allow right away to use production codes with LFortran.</p></li>
-<li><p>Do these at the same time:</p>
-<p>a) Implement more Fortran features, until eventually full Fortran 2018 is
-supported (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/58">#58</a>).</p>
-<p>b) Gradually move to C++ for robustness and speed
-(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/70">#70</a>).
-The Python API will not change (or only minimally), so the user experience
-from Python will not change.</p>
-<p>c) Implement all the other cool features: <code class="docutils literal notranslate"><span class="pre">use</span></code> module for C and Python
-and automatic wrappers
-(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/44">#44</a>),
-modern hardware support
-(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/57">#57</a>),
-generating an older standard of Fortran
-(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/72">#72</a>),
-Fortran doctest feature
-(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/73">#73</a>),
-SymPy integration
-(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/71">#71</a>),
-language service for IDEs
-(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/12">#12</a>),
-and other ideas (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/29">#29</a>).</p>
+<li><p>端口代码生成以使用 ASR 并通过所有当前测试 (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/74">#74</a>)。删除用于注释 AST 树的旧代码生成和旧语义，这很混乱。</p></li>
+<li><p>获取使用 <code class="docutils literal notranslate"><span class="pre">use</span></code> 模块的 GFortran 模块文件，包括假定大小和假定形状数组 (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/52">#52</a>)。这将允许立即将生产代码与 LFortran 一起使用。</p></li>
+<li><p>同时做这些：</p>
+<p>a) 实现更多 Fortran 功能，直到最终支持完整的 Fortran 2018 (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/58">#58</a>)。</p>
+<p>b) 逐渐转向 C++ 以获得稳健性和速度（<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/70">#70</a>）。 Python API 不会改变（或只有很小的改变），因此 Python 的用户体验不会改变。</p>
+<p>c) 实现所有其他很酷的功能：用于 C 和 Python 的 <code class="docutils literal notranslate"><span class="pre">use</span></code> 模块和自动包装器 (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/44">#44</a>)，现代硬件支持 (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/57"># 57</a>)，生成较旧的 Fortran 标准 (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/72">#72</a>) , Fortran doctest 功能 (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/73">#73</a>), SymPy 集成 (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/71">#71</a>)、IDE 的语言服务 (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/12">#12</a>) 和其他想法 (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/29">#29</a>)。</p>
 </li>
 </ol>
-<p>The step 1. is an internal refactoring that will not take long.</p>
-<p>The step 2. will allow LFortran to be used interactively with production codes
-right away (the production code will get compiled with GFortran, then one
-“uses” any module in LFortran and functions/subroutines can be interactively
-called, the module itself can use any GFortran supported feature, but the API
-must fit into the subset that LFortran understands — for large number of
-applications simple functions/subroutines with array arguments are enough).
-This will make LFortran usable for first users and one can always use GFortran
-temporarily until LFortran supports the given feature.
-We expect to be finished with the step 2. by the end of summer 2019, hopefully sooner.</p>
-<p>Finally the step 3. will improve LFortran overall, allowing the first users
-to contribute back, growing the community and making LFortran gradually useful
-for more and more people.</p>
+<p>第 1 步是内部重构，不会花费很长时间。</p>
+<p>第 2 步将允许 LFortran 立即与生产代码交互使用（生产代码将使用 GFortran 编译，然后“使用”LFortran 中的任何模块，并且可以交互调用函数/子例程，模块本身可以使用任何GFortran 支持的功能，但 API 必须适合 LFortran 理解的子集 — 对于大量应用程序，带有数组参数的简单函数/子例程就足够了）。这将使 LFortran 可供第一批用户使用，并且在 LFortran 支持给定功能之前，始终可以临时使用 GFortran。我们预计在 2019 年夏末完成第 2 步，希望能更快。</p>
+<p>最后，第 3 步将整体改进 LFortran，允许第一批用户回馈，发展社区并使 LFortran 逐渐对越来越多的人有用。</p>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -498,12 +465,12 @@ for more and more people.</p>
       <nav class="md-footer-nav__inner md-grid">
           
           
-            <a href="installation/" title="Installation"
+            <a href="installation/" title="安装"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Installation </span>
+                class="md-footer-nav__direction"> Next </span> 安装 </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

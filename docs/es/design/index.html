@@ -47,7 +47,7 @@
   
   
   
-    <title>LFortran Design &#8212; LFortran</title>
+    <title>Diseño de LFortran &#8212; LFortran</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -103,7 +103,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">LFortran Documentation</span>
-          <span class="md-header-nav__topic"> LFortran Design </span>
+          <span class="md-header-nav__topic"> Diseño de LFortran </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -286,21 +286,21 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> LFortran Design </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Diseño de LFortran </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">LFortran Design</a>
+      <a href="#" class="md-nav__link md-nav__link--active">Diseño de LFortran</a>
       
         
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#design--page-root" class="md-nav__link">LFortran Design</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#design--page-root" class="md-nav__link">Diseño de LFortran</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#high-level-overview" class="md-nav__link">High Level Overview</a>
+        <li class="md-nav__item"><a href="#high-level-overview" class="md-nav__link">Descripción general de alto nivel</a>
         </li>
-        <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">ASR Design Details</a>
+        <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">Detalles de diseño de una ASR</a>
         </li>
-        <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notes:</a>
+        <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notas:</a>
         </li>
         <li class="md-nav__item"><a href="#fortran-2008" class="md-nav__link">Fortran 2008</a>
         </li>
@@ -326,21 +326,21 @@
     <li class="md-nav__item">
     
     
-      <a href="#high-level-overview" class="md-nav__link">High Level Overview</a>
+      <a href="#high-level-overview" class="md-nav__link">Descripción general de alto nivel</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="#asr-design-details" class="md-nav__link">ASR Design Details</a>
+      <a href="#asr-design-details" class="md-nav__link">Detalles de diseño de una ASR</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="#notes" class="md-nav__link">Notes:</a>
+      <a href="#notes" class="md-nav__link">Notas:</a>
       
     
     </li>
@@ -377,14 +377,14 @@
     <li class="md-nav__item">
     
     
-      <a href="../ast_and_asr/" class="md-nav__link">Difference between an AST and ASR</a>
+      <a href="../ast_and_asr/" class="md-nav__link">Diferencias entre un AST y una ASR</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../contributing/" class="md-nav__link">Contributing</a>
+      <a href="../contributing/" class="md-nav__link">Contribuyendo</a>
       
     
     </li>
@@ -456,13 +456,13 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#design--page-root" class="md-nav__link">LFortran Design</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#design--page-root" class="md-nav__link">Diseño de LFortran</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#high-level-overview" class="md-nav__link">High Level Overview</a>
+        <li class="md-nav__item"><a href="#high-level-overview" class="md-nav__link">Descripción general de alto nivel</a>
         </li>
-        <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">ASR Design Details</a>
+        <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">Detalles de diseño de una ASR</a>
         </li>
-        <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notes:</a>
+        <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notas:</a>
         </li>
         <li class="md-nav__item"><a href="#fortran-2008" class="md-nav__link">Fortran 2008</a>
         </li>
@@ -492,117 +492,61 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="lfortran-design">
-<h1 id="design--page-root">LFortran Design<a class="headerlink" href="#design--page-root" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1 id="design--page-root">Diseño de LFortran<a class="headerlink" href="#design--page-root" title="Enlazar permanentemente con este título">¶</a></h1>
 <section id="high-level-overview">
-<h2 id="high-level-overview">High Level Overview<a class="headerlink" href="#high-level-overview" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>LFortran is structured around two independent modules, AST and ASR, both of
-which are standalone (completely independent of the rest of LFortran) and users
-are encouraged to use them independently for other applications and build tools
-on top:</p>
+<h2 id="high-level-overview">Descripción general de alto nivel<a class="headerlink" href="#high-level-overview" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>LFortran está estructurado en torno a dos módulos independientes, AST y ASR, los cuales son independientes (completamente independientes del resto de LFortran) y se anima a los usuarios a usarlos de forma independiente para otras aplicaciones y crear herramientas en la parte superior:</p>
 <ul class="simple">
-<li><p>Abstract Syntax Tree (AST), module <code class="docutils literal notranslate"><span class="pre">lfortran.ast</span></code>: Represents any Fortran
-source code, strictly based on syntax, no semantic is included. The AST
-module can convert itself to Fortran source code.</p></li>
-<li><p>Abstract Semantic Representation (ASR), module <code class="docutils literal notranslate"><span class="pre">lfortran.asr</span></code>: Represents a valid
-Fortran source code, all semantic is included. Invalid Fortran code is not
-allowed (an error will be given). The ASR module can convert itself to an
-AST.</p></li>
+<li><p>Árbol de sintaxis abstracta (AST), módulo <code class="docutils literal notranslate"><span class="pre">lfortran.ast</span></code>: representa cualquier código fuente de Fortran, basado estrictamente en la sintaxis, no se incluye semántica. El módulo AST puede convertirse en código fuente de Fortran.</p></li>
+<li><p>Representación semántica abstracta (ASR), módulo <code class="docutils literal notranslate"><span class="pre">lfortran.asr</span></code>: Representa un código fuente de Fortran válido, se incluye toda la semántica. No se permite el código Fortran no válido (se dará un error). El módulo ASR puede convertirse en un AST.</p></li>
 </ul>
-<p>The LFortran compiler is then composed of the following independent stages:</p>
+<p>El compilador LFortran está compuesto por las siguientes etapas independientes:</p>
 <ul class="simple">
-<li><p>Parsing: converts Fortran source code to an AST</p></li>
-<li><p>Semantic: converts an AST to an ASR</p></li>
-<li><p>High level optimizations: optimize ASR to a possibly faster/simpler ASR
-(things like inlining functions, eliminating redundant expressions or
-statements, etc.)</p></li>
-<li><p>LLVM IR code generation and lower level optimizations: converts an ASR to an
-LLVM IR. This stage also does all other optimizations that do not produce an
-ASR, but still make sense to do before passing to LLVM IR.</p></li>
-<li><p>Machine code generation: LLVM then does all its optimizations and generates
-machine code (such as a binary executable, a library, an object file, or it
-is loaded and executed using JIT as part of the interactive LFortran session
-or in a Jupyter kernel).</p></li>
+<li><p>Análisis: convierte el código fuente de Fortran en un AST</p></li>
+<li><p>Semántica: Convertir un AST para un ASR</p></li>
+<li><p>Optimización de alto nivel: optimizar ASR para un ASR posiblemente mas simple y mas rápido (cosas como alinear funciones, eliminar expresiones o declaraciones redundantes, etc.)</p></li>
+<li><p>Generación de código LLVM IR y optimizaciones de nivel inferior: convierte un ASR en un LLVM IR. Esta etapa también realiza todas las demás optimizaciones que no producen un ASR, pero que aún tiene sentido antes de pasar a LLVM IR.</p></li>
+<li><p>Generación de código de máquina: LLVM luego realiza todas sus optimizaciones y genera código de máquina (como un ejecutable binario, una biblioteca, un archivo de objeto, o se carga y ejecuta usando JIT como parte de la sesión interactiva de LFortran o en un núcleo de Jupyter).</p></li>
 </ul>
-<p>LFortran is structured as a library, and so one can for example use the parser
-to obtain an AST and do something with it, or one can then use the semantic
-analyzer to obtain ASR and do something with it. One can generate the ASR
-directly (e.g., from SymPy) and then either convert to AST and to a Fortran
-source code, or use LFortran to compile it to machine code directly. In other
-words, one can use LFortran to easily convert between the three equivalent
-representations:</p>
+<p>LFortran está estructurado como una biblioteca, por lo que, por ejemplo, se puede usar el analizador para obtener un AST y hacer algo con él, o se puede usar el analizador semántico para obtener ASR y hacer algo con él. Uno puede generar la ASR directamente (por ejemplo, desde SymPy) y luego convertirlo a AST y a un código fuente de Fortran, o usar LFortran para compilarlo en código de máquina directamente. En otras palabras, uno puede usar LFortran para convertir fácilmente entre las tres representaciones equivalentes:</p>
 <ul class="simple">
-<li><p>Fortran source code</p></li>
-<li><p>Abstract Syntax Tree (AST)</p></li>
-<li><p>Abstract Semantic Representation (ASR)</p></li>
+<li><p>Código fuente de Fortran</p></li>
+<li><p>Árbol de sintaxis abstracta (AST)</p></li>
+<li><p>Representación semántica abstracta (ASR)</p></li>
 </ul>
-<p>They are all equivalent in the following sense:</p>
+<p>Estos son todos equivalentes en el siguiente sentido:</p>
 <ul class="simple">
-<li><p>Any ASR can always be converted to an equivalent AST</p></li>
-<li><p>Any AST can always be converted to an equivalent Fortran source code</p></li>
-<li><p>Any Fortran source code can always be either converted to an equivalent AST
-or one gets a syntax error</p></li>
-<li><p>Any AST can always be either converted to an equivalent ASR or one gets a
-semantic error</p></li>
+<li><p>Cualquier ASR puede siempre ser convertido a un AST equivalente</p></li>
+<li><p>Cualquier AST puede ser siempre convertido a un código fuente Fortran equivalente</p></li>
+<li><p>Cualquier código fuente de Fortran siempre se puede convertir a un AST equivalente o se obtiene un error de sintaxis</p></li>
+<li><p>Cualquier AST siempre se puede convertir a un ASR equivalente o se obtiene un error semántico</p></li>
 </ul>
-<p>So when a conversion can be done, they are equivalent, and the conversion can
-always be done unless the code is invalid.</p>
+<p>Así, cuando se puede realizar una conversión estos son equivalentes, y la conversión siempre se puede realizar a menos que el código no sea válido.</p>
 </section>
 <section id="asr-design-details">
-<h2 id="asr-design-details">ASR Design Details<a class="headerlink" href="#asr-design-details" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>The ASR is designed to have the following features:</p>
+<h2 id="asr-design-details">Detalles de diseño de una ASR<a class="headerlink" href="#asr-design-details" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una ASR está diseñada para tener las características siguientes:</p>
 <ul class="simple">
-<li><p>ASR is still semantically equivalent to the original Fortran code (it did not
-lose any semantic information). ASR can be converted to AST, and AST to
-Fortran source code which is functionally equivalent to the original.</p></li>
-<li><p>ASR is as simple as possible: it does not contain any information that could
-not be inferred from ASR.</p></li>
-<li><p>The ASR C++ classes (down the road) are designed similarly to SymEngine: they
-are constructed once and after that they are immutable. The constructor
-checks in Debug more that all the requirements are met (e.g., that all
-Variables in a Function have a dummy argument set, that explicit-shape arrays
-are not allocatable and all other Fortran requirements to make it a valid
-code), but in Release mode it quickly constructs the class without checks.
-Then there are builder classes that construct the ASR C++ classes to meet
-requirements (checked in Debug mode) and the builder gives an error message
-if a code is not a valid Fortran code, and if it doesn’t give an error
-message, then the ASR C++ classes are constructed correctly. Thus by
-construction, the ASR classes always contain valid Fortran code and the rest
-of LFortran can depend on it.</p></li>
+<li><p>Una ASR sigue siendo semánticamente equivalente al código Fortran original (esta no pierde información semántica). Una ASR puede ser convertida a un AST, y un AST a un código fuente Fortran que es funcionalmente equivalente al original.</p></li>
+<li><p>Una ASR es lo más simple posible: no contiene ninguna información que no pueda deducirse de una ASR.</p></li>
+<li><p>Las clases ASR C++ (en el futuro) están diseñadas de manera similar a SymEngine: se construyen una vez y luego son inmutables. El constructor verifica en modo depuración que se cumplan todos los requisitos (por ejemplo, que todas las variables en una función tengan un conjunto de argumentos ficticios, que las matrices de forma explícita no se puedan asignar y todos los demás requisitos de Fortran para que sea un código válido), pero en modo de lanzamiento, construye rápidamente la clase sin controles. Luego, hay clases de constructores que construyen las clases ASR C++ para cumplir con los requisitos (verificados en el modo de depuración) y el constructor da un mensaje de error si un código no es un código Fortran válido, y si no da un mensaje de error, entonces las clases ASR C++ están construidas correctamente. Así, por construcción, las clases ASR siempre contienen código Fortran válido y el resto de LFortran puede depender de él.</p></li>
 </ul>
 </section>
 <section id="notes">
-<h2 id="notes">Notes:<a class="headerlink" href="#notes" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>Information that is lost when parsing source to AST:
-whitespace, multiline/single line if statement distinction, case sensitivity of keywords.</p>
-<p>Information that is lost when going from AST to ASR:
-detailed syntax how variables were defined and the order of type attributes (whether array dimension is using the <code class="docutils literal notranslate"><span class="pre">dimension</span></code> attribute, or parentheses at the variable; or how many variables there are per declaration line or their order), as ASR only represents the aggregated type information in the symbol table.</p>
-<p>ASR is the simplest way to generate Fortran code, as one does not
-have to worry about the detailed syntax (as in AST) about how and where
-things are declared. One specifies the symbol table for a module, then for
-each symbol (functions, global variables, types, …) one specifies the local
-variables and if this is an interface then one needs to specify where one can
-find an implementation, otherwise a body is supplied with statements, those
-nodes are almost the same as in AST, except that each variable is just a
-reference to a symbol in the symbol table (so by construction one cannot have
-undefined variables). The symbol table for each node such as Function or Module
-also references its parent (for example a function references a module,
-a module references the global scope).</p>
-<p>The ASR can be directly converted to an AST without gathering any other
-information. And the AST directly to Fortran source code.</p>
-<p>The ASR is always representing a semantically valid Fortran code.  This is
-enforced by checks in the ASR C++ constructors (in Debug build).
-When an ASR is used, one can assume it is valid.</p>
+<h2 id="notes">Notas:<a class="headerlink" href="#notes" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Información que se pierde al analizar la fuente en un AST: espacios en blanco, distinción de declaración if de varias líneas/una sola línea, distinción entre mayúsculas y minúsculas de palabras clave.</p>
+<p>Información que se pierde al pasar de un AST a una ASR: sintaxis detallada, cómo se definieron las variables y el orden de los atributos de tipo (si la dimensión de matriz usa el atributo <code class="docutils literal notranslate"><span class="pre">dimensión</span></code> o paréntesis en la variable, o cuántas variables hay por línea de declaración o su orden), ya que una ASR solo representa la información de tipo agregada en la tabla de símbolos.</p>
+<p>Una ASR es la forma más sencilla de generar código Fortran, ya que uno no tiene que preocuparse por la sintaxis detallada (como en un AST) sobre cómo y dónde se declaran las cosas. Uno especifica la tabla de símbolos para un módulo, luego para cada símbolo (funciones, variables globales, tipos, …) uno especifica las variables locales y si se trata de una interfaz, entonces uno necesita especificar dónde puede encontrar una implementación, de lo contrario un cuerpo se suministra con declaraciones, esos nodos son casi los mismos que en un AST, excepto que cada variable es solo una referencia a un símbolo en la tabla de símbolos (por lo que, por construcción, uno no puede tener variables indefinidas). La tabla de símbolos para cada nodo, como Función o Módulo, también hace referencia a su padre (por ejemplo, una función hace referencia a un módulo, un módulo hace referencia al ámbito global).</p>
+<p>Una ASR se puede convertir directamente en un AST sin recopilar ninguna otra información. Y un AST directamente al código fuente de Fortran.</p>
+<p>Una ASR siempre representa un código Fortran semánticamente válido. Esto se aplica mediante comprobaciones en los constructores de una ASR C++ (en la compilación de depuración). Cuando se utiliza una ASR, se puede suponer que es válido.</p>
 </section>
 <section id="fortran-2008">
 <h2 id="fortran-2008">Fortran 2008<a class="headerlink" href="#fortran-2008" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>Fortran 2008 <a class="reference external" href="https://j3-fortran.org/doc/year/10/10-007.pdf">standard</a> chapter
-2 «Fortran concepts» specifies that Fortran code is a collection of <em>program
-units</em> (either all in one file, or in separate files), where each <em>program
-unit</em> is one of:</p>
+<p>Fortran 2008 <a class="reference external" href="https://j3-fortran.org/doc/year/10/10-007.pdf">estándar</a> capítulo 2 «Conceptos de Fortran» especifica que el código Fortran es una colección de <em>unidades de programa</em> (ya sea todo en un archivo , o en archivos separados), donde cada <em>unidad de programa</em> es una de:</p>
 <ul class="simple">
-<li><p>main program</p></li>
-<li><p>module or submodule</p></li>
-<li><p>function or subroutine</p></li>
+<li><p>programa principal</p></li>
+<li><p>módulo o submódulo</p></li>
+<li><p>función o subrutina</p></li>
 </ul>
 <p>Note: It can also be a <em>block data</em> program unit, that is used to provide
 initial values for data objects in named <em>common blocks</em>, but we do not
@@ -615,9 +559,9 @@ only the list of <em>program units</em> (as in F2008) but can also include state
 declarations, use statements and expressions. We define <em>global scope</em> as a
 collection of the following items:</p>
 <ul class="simple">
-<li><p>main program</p></li>
-<li><p>module or submodule</p></li>
-<li><p>function or subroutine</p></li>
+<li><p>programa principal</p></li>
+<li><p>módulo o submódulo</p></li>
+<li><p>función o subrutina</p></li>
 <li><p>use statement</p></li>
 <li><p>declaration</p></li>
 <li><p>statement</p></li>
