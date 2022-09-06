@@ -64,7 +64,7 @@
     <link rel="shortcut icon" href="../_static/lfortran-logo.svg"/>
     <link rel="index" title="索引" href="../genindex/" />
     <link rel="search" title="搜索" href="../search/" />
-    <link rel="next" title="Fortran Language" href="../language/" />
+    <link rel="next" title="Fortran 语言" href="../language/" />
     <link rel="prev" title="LFortran 文档" href="../" />
   
    
@@ -264,13 +264,13 @@
         </li>
         <li class="md-nav__item"><a href="#build-from-git" class="md-nav__link">从 Git 构建</a>
         </li>
-        <li class="md-nav__item"><a href="#build-from-git-on-windows-with-visual-studio" class="md-nav__link">在Windows上使用Visual Studio从Git构建</a>
+        <li class="md-nav__item"><a href="#build-from-git-on-windows-with-visual-studio" class="md-nav__link">在 Windows 上使用 Visual Studio 从 Git 构建</a>
         </li>
-        <li class="md-nav__item"><a href="#build-from-git-on-windows-with-wsl" class="md-nav__link">用WSL在Windows上从Git构建</a>
+        <li class="md-nav__item"><a href="#build-from-git-on-windows-with-wsl" class="md-nav__link">用 WSL 在 Windows上 从 Git 构建</a>
         </li>
-        <li class="md-nav__item"><a href="#enabling-the-jupyter-kernel" class="md-nav__link">启用Jupyter内核</a>
+        <li class="md-nav__item"><a href="#enabling-the-jupyter-kernel" class="md-nav__link">启用 Jupyter 内核</a>
         </li>
-        <li class="md-nav__item"><a href="#build-from-git-with-nix" class="md-nav__link">使用Nix从Git构建</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#build-from-git-with-nix" class="md-nav__link">使用 Nix 从 Git 构建</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#with-root" class="md-nav__link">带有 root 权限</a>
         </li>
@@ -282,7 +282,7 @@
         </li>
         <li class="md-nav__item"><a href="#note-about-dependencies" class="md-nav__link">关于依赖性的说明</a>
         </li>
-        <li class="md-nav__item"><a href="#note-for-users-who-do-not-use-conda" class="md-nav__link">不使用Conda的用户注意</a>
+        <li class="md-nav__item"><a href="#note-for-users-who-do-not-use-conda" class="md-nav__link">不使用 Conda 的用户注意</a>
         </li>
         <li class="md-nav__item"><a href="#stacktraces" class="md-nav__link">堆栈跟踪</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -321,28 +321,28 @@
     <li class="md-nav__item">
     
     
-      <a href="#build-from-git-on-windows-with-visual-studio" class="md-nav__link">在Windows上使用Visual Studio从Git构建</a>
+      <a href="#build-from-git-on-windows-with-visual-studio" class="md-nav__link">在 Windows 上使用 Visual Studio 从 Git 构建</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="#build-from-git-on-windows-with-wsl" class="md-nav__link">用WSL在Windows上从Git构建</a>
+      <a href="#build-from-git-on-windows-with-wsl" class="md-nav__link">用 WSL 在 Windows上 从 Git 构建</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="#enabling-the-jupyter-kernel" class="md-nav__link">启用Jupyter内核</a>
+      <a href="#enabling-the-jupyter-kernel" class="md-nav__link">启用 Jupyter 内核</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="#build-from-git-with-nix" class="md-nav__link">使用Nix从Git构建</a>
+      <a href="#build-from-git-with-nix" class="md-nav__link">使用 Nix 从 Git 构建</a>
       
     
     </li>
@@ -356,7 +356,7 @@
     <li class="md-nav__item">
     
     
-      <a href="#note-for-users-who-do-not-use-conda" class="md-nav__link">不使用Conda的用户注意</a>
+      <a href="#note-for-users-who-do-not-use-conda" class="md-nav__link">不使用 Conda 的用户注意</a>
       
     
     </li>
@@ -372,7 +372,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../language/" class="md-nav__link">Fortran Language</a>
+      <a href="../language/" class="md-nav__link">Fortran 语言</a>
       
     
     </li>
@@ -391,7 +391,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../progress/#topics" class="md-nav__link">Topics</a>
+      <a href="../progress/#topics" class="md-nav__link">话题</a>
       
     
     </li>
@@ -430,55 +430,55 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran 内在函数</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">LFortran 内置函数</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/array/" class="md-nav__link">数组内在函数</a>
+      <a href="../intrinsics/array/" class="md-nav__link">数组内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/bit/" class="md-nav__link">Bit Intrinsic Functions</a>
+      <a href="../intrinsics/bit/" class="md-nav__link">位操作内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/character/" class="md-nav__link">Character Intrinsic Functions</a>
+      <a href="../intrinsics/character/" class="md-nav__link">字符内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/kind-type/" class="md-nav__link">Kind Type Intrinsic Functions</a>
+      <a href="../intrinsics/kind-type/" class="md-nav__link">种类类型内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/mathematical/" class="md-nav__link">Mathematical Intrinsic Functions</a>
+      <a href="../intrinsics/mathematical/" class="md-nav__link">数学内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/numeric/" class="md-nav__link">Numeric Intrinsic Functions</a>
+      <a href="../intrinsics/numeric/" class="md-nav__link">数值内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/misc/" class="md-nav__link">Miscellaneous Intrinsic Functions</a>
+      <a href="../intrinsics/misc/" class="md-nav__link">其他内置函数</a>
       
     
     </li>
@@ -504,13 +504,13 @@
         </li>
         <li class="md-nav__item"><a href="#build-from-git" class="md-nav__link">从 Git 构建</a>
         </li>
-        <li class="md-nav__item"><a href="#build-from-git-on-windows-with-visual-studio" class="md-nav__link">在Windows上使用Visual Studio从Git构建</a>
+        <li class="md-nav__item"><a href="#build-from-git-on-windows-with-visual-studio" class="md-nav__link">在 Windows 上使用 Visual Studio 从 Git 构建</a>
         </li>
-        <li class="md-nav__item"><a href="#build-from-git-on-windows-with-wsl" class="md-nav__link">用WSL在Windows上从Git构建</a>
+        <li class="md-nav__item"><a href="#build-from-git-on-windows-with-wsl" class="md-nav__link">用 WSL 在 Windows上 从 Git 构建</a>
         </li>
-        <li class="md-nav__item"><a href="#enabling-the-jupyter-kernel" class="md-nav__link">启用Jupyter内核</a>
+        <li class="md-nav__item"><a href="#enabling-the-jupyter-kernel" class="md-nav__link">启用 Jupyter 内核</a>
         </li>
-        <li class="md-nav__item"><a href="#build-from-git-with-nix" class="md-nav__link">使用Nix从Git构建</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#build-from-git-with-nix" class="md-nav__link">使用 Nix 从 Git 构建</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#with-root" class="md-nav__link">带有 root 权限</a>
         </li>
@@ -522,7 +522,7 @@
         </li>
         <li class="md-nav__item"><a href="#note-about-dependencies" class="md-nav__link">关于依赖性的说明</a>
         </li>
-        <li class="md-nav__item"><a href="#note-for-users-who-do-not-use-conda" class="md-nav__link">不使用Conda的用户注意</a>
+        <li class="md-nav__item"><a href="#note-for-users-who-do-not-use-conda" class="md-nav__link">不使用 Conda 的用户注意</a>
         </li>
         <li class="md-nav__item"><a href="#stacktraces" class="md-nav__link">堆栈跟踪</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -545,10 +545,10 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="installation">
 <h1 id="installation--page-root">安装<a class="headerlink" href="#installation--page-root" title="永久链接至标题">¶</a></h1>
-<p>以下所有说明都适用于 Linux、macOS 和 Windows。</p>
+<p>以下所有说明适用于 Linux、macOS 和 Windows。</p>
 <section id="binaries">
 <h2 id="binaries">二进制文件<a class="headerlink" href="#binaries" title="永久链接至标题">¶</a></h2>
-<p>安装 LFortran 的推荐方法是使用 Conda。例如，按照您的平台的说明安装 <a class="reference external" href="https://conda.io/en/latest/miniconda.html">Miniconda</a>，安装 Conda。然后创建一个新环境（你可以选择任何名称，这里我们选择了<code class="docutils literal notranslate"><span class="pre">lf</span></code>）并激活它：</p>
+<p>安装 LFortran 的推荐方法是使用 Conda。例如，按照你的平台的说明安装 <a class="reference external" href="https://conda.io/en/latest/miniconda.html">Miniconda</a>，安装 Conda。然后创建一个新环境（你可以选择任何名称，这里我们选择了<code class="docutils literal notranslate"><span class="pre">lf</span></code>）并激活它：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n lf
 conda activate lf
 </pre></div>
@@ -566,7 +566,7 @@ conda activate lf
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter notebook
 </pre></div>
 </div>
-<p>并选择<code class="docutils literal notranslate"><span class="pre">New-&gt;Fortran</span></code>。</p>
+<p>并选择 <code class="docutils literal notranslate"><span class="pre">New-&gt;Fortran</span></code>。</p>
 </section>
 <section id="build-from-a-source-tarball">
 <h2 id="build-from-a-source-tarball">从源代码构建<a class="headerlink" href="#build-from-a-source-tarball" title="永久链接至标题">¶</a></h2>
@@ -609,11 +609,11 @@ conda activate lf
 <span class="n">cd</span> <span class="n">lfortran</span>
 </pre></div>
 </div>
-<p>Generate files that are needed for the build (this step depends on <code class="docutils literal notranslate"><span class="pre">re2c</span></code>, <code class="docutils literal notranslate"><span class="pre">bison</span></code> and <code class="docutils literal notranslate"><span class="pre">python</span></code>):</p>
+<p>生成构建所需的文件（此步骤取决于 <code class="docutils literal notranslate"><span class="pre">re2c</span></code>、<code class="docutils literal notranslate"><span class="pre">bison</span></code> 和 <code class="docutils literal notranslate"><span class="pre">python</span></code>）：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build0.sh
 </pre></div>
 </div>
-<p>现在的过程与从源tarball安装相同。例如在Debug模式下构建:</p>
+<p>现在的过程与从源 tarball 安装相同。例如在 Debug 模式下构建:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_BUILD_TYPE=Debug -DWITH_LLVM=yes -DCMAKE_INSTALL_PREFIX=`pwd`/inst .
 make -j8
 </pre></div>
@@ -629,21 +629,21 @@ make -j8
 </div>
 </section>
 <section id="build-from-git-on-windows-with-visual-studio">
-<h2 id="build-from-git-on-windows-with-visual-studio">在Windows上使用Visual Studio从Git构建<a class="headerlink" href="#build-from-git-on-windows-with-visual-studio" title="永久链接至标题">¶</a></h2>
-<p>安装Visual Studio (MSVC)，例如2022版本，可以从: https://visualstudio.microsoft.com/downloads/ 免费下载社区版本。</p>
+<h2 id="build-from-git-on-windows-with-visual-studio">在 Windows 上使用 Visual Studio 从 Git 构建<a class="headerlink" href="#build-from-git-on-windows-with-visual-studio" title="永久链接至标题">¶</a></h2>
+<p>安装 Visual Studio (MSVC)，例如 2022 版本，可以免费下载社区版本：https://visualstudio.microsoft.com/downloads/ 。</p>
 <p>使用来自 https://github.com/conda-forge/miniforge 的 Windows 安装程序安装 miniforge。</p>
-<p>Launch the Miniforge Prompt from the Desktop.</p>
-<p>在shell中，用以下方法初始化MSVC编译器:</p>
+<p>从桌面上启动 Miniforge Prompt。</p>
+<p>在 shell 中，用以下方法初始化 MSVC 编译器:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">call</span> <span class="s2">"C:\Program Files\Microsoft Visual Studio</span><span class="se">\202</span><span class="s2">2\Community\Common7\Tools\VsDevCmd"</span> <span class="o">-</span><span class="n">arch</span><span class="o">=</span><span class="n">x64</span>
 </pre></div>
 </div>
-<p>你可以选择通过以下方式测试MSVC是否工作:</p>
+<p>你可以选择通过以下方式测试 MSVC 是否工作:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cl /?
 link /?
 </pre></div>
 </div>
 <p>这两个命令都必须打印帮助信息（若干页）。</p>
-<p>现在你可以下载并建立LFortran:</p>
+<p>现在你可以下载并建立 LFortran：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">lfortran</span><span class="o">/</span><span class="n">lfortran</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">lfortran</span>
 <span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment_win</span><span class="o">.</span><span class="n">yml</span>
@@ -652,23 +652,23 @@ link /?
 <span class="n">build1</span><span class="o">.</span><span class="n">bat</span>
 </pre></div>
 </div>
-<p>如果一切都编译好了，那么你就可以使用LFortran，如下所示:</p>
+<p>如果一切都编译好了，那么你就可以使用 LFortran，如下所示:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inst</span>\<span class="nb">bin</span>\<span class="n">lfortran</span> <span class="n">examples</span><span class="o">/</span><span class="n">expr2</span><span class="o">.</span><span class="n">f90</span>
 <span class="n">a</span><span class="o">.</span><span class="n">out</span>
 <span class="n">inst</span>\<span class="nb">bin</span>\<span class="n">lfortran</span>
 </pre></div>
 </div>
 <p>等等 。</p>
-<p>注意：LFortran目前使用MSVC的链接器程序（<code class="docutils literal notranslate"><span class="pre">link</span></code>），只有在运行上面的MSVC bat脚本时才能使用。如果你忘记激活它，LFortran的链接就会失败。</p>
-<p>注意：miniforge shell似乎在运行某个版本的<code class="docutils literal notranslate"><span class="pre">git-bash</span></code>（尽管它是<code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>），它有一些类似unix的文件系统挂载在<code class="docutils literal notranslate"><span class="pre">/usr</span></code>，有几个命令可用，如<code class="docutils literal notranslate"><span class="pre">ls</span></code>、<code class="docutils literal notranslate"><span class="pre">which</span></code>、<code class="docutils literal notranslate"><span class="pre">git</span></code>、<code class="docutils literal notranslate"><span class="pre">vim</span></code>。 由于这个原因，Conda构建的<code class="docutils literal notranslate"><span class="pre">environment_win.yml</span></code>包含了所有需要的东西，包括<code class="docutils literal notranslate"><span class="pre">git</span></code>。</p>
+<p>注意：LFortran 目前使用 MSVC 的链接器程序（<code class="docutils literal notranslate"><span class="pre">link</span></code>），只有在运行上面的 MSVC bat 脚本时才能使用。如果你忘记激活它，LFortran 的链接就会失败。</p>
+<p>注意：miniforge shell 似乎在运行某个版本的 <code class="docutils literal notranslate"><span class="pre">git-bash</span></code>（尽管它是<code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>），它有一些类似 unix 的文件系统挂载在 <code class="docutils literal notranslate"><span class="pre">/usr</span></code>，有几个命令可用，如<code class="docutils literal notranslate"><span class="pre">ls</span></code>、<code class="docutils literal notranslate"><span class="pre">which</span></code>、<code class="docutils literal notranslate"><span class="pre">git</span></code>、<code class="docutils literal notranslate"><span class="pre">vim</span></code>。 由于这个原因，Conda 构建的 <code class="docutils literal notranslate"><span class="pre">environment_win.yml</span></code> 包含了所有需要的东西，包括 <code class="docutils literal notranslate"><span class="pre">git</span></code>。</p>
 </section>
 <section id="build-from-git-on-windows-with-wsl">
-<h2 id="build-from-git-on-windows-with-wsl">用WSL在Windows上从Git构建<a class="headerlink" href="#build-from-git-on-windows-with-wsl" title="永久链接至标题">¶</a></h2>
+<h2 id="build-from-git-on-windows-with-wsl">用 WSL 在 Windows上 从 Git 构建<a class="headerlink" href="#build-from-git-on-windows-with-wsl" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
-<li><p>在windows中搜索 “打开或关闭windows功能”。</p></li>
-<li><p>标记Linux的Windows子系统。</p></li>
-<li><p>按 “确定 “并重新启动计算机。</p></li>
-<li><p>到微软商店下载Ubuntu 20.04，并启动它。</p></li>
+<li><p>在 Windows 中搜索“打开或关闭 Windows 功能”。</p></li>
+<li><p>标记适用于Linux 的 Windows 子系统。</p></li>
+<li><p>按“确定”并重新启动计算机。</p></li>
+<li><p>到微软商店下载 Ubuntu 20.04，并启动它。</p></li>
 <li><p>运行下列程序语句。</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget  https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O miniconda.sh
@@ -689,8 +689,8 @@ bash miniconda.sh -b -p <span class="nv">$HOME</span>/conda_root
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>然后按ctrl + O（保存），Enter（确认），ctrl + X（退出）</p></li>
-<li><p>之后，重新启动Ubuntu</p></li>
+<li><p>然后按 ctrl + O（保存），Enter（确认），ctrl + X（退出）</p></li>
+<li><p>之后，重新启动 Ubuntu</p></li>
 <li><p>运行以下内容</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n lf -c conda-forge <span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1 <span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4 re2c python cmake make toml
@@ -698,7 +698,7 @@ conda init bash
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>再次重启Ubuntu</p></li>
+<li><p>再次重启 Ubuntu</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate lf
 sudo apt update
@@ -708,9 +708,9 @@ sudo apt install clang
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>你可以使用 <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/mnt/[drive</span> <span class="pre">letter]/[windows</span> <span class="pre">location]</span></code>将目录改为Windows位置。</p></li>
+<li><p>你可以使用 <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/mnt/[drive</span> <span class="pre">letter]/[windows</span> <span class="pre">location]</span></code>将路径改为 Windows 位置。</p></li>
 <li><p>例如：<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">mnt/c/Users/name/source/repos/</span></code></p></li>
-<li><p>现在克隆LFortran的git仓库</p></li>
+<li><p>现在克隆 LFortran 的 git 仓库</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/lfortran/lfortran.git
 <span class="nb">cd</span> lfortran
@@ -726,7 +726,7 @@ make -j8
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>如果一切都能编译，你可以使用LFortran，如下所示</p></li>
+<li><p>如果一切都能编译，你可以使用 LFortran，如下所示</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran ./examples/expr2.f90
 ./a.out
@@ -747,12 +747,12 @@ make -j8
 </div>
 </section>
 <section id="enabling-the-jupyter-kernel">
-<h2 id="enabling-the-jupyter-kernel">启用Jupyter内核<a class="headerlink" href="#enabling-the-jupyter-kernel" title="永久链接至标题">¶</a></h2>
-<p>要安装Jupyter内核，还要安装以下Conda软件包:</p>
+<h2 id="enabling-the-jupyter-kernel">启用 Jupyter 内核<a class="headerlink" href="#enabling-the-jupyter-kernel" title="永久链接至标题">¶</a></h2>
+<p>要安装 Jupyter 内核，还要安装以下 Conda 软件包:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">xeus</span> <span class="n">xtl</span> <span class="n">nlohmann_json</span> <span class="n">cppzmq</span>
 </pre></div>
 </div>
-<p>并通过<code class="docutils literal notranslate"><span class="pre">-DWITH_XEUS=yes</span></code>启用内核，然后安装到<code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code>。比如说:</p>
+<p>并通过 <code class="docutils literal notranslate"><span class="pre">-DWITH_XEUS=yes</span></code> 启用内核，然后安装到 <code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code>。比如：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> \
     <span class="o">-</span><span class="n">DCMAKE_BUILD_TYPE</span><span class="o">=</span><span class="n">Debug</span> \
     <span class="o">-</span><span class="n">DWITH_LLVM</span><span class="o">=</span><span class="n">yes</span> \
@@ -763,32 +763,32 @@ make -j8
 <span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="o">.</span> <span class="o">-</span><span class="n">j4</span> <span class="o">--</span><span class="n">target</span> <span class="n">install</span>
 </pre></div>
 </div>
-<p>要使用它，请安装Jupyter（<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">jupyter</span></code>）并测试是否找到LFortran内核:</p>
+<p>要使用它，请安装 Jupyter（<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">jupyter</span></code>）并测试是否找到 LFortran 内核:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">kernelspec</span> <span class="nb">list</span> <span class="o">--</span><span class="n">json</span>
 </pre></div>
 </div>
-<p>然后启动Jupyter notebook，如下所示:</p>
+<p>然后启动 Jupyter notebook，如下所示:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">notebook</span>
 </pre></div>
 </div>
-<p>单击<code class="docutils literal notranslate"><span class="pre">新的-</span> <span class="pre">&gt;</span> <span class="pre">Fortran</span></code>。启动jupyter LFortran终端控制台:</p>
+<p>单击 <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">-</span> <span class="pre">&gt;</span> <span class="pre">Fortran</span></code>。启动 jupyter LFortran 终端控制台：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">console</span> <span class="o">--</span><span class="n">kernel</span><span class="o">=</span><span class="n">fortran</span>
 </pre></div>
 </div>
 </section>
 <section id="build-from-git-with-nix">
-<h2 id="build-from-git-with-nix">使用Nix从Git构建<a class="headerlink" href="#build-from-git-with-nix" title="永久链接至标题">¶</a></h2>
-<p>确保精确环境和依赖关系的方法之一是使用<code class="docutils literal notranslate"><span class="pre">nix</span></code>。这将确保系统的依赖性不会干扰到开发环境。如果你愿意，你可以在<code class="docutils literal notranslate"><span class="pre">nix-shell</span></code>环境下报告bug，以方便别人复制。</p>
+<h2 id="build-from-git-with-nix">使用 Nix 从 Git 构建<a class="headerlink" href="#build-from-git-with-nix" title="永久链接至标题">¶</a></h2>
+<p>确保精确环境和依赖关系的方法之一是使用 <code class="docutils literal notranslate"><span class="pre">nix</span></code>。这将确保系统的依赖性不会干扰到开发环境。如果你愿意，你可以在 <code class="docutils literal notranslate"><span class="pre">nix-shell</span></code> 环境下报告 bug，以方便别人复制。</p>
 <section id="with-root">
 <h3 id="with-root">带有 root 权限<a class="headerlink" href="#with-root" title="永久链接至标题">¶</a></h3>
-<p>我们从获得<code class="docutils literal notranslate"><span class="pre">nix</span></code>开始。下面的多用户安装将在任何装有Linux发行版、MacOS或Windows（通过WSL）的机器上工作:</p>
+<p>我们从获得 <code class="docutils literal notranslate"><span class="pre">nix</span></code> 开始。下面的多用户安装将在任何装有 Linux 发行版、MacOS 或 Windows（通过 WSL）的机器上工作：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sh &lt;<span class="o">(</span>curl -L https://nixos.org/nix/install<span class="o">)</span> --daemon
 </pre></div>
 </div>
 </section>
 <section id="without-root">
 <h3 id="without-root">不带有 root 权限<a class="headerlink" href="#without-root" title="永久链接至标题">¶</a></h3>
-<p>如果你想不给<code class="docutils literal notranslate"><span class="pre">nix</span></code>提供机器的root权限，在Linux发行版上，我们可以使用[nix-portable] (https://github.com/DavHau/nix-portable)。</p>
+<p>如果你想不给<code class="docutils literal notranslate"><span class="pre">nix</span></code>提供机器的root权限，在Linux发行版上，我们可以使用 <a class="reference external" href="https://github.com/DavHau/nix-portable">nix-portable</a>.。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/DavHau/nix-portable/releases/download/v003/nix-portable
 </pre></div>
 </div>
@@ -806,13 +806,13 @@ nix-shell --run <span class="s2">"bash"</span>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell --run <span class="s2">"bash"</span> --cores <span class="m">4</span> -j4 --pure ci/shell.nix
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">--pure</span></code>标志确保在环境中不使用系统依赖。</p>
-<p>构建步骤与 <code class="docutils literal notranslate"><span class="pre">ci</span> </code>相同:</p>
+<p><code class="docutils literal notranslate"><span class="pre">--pure</span></code> 标志确保在环境中不使用系统依赖。</p>
+<p>构建步骤与 <code class="docutils literal notranslate"><span class="pre">ci</span> </code> 相同:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build0.sh
 ./build1.sh
 </pre></div>
 </div>
-<p>要把编译环境从<code class="docutils literal notranslate"><span class="pre">gcc</span></code>（默认）改为<code class="docutils literal notranslate"><span class="pre">clang</span></code>，我们可以使用<code class="docutils literal notranslate"><span class="pre">--argstr</span></code>:</p>
+<p>要把编译环境从 <code class="docutils literal notranslate"><span class="pre">gcc</span></code>（默认）改为 <code class="docutils literal notranslate"><span class="pre">clang</span></code>，我们可以使用 <code class="docutils literal notranslate"><span class="pre">--argstr</span></code>：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell --run <span class="s2">"bash"</span> --cores <span class="m">4</span> -j4 --pure ci/shell.nix --argstr clangOnly <span class="s2">"yes"</span>
 </pre></div>
 </div>
@@ -820,41 +820,40 @@ nix-shell --run <span class="s2">"bash"</span>
 </section>
 <section id="note-about-dependencies">
 <h2 id="note-about-dependencies">关于依赖性的说明<a class="headerlink" href="#note-about-dependencies" title="永久链接至标题">¶</a></h2>
-<p>我们鼓励终端用户（和发行版）使用来自 [https://lfortran.org/download/] (https://lfortran.org/download/)的tarball，它只依赖于LLVM、CMake和C++编译器。</p>
-<p>这个tarball是由我们的CI（持续集成）自动生成的，包含一些自动生成的文件：解析器、AST和ASR节点，由ASDL翻译器生成（需要Python）。</p>
-<p>在开发LFortran本身时要使用来自git的指令。</p>
+<p>我们鼓励终端用户（和发行版）使用来自 <a class="reference external" href="https://lfortran.org/download/">https://lfortran.org/download/</a>的tarball，它只依赖于LLVM、CMake和C++编译器。</p>
+<p>这个 tarball 是由我们的 CI（持续集成）自动生成的，包含一些自动生成的文件：解析器、AST 和 ASR 节点，由 ASDL 翻译器生成（需要 Python）。</p>
+<p>在开发 LFortran 本身时要使用来自 git 的指令。</p>
 </section>
 <section id="note-for-users-who-do-not-use-conda">
-<h2 id="note-for-users-who-do-not-use-conda">不使用Conda的用户注意<a class="headerlink" href="#note-for-users-who-do-not-use-conda" title="永久链接至标题">¶</a></h2>
-<p>Following are the dependencies necessary for installing this
-repository in development mode,</p>
+<h2 id="note-for-users-who-do-not-use-conda">不使用 Conda 的用户注意<a class="headerlink" href="#note-for-users-who-do-not-use-conda" title="永久链接至标题">¶</a></h2>
+<p>以下是在开发模式下安装此版本库的必要依赖，</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://ftp.gnu.org/gnu/bison/bison-3.5.1.tar.xz">Bison - 3.5.1</a></p></li>
 <li><p><a class="reference external" href="https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.1/llvm-11.0.1.src.tar.xz">LLVM - 11.0.1</a></p></li>
 <li><p><a class="reference external" href="https://re2c.org/install/install.html">re2c - 2.0.3</a></p></li>
-<li><p><a class="reference external" href="ftp://sourceware.org/pub/binutils/snapshots/binutils-2.31.90.tar.xz">binutils - 2.31.90</a> - 确保你应该启用与此依赖关系相关的必要选项来构建动态库（以<code class="docutils literal notranslate"><span class="pre">.so</span></code>结尾的库）。</p></li>
+<li><p><a class="reference external" href="ftp://sourceware.org/pub/binutils/snapshots/binutils-2.31.90.tar.xz">binutils - 2.31.90</a> —— 确保你应该启用与此依赖关系相关的必要选项来构建动态库（以 <code class="docutils literal notranslate"><span class="pre">.so</span></code> 结尾的库）。</p></li>
 </ul>
 </section>
 <section id="stacktraces">
 <h2 id="stacktraces">堆栈跟踪<a class="headerlink" href="#stacktraces" title="永久链接至标题">¶</a></h2>
-<p>LFortran 可以在出现未处理的异常时打印堆栈跟踪，也可以在任何编译器错误时使用 <code class="docutils literal notranslate"><span class="pre">--show-stacktrace</span></code> 选项。这对开发编译器本身很有帮助，可以看到LFortran中的问题所在。默认情况下，堆栈跟踪支持是关闭的，要启用它，需要在每个平台上按照下面的说明安装先决条件后，用<code class="docutils literal notranslate"><span class="pre">-DWITH_STACKTRACE=yes</span></code> cmake选项编译LFortran。</p>
+<p>LFortran 可以在出现未处理的异常时打印堆栈跟踪，也可以在任何编译器错误时使用 <code class="docutils literal notranslate"><span class="pre">--show-stacktrace</span></code> 选项。这对开发编译器本身很有帮助，可以看到 LFortran 中的问题所在。默认情况下，堆栈跟踪支持是关闭的，要启用它，需要在每个平台上按照下面的说明安装先决条件后，用<code class="docutils literal notranslate"><span class="pre">-DWITH_STACKTRACE=yes</span></code> cmake 选项编译 LFortran。</p>
 <section id="ubuntu">
 <h3 id="ubuntu">Ubuntu<a class="headerlink" href="#ubuntu" title="永久链接至标题">¶</a></h3>
-<p>在Ubuntu系统, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">binutils-dev</span></code>.</p>
+<p>在 Ubuntu 系统，<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">binutils-dev</span></code>。</p>
 </section>
 <section id="macos">
 <h3 id="macos">macOS<a class="headerlink" href="#macos" title="永久链接至标题">¶</a></h3>
-<p>如果你在macOS上使用默认的Clang编译器，那么堆栈跟踪应该正好在基于Intel和M1的macOS上工作（CMake构建系统自动调用<code class="docutils literal notranslate"><span class="pre">dsymtuil</span></code>工具和我们的Python脚本来存储调试信息，更多细节见<code class="docutils literal notranslate"><span class="pre">src/bin/CMakeLists.txt</span></code>）。如果不能工作，请报告一个错误。</p>
-<p>如果你不喜欢默认的方式，另一个选择是使用bintutils。为此，首先安装<a class="reference external" href="https://spack.io/">Spack</a>，然后:</p>
+<p>如果你在 macOS 上使用默认的 Clang 编译器，那么堆栈跟踪应该正好在基于 Intel 和 M1 的 macOS 上工作（CMake 构建系统自动调用 <code class="docutils literal notranslate"><span class="pre">dsymtuil</span></code> 工具和我们的 Python 脚本来存储调试信息，更多细节见 <code class="docutils literal notranslate"><span class="pre">src/bin/CMakeLists.txt</span></code>）。如果不能工作，请报告一个错误。</p>
+<p>如果你不喜欢默认的方式，另一个选择是使用bintutils。为此，首先安装 <a class="reference external" href="https://spack.io/">Spack</a>，然后：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spack</span> <span class="n">install</span> <span class="n">binutils</span>
 <span class="n">spack</span> <span class="n">find</span> <span class="o">-</span><span class="n">p</span> <span class="n">binutils</span>
 </pre></div>
 </div>
-<p>最后一条命令将显示已安装的<code class="docutils literal notranslate"><span class="pre">binutils</span></code>软件包的完整路径。把这个路径添加到你的shell配置文件中，例如:</p>
+<p>最后一条命令将显示已安装的 <code class="docutils literal notranslate"><span class="pre">binutils</span></code> 软件包的完整路径。把这个路径添加到你的 shell 配置文件中，例如：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">CMAKE_PREFIX_PATH_LFORTRAN</span><span class="o">=/</span><span class="n">Users</span><span class="o">/</span><span class="n">ondrej</span><span class="o">/</span><span class="n">repos</span><span class="o">/</span><span class="n">spack</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">spack</span><span class="o">/</span><span class="n">darwin</span><span class="o">-</span><span class="n">catalina</span><span class="o">-</span><span class="n">broadwell</span><span class="o">/</span><span class="n">apple</span><span class="o">-</span><span class="n">clang</span><span class="o">-</span><span class="mf">11.0.0</span><span class="o">/</span><span class="n">binutils</span><span class="o">-</span><span class="mf">2.36.1</span><span class="o">-</span><span class="n">wy6osfm6bp2323g3jpv2sjuttthwx3gd</span>
 </pre></div>
 </div>
-<p>并使用<code class="docutils literal notranslate"><span class="pre">-DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH_LFORTRAN;$CONDA_PREFIX"</span></code> cmake选项编译LFortran。<code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code>是在你使用Conda安装了一些其他的依赖项（如<code class="docutils literal notranslate"><span class="pre">llvm</span></code>）的情况下出现的，否则你可以把它删除。</p>
+<p>并使用 <code class="docutils literal notranslate"><span class="pre">-DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH_LFORTRAN;$CONDA_PREFIX"</span></code> cmake 选项编译 LFortran。<code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code> 是在你使用 Conda 安装了一些其他的依赖项（如 <code class="docutils literal notranslate"><span class="pre">llvm</span></code>）的情况下出现的，否则你可以把它删除。</p>
 </section>
 </section>
 </section>
@@ -883,12 +882,12 @@ repository in development mode,</p>
             </a>
           
           
-            <a href="../language/" title="Fortran Language"
+            <a href="../language/" title="Fortran 语言"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Fortran Language </span>
+                class="md-footer-nav__direction"> Next </span> Fortran 语言 </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

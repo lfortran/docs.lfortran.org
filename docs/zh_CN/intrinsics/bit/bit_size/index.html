@@ -47,7 +47,7 @@
   
   
   
-    <title>bit_size(x): Bit Size &#8212; LFortran</title>
+    <title>bit_size(x): 位大小 &#8212; LFortran</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -64,8 +64,8 @@
     <link rel="shortcut icon" href="../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="索引" href="../../../genindex/" />
     <link rel="search" title="搜索" href="../../../search/" />
-    <link rel="next" title="bge(x, y): Bitwise Less or Equal" href="../ble/" />
-    <link rel="prev" title="bgt(x, y): Bitwise Greater Than" href="../bgt/" />
+    <link rel="next" title="bge(x, y)：按位小于或等于" href="../ble/" />
+    <link rel="prev" title="bgt(x, y)：按位大于" href="../bgt/" />
   
    
 
@@ -103,7 +103,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">LFortran Documentation</span>
-          <span class="md-header-nav__topic"> bit_size(x): Bit Size </span>
+          <span class="md-header-nav__topic"> bit_size(x): 位大小 </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -201,7 +201,7 @@
             <li class="md-tabs__item"><a href="../../../design/" class="md-tabs__link">Developers's Guide</a></li>
             
             <li class="md-tabs__item"><a href="../../array/" class="md-tabs__link">Intrinsics</a></li>
-          <li class="md-tabs__item"><a href="../" class="md-tabs__link">Bit Intrinsic Functions</a></li>
+          <li class="md-tabs__item"><a href="../" class="md-tabs__link">位操作内置函数</a></li>
       </ul>
     </div>
   </nav>
@@ -255,7 +255,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../language/" class="md-nav__link">Fortran Language</a>
+      <a href="../../../language/" class="md-nav__link">Fortran 语言</a>
       
     
     </li>
@@ -274,7 +274,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../progress/#topics" class="md-nav__link">Topics</a>
+      <a href="../../../progress/#topics" class="md-nav__link">话题</a>
       
     
     </li>
@@ -313,32 +313,32 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran 内在函数</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">LFortran 内置函数</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../array/" class="md-nav__link">数组内在函数</a>
+      <a href="../../array/" class="md-nav__link">数组内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../" class="md-nav__link">Bit Intrinsic Functions</a>
+      <a href="../" class="md-nav__link">位操作内置函数</a>
       <ul class="md-nav__list"> 
     <li class="md-nav__item">
     
     
-      <a href="../bge/" class="md-nav__link">bge(x, y): Bitwise Greater or Equal</a>
+      <a href="../bge/" class="md-nav__link">bge(x, y)：按位大于或等于</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../bgt/" class="md-nav__link">bgt(x, y): Bitwise Greater Than</a>
+      <a href="../bgt/" class="md-nav__link">bgt(x, y)：按位大于</a>
       
     
     </li>
@@ -346,21 +346,21 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> bit_size(x): Bit Size </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> bit_size(x): 位大小 </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">bit_size(x): Bit Size</a>
+      <a href="#" class="md-nav__link md-nav__link--active">bit_size(x): 位大小</a>
       
         
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#intrinsics-bit-bit-size--page-root" class="md-nav__link">bit_size(x): Bit Size</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#intrinsics-bit-bit-size--page-root" class="md-nav__link">bit_size(x): 位大小</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#declaration" class="md-nav__link">声明</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">句法</a>
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">语法</a>
         </li>
-        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">论据</a>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">参数</a>
         </li>
         <li class="md-nav__item"><a href="#return-values" class="md-nav__link">返回值</a>
         </li></ul>
@@ -368,9 +368,9 @@
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">说明</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        <li class="md-nav__item"><a href="#types" class="md-nav__link">类型</a>
         </li>
-        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">示例</a>
         </li>
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">也可以看看</a>
         </li></ul>
@@ -384,35 +384,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../ble/" class="md-nav__link">bge(x, y): Bitwise Less or Equal</a>
+      <a href="../ble/" class="md-nav__link">bge(x, y)：按位小于或等于</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../blt/" class="md-nav__link">blt(x, y): Bitwise Less Than</a>
+      <a href="../blt/" class="md-nav__link">blt(x, y)：按位小于</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../btest/" class="md-nav__link">btest(x, pos): Bit Test at Position</a>
+      <a href="../btest/" class="md-nav__link">btest(x, pos)：位置位测试</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../shiftl/" class="md-nav__link">shiftl(x, shift): Shift Left</a>
+      <a href="../shiftl/" class="md-nav__link">shiftl(x, shift)：左移</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../shiftr/" class="md-nav__link">shiftr(x, shift): Shift Right</a>
+      <a href="../shiftr/" class="md-nav__link">shiftr(x, shift)：右移</a>
       
     
     </li></ul>
@@ -421,35 +421,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../character/" class="md-nav__link">Character Intrinsic Functions</a>
+      <a href="../../character/" class="md-nav__link">字符内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../kind-type/" class="md-nav__link">Kind Type Intrinsic Functions</a>
+      <a href="../../kind-type/" class="md-nav__link">种类类型内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../mathematical/" class="md-nav__link">Mathematical Intrinsic Functions</a>
+      <a href="../../mathematical/" class="md-nav__link">数学内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../numeric/" class="md-nav__link">Numeric Intrinsic Functions</a>
+      <a href="../../numeric/" class="md-nav__link">数值内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../misc/" class="md-nav__link">Miscellaneous Intrinsic Functions</a>
+      <a href="../../misc/" class="md-nav__link">其他内置函数</a>
       
     
     </li>
@@ -467,13 +467,13 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#intrinsics-bit-bit-size--page-root" class="md-nav__link">bit_size(x): Bit Size</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#intrinsics-bit-bit-size--page-root" class="md-nav__link">bit_size(x): 位大小</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#declaration" class="md-nav__link">声明</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">句法</a>
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">语法</a>
         </li>
-        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">论据</a>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">参数</a>
         </li>
         <li class="md-nav__item"><a href="#return-values" class="md-nav__link">返回值</a>
         </li></ul>
@@ -481,9 +481,9 @@
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">说明</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        <li class="md-nav__item"><a href="#types" class="md-nav__link">类型</a>
         </li>
-        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">示例</a>
         </li>
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">也可以看看</a>
         </li></ul>
@@ -499,34 +499,33 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="bit-size-x-bit-size">
-<h1 id="intrinsics-bit-bit-size--page-root">bit_size(x): Bit Size<a class="headerlink" href="#intrinsics-bit-bit-size--page-root" title="永久链接至标题">¶</a></h1>
-<p>Bit size.</p>
+<h1 id="intrinsics-bit-bit-size--page-root">bit_size(x): 位大小<a class="headerlink" href="#intrinsics-bit-bit-size--page-root" title="永久链接至标题">¶</a></h1>
+<p>位大小。</p>
 <section id="declaration">
 <h2 id="declaration">声明<a class="headerlink" href="#declaration" title="永久链接至标题">¶</a></h2>
 <section id="syntax">
-<h3 id="syntax">句法<a class="headerlink" href="#syntax" title="永久链接至标题">¶</a></h3>
+<h3 id="syntax">语法<a class="headerlink" href="#syntax" title="永久链接至标题">¶</a></h3>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">bit_size</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="w"></span>
 <span class="k">elemental </span><span class="kt">logical </span><span class="k">function </span><span class="nb">bit_size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="arguments">
-<h3 id="arguments">论据<a class="headerlink" href="#arguments" title="永久链接至标题">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">x</span></code> is integer input value.</p>
+<h3 id="arguments">参数<a class="headerlink" href="#arguments" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">x</span></code> 是整数输入值。</p>
 </section>
 <section id="return-values">
 <h3 id="return-values">返回值<a class="headerlink" href="#return-values" title="永久链接至标题">¶</a></h3>
-<p>The return value is of type integer.</p>
+<p>返回值是整数类型。</p>
 </section>
 </section>
 <section id="description">
 <h2 id="description">说明<a class="headerlink" href="#description" title="永久链接至标题">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">bit_size(x)</span></code> calculates the number of bits including sign bit of binary
-representation of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">bit_size(x)</span></code> 计算 <code class="docutils literal notranslate"><span class="pre">x</span></code> 的二进制表示的包括符号位在内的位数。</p>
 </section>
 <section id="types">
-<h2 id="types">Types<a class="headerlink" href="#types" title="永久链接至标题">¶</a></h2>
-<p>Supported input types is integer.</p>
+<h2 id="types">类型<a class="headerlink" href="#types" title="永久链接至标题">¶</a></h2>
+<p>支持的输入类型是整数。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">lfortran_intrinsic_builtin</span>
 <span class="n">implicit</span> <span class="n">none</span>
 
@@ -541,7 +540,7 @@ representation of <code class="docutils literal notranslate"><span class="pre">x
 </div>
 </section>
 <section id="examples">
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="永久链接至标题">¶</a></h2>
+<h2 id="examples">示例<a class="headerlink" href="#examples" title="永久链接至标题">¶</a></h2>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">intrinsics_bit_size</span><span class="w"></span>
 <span class="w">    </span><span class="k">implicit none</span>
 <span class="k">    print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="nb">bit_size</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span><span class="w"></span>
@@ -549,7 +548,7 @@ representation of <code class="docutils literal notranslate"><span class="pre">x
 <span class="k">end program</span><span class="w"></span>
 </pre></div>
 </div>
-<p><strong>Result:</strong></p>
+<p><strong>结果：</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">32</span>
 <span class="mi">32</span>
 </pre></div>
@@ -570,7 +569,7 @@ representation of <code class="docutils literal notranslate"><span class="pre">x
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../bgt/" title="bgt(x, y): Bitwise Greater Than"
+            <a href="../bgt/" title="bgt(x, y)：按位大于"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -579,17 +578,17 @@ representation of <code class="docutils literal notranslate"><span class="pre">x
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> bgt(x, y): Bitwise Greater Than </span>
+                      class="md-footer-nav__direction"> Previous </span> bgt(x, y)：按位大于 </span>
               </div>
             </a>
           
           
-            <a href="../ble/" title="bge(x, y): Bitwise Less or Equal"
+            <a href="../ble/" title="bge(x, y)：按位小于或等于"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> bge(x, y): Bitwise Less or Equal </span>
+                class="md-footer-nav__direction"> Next </span> bge(x, y)：按位小于或等于 </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

@@ -47,7 +47,7 @@
   
   
   
-    <title>cshift(A, shift [, dim]): Circular Shift &#8212; LFortran</title>
+    <title>cshift(A, shift [, dim]): Desplazamiento circular &#8212; LFortran</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -64,8 +64,8 @@
     <link rel="shortcut icon" href="../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="Índice" href="../../../genindex/" />
     <link rel="search" title="Búsqueda" href="../../../search/" />
-    <link rel="next" title="size(x): Size of Array" href="../size/" />
-    <link rel="prev" title="allocated(x): Status Check" href="../allocated/" />
+    <link rel="next" title="size(x): tamaño de la matriz" href="../size/" />
+    <link rel="prev" title="allocated(x): verificación de estado" href="../allocated/" />
   
    
 
@@ -103,7 +103,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">LFortran Documentation</span>
-          <span class="md-header-nav__topic"> cshift(A, shift [, dim]): Circular Shift </span>
+          <span class="md-header-nav__topic"> cshift(A, shift [, dim]): Desplazamiento circular </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -201,7 +201,7 @@
             <li class="md-tabs__item"><a href="../../../design/" class="md-tabs__link">Developers's Guide</a></li>
             
             <li class="md-tabs__item"><a href="../" class="md-tabs__link">Intrinsics</a></li>
-          <li class="md-tabs__item"><a href="../" class="md-tabs__link">Array Intrinsic Functions</a></li>
+          <li class="md-tabs__item"><a href="../" class="md-tabs__link">Funciones intrínsecas de matriz</a></li>
       </ul>
     </div>
   </nav>
@@ -242,13 +242,13 @@
   <ul class="md-nav__list">
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">Getting started</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Iniciando</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../installation/" class="md-nav__link">Installation</a>
+      <a href="../../../installation/" class="md-nav__link">Instalación</a>
       
     
     </li>
@@ -261,13 +261,13 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran Development Status</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Estado del desarrollo de LFortran</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../progress/" class="md-nav__link">LFortran Development Status</a>
+      <a href="../../../progress/" class="md-nav__link">Estado del desarrollo de LFortran</a>
       
     
     </li>
@@ -280,7 +280,7 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">Developer's Guide</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Guía del desarrollador</span></span>
     
     </li>
     <li class="md-nav__item">
@@ -293,7 +293,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../developer_tutorial/" class="md-nav__link">Developer Tutorial</a>
+      <a href="../../../developer_tutorial/" class="md-nav__link">Tutorial para desarrolladores</a>
       
     
     </li>
@@ -313,18 +313,18 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran Intrinsics</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Intrínsecos de LFortran</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../" class="md-nav__link">Array Intrinsic Functions</a>
+      <a href="../" class="md-nav__link">Funciones intrínsecas de matriz</a>
       <ul class="md-nav__list"> 
     <li class="md-nav__item">
     
     
-      <a href="../allocated/" class="md-nav__link">allocated(x): Status Check</a>
+      <a href="../allocated/" class="md-nav__link">allocated(x): verificación de estado</a>
       
     
     </li>
@@ -332,33 +332,33 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> cshift(A, shift [, dim]): Circular Shift </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> cshift(A, shift [, dim]): Desplazamiento circular </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">cshift(A, shift [, dim]): Circular Shift</a>
+      <a href="#" class="md-nav__link md-nav__link--active">cshift(A, shift [, dim]): Desplazamiento circular</a>
       
         
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#intrinsics-array-cshift--page-root" class="md-nav__link">cshift(A, shift [, dim]): Circular Shift</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#intrinsics-array-cshift--page-root" class="md-nav__link">cshift(A, shift [, dim]): Desplazamiento circular</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaration</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaración</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Syntax</a>
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Sintaxis</a>
         </li>
-        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Arguments</a>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Argumentos</a>
         </li>
-        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Return values</a>
+        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Valores devueltos</a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Descripción</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        <li class="md-nav__item"><a href="#types" class="md-nav__link">Tipos</a>
         </li>
-        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Ejemplos</a>
         </li>
-        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
+        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">Ver también</a>
         </li></ul>
             </nav>
         </li>
@@ -370,7 +370,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../size/" class="md-nav__link">size(x): Size of Array</a>
+      <a href="../size/" class="md-nav__link">size(x): tamaño de la matriz</a>
       
     
     </li></ul>
@@ -379,14 +379,14 @@
     <li class="md-nav__item">
     
     
-      <a href="../../bit/" class="md-nav__link">Bit Intrinsic Functions</a>
+      <a href="../../bit/" class="md-nav__link">Funciones intrínsecas de bits</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../character/" class="md-nav__link">Character Intrinsic Functions</a>
+      <a href="../../character/" class="md-nav__link">Funciones intrínsecas de carácter</a>
       
     
     </li>
@@ -432,25 +432,25 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#intrinsics-array-cshift--page-root" class="md-nav__link">cshift(A, shift [, dim]): Circular Shift</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#intrinsics-array-cshift--page-root" class="md-nav__link">cshift(A, shift [, dim]): Desplazamiento circular</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaration</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaración</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Syntax</a>
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Sintaxis</a>
         </li>
-        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Arguments</a>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Argumentos</a>
         </li>
-        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Return values</a>
+        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Valores devueltos</a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Descripción</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        <li class="md-nav__item"><a href="#types" class="md-nav__link">Tipos</a>
         </li>
-        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Ejemplos</a>
         </li>
-        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
+        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">Ver también</a>
         </li></ul>
             </nav>
         </li>
@@ -464,45 +464,40 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="cshift-a-shift-dim-circular-shift">
-<h1 id="intrinsics-array-cshift--page-root">cshift(A, shift [, dim]): Circular Shift<a class="headerlink" href="#intrinsics-array-cshift--page-root" title="Enlazar permanentemente con este título">¶</a></h1>
-<p>Circular shift elements of an array.</p>
+<h1 id="intrinsics-array-cshift--page-root">cshift(A, shift [, dim]): Desplazamiento circular<a class="headerlink" href="#intrinsics-array-cshift--page-root" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Elementos de desplazamiento circular de una matriz.</p>
 <section id="declaration">
-<h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2 id="declaration">Declaración<a class="headerlink" href="#declaration" title="Enlazar permanentemente con este título">¶</a></h2>
 <section id="syntax">
-<h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3 id="syntax">Sintaxis<a class="headerlink" href="#syntax" title="Enlazar permanentemente con este título">¶</a></h3>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">cshift</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="nb">dim</span><span class="p">])</span><span class="w"></span>
 <span class="kt">integer </span><span class="k">function </span><span class="nb">cshift</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">shift</span><span class="p">,</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="nb">dim</span><span class="p">])</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="arguments">
-<h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Enlazar permanentemente con este título">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">A</span></code> the input array of any type or rank.</p>
-<p><code class="docutils literal notranslate"><span class="pre">shift</span></code> the input value of integer type.</p>
-<p><code class="docutils literal notranslate"><span class="pre">dim</span></code> optional dimension, if present, <code class="docutils literal notranslate"><span class="pre">cshift</span></code> returns the result of this dimension.</p>
+<h3 id="arguments">Argumentos<a class="headerlink" href="#arguments" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">A</span></code> la matriz de entrada de cualquier tipo o rango.</p>
+<p><code class="docutils literal notranslate"><span class="pre">shift</span></code> el valor de entrada de tipo entero.</p>
+<p>Dimensión opcional <code class="docutils literal notranslate"><span class="pre">dim</span></code>, si está presente, <code class="docutils literal notranslate"><span class="pre">cshift</span></code> devuelve el resultado de esta dimensión.</p>
 </section>
 <section id="return-values">
-<h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Enlazar permanentemente con este título">¶</a></h3>
-<p>The return value is of input array type and rank as the <code class="docutils literal notranslate"><span class="pre">A</span></code> array input argument.</p>
+<h3 id="return-values">Valores devueltos<a class="headerlink" href="#return-values" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El valor devuelto es del tipo de matriz de entrada y se clasifica como el argumento de entrada de la matriz <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
 </section>
 </section>
 <section id="description">
-<h2 id="description">Description<a class="headerlink" href="#description" title="Enlazar permanentemente con este título">¶</a></h2>
-<p><strong>cshift(A, shift [, dim])</strong> performs a circular shift on elements of <code class="docutils literal notranslate"><span class="pre">A</span></code> array
-along the dimension of <code class="docutils literal notranslate"><span class="pre">dim</span></code>. Default value of <code class="docutils literal notranslate"><span class="pre">dim</span></code> is 1, used when <code class="docutils literal notranslate"><span class="pre">dim</span></code> is
-not passed.</p>
-<p>If the rank of array is 1, then all elements of array are shifted by <code class="docutils literal notranslate"><span class="pre">shift</span></code>
-places. If rank is greater than one, then all complexte rank one sections of
-array along the given dimension are shifted.</p>
-<p>Elements shifted out one end of each rank one section are shifted back in the
-other end.</p>
+<h2 id="description">Descripción<a class="headerlink" href="#description" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><strong>cshift(A, shift [, dim])</strong> realiza un desplazamiento circular en los elementos de la matriz <code class="docutils literal notranslate"><span class="pre">A</span></code> a lo largo de la dimensión de <code class="docutils literal notranslate"><span class="pre">dim</span></code>. El valor predeterminado de <code class="docutils literal notranslate"><span class="pre">dim</span></code> es 1, se usa cuando no se pasa <code class="docutils literal notranslate"><span class="pre">dim</span></code>.</p>
+<p>Si el rango de la matriz es 1, entonces todos los elementos de la matriz se desplazan en lugares de <code class="docutils literal notranslate"><span class="pre">shift</span></code>. Si el rango es mayor que uno, todas las secciones complejas de rango uno de la matriz a lo largo de la dimensión dada se desplazan.</p>
+<p>Los elementos desplazados en un extremo de cada rango de una sección se desplazan hacia atrás en el otro extremo.</p>
 </section>
 <section id="types">
-<h2 id="types">Types<a class="headerlink" href="#types" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>Supported argument type is array for <code class="docutils literal notranslate"><span class="pre">A</span></code> and integer for <code class="docutils literal notranslate"><span class="pre">shift</span></code> and <code class="docutils literal notranslate"><span class="pre">dim</span></code>.</p>
+<h2 id="types">Tipos<a class="headerlink" href="#types" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El tipo de argumento admitido es una matriz para <code class="docutils literal notranslate"><span class="pre">A</span></code> y un número entero para <code class="docutils literal notranslate"><span class="pre">shift</span></code> y <code class="docutils literal notranslate"><span class="pre">dim</span></code>.</p>
 </section>
 <section id="examples">
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2 id="examples">Ejemplos<a class="headerlink" href="#examples" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">intrinsics_cshift</span><span class="w"></span>
 <span class="w">    </span><span class="k">implicit none</span>
 <span class="k">	</span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">dimension</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">]</span><span class="w"></span>
@@ -519,7 +514,7 @@ other end.</p>
 </div>
 </section>
 <section id="see-also">
-<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2 id="see-also">Ver también<a class="headerlink" href="#see-also" title="Enlazar permanentemente con este título">¶</a></h2>
 </section>
 </section>
 
@@ -533,7 +528,7 @@ other end.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../allocated/" title="allocated(x): Status Check"
+            <a href="../allocated/" title="allocated(x): verificación de estado"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -542,17 +537,17 @@ other end.</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> allocated(x): Status Check </span>
+                      class="md-footer-nav__direction"> Previous </span> allocated(x): verificación de estado </span>
               </div>
             </a>
           
           
-            <a href="../size/" title="size(x): Size of Array"
+            <a href="../size/" title="size(x): tamaño de la matriz"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> size(x): Size of Array </span>
+                class="md-footer-nav__direction"> Next </span> size(x): tamaño de la matriz </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

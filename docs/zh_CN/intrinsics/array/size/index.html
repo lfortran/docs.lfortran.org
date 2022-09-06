@@ -47,7 +47,7 @@
   
   
   
-    <title>size(x): Size of Array &#8212; LFortran</title>
+    <title>size(x)：数组大小 &#8212; LFortran</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -64,8 +64,8 @@
     <link rel="shortcut icon" href="../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="索引" href="../../../genindex/" />
     <link rel="search" title="搜索" href="../../../search/" />
-    <link rel="next" title="Bit Intrinsic Functions" href="../../bit/" />
-    <link rel="prev" title="cshift(A, shift [, dim]): Circular Shift" href="../cshift/" />
+    <link rel="next" title="位操作内置函数" href="../../bit/" />
+    <link rel="prev" title="cshift(A, shift [, dim])：循环移位" href="../cshift/" />
   
    
 
@@ -103,7 +103,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">LFortran Documentation</span>
-          <span class="md-header-nav__topic"> size(x): Size of Array </span>
+          <span class="md-header-nav__topic"> size(x)：数组大小 </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -201,7 +201,7 @@
             <li class="md-tabs__item"><a href="../../../design/" class="md-tabs__link">Developers's Guide</a></li>
             
             <li class="md-tabs__item"><a href="../" class="md-tabs__link">Intrinsics</a></li>
-          <li class="md-tabs__item"><a href="../" class="md-tabs__link">数组内在函数</a></li>
+          <li class="md-tabs__item"><a href="../" class="md-tabs__link">数组内置函数</a></li>
       </ul>
     </div>
   </nav>
@@ -255,7 +255,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../language/" class="md-nav__link">Fortran Language</a>
+      <a href="../../../language/" class="md-nav__link">Fortran 语言</a>
       
     
     </li>
@@ -274,7 +274,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../progress/#topics" class="md-nav__link">Topics</a>
+      <a href="../../../progress/#topics" class="md-nav__link">话题</a>
       
     
     </li>
@@ -313,25 +313,25 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran 内在函数</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">LFortran 内置函数</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../" class="md-nav__link">数组内在函数</a>
+      <a href="../" class="md-nav__link">数组内置函数</a>
       <ul class="md-nav__list"> 
     <li class="md-nav__item">
     
     
-      <a href="../allocated/" class="md-nav__link">已分配（x）：状态检查</a>
+      <a href="../allocated/" class="md-nav__link">allocated(x)：状态检查</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../cshift/" class="md-nav__link">cshift(A, shift [, dim]): Circular Shift</a>
+      <a href="../cshift/" class="md-nav__link">cshift(A, shift [, dim])：循环移位</a>
       
     
     </li>
@@ -339,21 +339,21 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> size(x): Size of Array </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> size(x)：数组大小 </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">size(x): Size of Array</a>
+      <a href="#" class="md-nav__link md-nav__link--active">size(x)：数组大小</a>
       
         
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#intrinsics-array-size--page-root" class="md-nav__link">size(x): Size of Array</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#intrinsics-array-size--page-root" class="md-nav__link">size(x)：数组大小</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#declaration" class="md-nav__link">声明</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">句法</a>
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">语法</a>
         </li>
-        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">论据</a>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">参数</a>
         </li>
         <li class="md-nav__item"><a href="#return-values" class="md-nav__link">返回值</a>
         </li></ul>
@@ -361,9 +361,9 @@
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">说明</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        <li class="md-nav__item"><a href="#types" class="md-nav__link">类型</a>
         </li>
-        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">示例</a>
         </li>
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">也可以看看</a>
         </li></ul>
@@ -379,42 +379,42 @@
     <li class="md-nav__item">
     
     
-      <a href="../../bit/" class="md-nav__link">Bit Intrinsic Functions</a>
+      <a href="../../bit/" class="md-nav__link">位操作内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../character/" class="md-nav__link">Character Intrinsic Functions</a>
+      <a href="../../character/" class="md-nav__link">字符内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../kind-type/" class="md-nav__link">Kind Type Intrinsic Functions</a>
+      <a href="../../kind-type/" class="md-nav__link">种类类型内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../mathematical/" class="md-nav__link">Mathematical Intrinsic Functions</a>
+      <a href="../../mathematical/" class="md-nav__link">数学内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../numeric/" class="md-nav__link">Numeric Intrinsic Functions</a>
+      <a href="../../numeric/" class="md-nav__link">数值内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../misc/" class="md-nav__link">Miscellaneous Intrinsic Functions</a>
+      <a href="../../misc/" class="md-nav__link">其他内置函数</a>
       
     
     </li>
@@ -432,13 +432,13 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#intrinsics-array-size--page-root" class="md-nav__link">size(x): Size of Array</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#intrinsics-array-size--page-root" class="md-nav__link">size(x)：数组大小</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#declaration" class="md-nav__link">声明</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">句法</a>
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">语法</a>
         </li>
-        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">论据</a>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">参数</a>
         </li>
         <li class="md-nav__item"><a href="#return-values" class="md-nav__link">返回值</a>
         </li></ul>
@@ -446,9 +446,9 @@
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">说明</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        <li class="md-nav__item"><a href="#types" class="md-nav__link">类型</a>
         </li>
-        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">示例</a>
         </li>
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">也可以看看</a>
         </li></ul>
@@ -464,41 +464,38 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="size-x-size-of-array">
-<h1 id="intrinsics-array-size--page-root">size(x): Size of Array<a class="headerlink" href="#intrinsics-array-size--page-root" title="永久链接至标题">¶</a></h1>
-<p>Returns the size of an array <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<h1 id="intrinsics-array-size--page-root">size(x)：数组大小<a class="headerlink" href="#intrinsics-array-size--page-root" title="永久链接至标题">¶</a></h1>
+<p>返回数组 <code class="docutils literal notranslate"><span class="pre">x</span></code> 的大小。</p>
 <section id="declaration">
 <h2 id="declaration">声明<a class="headerlink" href="#declaration" title="永久链接至标题">¶</a></h2>
 <section id="syntax">
-<h3 id="syntax">句法<a class="headerlink" href="#syntax" title="永久链接至标题">¶</a></h3>
+<h3 id="syntax">语法<a class="headerlink" href="#syntax" title="永久链接至标题">¶</a></h3>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">(</span><span class="n">A</span><span class="p">[,</span><span class="w"> </span><span class="nb">dim</span><span class="p">[,</span><span class="w"> </span><span class="nb">kind</span><span class="p">]])</span><span class="w"></span>
 <span class="kt">integer </span><span class="k">function </span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="arguments">
-<h3 id="arguments">论据<a class="headerlink" href="#arguments" title="永久链接至标题">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">A</span></code> the input array of any type or rank.</p>
-<p><code class="docutils literal notranslate"><span class="pre">dim</span></code> optional dimension, if present, <code class="docutils literal notranslate"><span class="pre">size</span></code> returns the size of this dimension.</p>
-<p><code class="docutils literal notranslate"><span class="pre">kind</span></code> optional the kind of the return value.</p>
+<h3 id="arguments">参数<a class="headerlink" href="#arguments" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">A</span></code> 为任何类型或维度的输入数组。</p>
+<p><code class="docutils literal notranslate"><span class="pre">dim</span></code> 可选维度，如果存在，<code class="docutils literal notranslate"><span class="pre">size</span></code> 返回此维度的大小。</p>
+<p><code class="docutils literal notranslate"><span class="pre">kind</span></code> 可选返回值的种类。</p>
 </section>
 <section id="return-values">
 <h3 id="return-values">返回值<a class="headerlink" href="#return-values" title="永久链接至标题">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">n</span></code> the size of an array (integer).</p>
+<p><code class="docutils literal notranslate"><span class="pre">n</span></code> 数组的大小（整型）。</p>
 </section>
 </section>
 <section id="description">
 <h2 id="description">说明<a class="headerlink" href="#description" title="永久链接至标题">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">size</span></code> intrinsic function returns the size of an array. It returns the
-product of all dimensions, unless the <code class="docutils literal notranslate"><span class="pre">dim</span></code> argument is specified, in which
-case it only returns the size of this particular dimension. The <code class="docutils literal notranslate"><span class="pre">kind</span></code> argument
-can be used to specify the integer kind of the result.</p>
+<p><code class="docutils literal notranslate"><span class="pre">size</span></code> 内部函数返回数组的大小。它返回所有维度的乘积，除非指定了 <code class="docutils literal notranslate"><span class="pre">dim</span></code> 参数，在这种情况下，它只返回这个特定维度的大小。 <code class="docutils literal notranslate"><span class="pre">kind</span></code> 参数可用于指定结果的整数类型。</p>
 </section>
 <section id="types">
-<h2 id="types">Types<a class="headerlink" href="#types" title="永久链接至标题">¶</a></h2>
-<p>Supported argument type is integer.</p>
+<h2 id="types">类型<a class="headerlink" href="#types" title="永久链接至标题">¶</a></h2>
+<p>支持的参数类型是整型。</p>
 </section>
 <section id="examples">
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="永久链接至标题">¶</a></h2>
+<h2 id="examples">示例<a class="headerlink" href="#examples" title="永久链接至标题">¶</a></h2>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">intrinsics_size</span><span class="w"></span>
 <span class="w">    </span><span class="k">implicit none</span>
 <span class="k">    </span><span class="kt">real</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
@@ -507,7 +504,7 @@ can be used to specify the integer kind of the result.</p>
 <span class="k">end program</span><span class="w"></span>
 </pre></div>
 </div>
-<p><strong>Result</strong>:</p>
+<p><strong>结果</strong>：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">12</span>
 <span class="mi">4</span>
 </pre></div>
@@ -515,7 +512,7 @@ can be used to specify the integer kind of the result.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">也可以看看<a class="headerlink" href="#see-also" title="永久链接至标题">¶</a></h2>
-<p><a class="reference internal" href="../"><span class="doc std std-doc">shape</span></a>, <a class="reference internal" href="../"><span class="doc std std-doc">reshape</span></a>.</p>
+<p><a class="reference internal" href="../"><span class="doc std std-doc">shape</span></a>，<a class="reference internal" href="../"><span class="doc std std-doc">reshape</span></a>。</p>
 </section>
 </section>
 
@@ -529,7 +526,7 @@ can be used to specify the integer kind of the result.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../cshift/" title="cshift(A, shift [, dim]): Circular Shift"
+            <a href="../cshift/" title="cshift(A, shift [, dim])：循环移位"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -538,17 +535,17 @@ can be used to specify the integer kind of the result.</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> cshift(A, shift [, dim]): Circular Shift </span>
+                      class="md-footer-nav__direction"> Previous </span> cshift(A, shift [, dim])：循环移位 </span>
               </div>
             </a>
           
           
-            <a href="../../bit/" title="Bit Intrinsic Functions"
+            <a href="../../bit/" title="位操作内置函数"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Bit Intrinsic Functions </span>
+                class="md-footer-nav__direction"> Next </span> 位操作内置函数 </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

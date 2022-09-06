@@ -47,7 +47,7 @@
   
   
   
-    <title>LFortran Design &#8212; LFortran</title>
+    <title>Design do LFortran &#8212; LFortran</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -64,8 +64,8 @@
     <link rel="shortcut icon" href="../_static/lfortran-logo.svg"/>
     <link rel="index" title="Índice" href="../genindex/" />
     <link rel="search" title="Pesquisar" href="../search/" />
-    <link rel="next" title="Developer Tutorial" href="../developer_tutorial/" />
-    <link rel="prev" title="LFortran Development Status" href="../progress/" />
+    <link rel="next" title="Tutorial de Desenvolvedor" href="../developer_tutorial/" />
+    <link rel="prev" title="Progresso no Desenvolvimento do LFortran" href="../progress/" />
   
    
 
@@ -103,7 +103,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">LFortran Documentation</span>
-          <span class="md-header-nav__topic"> LFortran Design </span>
+          <span class="md-header-nav__topic"> Design do LFortran </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -241,82 +241,82 @@
   <ul class="md-nav__list">
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">Getting started</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Começando</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../installation/" class="md-nav__link">Installation</a>
+      <a href="../installation/" class="md-nav__link">Instalação</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../language/" class="md-nav__link">Fortran Language</a>
+      <a href="../language/" class="md-nav__link">Linguagem Fortran</a>
       
     
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran Development Status</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Progresso no Desenvolvimento do LFortran</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../progress/" class="md-nav__link">LFortran Development Status</a>
+      <a href="../progress/" class="md-nav__link">Progresso no Desenvolvimento do LFortran</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../progress/#topics" class="md-nav__link">Topics</a>
+      <a href="../progress/#topics" class="md-nav__link">Tópicos</a>
       
     
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">Developer's Guide</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Guia do Desenvolvedor</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> LFortran Design </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Design do LFortran </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">LFortran Design</a>
+      <a href="#" class="md-nav__link md-nav__link--active">Design do LFortran</a>
       
         
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#design--page-root" class="md-nav__link">LFortran Design</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#design--page-root" class="md-nav__link">Design do LFortran</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#high-level-overview" class="md-nav__link">High Level Overview</a>
+        <li class="md-nav__item"><a href="#high-level-overview" class="md-nav__link">Visão Geral de Alto Nível</a>
         </li>
-        <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">ASR Design Details</a>
+        <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">Detalhes do design da ASR</a>
         </li>
-        <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notes:</a>
+        <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notas:</a>
         </li>
         <li class="md-nav__item"><a href="#fortran-2008" class="md-nav__link">Fortran 2008</a>
         </li>
-        <li class="md-nav__item"><a href="#lfortran-extension" class="md-nav__link">LFortran Extension</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#lfortran-extension" class="md-nav__link">Extensão do LFortran</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#example-1" class="md-nav__link">Example 1</a>
+        <li class="md-nav__item"><a href="#example-1" class="md-nav__link">Exemplo 1</a>
         </li>
-        <li class="md-nav__item"><a href="#example-2" class="md-nav__link">Example 2</a>
+        <li class="md-nav__item"><a href="#example-2" class="md-nav__link">Exemplo 2</a>
         </li>
-        <li class="md-nav__item"><a href="#example-3" class="md-nav__link">Example 3</a>
+        <li class="md-nav__item"><a href="#example-3" class="md-nav__link">Exemplo 3</a>
         </li>
-        <li class="md-nav__item"><a href="#example-4" class="md-nav__link">Example 4</a>
+        <li class="md-nav__item"><a href="#example-4" class="md-nav__link">Exemplo 4</a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#design-considerations" class="md-nav__link">Design Considerations</a>
+        <li class="md-nav__item"><a href="#design-considerations" class="md-nav__link">Considerações de Design</a>
         </li></ul>
             </nav>
         </li>
@@ -326,21 +326,21 @@
     <li class="md-nav__item">
     
     
-      <a href="#high-level-overview" class="md-nav__link">High Level Overview</a>
+      <a href="#high-level-overview" class="md-nav__link">Visão Geral de Alto Nível</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="#asr-design-details" class="md-nav__link">ASR Design Details</a>
+      <a href="#asr-design-details" class="md-nav__link">Detalhes do design da ASR</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="#notes" class="md-nav__link">Notes:</a>
+      <a href="#notes" class="md-nav__link">Notas:</a>
       
     
     </li>
@@ -354,14 +354,14 @@
     <li class="md-nav__item">
     
     
-      <a href="#lfortran-extension" class="md-nav__link">LFortran Extension</a>
+      <a href="#lfortran-extension" class="md-nav__link">Extensão do LFortran</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="#design-considerations" class="md-nav__link">Design Considerations</a>
+      <a href="#design-considerations" class="md-nav__link">Considerações de Design</a>
       
     
     </li></ul>
@@ -370,7 +370,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../developer_tutorial/" class="md-nav__link">Developer Tutorial</a>
+      <a href="../developer_tutorial/" class="md-nav__link">Tutorial de Desenvolvedor</a>
       
     
     </li>
@@ -390,27 +390,27 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran Intrinsics</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Funções Intrínsecas do LFortran</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/array/" class="md-nav__link">Array Intrinsic Functions</a>
+      <a href="../intrinsics/array/" class="md-nav__link">Funções Intrínsecas em Arrays</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/bit/" class="md-nav__link">Bit Intrinsic Functions</a>
+      <a href="../intrinsics/bit/" class="md-nav__link">Funções Intrínsecas de Bits</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/character/" class="md-nav__link">Character Intrinsic Functions</a>
+      <a href="../intrinsics/character/" class="md-nav__link">Funções Intrínsecas para Caracteres</a>
       
     
     </li>
@@ -456,29 +456,29 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#design--page-root" class="md-nav__link">LFortran Design</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#design--page-root" class="md-nav__link">Design do LFortran</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#high-level-overview" class="md-nav__link">High Level Overview</a>
+        <li class="md-nav__item"><a href="#high-level-overview" class="md-nav__link">Visão Geral de Alto Nível</a>
         </li>
-        <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">ASR Design Details</a>
+        <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">Detalhes do design da ASR</a>
         </li>
-        <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notes:</a>
+        <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notas:</a>
         </li>
         <li class="md-nav__item"><a href="#fortran-2008" class="md-nav__link">Fortran 2008</a>
         </li>
-        <li class="md-nav__item"><a href="#lfortran-extension" class="md-nav__link">LFortran Extension</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#lfortran-extension" class="md-nav__link">Extensão do LFortran</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#example-1" class="md-nav__link">Example 1</a>
+        <li class="md-nav__item"><a href="#example-1" class="md-nav__link">Exemplo 1</a>
         </li>
-        <li class="md-nav__item"><a href="#example-2" class="md-nav__link">Example 2</a>
+        <li class="md-nav__item"><a href="#example-2" class="md-nav__link">Exemplo 2</a>
         </li>
-        <li class="md-nav__item"><a href="#example-3" class="md-nav__link">Example 3</a>
+        <li class="md-nav__item"><a href="#example-3" class="md-nav__link">Exemplo 3</a>
         </li>
-        <li class="md-nav__item"><a href="#example-4" class="md-nav__link">Example 4</a>
+        <li class="md-nav__item"><a href="#example-4" class="md-nav__link">Exemplo 4</a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#design-considerations" class="md-nav__link">Design Considerations</a>
+        <li class="md-nav__item"><a href="#design-considerations" class="md-nav__link">Considerações de Design</a>
         </li></ul>
             </nav>
         </li>
@@ -492,70 +492,43 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="lfortran-design">
-<h1 id="design--page-root">LFortran Design<a class="headerlink" href="#design--page-root" title="Link permanente para este título">¶</a></h1>
+<h1 id="design--page-root">Design do LFortran<a class="headerlink" href="#design--page-root" title="Link permanente para este título">¶</a></h1>
 <section id="high-level-overview">
-<h2 id="high-level-overview">High Level Overview<a class="headerlink" href="#high-level-overview" title="Link permanente para este título">¶</a></h2>
-<p>LFortran is structured around two independent modules, AST and ASR, both of
-which are standalone (completely independent of the rest of LFortran) and users
-are encouraged to use them independently for other applications and build tools
-on top:</p>
+<h2 id="high-level-overview">Visão Geral de Alto Nível<a class="headerlink" href="#high-level-overview" title="Link permanente para este título">¶</a></h2>
+<p>LFortran está estruturado em torno de dois módulos independentes, AST e ASR, ambos autônomos (completamente independentes do resto do projeto) e os utilizadores são encorajados a utilizá-los independentemente para outras aplicações e a construir ferramentas com base nisso:</p>
 <ul class="simple">
-<li><p>Abstract Syntax Tree (AST), module <code class="docutils literal notranslate"><span class="pre">lfortran.ast</span></code>: Represents any Fortran
-source code, strictly based on syntax, no semantic is included. The AST
-module can convert itself to Fortran source code.</p></li>
-<li><p>Abstract Semantic Representation (ASR), module <code class="docutils literal notranslate"><span class="pre">lfortran.asr</span></code>: Represents a valid
-Fortran source code, all semantic is included. Invalid Fortran code is not
-allowed (an error will be given). The ASR module can convert itself to an
-AST.</p></li>
+<li><p>Árvore de Sintaxe Abstrata (AST), módulo <code class="docutils literal notranslate"><span class="pre">lfortran.ast</span></code>: representa qualquer código-fonte Fortran, estritamente baseado na sintaxe, nenhuma semântica está incluída. O módulo AST pode ser convertido em código em Fortran.</p></li>
+<li><p>Representação Semântica Abstrata (ASR), o módulo <code class="docutils literal notranslate"><span class="pre">lfortran.asr</span></code>: representa um código-fonte Fortran válido, toda a semântica está incluída. Não é permitido códigos inválidos em Fortran (será dado um erro). O módulo ASR pode ser convertido em uma AST.</p></li>
 </ul>
-<p>The LFortran compiler is then composed of the following independent stages:</p>
+<p>O compilador LFortran é então composto pelas seguintes etapas independentes:</p>
 <ul class="simple">
-<li><p>Parsing: converts Fortran source code to an AST</p></li>
-<li><p>Semantic: converts an AST to an ASR</p></li>
-<li><p>High level optimizations: optimize ASR to a possibly faster/simpler ASR
-(things like inlining functions, eliminating redundant expressions or
-statements, etc.)</p></li>
-<li><p>LLVM IR code generation and lower level optimizations: converts an ASR to an
-LLVM IR. This stage also does all other optimizations that do not produce an
-ASR, but still make sense to do before passing to LLVM IR.</p></li>
-<li><p>Machine code generation: LLVM then does all its optimizations and generates
-machine code (such as a binary executable, a library, an object file, or it
-is loaded and executed using JIT as part of the interactive LFortran session
-or in a Jupyter kernel).</p></li>
+<li><p>Análise: converte o código-fonte Fortran em uma AST</p></li>
+<li><p>Semântica: converte uma AST em uma ASR</p></li>
+<li><p>Otimizações de alto nível: otimiza a ASR para uma simplificá-la e possivelmente torná-la mais rápida (coisas como alinhamento de funções, eliminação de expressões ou comandos redundantes, etc.)</p></li>
+<li><p>Geração de código LLVM IR e otimizações de baixo nível: converte uma ASR em uma LLVM IR. Nesta etapa são feitas outras otimizações que não produzem uma ASR, porém ainda faz sentido fazê-las antes de passá-las ao LLVM IR.</p></li>
+<li><p>Geração de código de máquina: LLVM fará todas as suas otimizações e gerará código de máquina (como um executável, uma biblioteca, um arquivo objeto, ou carregado e executado usando JIT como parte de uma sessão interativa LFortran ou em um kernel do Jupyter).</p></li>
 </ul>
-<p>LFortran is structured as a library, and so one can for example use the parser
-to obtain an AST and do something with it, or one can then use the semantic
-analyzer to obtain ASR and do something with it. One can generate the ASR
-directly (e.g., from SymPy) and then either convert to AST and to a Fortran
-source code, or use LFortran to compile it to machine code directly. In other
-words, one can use LFortran to easily convert between the three equivalent
-representations:</p>
+<p>O LFortran está estruturado em forma de uma biblioteca, podendo ser usado para obter uma AST, ou usar o analisador semântico para obter uma ASR, podendo usá-las em uma aplicação. Também é possível gerar uma ASR diretamente (Ex: a partir do SymPy) e depois convertê-la a uma AST, para em seguida montar um código em Fortran, ou usar o LFortran para compilá-la em código de máquina diretamente. Em outras palavras, é fácil usar o LFortran para converter facilmente entre às três representações equivalentes:</p>
 <ul class="simple">
-<li><p>Fortran source code</p></li>
-<li><p>Abstract Syntax Tree (AST)</p></li>
-<li><p>Abstract Semantic Representation (ASR)</p></li>
+<li><p>Código-fonte em Fortran</p></li>
+<li><p>Árvore de Sintaxe Abstrata (AST)</p></li>
+<li><p>Representação Semântica Abstrata (ASR)</p></li>
 </ul>
-<p>They are all equivalent in the following sense:</p>
+<p>São todos equivalentes, no seguinte sentido:</p>
 <ul class="simple">
-<li><p>Any ASR can always be converted to an equivalent AST</p></li>
-<li><p>Any AST can always be converted to an equivalent Fortran source code</p></li>
-<li><p>Any Fortran source code can always be either converted to an equivalent AST
-or one gets a syntax error</p></li>
-<li><p>Any AST can always be either converted to an equivalent ASR or one gets a
-semantic error</p></li>
+<li><p>Qualquer ASR pode ser convertida em uma AST equivalente</p></li>
+<li><p>Qualquer AST pode sempre ser convertida em um código Fortran equivalente</p></li>
+<li><p>Qualquer código-fonte em Fortran pode ser sempre convertido em uma AST equivalente ou é emitido um erro de sintaxe</p></li>
+<li><p>Qualquer AST pode ser sempre convertida em uma ASR equivalente ou é emitido um erro de semântica</p></li>
 </ul>
-<p>So when a conversion can be done, they are equivalent, and the conversion can
-always be done unless the code is invalid.</p>
+<p>Então, quando a conversão pode ser realizada, são equivalentes, e esta pode sempre ser realizada, exceto no caso em que o código é invalido.</p>
 </section>
 <section id="asr-design-details">
-<h2 id="asr-design-details">ASR Design Details<a class="headerlink" href="#asr-design-details" title="Link permanente para este título">¶</a></h2>
-<p>The ASR is designed to have the following features:</p>
+<h2 id="asr-design-details">Detalhes do design da ASR<a class="headerlink" href="#asr-design-details" title="Link permanente para este título">¶</a></h2>
+<p>A ASR foi imaginada para ter os seguintes recursos:</p>
 <ul class="simple">
-<li><p>ASR is still semantically equivalent to the original Fortran code (it did not
-lose any semantic information). ASR can be converted to AST, and AST to
-Fortran source code which is functionally equivalent to the original.</p></li>
-<li><p>ASR is as simple as possible: it does not contain any information that could
-not be inferred from ASR.</p></li>
+<li><p>A ASR sempre é equivalente semanticamente ao código original Fortran (não perde nenhuma informação). A ASR pode ser convertida em uma AST, e a AST em código-fonte cuja funcionalidade é idêntica a original.</p></li>
+<li><p>A ASR é a mais simples possível: não contém nenhuma informação que não pode ser inferida de uma ASR.</p></li>
 <li><p>The ASR C++ classes (down the road) are designed similarly to SymEngine: they
 are constructed once and after that they are immutable. The constructor
 checks in Debug more that all the requirements are met (e.g., that all
@@ -571,11 +544,9 @@ of LFortran can depend on it.</p></li>
 </ul>
 </section>
 <section id="notes">
-<h2 id="notes">Notes:<a class="headerlink" href="#notes" title="Link permanente para este título">¶</a></h2>
-<p>Information that is lost when parsing source to AST:
-whitespace, multiline/single line if statement distinction, case sensitivity of keywords.</p>
-<p>Information that is lost when going from AST to ASR:
-detailed syntax how variables were defined and the order of type attributes (whether array dimension is using the <code class="docutils literal notranslate"><span class="pre">dimension</span></code> attribute, or parentheses at the variable; or how many variables there are per declaration line or their order), as ASR only represents the aggregated type information in the symbol table.</p>
+<h2 id="notes">Notas:<a class="headerlink" href="#notes" title="Link permanente para este título">¶</a></h2>
+<p>Informação perdida ao construir a ASR a partir do código-fonte: espaços em branco, distinção entre os comandos if na mesma linha e if ao longo de várias linhas, além das letras maiúsculas e minúsculas em palavras-chave.</p>
+<p>Informação perdida quando transformando uma AST em ASR: sintaxe detalhada de como as variáveis foram definidas e a ordem dos atributos de tipo (se a dimensão de um array está usando o atributo <code class="docutils literal notranslate"><span class="pre">dimension</span></code> ou uma expressão parentesada, ou ainda quantas variáveis existiam na linha, ou sua ordem), já que a ASR apenas representa as informações de tipo em uma tabela de símbolos.</p>
 <p>ASR is the simplest way to generate Fortran code, as one does not
 have to worry about the detailed syntax (as in AST) about how and where
 things are declared. One specifies the symbol table for a module, then for
@@ -600,28 +571,28 @@ When an ASR is used, one can assume it is valid.</p>
 units</em> (either all in one file, or in separate files), where each <em>program
 unit</em> is one of:</p>
 <ul class="simple">
-<li><p>main program</p></li>
-<li><p>module or submodule</p></li>
-<li><p>function or subroutine</p></li>
+<li><p>Programa principal</p></li>
+<li><p>módulo ou submódulo</p></li>
+<li><p>função ou sub-rotina</p></li>
 </ul>
 <p>Note: It can also be a <em>block data</em> program unit, that is used to provide
 initial values for data objects in named <em>common blocks</em>, but we do not
 recommend the use of <em>common blocks</em> (use modules instead).</p>
 </section>
 <section id="lfortran-extension">
-<h2 id="lfortran-extension">LFortran Extension<a class="headerlink" href="#lfortran-extension" title="Link permanente para este título">¶</a></h2>
+<h2 id="lfortran-extension">Extensão do LFortran<a class="headerlink" href="#lfortran-extension" title="Link permanente para este título">¶</a></h2>
 <p>We extend the Fortran language by introducing a <em>global scope</em>, which is not
 only the list of <em>program units</em> (as in F2008) but can also include statements,
 declarations, use statements and expressions. We define <em>global scope</em> as a
 collection of the following items:</p>
 <ul class="simple">
-<li><p>main program</p></li>
-<li><p>module or submodule</p></li>
-<li><p>function or subroutine</p></li>
-<li><p>use statement</p></li>
-<li><p>declaration</p></li>
-<li><p>statement</p></li>
-<li><p>expression</p></li>
+<li><p>Programa principal</p></li>
+<li><p>módulo ou submódulo</p></li>
+<li><p>função ou sub-rotina</p></li>
+<li><p>comando use</p></li>
+<li><p>declaração</p></li>
+<li><p>comando</p></li>
+<li><p>expressão</p></li>
 </ul>
 <p>In addition, if a variable is not defined in an assignment statement (such as
 <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">5+3</span></code>) then the type of the variable is inferred from the right hand side
@@ -658,14 +629,14 @@ functions and by adding type declarations) and compile it with <code class="docu
 any other Fortran compiler.</p>
 <p>Here are some examples of valid code in <em>global scope</em>:</p>
 <section id="example-1">
-<h3 id="example-1">Example 1<a class="headerlink" href="#example-1" title="Link permanente para este título">¶</a></h3>
+<h3 id="example-1">Exemplo 1<a class="headerlink" href="#example-1" title="Link permanente para este título">¶</a></h3>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
 <span class="k">print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="example-2">
-<h3 id="example-2">Example 2<a class="headerlink" href="#example-2" title="Link permanente para este título">¶</a></h3>
+<h3 id="example-2">Exemplo 2<a class="headerlink" href="#example-2" title="Link permanente para este título">¶</a></h3>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
 
 <span class="k">subroutine </span><span class="n">p</span><span class="p">()</span><span class="w"></span>
@@ -677,7 +648,7 @@ any other Fortran compiler.</p>
 </div>
 </section>
 <section id="example-3">
-<h3 id="example-3">Example 3<a class="headerlink" href="#example-3" title="Link permanente para este título">¶</a></h3>
+<h3 id="example-3">Exemplo 3<a class="headerlink" href="#example-3" title="Link permanente para este título">¶</a></h3>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">module </span><span class="n">a</span><span class="w"></span>
 <span class="k">implicit none</span>
 <span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span><span class="w"></span>
@@ -689,7 +660,7 @@ any other Fortran compiler.</p>
 </div>
 </section>
 <section id="example-4">
-<h3 id="example-4">Example 4<a class="headerlink" href="#example-4" title="Link permanente para este título">¶</a></h3>
+<h3 id="example-4">Exemplo 4<a class="headerlink" href="#example-4" title="Link permanente para este título">¶</a></h3>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"></span>
 <span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"></span>
 <span class="k">call </span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="s2">"o-"</span><span class="p">)</span><span class="w"></span>
@@ -698,7 +669,7 @@ any other Fortran compiler.</p>
 </section>
 </section>
 <section id="design-considerations">
-<h2 id="design-considerations">Design Considerations<a class="headerlink" href="#design-considerations" title="Link permanente para este título">¶</a></h2>
+<h2 id="design-considerations">Considerações de Design<a class="headerlink" href="#design-considerations" title="Link permanente para este título">¶</a></h2>
 <p>The LFortran extension of Fortran was chosen in a way so as to minimize the
 number of changes. In particular, only the top level of the <em>global scope</em>
 has relaxed some of the Fortran rules (such as making specifying types
@@ -721,7 +692,7 @@ Fortran compiler.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../progress/" title="LFortran Development Status"
+            <a href="../progress/" title="Progresso no Desenvolvimento do LFortran"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -730,17 +701,17 @@ Fortran compiler.</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> LFortran Development Status </span>
+                      class="md-footer-nav__direction"> Previous </span> Progresso no Desenvolvimento do LFortran </span>
               </div>
             </a>
           
           
-            <a href="../developer_tutorial/" title="Developer Tutorial"
+            <a href="../developer_tutorial/" title="Tutorial de Desenvolvedor"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Developer Tutorial </span>
+                class="md-footer-nav__direction"> Next </span> Tutorial de Desenvolvedor </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

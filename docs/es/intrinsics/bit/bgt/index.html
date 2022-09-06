@@ -47,7 +47,7 @@
   
   
   
-    <title>bgt(x, y): Bitwise Greater Than &#8212; LFortran</title>
+    <title>bgt(x, y): bit a bit mayor que &#8212; LFortran</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -64,8 +64,8 @@
     <link rel="shortcut icon" href="../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="Índice" href="../../../genindex/" />
     <link rel="search" title="Búsqueda" href="../../../search/" />
-    <link rel="next" title="bit_size(x): Bit Size" href="../bit_size/" />
-    <link rel="prev" title="bge(x, y): Bitwise Greater or Equal" href="../bge/" />
+    <link rel="next" title="bit_size(x): tamaño de bit" href="../bit_size/" />
+    <link rel="prev" title="bge(x, y): bit a bit mayor o igual" href="../bge/" />
   
    
 
@@ -103,7 +103,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">LFortran Documentation</span>
-          <span class="md-header-nav__topic"> bgt(x, y): Bitwise Greater Than </span>
+          <span class="md-header-nav__topic"> bgt(x, y): bit a bit mayor que </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -201,7 +201,7 @@
             <li class="md-tabs__item"><a href="../../../design/" class="md-tabs__link">Developers's Guide</a></li>
             
             <li class="md-tabs__item"><a href="../../array/" class="md-tabs__link">Intrinsics</a></li>
-          <li class="md-tabs__item"><a href="../" class="md-tabs__link">Bit Intrinsic Functions</a></li>
+          <li class="md-tabs__item"><a href="../" class="md-tabs__link">Funciones intrínsecas de bits</a></li>
       </ul>
     </div>
   </nav>
@@ -242,13 +242,13 @@
   <ul class="md-nav__list">
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">Getting started</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Iniciando</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../installation/" class="md-nav__link">Installation</a>
+      <a href="../../../installation/" class="md-nav__link">Instalación</a>
       
     
     </li>
@@ -261,13 +261,13 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran Development Status</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Estado del desarrollo de LFortran</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../progress/" class="md-nav__link">LFortran Development Status</a>
+      <a href="../../../progress/" class="md-nav__link">Estado del desarrollo de LFortran</a>
       
     
     </li>
@@ -280,7 +280,7 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">Developer's Guide</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Guía del desarrollador</span></span>
     
     </li>
     <li class="md-nav__item">
@@ -293,7 +293,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../developer_tutorial/" class="md-nav__link">Developer Tutorial</a>
+      <a href="../../../developer_tutorial/" class="md-nav__link">Tutorial para desarrolladores</a>
       
     
     </li>
@@ -313,25 +313,25 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran Intrinsics</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Intrínsecos de LFortran</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../array/" class="md-nav__link">Array Intrinsic Functions</a>
+      <a href="../../array/" class="md-nav__link">Funciones intrínsecas de matriz</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../" class="md-nav__link">Bit Intrinsic Functions</a>
+      <a href="../" class="md-nav__link">Funciones intrínsecas de bits</a>
       <ul class="md-nav__list"> 
     <li class="md-nav__item">
     
     
-      <a href="../bge/" class="md-nav__link">bge(x, y): Bitwise Greater or Equal</a>
+      <a href="../bge/" class="md-nav__link">bge(x, y): bit a bit mayor o igual</a>
       
     
     </li>
@@ -339,33 +339,33 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> bgt(x, y): Bitwise Greater Than </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> bgt(x, y): bit a bit mayor que </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">bgt(x, y): Bitwise Greater Than</a>
+      <a href="#" class="md-nav__link md-nav__link--active">bgt(x, y): bit a bit mayor que</a>
       
         
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#intrinsics-bit-bgt--page-root" class="md-nav__link">bgt(x, y): Bitwise Greater Than</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#intrinsics-bit-bgt--page-root" class="md-nav__link">bgt(x, y): bit a bit mayor que</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaration</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaración</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Syntax</a>
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Sintaxis</a>
         </li>
-        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Arguments</a>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Argumentos</a>
         </li>
-        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Return values</a>
+        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Valores devueltos</a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Descripción</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        <li class="md-nav__item"><a href="#types" class="md-nav__link">Tipos</a>
         </li>
-        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Ejemplos</a>
         </li>
-        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
+        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">Ver también</a>
         </li></ul>
             </nav>
         </li>
@@ -377,42 +377,42 @@
     <li class="md-nav__item">
     
     
-      <a href="../bit_size/" class="md-nav__link">bit_size(x): Bit Size</a>
+      <a href="../bit_size/" class="md-nav__link">bit_size(x): tamaño de bit</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../ble/" class="md-nav__link">bge(x, y): Bitwise Less or Equal</a>
+      <a href="../ble/" class="md-nav__link">bge(x, y): bit a bit menor o igual</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../blt/" class="md-nav__link">blt(x, y): Bitwise Less Than</a>
+      <a href="../blt/" class="md-nav__link">blt(x, y): bit a bit menor que</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../btest/" class="md-nav__link">btest(x, pos): Bit Test at Position</a>
+      <a href="../btest/" class="md-nav__link">btest(x, pos): Prueba de bits en la posición</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../shiftl/" class="md-nav__link">shiftl(x, shift): Shift Left</a>
+      <a href="../shiftl/" class="md-nav__link">shiftl(x, shift): Desplazamiento a la izquierda</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../shiftr/" class="md-nav__link">shiftr(x, shift): Shift Right</a>
+      <a href="../shiftr/" class="md-nav__link">shiftr(x, shift): Desplazamiento a la derecha</a>
       
     
     </li></ul>
@@ -421,7 +421,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../character/" class="md-nav__link">Character Intrinsic Functions</a>
+      <a href="../../character/" class="md-nav__link">Funciones intrínsecas de carácter</a>
       
     
     </li>
@@ -467,25 +467,25 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#intrinsics-bit-bgt--page-root" class="md-nav__link">bgt(x, y): Bitwise Greater Than</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#intrinsics-bit-bgt--page-root" class="md-nav__link">bgt(x, y): bit a bit mayor que</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaration</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaración</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Syntax</a>
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Sintaxis</a>
         </li>
-        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Arguments</a>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Argumentos</a>
         </li>
-        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Return values</a>
+        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Valores devueltos</a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Descripción</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        <li class="md-nav__item"><a href="#types" class="md-nav__link">Tipos</a>
         </li>
-        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Ejemplos</a>
         </li>
-        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
+        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">Ver también</a>
         </li></ul>
             </nav>
         </li>
@@ -499,34 +499,33 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="bgt-x-y-bitwise-greater-than">
-<h1 id="intrinsics-bit-bgt--page-root">bgt(x, y): Bitwise Greater Than<a class="headerlink" href="#intrinsics-bit-bgt--page-root" title="Enlazar permanentemente con este título">¶</a></h1>
-<p>Bitwise greater than.</p>
+<h1 id="intrinsics-bit-bgt--page-root">bgt(x, y): bit a bit mayor que<a class="headerlink" href="#intrinsics-bit-bgt--page-root" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Bit a bit mayor que.</p>
 <section id="declaration">
-<h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2 id="declaration">Declaración<a class="headerlink" href="#declaration" title="Enlazar permanentemente con este título">¶</a></h2>
 <section id="syntax">
-<h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3 id="syntax">Sintaxis<a class="headerlink" href="#syntax" title="Enlazar permanentemente con este título">¶</a></h3>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">bgt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span><span class="w"></span>
 <span class="k">elemental </span><span class="kt">logical </span><span class="k">function </span><span class="nb">bgt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="arguments">
-<h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Enlazar permanentemente con este título">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are integer input values. Both input values are of same kind.</p>
+<h3 id="arguments">Argumentos<a class="headerlink" href="#arguments" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">x</span></code> e <code class="docutils literal notranslate"><span class="pre">y</span></code> son valores de entrada enteros. Ambos valores de entrada son del mismo tipo.</p>
 </section>
 <section id="return-values">
-<h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Enlazar permanentemente con este título">¶</a></h3>
-<p>The return value is of type logical and of the default kind.</p>
+<h3 id="return-values">Valores devueltos<a class="headerlink" href="#return-values" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El valor devuelto es de tipo lógico y del tipo predeterminado.</p>
 </section>
 </section>
 <section id="description">
-<h2 id="description">Description<a class="headerlink" href="#description" title="Enlazar permanentemente con este título">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">bgt(x,</span> <span class="pre">y)</span></code> calculates if one integer input values is bitwise greater than the
-other.</p>
+<h2 id="description">Descripción<a class="headerlink" href="#description" title="Enlazar permanentemente con este título">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">bgt(x,</span> <span class="pre">y)</span></code> calcula si un valor de entrada entero es bit a bit mayor que el otro.</p>
 </section>
 <section id="types">
-<h2 id="types">Types<a class="headerlink" href="#types" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>Supported input types is integer of 32 bit and 64 bit size.</p>
+<h2 id="types">Tipos<a class="headerlink" href="#types" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Los tipos de entrada admitidos son números enteros de 32 bits y 64 bits.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">interface</span> <span class="n">bgt</span>
     <span class="n">module</span> <span class="n">procedure</span> <span class="n">bgt32</span><span class="p">,</span> <span class="n">bgt64</span>
 <span class="n">end</span> <span class="n">interface</span>
@@ -546,7 +545,7 @@ other.</p>
 </div>
 </section>
 <section id="examples">
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2 id="examples">Ejemplos<a class="headerlink" href="#examples" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">intrinsics_bgt</span><span class="w"></span>
 <span class="w">    </span><span class="k">implicit none</span>
 <span class="k">    print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="nb">bgt</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
@@ -561,7 +560,7 @@ other.</p>
 </div>
 </section>
 <section id="see-also">
-<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2 id="see-also">Ver también<a class="headerlink" href="#see-also" title="Enlazar permanentemente con este título">¶</a></h2>
 <p><a class="reference internal" href="../bge/"><span class="doc std std-doc">bge</span></a>, <a class="reference internal" href="../ble/"><span class="doc std std-doc">ble</span></a>, <a class="reference internal" href="../blt/"><span class="doc std std-doc">blt</span></a>.</p>
 </section>
 </section>
@@ -576,7 +575,7 @@ other.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../bge/" title="bge(x, y): Bitwise Greater or Equal"
+            <a href="../bge/" title="bge(x, y): bit a bit mayor o igual"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -585,17 +584,17 @@ other.</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> bge(x, y): Bitwise Greater or Equal </span>
+                      class="md-footer-nav__direction"> Previous </span> bge(x, y): bit a bit mayor o igual </span>
               </div>
             </a>
           
           
-            <a href="../bit_size/" title="bit_size(x): Bit Size"
+            <a href="../bit_size/" title="bit_size(x): tamaño de bit"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> bit_size(x): Bit Size </span>
+                class="md-footer-nav__direction"> Next </span> bit_size(x): tamaño de bit </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

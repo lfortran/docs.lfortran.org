@@ -254,7 +254,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../language/" class="md-nav__link">Fortran Language</a>
+      <a href="../language/" class="md-nav__link">Fortran 语言</a>
       
     
     </li>
@@ -273,7 +273,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../progress/#topics" class="md-nav__link">Topics</a>
+      <a href="../progress/#topics" class="md-nav__link">话题</a>
       
     
     </li>
@@ -390,55 +390,55 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran 内在函数</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">LFortran 内置函数</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/array/" class="md-nav__link">数组内在函数</a>
+      <a href="../intrinsics/array/" class="md-nav__link">数组内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/bit/" class="md-nav__link">Bit Intrinsic Functions</a>
+      <a href="../intrinsics/bit/" class="md-nav__link">位操作内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/character/" class="md-nav__link">Character Intrinsic Functions</a>
+      <a href="../intrinsics/character/" class="md-nav__link">字符内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/kind-type/" class="md-nav__link">Kind Type Intrinsic Functions</a>
+      <a href="../intrinsics/kind-type/" class="md-nav__link">种类类型内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/mathematical/" class="md-nav__link">Mathematical Intrinsic Functions</a>
+      <a href="../intrinsics/mathematical/" class="md-nav__link">数学内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/numeric/" class="md-nav__link">Numeric Intrinsic Functions</a>
+      <a href="../intrinsics/numeric/" class="md-nav__link">数值内置函数</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../intrinsics/misc/" class="md-nav__link">Miscellaneous Intrinsic Functions</a>
+      <a href="../intrinsics/misc/" class="md-nav__link">其他内置函数</a>
       
     
     </li>
@@ -536,7 +536,7 @@
 <h2 id="notes">注意：<a class="headerlink" href="#notes" title="永久链接至标题">¶</a></h2>
 <p>将源解析为 AST 时丢失的信息：空格、多行/单行 if 语句区分、关键字的区分大小写。</p>
 <p>从 AST 到 ASR 时丢失的信息：如何定义变量的详细语法以及类型属性的顺序（数组维度是否使用 <code class="docutils literal notranslate"><span class="pre">dimension</span></code> 属性，或变量处的括号；或每个声明行有多少个变量或它们的顺序），因为 ASR 仅表示符号表中的聚合类型信息。</p>
-<p>ASR 是生成 Fortran 代码的最简单方法，因为不必担心关于如何以及在何处声明事物的详细语法（如在 AST 中）。一个为模块指定符号表，然后为每个符号（函数、全局变量、类型……）指定局部变量，如果这是一个接口，则需要指定在哪里可以找到实现，否则为body 提供了语句，这些节点与 AST 中的几乎相同，除了每个变量只是对符号表中的符号的引用（因此通过构造一个不能有未定义的变量）。每个节点（例如 Function 或 Module）的符号表也引用其父节点（例如，函数引用模块，模块引用全局范围）。</p>
+<p>ASR 是生成 Fortran 代码的最简单方法，因为不必担心关于如何以及在何处声明事物的详细语法（如在 AST 中）。一个为模块指定符号表，然后为每个符号（函数、全局变量、类型……）指定局部变量，如果这是一个接口，则需要指定在哪里可以找到实现，否则为body 提供了语句，这些节点与 AST 中的几乎相同，除了每个变量只是对符号表中的符号的引用（因此通过构造一个不能有未定义的变量）。每个节点（例如 Function 或 Module）的符号表也引用其父节点（例如，函数引用模块，模块引用全局作用域）。</p>
 <p>ASR 可以直接转换为 AST，而无需收集任何其他信息。而AST直接转为Fortran源代码。</p>
 <p>ASR 始终表示语义上有效的 Fortran 代码。这是通过检查 ASR C++ 构造函数（在调试版本中）来强制执行的。当使用 ASR 时，可以假定它是有效的。</p>
 </section>
@@ -552,7 +552,7 @@
 </section>
 <section id="lfortran-extension">
 <h2 id="lfortran-extension">LFortran 扩展<a class="headerlink" href="#lfortran-extension" title="永久链接至标题">¶</a></h2>
-<p>我们通过引入_全局范围_来扩展 Fortran 语言，它不仅是_程序单元_列表（如 F2008 中），还可以包括语句、声明、使用语句和表达式。我们将_全局范围_定义为以下项目的集合：</p>
+<p>我们通过引入_全局作用域_来扩展 Fortran 语言，它不仅是_程序单元_列表（如 F2008 中），还可以包括语句、声明、使用语句和表达式。我们将_全局作用域_定义为以下项目的集合：</p>
 <ul class="simple">
 <li><p>主程序</p></li>
 <li><p>模块或子模块</p></li>
@@ -562,9 +562,9 @@
 <li><p>声明</p></li>
 <li><p>表达</p></li>
 </ul>
-<p>此外，如果变量没有在赋值语句中定义（例如<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">5+3</span></code>），则从右侧推断变量的类型（例如，<code class="docutils literal notranslate"><span class="pre">x</span></code> in <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">5+3</span> </code> 将是 <code class="docutils literal notranslate"><span class="pre">integer</span></code> 类型，而 <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">5._dp</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">y</span></code> 将是 <code class="docutils literal notranslate"><span class="pre">real(dp)</span></code> 类型）。此规则仅适用于 <em>全局范围</em> 的顶层。类型必须在主程序、模块、函数和子程序中完全指定，就像在 F2008 中一样。</p>
-<p><em>全局范围</em> 有自己的符号表。主程序和模块/子模块看不到此符号表中的任何符号。但是_全局范围_顶层的函数、子例程、语句和表达式使用和操作这个符号表。</p>
-<p><em>全局范围</em> 在符号表中预定义了以下符号：</p>
+<p>此外，如果变量没有在赋值语句中定义（例如<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">5+3</span></code>），则从右侧推断变量的类型（例如，<code class="docutils literal notranslate"><span class="pre">x</span></code> in <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">5+3</span> </code> 将是 <code class="docutils literal notranslate"><span class="pre">integer</span></code> 类型，而 <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">5._dp</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">y</span></code> 将是 <code class="docutils literal notranslate"><span class="pre">real(dp)</span></code> 类型）。此规则仅适用于 <em>全局作用域</em> 的顶层。类型必须在主程序、模块、函数和子程序中完全指定，就像在 F2008 中一样。</p>
+<p><em>全局作用域</em> 有自己的符号表。主程序和模块/子模块看不到此符号表中的任何符号。但是_全局作用域_顶层的函数、子例程、语句和表达式使用和操作这个符号表。</p>
+<p><em>全局作用域</em> 在符号表中预定义了以下符号：</p>
 <ul class="simple">
 <li><p>通常的标准 Fortran 函数集（例如 <code class="docutils literal notranslate"><span class="pre">size</span></code>、<code class="docutils literal notranslate"><span class="pre">sin</span></code>、<code class="docutils literal notranslate"><span class="pre">cos</span></code>…）</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dp</span></code> 双精度符号，因此可以使用 <code class="docutils literal notranslate"><span class="pre">5._dp</span></code> 表示双精度。</p></li>

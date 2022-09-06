@@ -47,7 +47,7 @@
   
   
   
-    <title>Bit Intrinsic Functions &#8212; LFortran</title>
+    <title>Funciones intrínsecas de bits &#8212; LFortran</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -64,8 +64,8 @@
     <link rel="shortcut icon" href="../../_static/lfortran-logo.svg"/>
     <link rel="index" title="Índice" href="../../genindex/" />
     <link rel="search" title="Búsqueda" href="../../search/" />
-    <link rel="next" title="bge(x, y): Bitwise Greater or Equal" href="bge/" />
-    <link rel="prev" title="size(x): Size of Array" href="../array/size/" />
+    <link rel="next" title="bge(x, y): bit a bit mayor o igual" href="bge/" />
+    <link rel="prev" title="size(x): tamaño de la matriz" href="../array/size/" />
   
    
 
@@ -103,7 +103,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">LFortran Documentation</span>
-          <span class="md-header-nav__topic"> Bit Intrinsic Functions </span>
+          <span class="md-header-nav__topic"> Funciones intrínsecas de bits </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -241,13 +241,13 @@
   <ul class="md-nav__list">
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">Getting started</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Iniciando</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../installation/" class="md-nav__link">Installation</a>
+      <a href="../../installation/" class="md-nav__link">Instalación</a>
       
     
     </li>
@@ -260,13 +260,13 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran Development Status</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Estado del desarrollo de LFortran</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../progress/" class="md-nav__link">LFortran Development Status</a>
+      <a href="../../progress/" class="md-nav__link">Estado del desarrollo de LFortran</a>
       
     
     </li>
@@ -279,7 +279,7 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">Developer's Guide</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Guía del desarrollador</span></span>
     
     </li>
     <li class="md-nav__item">
@@ -292,7 +292,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../developer_tutorial/" class="md-nav__link">Developer Tutorial</a>
+      <a href="../../developer_tutorial/" class="md-nav__link">Tutorial para desarrolladores</a>
       
     
     </li>
@@ -312,13 +312,13 @@
     </li>
     <li class="md-nav__item">
     
-      <span class="md-nav__link caption"><span class="caption-text">LFortran Intrinsics</span></span>
+      <span class="md-nav__link caption"><span class="caption-text">Intrínsecos de LFortran</span></span>
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../array/" class="md-nav__link">Array Intrinsic Functions</a>
+      <a href="../array/" class="md-nav__link">Funciones intrínsecas de matriz</a>
       
     
     </li>
@@ -326,9 +326,9 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> Bit Intrinsic Functions </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Funciones intrínsecas de bits </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">Bit Intrinsic Functions</a>
+      <a href="#" class="md-nav__link md-nav__link--active">Funciones intrínsecas de bits</a>
       
         
 <nav class="md-nav md-nav--secondary">
@@ -339,56 +339,56 @@
     <li class="md-nav__item">
     
     
-      <a href="bge/" class="md-nav__link">bge(x, y): Bitwise Greater or Equal</a>
+      <a href="bge/" class="md-nav__link">bge(x, y): bit a bit mayor o igual</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="bgt/" class="md-nav__link">bgt(x, y): Bitwise Greater Than</a>
+      <a href="bgt/" class="md-nav__link">bgt(x, y): bit a bit mayor que</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="bit_size/" class="md-nav__link">bit_size(x): Bit Size</a>
+      <a href="bit_size/" class="md-nav__link">bit_size(x): tamaño de bit</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="ble/" class="md-nav__link">bge(x, y): Bitwise Less or Equal</a>
+      <a href="ble/" class="md-nav__link">bge(x, y): bit a bit menor o igual</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="blt/" class="md-nav__link">blt(x, y): Bitwise Less Than</a>
+      <a href="blt/" class="md-nav__link">blt(x, y): bit a bit menor que</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="btest/" class="md-nav__link">btest(x, pos): Bit Test at Position</a>
+      <a href="btest/" class="md-nav__link">btest(x, pos): Prueba de bits en la posición</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="shiftl/" class="md-nav__link">shiftl(x, shift): Shift Left</a>
+      <a href="shiftl/" class="md-nav__link">shiftl(x, shift): Desplazamiento a la izquierda</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="shiftr/" class="md-nav__link">shiftr(x, shift): Shift Right</a>
+      <a href="shiftr/" class="md-nav__link">shiftr(x, shift): Desplazamiento a la derecha</a>
       
     
     </li></ul>
@@ -397,7 +397,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../character/" class="md-nav__link">Character Intrinsic Functions</a>
+      <a href="../character/" class="md-nav__link">Funciones intrínsecas de carácter</a>
       
     
     </li>
@@ -452,111 +452,111 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="bit-intrinsic-functions">
-<h1 id="intrinsics-bit--page-root">Bit Intrinsic Functions<a class="headerlink" href="#intrinsics-bit--page-root" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1 id="intrinsics-bit--page-root">Funciones intrínsecas de bits<a class="headerlink" href="#intrinsics-bit--page-root" title="Enlazar permanentemente con este título">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="bge/">bge(x, y): Bitwise Greater or Equal</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bge/#declaration">Declaration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="bge/#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bge/#arguments">Arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bge/#return-values">Return values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bge/">bge(x, y): bit a bit mayor o igual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bge/#declaration">Declaración</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bge/#syntax">Sintaxis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bge/#arguments">Argumentos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bge/#return-values">Valores devueltos</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bge/#description">Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bge/#types">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bge/#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bge/#see-also">See Also</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bge/#description">Descripción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bge/#types">Tipos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bge/#examples">Ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bge/#see-also">Ver también</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="bgt/">bgt(x, y): Bitwise Greater Than</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bgt/#declaration">Declaration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="bgt/#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bgt/#arguments">Arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bgt/#return-values">Return values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bgt/">bgt(x, y): bit a bit mayor que</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bgt/#declaration">Declaración</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bgt/#syntax">Sintaxis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bgt/#arguments">Argumentos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bgt/#return-values">Valores devueltos</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bgt/#description">Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bgt/#types">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bgt/#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bgt/#see-also">See Also</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bgt/#description">Descripción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bgt/#types">Tipos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bgt/#examples">Ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bgt/#see-also">Ver también</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="bit_size/">bit_size(x): Bit Size</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bit_size/#declaration">Declaration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="bit_size/#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bit_size/#arguments">Arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bit_size/#return-values">Return values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bit_size/">bit_size(x): tamaño de bit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bit_size/#declaration">Declaración</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bit_size/#syntax">Sintaxis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bit_size/#arguments">Argumentos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bit_size/#return-values">Valores devueltos</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bit_size/#description">Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bit_size/#types">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bit_size/#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bit_size/#see-also">See Also</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bit_size/#description">Descripción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bit_size/#types">Tipos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bit_size/#examples">Ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bit_size/#see-also">Ver también</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ble/">bge(x, y): Bitwise Less or Equal</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ble/#declaration">Declaration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ble/#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ble/#arguments">Arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ble/#return-values">Return values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ble/">bge(x, y): bit a bit menor o igual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ble/#declaration">Declaración</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ble/#syntax">Sintaxis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble/#arguments">Argumentos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ble/#return-values">Valores devueltos</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ble/#description">Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ble/#types">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ble/#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ble/#see-also">See Also</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ble/#description">Descripción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ble/#types">Tipos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ble/#examples">Ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ble/#see-also">Ver también</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="blt/">blt(x, y): Bitwise Less Than</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="blt/#declaration">Declaration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="blt/#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="blt/#arguments">Arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="blt/#return-values">Return values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="blt/">blt(x, y): bit a bit menor que</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blt/#declaration">Declaración</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blt/#syntax">Sintaxis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="blt/#arguments">Argumentos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="blt/#return-values">Valores devueltos</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="blt/#description">Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blt/#types">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blt/#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blt/#see-also">See Also</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blt/#description">Descripción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blt/#types">Tipos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blt/#examples">Ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blt/#see-also">Ver también</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="btest/">btest(x, pos): Bit Test at Position</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="btest/#declaration">Declaration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="btest/#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="btest/#arguments">Arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="btest/#return-values">Return values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="btest/">btest(x, pos): Prueba de bits en la posición</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="btest/#declaration">Declaración</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="btest/#syntax">Sintaxis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="btest/#arguments">Argumentos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="btest/#return-values">Valores devueltos</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="btest/#description">Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="btest/#types">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="btest/#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="btest/#see-also">See Also</a></li>
+<li class="toctree-l2"><a class="reference internal" href="btest/#description">Descripción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="btest/#types">Tipos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="btest/#examples">Ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="btest/#see-also">Ver también</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="shiftl/">shiftl(x, shift): Shift Left</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="shiftl/#declaration">Declaration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="shiftl/#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="shiftl/#arguments">Arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="shiftl/#return-values">Return values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shiftl/">shiftl(x, shift): Desplazamiento a la izquierda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shiftl/#declaration">Declaración</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shiftl/#syntax">Sintaxis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shiftl/#arguments">Argumentos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shiftl/#return-values">Valores devueltos</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="shiftl/#description">Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shiftl/#types">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shiftl/#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shiftl/#see-also">See Also</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shiftl/#description">Descripción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shiftl/#types">Tipos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shiftl/#examples">Ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shiftl/#see-also">Ver también</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="shiftr/">shiftr(x, shift): Shift Right</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="shiftr/#declaration">Declaration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="shiftr/#syntax">Syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="shiftr/#arguments">Arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="shiftr/#return-values">Return values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shiftr/">shiftr(x, shift): Desplazamiento a la derecha</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shiftr/#declaration">Declaración</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="shiftr/#syntax">Sintaxis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shiftr/#arguments">Argumentos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shiftr/#return-values">Valores devueltos</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="shiftr/#description">Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shiftr/#types">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shiftr/#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="shiftr/#see-also">See Also</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shiftr/#description">Descripción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shiftr/#types">Tipos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shiftr/#examples">Ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shiftr/#see-also">Ver también</a></li>
 </ul>
 </li>
 </ul>
@@ -573,7 +573,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../array/size/" title="size(x): Size of Array"
+            <a href="../array/size/" title="size(x): tamaño de la matriz"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -582,17 +582,17 @@
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> size(x): Size of Array </span>
+                      class="md-footer-nav__direction"> Previous </span> size(x): tamaño de la matriz </span>
               </div>
             </a>
           
           
-            <a href="bge/" title="bge(x, y): Bitwise Greater or Equal"
+            <a href="bge/" title="bge(x, y): bit a bit mayor o igual"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> bge(x, y): Bitwise Greater or Equal </span>
+                class="md-footer-nav__direction"> Next </span> bge(x, y): bit a bit mayor o igual </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
