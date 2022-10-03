@@ -1,0 +1,583 @@
+
+<!DOCTYPE html>
+
+<html lang="bn">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>LFortran Documentation &#8212; LFortran</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/ansi.css" />
+    <script data-url_root="#" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="_static/lfortran-logo.svg"/>
+    <link rel="index" title="ইনডেক্স" href="genindex/" />
+    <link rel="search" title="অনুসন্ধান" href="search/" />
+    <link rel="next" title="Installation" href="installation/" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=amber data-md-color-accent=orange>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#index" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="#" title="LFortran"
+           class="md-header-nav__button md-logo">
+          
+              <img src="_static/lfortran-logo.svg" height="26"
+                   alt="LFortran logo">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">LFortran Documentation</span>
+          <span class="md-header-nav__topic"> LFortran Documentation </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="search/" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+  
+  <div class="md-flex__cell md-flex__cell--shrink dropdown">
+    <button class="dropdownbutton">Versions</button>
+    <div class="dropdown-content md-hero">
+          <a title="English" href="/../en/">English</a>
+      
+          <a title="Bengali" href="/../bn/">Bengali</a>
+      
+          <a title="Czech" href="/../cs/">Czech</a>
+      
+          <a title="German" href="/../de/">German</a>
+      
+          <a title="Spanish" href="/../es/">Spanish</a>
+      
+          <a title="French" href="/../fr/">French</a>
+      
+          <a title="Japanese" href="/../ja/">Japanese</a>
+      
+          <a title="Dutch" href="/../nl/">Dutch</a>
+      
+          <a title="Polish" href="/../pl/">Polish</a>
+      
+          <a title="Portuguese" href="/../pt/">Portuguese</a>
+      
+          <a title="Russian" href="/../ru/">Russian</a>
+      
+          <a title="Chinese" href="/../zh_CN/">Chinese</a>
+      
+    </div>
+  </div>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="#" class="md-tabs__link">LFortran</a></li>
+            
+            <li class="md-tabs__item"><a href="installation/" class="md-tabs__link">Getting started</a></li>
+            
+            <li class="md-tabs__item"><a href="progress/" class="md-tabs__link">LFortran Development Status</a></li>
+            
+            <li class="md-tabs__item"><a href="design/" class="md-tabs__link">Developers's Guide</a></li>
+            
+            <li class="md-tabs__item"><a href="intrinsics/array/" class="md-tabs__link">Intrinsics</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="#" title="LFortran" class="md-nav__button md-logo">
+      
+        <img src="_static/lfortran-logo.svg" alt=" logo" width="48" height="48">
+      
+    </a>
+    <a href="#"
+       title="LFortran">LFortran Documentation</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Getting started</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="installation/" class="md-nav__link">Installation</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="language/" class="md-nav__link">Fortran Language</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran Development Status</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="progress/" class="md-nav__link">LFortran Development Status</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="progress/#topics" class="md-nav__link">Topics</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Developer's Guide</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="design/" class="md-nav__link">LFortran Design</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="developer_tutorial/" class="md-nav__link">Developer Tutorial</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="ast_and_asr/" class="md-nav__link">Difference between an AST and ASR</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="contributing/" class="md-nav__link">Contributing</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran Intrinsics</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="intrinsics/array/" class="md-nav__link">Array Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="intrinsics/bit/" class="md-nav__link">Bit Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="intrinsics/character/" class="md-nav__link">Character Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="intrinsics/kind-type/" class="md-nav__link">Kind Type Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="intrinsics/mathematical/" class="md-nav__link">Mathematical Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="intrinsics/numeric/" class="md-nav__link">Numeric Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="intrinsics/misc/" class="md-nav__link">Miscellaneous Intrinsic Functions</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#index--page-root" class="md-nav__link">LFortran Documentation</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#feature-highlights" class="md-nav__link">Feature Highlights</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#works-today" class="md-nav__link">Works today</a>
+        </li>
+        <li class="md-nav__item"><a href="#planned" class="md-nav__link">Planned</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#roadmap" class="md-nav__link">Roadmap</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="lfortran-documentation">
+<h1 id="index--page-root">LFortran Documentation<a class="headerlink" href="#index--page-root" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h1>
+<p>LFortran is a modern open-source (BSD licensed) interactive Fortran compiler
+built on top of LLVM.
+It can execute user's code interactively to allow exploratory work (much like
+Python, MATLAB or Julia) as well as compile to binaries with the goal to run
+user's code on modern architectures such as multi-core CPUs and GPUs.</p>
+<p>Website:
+<a class="reference external" href="https://lfortran.org/">https://lfortran.org/</a><br/>
+Main repository:
+<a class="reference external" href="https://github.com/lfortran/lfortran">https://github.com/lfortran/lfortran</a><br/>
+Try online using Binder:
+<a class="reference external" href="https://mybinder.org/v2/gl/lfortran%2Fweb%2Flfortran-binder/master?filepath=Demo.ipynb"><img alt="Binder" src="https://mybinder.org/badge_logo.svg"/></a></p>
+<section id="feature-highlights">
+<h2 id="feature-highlights">Feature Highlights<a class="headerlink" href="#feature-highlights" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
+<p>LFortran is in development, there are features that work today, and there are
+features that are being implemented. You can also check out the <a class="reference internal" href="progress/"><span class="doc std std-doc">Development Status</span></a> section for more information on features being supported and being worked on.</p>
+<section id="works-today">
+<h3 id="works-today">Works today<a class="headerlink" href="#works-today" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Interactive, Jupyter support</strong>
+LFortran can be used from Jupyter as a Fortran kernel, allowing a
+Python/Julia style rapid prototyping and exploratory workflow
+(see the <a class="reference external" href="https://nbviewer.jupyter.org/gist/certik/f1d28a486510810d824869ab0c491b1c">static</a>
+or
+<a class="reference external" href="https://mybinder.org/v2/gl/lfortran%2Fweb%2Flfortran-binder/master?filepath=Demo.ipynb">interactive</a>
+example notebook).
+Or it can be used from the command-line in an interactive prompt (REPL).</p></li>
+<li><p><strong>Clean, modular design, usable as a library</strong>
+LFortran is structured around two independent modules, AST and ASR, both of
+which are standalone (completely independent of the rest of LFortran) and
+users are encouraged to use them independently for other applications and
+build tools on top. See the <a class="reference internal" href="design/"><span class="doc std std-doc">Design</span></a>
+and <a class="reference internal" href="developer_tutorial/"><span class="doc std std-doc">Developer Tutorial</span></a> documents for more details.</p></li>
+<li><p><strong>Interoperation with GFortran</strong>
+LFortran can parse GFortran module files into an ASR and generate a Fortran
+wrapper that can be compiled with any Fortran compiler and linked with the
+original GFortran compiled module.</p></li>
+<li><p><strong>Create executables</strong>
+It can create executables just like other Fortran compilers.</p></li>
+<li><p><strong>Runs on Linux, Mac and Windows</strong>
+All three platforms are regularly tested by our CI.</p></li>
+</ul>
+</section>
+<section id="planned">
+<h3 id="planned">Planned<a class="headerlink" href="#planned" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
+<p>These features are under development, there is a link to the corresponding
+issue so that you can track the progress by following it.</p>
+<ul class="simple">
+<li><p><strong>Native interoperation with other languages (and other Fortran compilers)</strong>
+It can automatically call code written in other languages (such as C or
+Python) just by using the <code class="docutils literal notranslate"><span class="pre">use</span></code> statement, see
+<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/44">#44</a>. It understands
+other Fortran compilers module files (one can just "use" them) and their
+ABI to link correctly (GFortran is supported, other compilers are planned,
+see <a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/56">#56</a>), which allows to
+use LFortran with production codes today.</p></li>
+<li><p><strong>Modern hardware support</strong>
+Thanks to LLVM, the goal of LFortran is to run on modern hardware and take
+advantage of native Fortran language constructs (such as <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code>)
+to run on multi-core CPUs and GPUs, see
+<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/57">#57</a>.</p></li>
+<li><p><strong>Full Fortran 2018 support</strong>
+Currently only a subset of Fortran is implemented, but the goal is to have
+a full implementation of the latest Fortran 2018 standard, see
+<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/58">#58</a>.</p></li>
+</ul>
+<p>Please vote on issues in our
+<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues">issue tracker</a> that you want us
+to prioritize (feel free to create new ones if we are missing anything).</p>
+</section>
+</section>
+<section id="roadmap">
+<h2 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
+<p>Here is our roadmap how to get all the planned features above implemented:</p>
+<ol class="arabic">
+<li><p>Port code generation to use ASR and pass all the current tests
+(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/74">#74</a>).
+Remove the old code generation and old semantics, that used to annotate the AST tree, which was messy.</p></li>
+<li><p>Get GFortran module files working with <code class="docutils literal notranslate"><span class="pre">use</span></code> module, both assumed-size and
+assumed-shape arrays (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/52">#52</a>).
+This will allow right away to use production codes with LFortran.</p></li>
+<li><p>Do these at the same time:</p>
+<p>a) Implement more Fortran features, until eventually full Fortran 2018 is
+supported (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/58">#58</a>).</p>
+<p>b) Gradually move to C++ for robustness and speed
+(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/70">#70</a>).
+The Python API will not change (or only minimally), so the user experience
+from Python will not change.</p>
+<p>c) Implement all the other cool features: <code class="docutils literal notranslate"><span class="pre">use</span></code> module for C and Python
+and automatic wrappers
+(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/44">#44</a>),
+modern hardware support
+(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/57">#57</a>),
+generating an older standard of Fortran
+(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/72">#72</a>),
+Fortran doctest feature
+(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/73">#73</a>),
+SymPy integration
+(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/71">#71</a>),
+language service for IDEs
+(<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/12">#12</a>),
+and other ideas (<a class="reference external" href="https://gitlab.com/lfortran/lfortran/issues/29">#29</a>).</p>
+</li>
+</ol>
+<p>The step 1. is an internal refactoring that will not take long.</p>
+<p>The step 2. will allow LFortran to be used interactively with production codes
+right away (the production code will get compiled with GFortran, then one
+"uses" any module in LFortran and functions/subroutines can be interactively
+called, the module itself can use any GFortran supported feature, but the API
+must fit into the subset that LFortran understands --- for large number of
+applications simple functions/subroutines with array arguments are enough).
+This will make LFortran usable for first users and one can always use GFortran
+temporarily until LFortran supports the given feature.
+We expect to be finished with the step 2. by the end of summer 2019, hopefully sooner.</p>
+<p>Finally the step 3. will improve LFortran overall, allowing the first users
+to contribute back, growing the community and making LFortran gradually useful
+for more and more people.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+          
+            <a href="installation/" title="Installation"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> Installation </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2022 LFortran contributors.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>
