@@ -327,7 +327,7 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#fork-lfortran" class="md-nav__link">LFortran abspalten</a>
         </li>
-        <li class="md-nav__item"><a href="#send-a-new-merge-request" class="md-nav__link">Send a New Merge Request</a>
+        <li class="md-nav__item"><a href="#send-a-new-merge-request" class="md-nav__link">Sende einen neuen Merge request</a>
         </li></ul>
             </nav>
         </li>
@@ -447,7 +447,7 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#fork-lfortran" class="md-nav__link">LFortran abspalten</a>
         </li>
-        <li class="md-nav__item"><a href="#send-a-new-merge-request" class="md-nav__link">Send a New Merge Request</a>
+        <li class="md-nav__item"><a href="#send-a-new-merge-request" class="md-nav__link">Sende einen neuen Merge request</a>
         </li></ul>
             </nav>
         </li>
@@ -478,50 +478,47 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="contributing">
 <h1 id="contributing--page-root">Beitragen<a class="headerlink" href="#contributing--page-root" title="Link zu dieser Überschrift">¶</a></h1>
-<p>We welcome contributions from anyone, even if you are new to open source. It
-might sound daunting to contribute to a compiler at first, but please do, it is
-not complicated. We will help you with any technical issues and help improve
-your contribution so that it can be merged.</p>
+<p>Wir freuen uns über Beiträge von jedem, auch wenn du neu im Bereich Open Source bist. Es mag zunächst entmutigend klingen, zu einem Compiler beizutragen, aber tu es einfach, denn es ist nicht so kompliziert, wie es aussieht. Wir werden bei allen technischen Problemen helfen und deinen Beitrag verbessern, damit er eingefügt werden kann.</p>
 <section id="basic-setup">
 <h2 id="basic-setup">Grundeinstellung<a class="headerlink" href="#basic-setup" title="Link zu dieser Überschrift">¶</a></h2>
-<p>To contribute, make sure your set up:</p>
+<p>Um Beizutragen solltest du folgendes vorbereitet haben:</p>
 <ul class="simple">
 <li><p>Ihr Benutzername + E-Mail</p></li>
 <li><p>Ihre <code class="docutils literal notranslate"><span class="pre">~/.gitconfig</span></code></p></li>
-<li><p>Your shell prompt to display the current branch name</p></li>
+<li><p>Deine Shell Eingabe sollte den aktuellen Branch Namen anzeigen</p></li>
 </ul>
 <section id="fork-lfortran">
 <h3 id="fork-lfortran">LFortran abspalten<a class="headerlink" href="#fork-lfortran" title="Link zu dieser Überschrift">¶</a></h3>
-<p>Step 1. Create a fork of the <a class="reference external" href="https://github.com/lfortran/lfortran">project repository</a></p>
-<p>Step 2. Set up your <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">SSH key</a> with GitHub</p>
-<p>Step 3. Clone the project repository from GitHub and set up your remote repository</p>
+<p>Schritt 1. Erstelle einen Fork des <a class="reference external" href="https://github.com/lfortran/lfortran">Projekt Repositorys</a></p>
+<p>Schritt 2: Richte deinen <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">SSH key</a> mit GitHub ein</p>
+<p>Schritt 3: Klone das Projekt Repository von GitHub und richte dein Remote-Repository ein</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">lfortran</span><span class="o">/</span><span class="n">lfortran</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">lfortran</span>
 <span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">REMOTE_NAME</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">YOUR_GITHUB_ID</span><span class="o">/</span><span class="n">lfortran</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
-<p>:fontawesome-solid-edit: <code class="docutils literal notranslate"><span class="pre">REMOTE_NAME</span></code> is the name of your remote repository and could be any name you like, for example your first name.</p>
-<p>:fontawesome-solid-edit: <code class="docutils literal notranslate"><span class="pre">YOUR_GITHUB_ID</span></code> is your user ID on GitHub and should be part of your account path.</p>
-<p>You can use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">-v</span></code> to check if the new remote is set up correctly.</p>
+<p>:fontawesome-solid-edit: <code class="docutils literal notranslate"><span class="pre">REMOTE_NAME</span></code> ist der Name deines Remote-Repositorys und kann prinzipiell beliebig sein, beispielsweise dein Vorname.</p>
+<p>:fontawesome-solid-edit: <code class="docutils literal notranslate"><span class="pre">YOUR_GITHUB_ID</span></code> ist deine Nutzer-ID auf GitHub und sollte Teil deines Accountpfades sein.</p>
+<p>Du kannst <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">-v</span></code> verwenden um zu überprüfen ob der neue Remote korrekt eingerichtet ist.</p>
 </section>
 <section id="send-a-new-merge-request">
-<h3 id="send-a-new-merge-request">Send a New Merge Request<a class="headerlink" href="#send-a-new-merge-request" title="Link zu dieser Überschrift">¶</a></h3>
+<h3 id="send-a-new-merge-request">Sende einen neuen Merge request<a class="headerlink" href="#send-a-new-merge-request" title="Link zu dieser Überschrift">¶</a></h3>
 <p>Schritt 1. Erstellen Sie einen neuen Zweig</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">fix1</span>
 </pre></div>
 </div>
 <p>Schritt 2. Nehmen Sie Änderungen in der/den betreffenden Datei(en) vor</p>
-<p>Step 3. Commit the changes:</p>
+<p>Schritt 3: Committe deine Änderungen:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">add</span> <span class="n">FILE1</span> <span class="p">(</span><span class="n">FILE2</span> <span class="o">...</span><span class="p">)</span>
 <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">"YOUR_COMMIT_MESSAGE"</span>
 </pre></div>
 </div>
-<p><a class="reference external" href="https://chris.beams.io/posts/git-commit/">Here</a> are some great tips on writing good commit messages.</p>
-<p>Step 4. Check to ensure that your changes look good</p>
+<p><a class="reference external" href="https://chris.beams.io/posts/git-commit/">Hier</a> gibt es sehr hilfreiche Tipps zum Schreiben guter Commit-Messages.</p>
+<p>Schritt 4: Überprüfe, dass deine Änderungen gut aussehen</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span> <span class="o">--</span><span class="n">graph</span> <span class="o">--</span><span class="n">decorate</span> <span class="o">--</span><span class="nb">all</span>
 </pre></div>
 </div>
-<p>Step 5. Send the merge request</p>
+<p>Schritt 5: Sende den merge-request</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">REMOTE_NAME</span> <span class="n">fix1</span>
 </pre></div>
 </div>
