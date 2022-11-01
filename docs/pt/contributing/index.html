@@ -625,7 +625,7 @@ expr
 </pre></div>
 </div>
 <p>Então, transformamos da AST para a ASR editando o arquivo <em>src/lfortran/semantics/ast_common_visitor.h</em>.</p>
-<p>We also add it into compile time evaluation triggered by expressions such as <code class="docutils literal notranslate"><span class="pre">e</span> <span class="pre">=</span> <span class="pre">(2+3)^5</span></code> which is evaluated at compile time. An expression such as <code class="docutils literal notranslate"><span class="pre">e</span> <span class="pre">=</span> <span class="pre">x^5</span></code> is evaluated at run time only.</p>
+<p>Também o adicionamos para avaliação de expressões em tempo de compilação como <code class="docutils literal notranslate"><span class="pre">e</span> <span class="pre">=</span> <span class="pre">(2+3)^5</span></code> que é calculado em tempo de compilação. Uma expressão como <code class="docutils literal notranslate"><span class="pre">e</span> <span class="pre">=</span> <span class="pre">x^5</span></code> é calculada apenas em tempo de execução.</p>
 <p>A seção é testada com <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">--show-asr</span> <span class="pre">examples/expr2.f90</span></code></p>
 </section>
 <section id="implement-the-new-token-in-llvm">
