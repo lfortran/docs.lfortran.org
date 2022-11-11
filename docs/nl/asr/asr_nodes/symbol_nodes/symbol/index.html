@@ -1,0 +1,1402 @@
+
+<!DOCTYPE html>
+
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="../../../../_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="../../../../_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>symbol &#8212; LFortran</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/ansi.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/lfortran-logo.svg"/>
+    <link rel="index" title="Index" href="../../../../genindex/" />
+    <link rel="search" title="Zoeken" href="../../../../search/" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=amber data-md-color-accent=orange>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#asr/asr_nodes/symbol_nodes/symbol" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../../../" title="LFortran"
+           class="md-header-nav__button md-logo">
+          
+              <img src="../../../../_static/lfortran-logo.svg" height="26"
+                   alt="LFortran logo">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">LFortran Documentation</span>
+          <span class="md-header-nav__topic"> symbol </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="../../../../search/" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+  
+  <div class="md-flex__cell md-flex__cell--shrink dropdown">
+    <button class="dropdownbutton">Versions</button>
+    <div class="dropdown-content md-hero">
+          <a title="English" href="/../en/">English</a>
+      
+          <a title="Bengali" href="/../bn/">Bengali</a>
+      
+          <a title="Czech" href="/../cs/">Czech</a>
+      
+          <a title="German" href="/../de/">German</a>
+      
+          <a title="Spanish" href="/../es/">Spanish</a>
+      
+          <a title="French" href="/../fr/">French</a>
+      
+          <a title="Japanese" href="/../ja/">Japanese</a>
+      
+          <a title="Dutch" href="/../nl/">Dutch</a>
+      
+          <a title="Polish" href="/../pl/">Polish</a>
+      
+          <a title="Portuguese" href="/../pt/">Portuguese</a>
+      
+          <a title="Russian" href="/../ru/">Russian</a>
+      
+          <a title="Chinese" href="/../zh_CN/">Chinese</a>
+      
+    </div>
+  </div>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="../../../../" class="md-tabs__link">LFortran</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../installation/" class="md-tabs__link">Getting started</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../progress/" class="md-tabs__link">LFortran Development Status</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../design/" class="md-tabs__link">Developers's Guide</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../intrinsics/array/" class="md-tabs__link">Intrinsics</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../../../" title="LFortran" class="md-nav__button md-logo">
+      
+        <img src="../../../../_static/lfortran-logo.svg" alt=" logo" width="48" height="48">
+      
+    </a>
+    <a href="../../../../"
+       title="LFortran">LFortran Documentation</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Getting started</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../installation/" class="md-nav__link">Installation</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../language/" class="md-nav__link">Fortran Language</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran Development Status</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../progress/" class="md-nav__link">LFortran Development Status</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../progress/#topics" class="md-nav__link">Topics</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Developer's Guide</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../design/" class="md-nav__link">LFortran Design</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../developer_tutorial/" class="md-nav__link">Developer Tutorial</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../ast_and_asr/" class="md-nav__link">Difference between an AST and ASR</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../contributing/" class="md-nav__link">Contributing</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran Intrinsics</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/array/" class="md-nav__link">Array Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/bit/" class="md-nav__link">Bit Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/character/" class="md-nav__link">Character Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/kind-type/" class="md-nav__link">Kind Type Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/mathematical/" class="md-nav__link">Mathematical Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/numeric/" class="md-nav__link">Numeric Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/misc/" class="md-nav__link">Miscellaneous Intrinsic Functions</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#asr-asr-nodes-symbol-nodes-symbol--page-root" class="md-nav__link">symbol</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaration</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Syntax</a>
+        </li>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Arguments</a>
+        </li>
+        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Return values</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        </li>
+        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        </li>
+        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="symbol">
+<h1 id="asr-asr-nodes-symbol-nodes-symbol--page-root">symbol<a class="headerlink" href="#asr-asr-nodes-symbol-nodes-symbol--page-root" title="Permalink naar deze titel">¶</a></h1>
+<p>A textual denotation having special meaning to the compiler. The value can be
+determined from the text of the basic <em>symbol</em>.</p>
+<section id="declaration">
+<h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Permalink naar deze titel">¶</a></h2>
+<section id="syntax">
+<h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permalink naar deze titel">¶</a></h3>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>symbol
+    = Program(symbol_table symtab, identifier name, identifier* dependencies,
+        stmt* body)
+    | Module(symbol_table symtab, identifier name, identifier* dependencies,
+        bool loaded_from_mod, bool intrinsic)
+    | Function(symbol_table symtab, identifier name, expr* args, stmt* body,
+        expr? return_var, abi abi, access access, deftype deftype,
+        string? bindc_name, bool elemental, bool pure, bool module, bool inline,
+        bool static, ttype* type_params, symbol* restrictions, bool is_restriction)
+    | GenericProcedure(symbol_table parent_symtab, identifier name,
+        symbol* procs, access access)
+    | CustomOperator(symbol_table parent_symtab, identifier name,
+        symbol* procs, access access)
+    | ExternalSymbol(symbol_table parent_symtab, identifier name,
+        symbol external, identifier module_name, identifier* scope_names,
+        identifier original_name, access access)
+    | StructType(symbol_table symtab, identifier name, identifier* members,
+        abi abi, access access, symbol? parent)
+    | EnumType(symbol_table symtab, identifier name, identifier* members,
+        abi abi, access access, enumtype enum_value_type, ttype type, symbol? parent)
+    | UnionType(symbol_table symtab, identifier name, identifier* members,
+        abi abi, access access, symbol? parent)
+    | Variable(symbol_table parent_symtab, identifier name, intent intent,
+        expr? symbolic_value, expr? value, storage_type storage, ttype type,
+        abi abi, access access, presence presence, bool value_attr)
+    | ClassType(symbol_table symtab, identifier name, abi abi, access access)
+    | ClassProcedure(symbol_table parent_symtab, identifier name, identifier
+        proc_name, symbol proc, abi abi)
+    | AssociateBlock(symbol_table symtab, identifier name, stmt* body)
+    | Block(symbol_table symtab, identifier name, stmt* body)
+</pre></div>
+</div>
+</section>
+<section id="arguments">
+<h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permalink naar deze titel">¶</a></h3>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument Name</p></th>
+<th class="head"><p>Denotes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">symtab</span></code></p></td>
+<td><p>local symbol table</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>symbol name for easy lookup</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dependencies</span></code></p></td>
+<td><p>dependencies of symbol</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">body</span></code></p></td>
+<td><p>statement body</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">loaded_from_mod</span></code></p></td>
+<td><p>boolean value if loaded from mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">intrinsic</span></code></p></td>
+<td><p>boolean value if intrinsic</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">args</span></code></p></td>
+<td><p>arguments of expression</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">abi</span></code></p></td>
+<td><p>source</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">original_name</span></code></p></td>
+<td><p>original symbol</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parent_symtab</span></code></p></td>
+<td><p>where symbol is stored</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scope_names</span></code></p></td>
+<td><p>list of names if the symbol is in a nested symbol table</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">storage_type</span></code></p></td>
+<td><p>Default/Save/Parameter/Allocatable</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">access</span></code></p></td>
+<td><p>Public/Private</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">intent</span></code></p></td>
+<td><p>Local/In/Out/InOut/ReturnVar/Unspecified</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">deftype</span></code></p></td>
+<td><p>Implementation/Interface</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">presence</span></code></p></td>
+<td><p>Required/Optional</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values">
+<h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Permalink naar deze titel">¶</a></h3>
+<p>None.</p>
+</section>
+</section>
+<section id="description">
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permalink naar deze titel">¶</a></h2>
+<p>Each symbol has either <code class="docutils literal notranslate"><span class="pre">symtab</span></code> (local symbol table) or <code class="docutils literal notranslate"><span class="pre">parent_symtab</span></code> (where
+this symbol is stored). One can get to parent_symtab via symtab, so only one is
+present.</p>
+<p>Each symbol has a <code class="docutils literal notranslate"><span class="pre">name</span></code> for easy lookup of the name of the symbol when only
+having a pointer to it.</p>
+<p>abi=Source means the symbol’s implementation is included (full ASR), otherwise
+it is external (interface ASR, such as procedure interface).</p>
+<p>SubroutineCall/FunctionCall store the actual final resolved subroutine or function
+(<code class="docutils literal notranslate"><span class="pre">name</span></code> member). They also store the original symbol (<code class="docutils literal notranslate"><span class="pre">original_name</span></code>), which
+can be one of: null, GenericProcedure or ExternalSymbol.</p>
+<p>When a module is compiled, it is parsed into full ASR, an object file is produced,
+the full ASR (abi=Source, “body” is non-empty) is transformed into interface
+ASR (abi=LFortran, “body” is empty). Both interface and full ASR is saved into
+the mod file.</p>
+<p>When a module is used, it is first looked up in the symbol table (as either full
+or interface ASR) and used if it is present. Otherwise a mod file is found on
+the disk, loaded (as either full or interface ASR for LFortran’s mod file,
+depending on LFortran’s compiler options; or for GFortran’s mod file the
+corresponding interface ASR is constructed with abi=GFortran) and used. After the
+ASR is loaded, the symbols that are used are represented as ExternalSymbols in
+the current scope of the symbol table.</p>
+<p>ExternalSymbol represents symbols that cannot be looked up in the current scoped
+symbol table. As an example, if a variable is defined in a module, but used in a
+nested subroutine, that is not an external symbol because it can be resolved in
+the current symbol table (nested subroutine) by following the parents. However
+if a symbol is used from a different module, then it is an external symbol,
+because usual symbol resolution by going to the parents will not find the
+definition. The <code class="docutils literal notranslate"><span class="pre">module_name</span></code> member is the name of the module the symbol is in,
+the <code class="docutils literal notranslate"><span class="pre">scope_names</span></code> is a list of names if the symbol is in a nested symbol table.
+For example if it is a local variable in a function <code class="docutils literal notranslate"><span class="pre">f</span></code> that is nested in function
+<code class="docutils literal notranslate"><span class="pre">g</span></code>, then <code class="docutils literal notranslate"><span class="pre">scope_names=[g,</span> <span class="pre">f]</span></code>.</p>
+<p>REPL: each cell is parsed into full ASR, compiled + executed, the full ASR is
+transformed into interface ASR (abi=LFortran) and kept in the symbol table. A
+new cell starts with an empty symbol table, whose parent symbol table is the
+previous cell. That allows function / declaration shadowing.</p>
+<p>Symbols in LFortran are:</p>
+<ol class="arabic simple">
+<li><p>Program</p></li>
+<li><p>Module</p></li>
+<li><p>Function</p></li>
+<li><p>GenericProcedure</p></li>
+<li><p>CustomOperator</p></li>
+<li><p>ExternalSymbol</p></li>
+<li><p>DerivedType</p></li>
+<li><p>Variable</p></li>
+<li><p>ClassType</p></li>
+<li><p>ClassProcedure</p></li>
+<li><p>AssociateBlock</p></li>
+<li><p>Block</p></li>
+</ol>
+</section>
+<section id="types">
+<h2 id="types">Types<a class="headerlink" href="#types" title="Permalink naar deze titel">¶</a></h2>
+<p>Special meaning textual denotations.</p>
+</section>
+<section id="examples">
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink naar deze titel">¶</a></h2>
+<p>Example of function:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer </span><span class="k">function </span><span class="n">a</span><span class="p">()</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
+</pre></div>
+</div>
+<p>ASR:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>(TranslationUnit
+    (SymbolTable
+        1
+        {
+            a:
+                (Function
+                    (SymbolTable
+                        2
+                        {
+                            a:
+                                (Variable
+                                    2
+                                    a
+                                    ReturnVar
+                                    ()
+                                    ()
+                                    Default
+                                    (Integer 4 [])
+                                    Source
+                                    Public
+                                    Required
+                                    .false.
+                                )
+
+                        })
+                    a
+                    []
+                    []
+                    (Var 2 a)
+                    Source
+                    Public
+                    Implementation
+                    ()
+                    .false.
+                    .false.
+                    .false.
+                    .false.
+                    .false.
+                    []
+                    []
+                    .false.
+                )
+
+        })
+    []
+)
+</pre></div>
+</div>
+<p>Example of GenericProcedure:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">module </span><span class="n">stdlib_quadrature_simps</span><span class="w"></span>
+<span class="w">    </span><span class="k">interface </span><span class="n">simps38_weights</span><span class="w"></span>
+<span class="w">        </span><span class="k">module procedure </span><span class="n">simps38_weights_dp</span><span class="w"></span>
+<span class="w">    </span><span class="k">end interface </span><span class="n">simps38_weights</span><span class="w"></span>
+
+<span class="k">contains</span>
+
+<span class="k">    function </span><span class="n">simps38_weights_dp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">w</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="k">end function </span><span class="n">simps38_weights_dp</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">subroutine </span><span class="n">simps38_weights_dp_use</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x1</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">simps38_weights</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">end subroutine </span><span class="n">simps38_weights_dp_use</span><span class="w"></span>
+<span class="k">end module</span>
+
+<span class="k">program </span><span class="n">stdlib_quadrature</span><span class="w"></span>
+<span class="k">use </span><span class="n">stdlib_quadrature_simps</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">simps38_weights_dp</span><span class="w"></span>
+<span class="k">implicit none</span>
+<span class="kt">real</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x1</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
+<span class="k">print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">simps38_weights_dp</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="w"></span>
+<span class="k">end program</span><span class="w"></span>
+</pre></div>
+</div>
+<p>ASR:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>(TranslationUnit
+    (SymbolTable
+        1
+        {
+            stdlib_quadrature:
+                (Program
+                    (SymbolTable
+                        5
+                        {
+                            simps38_weights_dp:
+                                (ExternalSymbol
+                                    5
+                                    simps38_weights_dp
+                                    2 simps38_weights_dp
+                                    stdlib_quadrature_simps
+                                    []
+                                    simps38_weights_dp
+                                    Public
+                                ),
+                            x1:
+                                (Variable
+                                    5
+                                    x1
+                                    Local
+                                    ()
+                                    ()
+                                    Default
+                                    (Real 8 [((IntegerConstant 1 (Integer 4 []))
+                                    (IntegerConstant 4 (Integer 4 [])))])
+                                    Source
+                                    Public
+                                    Required
+                                    .false.
+                                )
+
+                        })
+                    stdlib_quadrature
+                    [stdlib_quadrature_simps]
+                    [(Print
+                        ()
+                        [(FunctionCall
+                            5 simps38_weights_dp
+                            ()
+                            [((Var 5 x1))]
+                            (Real 8 [((IntegerConstant 1 (Integer 4 []))
+                            (IntegerConstant 4 (Integer 4 [])))])
+                            ()
+                            ()
+                        )]
+                        ()
+                        ()
+                    )]
+                ),
+            stdlib_quadrature_simps:
+                (Module
+                    (SymbolTable
+                        2
+                        {
+                            simps38_weights:
+                                (GenericProcedure
+                                    2
+                                    simps38_weights
+                                    [2 simps38_weights_dp]
+                                    Public
+                                ),
+                            simps38_weights_dp:
+                                (Function
+                                    (SymbolTable
+                                        3
+                                        {
+                                            w:
+                                                (Variable
+                                                    3
+                                                    w
+                                                    ReturnVar
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Real 8 [((IntegerConstant 1 (Integer 4 []))
+                                                    (IntegerConstant 4 (Integer 4 [])))])
+                                                    Source
+                                                    Public
+                                                    Required
+                                                    .false.
+                                                ),
+                                            x:
+                                                (Variable
+                                                    3
+                                                    x
+                                                    In
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Real 8 [((IntegerConstant 1 (Integer 4 []))
+                                                    (IntegerConstant 4 (Integer 4 [])))])
+                                                    Source
+                                                    Public
+                                                    Required
+                                                    .false.
+                                                )
+
+                                        })
+                                    simps38_weights_dp
+                                    [(Var 3 x)]
+                                    []
+                                    (Var 3 w)
+                                    Source
+                                    Public
+                                    Implementation
+                                    ()
+                                    .false.
+                                    .false.
+                                    .false.
+                                    .false.
+                                    .false.
+                                    []
+                                    []
+                                    .false.
+                                ),
+                            simps38_weights_dp_use:
+                                (Function
+                                    (SymbolTable
+                                        4
+                                        {
+                                            x1:
+                                                (Variable
+                                                    4
+                                                    x1
+                                                    In
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Real 8 [((IntegerConstant 1 (Integer 4 []))
+                                                    (IntegerConstant 4 (Integer 4 [])))])
+                                                    Source
+                                                    Public
+                                                    Required
+                                                    .false.
+                                                )
+
+                                        })
+                                    simps38_weights_dp_use
+                                    [(Var 4 x1)]
+                                    [(Print
+                                        ()
+                                        [(FunctionCall
+                                            2 simps38_weights_dp
+                                            2 simps38_weights
+                                            [((Var 4 x1))]
+                                            (Real 8 [((IntegerConstant 1 (Integer 4 []))
+                                            (IntegerConstant 4 (Integer 4 [])))])
+                                            ()
+                                            ()
+                                        )]
+                                        ()
+                                        ()
+                                    )]
+                                    ()
+                                    Source
+                                    Public
+                                    Implementation
+                                    ()
+                                    .false.
+                                    .false.
+                                    .false.
+                                    .false.
+                                    .false.
+                                    []
+                                    []
+                                    .false.
+                                )
+
+                        })
+                    stdlib_quadrature_simps
+                    []
+                    .false.
+                    .false.
+                )
+
+        })
+    []
+)
+</pre></div>
+</div>
+<p>Example of Module and CustomOperator:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">module </span><span class="n">stdlib_string_type</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">string_type</span><span class="w"></span>
+<span class="w">        </span><span class="k">sequence</span>
+<span class="k">        private</span>
+<span class="k">        </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">raw</span><span class="w"></span>
+<span class="w">    </span><span class="k">end type </span><span class="n">string_type</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">interface write</span><span class="p">(</span><span class="n">formatted</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">module procedure</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">write_formatted</span><span class="w"></span>
+<span class="w">    </span><span class="k">end interface</span>
+
+<span class="k">    interface read</span><span class="p">(</span><span class="n">formatted</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">module procedure</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">read_formatted</span><span class="w"></span>
+<span class="w">    </span><span class="k">end interface</span>
+
+<span class="k">contains</span>
+
+<span class="k">subroutine </span><span class="n">write_formatted</span><span class="p">(</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">unit</span><span class="p">,</span><span class="w"> </span><span class="n">iotype</span><span class="p">,</span><span class="w"> </span><span class="n">v_list</span><span class="p">,</span><span class="w"> </span><span class="n">iostat</span><span class="p">,</span><span class="w"> </span><span class="n">iomsg</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span><span class="p">(</span><span class="n">string_type</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">string</span><span class="w"></span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">unit</span><span class="w"></span>
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">iotype</span><span class="w"></span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">v_list</span><span class="p">(:)</span><span class="w"></span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">iostat</span><span class="w"></span>
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">iomsg</span><span class="w"></span>
+<span class="k">end subroutine </span><span class="n">write_formatted</span><span class="w"></span>
+
+<span class="k">subroutine </span><span class="n">read_formatted</span><span class="p">(</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">unit</span><span class="p">,</span><span class="w"> </span><span class="n">iotype</span><span class="p">,</span><span class="w"> </span><span class="n">v_list</span><span class="p">,</span><span class="w"> </span><span class="n">iostat</span><span class="p">,</span><span class="w"> </span><span class="n">iomsg</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span><span class="p">(</span><span class="n">string_type</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">string</span><span class="w"></span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">unit</span><span class="w"></span>
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">iotype</span><span class="w"></span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">v_list</span><span class="p">(:)</span><span class="w"></span>
+<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">iostat</span><span class="w"></span>
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">iomsg</span><span class="w"></span>
+<span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">line</span><span class="w"></span>
+<span class="k">end subroutine </span><span class="n">read_formatted</span><span class="w"></span>
+
+<span class="k">end module</span>
+
+<span class="k">program </span><span class="n">string_14</span><span class="w"></span>
+<span class="k">end program</span><span class="w"></span>
+</pre></div>
+</div>
+<p>ASR:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>(TranslationUnit
+    (SymbolTable
+        1
+        {
+            stdlib_string_type:
+                (Module
+                    (SymbolTable
+                        2
+                        {
+                            formatted:
+                                (CustomOperator
+                                    2
+                                    formatted
+                                    [2 read_formatted]
+                                    Public
+                                ),
+                            read_formatted:
+                                (Function
+                                    (SymbolTable
+                                        5
+                                        {
+                                            iomsg:
+                                                (Variable
+                                                    5
+                                                    iomsg
+                                                    InOut
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Character 1 -1 () [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            iostat:
+                                                (Variable
+                                                    5
+                                                    iostat
+                                                    Out
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Integer 4 [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            iotype:
+                                                (Variable
+                                                    5
+                                                    iotype
+                                                    In
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Character 1 -1 () [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            line:
+                                                (Variable
+                                                    5
+                                                    line
+                                                    Local
+                                                    ()
+                                                    ()
+                                                    Allocatable
+                                                    (Character 1 -2 () [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            string:
+                                                (Variable
+                                                    5
+                                                    string
+                                                    InOut
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Struct
+                                                        2 string_type
+                                                        []
+                                                    )
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            unit:
+                                                (Variable
+                                                    5
+                                                    unit
+                                                    In
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Integer 4 [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            v_list:
+                                                (Variable
+                                                    5
+                                                    v_list
+                                                    In
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Integer 4 [(()
+                                                    ())])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                )
+
+                                        })
+                                    read_formatted
+                                    [(Var 5 string)
+                                    (Var 5 unit)
+                                    (Var 5 iotype)
+                                    (Var 5 v_list)
+                                    (Var 5 iostat)
+                                    (Var 5 iomsg)]
+                                    [(ImplicitDeallocate
+                                        [5 line]
+                                    )]
+                                    ()
+                                    Source
+                                    Private
+                                    Implementation
+                                    ()
+                                    .false.
+                                    .false.
+                                    .false.
+                                    .false.
+                                    .false.
+                                    []
+                                    []
+                                    .false.
+                                ),
+                            string_type:
+                                (StructType
+                                    (SymbolTable
+                                        3
+                                        {
+                                            raw:
+                                                (Variable
+                                                    3
+                                                    raw
+                                                    Local
+                                                    ()
+                                                    ()
+                                                    Allocatable
+                                                    (Character 1 -2 () [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                )
+
+                                        })
+                                    string_type
+                                    [raw]
+                                    Source
+                                    Private
+                                    ()
+                                ),
+                            write_formatted:
+                                (Function
+                                    (SymbolTable
+                                        4
+                                        {
+                                            iomsg:
+                                                (Variable
+                                                    4
+                                                    iomsg
+                                                    InOut
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Character 1 -1 () [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            iostat:
+                                                (Variable
+                                                    4
+                                                    iostat
+                                                    Out
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Integer 4 [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            iotype:
+                                                (Variable
+                                                    4
+                                                    iotype
+                                                    In
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Character 1 -1 () [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            string:
+                                                (Variable
+                                                    4
+                                                    string
+                                                    In
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Struct
+                                                        2 string_type
+                                                        []
+                                                    )
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            unit:
+                                                (Variable
+                                                    4
+                                                    unit
+                                                    In
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Integer 4 [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            v_list:
+                                                (Variable
+                                                    4
+                                                    v_list
+                                                    In
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Integer 4 [(()
+                                                    ())])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                )
+
+                                        })
+                                    write_formatted
+                                    [(Var 4 string)
+                                    (Var 4 unit)
+                                    (Var 4 iotype)
+                                    (Var 4 v_list)
+                                    (Var 4 iostat)
+                                    (Var 4 iomsg)]
+                                    []
+                                    ()
+                                    Source
+                                    Private
+                                    Implementation
+                                    ()
+                                    .false.
+                                    .false.
+                                    .false.
+                                    .false.
+                                    .false.
+                                    []
+                                    []
+                                    .false.
+                                )
+
+                        })
+                    stdlib_string_type
+                    []
+                    .false.
+                    .false.
+                ),
+            string_14:
+                (Program
+                    (SymbolTable
+                        6
+                        {
+
+                        })
+                    string_14
+                    []
+                    []
+                )
+
+        })
+    []
+)
+</pre></div>
+</div>
+<p>Example of ClassProcedure:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">module </span><span class="n">bitset</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="k">abstract</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">bitset_type</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">private</span>
+<span class="k">        </span><span class="kt">integer</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">num_bits</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">contains</span>
+
+<span class="k">        procedure</span><span class="p">(</span><span class="n">all_abstract</span><span class="p">),</span><span class="w"> </span><span class="k">deferred</span><span class="p">,</span><span class="w"> </span><span class="k">pass</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="k">all</span>
+
+<span class="k">    end type </span><span class="n">bitset_type</span><span class="w"></span>
+
+
+<span class="w">    </span><span class="k">abstract interface</span>
+
+<span class="k">        elemental function </span><span class="n">all_abstract</span><span class="p">(</span><span class="w"> </span><span class="n">self</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="k">all</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="k">import</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">bitset_type</span><span class="w"></span>
+<span class="w">            </span><span class="kt">logical</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="k">all</span>
+<span class="k">            class</span><span class="p">(</span><span class="n">bitset_type</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">self</span><span class="w"></span>
+<span class="w">        </span><span class="k">end function </span><span class="n">all_abstract</span><span class="w"></span>
+<span class="w">    </span><span class="k">end interface</span>
+
+<span class="k">end module</span>
+
+<span class="k">program </span><span class="n">debug</span><span class="w"></span>
+<span class="w">    </span><span class="k">implicit none</span>
+<span class="k">end program</span><span class="w"></span>
+</pre></div>
+</div>
+<p>ASR:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>(TranslationUnit
+    (SymbolTable
+        1
+        {
+            bitset:
+                (Module
+                    (SymbolTable
+                        2
+                        {
+                            all_abstract:
+                                (Function
+                                    (SymbolTable
+                                        4
+                                        {
+                                            all:
+                                                (Variable
+                                                    4
+                                                    all
+                                                    ReturnVar
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Logical 4 [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                ),
+                                            self:
+                                                (Variable
+                                                    4
+                                                    self
+                                                    In
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Class
+                                                        2 bitset_type
+                                                        []
+                                                    )
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                )
+
+                                        })
+                                    all_abstract
+                                    [(Var 4 self)]
+                                    []
+                                    (Var 4 all)
+                                    Source
+                                    Private
+                                    Interface
+                                    ()
+                                    .true.
+                                    .false.
+                                    .false.
+                                    .false.
+                                    .false.
+                                    []
+                                    []
+                                    .false.
+                                ),
+                            bitset_type:
+                                (StructType
+                                    (SymbolTable
+                                        3
+                                        {
+                                            all:
+                                                (ClassProcedure
+                                                    3
+                                                    all
+                                                    all_abstract
+                                                    2 all_abstract
+                                                    Source
+                                                ),
+                                            num_bits:
+                                                (Variable
+                                                    3
+                                                    num_bits
+                                                    Local
+                                                    ()
+                                                    ()
+                                                    Default
+                                                    (Integer 8 [])
+                                                    Source
+                                                    Private
+                                                    Required
+                                                    .false.
+                                                )
+
+                                        })
+                                    bitset_type
+                                    [num_bits]
+                                    Source
+                                    Private
+                                    ()
+                                )
+
+                        })
+                    bitset
+                    []
+                    .false.
+                    .false.
+                ),
+            debug:
+                (Program
+                    (SymbolTable
+                        5
+                        {
+
+                        })
+                    debug
+                    []
+                    []
+                )
+
+        })
+    []
+)
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permalink naar deze titel">¶</a></h2>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2022 LFortran contributors.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../../../../_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>
