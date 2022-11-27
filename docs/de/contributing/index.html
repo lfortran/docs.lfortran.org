@@ -298,7 +298,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../developer_tutorial/" class="md-nav__link">Developer Tutorial</a>
+      <a href="../developer_tutorial/" class="md-nav__link">Tutorial für Entwickler</a>
       
     
     </li>
@@ -335,15 +335,15 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#create-new-token-s" class="md-nav__link">Neue(s) Token erstellen</a>
         </li>
-        <li class="md-nav__item"><a href="#parse-the-new-token" class="md-nav__link">Parse the New Token</a>
+        <li class="md-nav__item"><a href="#parse-the-new-token" class="md-nav__link">Parsen des neuen Tokens</a>
         </li>
-        <li class="md-nav__item"><a href="#implement-the-semantics-of-the-new-token" class="md-nav__link">Implement the Semantics of the New Token</a>
+        <li class="md-nav__item"><a href="#implement-the-semantics-of-the-new-token" class="md-nav__link">Implementieren der Semantik des neuen Tokens</a>
         </li>
-        <li class="md-nav__item"><a href="#implement-the-new-token-in-llvm" class="md-nav__link">Implement the New Token in LLVM</a>
+        <li class="md-nav__item"><a href="#implement-the-new-token-in-llvm" class="md-nav__link">Implementierung des neuen Tokens in LLVM</a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#reach-out" class="md-nav__link">Reach Out</a>
+        <li class="md-nav__item"><a href="#reach-out" class="md-nav__link">Kontakt aufnehmen</a>
         </li></ul>
             </nav>
         </li>
@@ -367,7 +367,7 @@
     <li class="md-nav__item">
     
     
-      <a href="#reach-out" class="md-nav__link">Reach Out</a>
+      <a href="#reach-out" class="md-nav__link">Kontakt aufnehmen</a>
       
     
     </li></ul>
@@ -455,15 +455,15 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#create-new-token-s" class="md-nav__link">Neue(s) Token erstellen</a>
         </li>
-        <li class="md-nav__item"><a href="#parse-the-new-token" class="md-nav__link">Parse the New Token</a>
+        <li class="md-nav__item"><a href="#parse-the-new-token" class="md-nav__link">Parsen des neuen Tokens</a>
         </li>
-        <li class="md-nav__item"><a href="#implement-the-semantics-of-the-new-token" class="md-nav__link">Implement the Semantics of the New Token</a>
+        <li class="md-nav__item"><a href="#implement-the-semantics-of-the-new-token" class="md-nav__link">Implementieren der Semantik des neuen Tokens</a>
         </li>
-        <li class="md-nav__item"><a href="#implement-the-new-token-in-llvm" class="md-nav__link">Implement the New Token in LLVM</a>
+        <li class="md-nav__item"><a href="#implement-the-new-token-in-llvm" class="md-nav__link">Implementierung des neuen Tokens in LLVM</a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#reach-out" class="md-nav__link">Reach Out</a>
+        <li class="md-nav__item"><a href="#reach-out" class="md-nav__link">Kontakt aufnehmen</a>
         </li></ul>
             </nav>
         </li>
@@ -483,8 +483,8 @@
 <h2 id="basic-setup">Grundeinstellung<a class="headerlink" href="#basic-setup" title="Link zu dieser Überschrift">¶</a></h2>
 <p>Um Beizutragen solltest du folgendes vorbereitet haben:</p>
 <ul class="simple">
-<li><p>Ihr Benutzername + E-Mail</p></li>
-<li><p>Ihre <code class="docutils literal notranslate"><span class="pre">~/.gitconfig</span></code></p></li>
+<li><p>Dein Benutzername + E-Mail</p></li>
+<li><p>Deine <code class="docutils literal notranslate"><span class="pre">~/.gitconfig</span></code></p></li>
 <li><p>Deine Shell Eingabe sollte den aktuellen Branch Namen anzeigen</p></li>
 </ul>
 <section id="fork-lfortran">
@@ -522,16 +522,15 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">REMOTE_NAME</span> <span class="n">fix1</span>
 </pre></div>
 </div>
-<p>The command will push the new branch <code class="docutils literal notranslate"><span class="pre">fix1</span></code> into your remote repository <code class="docutils literal notranslate"><span class="pre">REMOTE_NAME</span></code> that you created earlier. Additionally, it will also display a link that you can click on to open the new merge request. After clicking on the link, write a title and a concise description then click the „Create“ button. Yay you are now all set.</p>
+<p>Der Befehl pushed den neuen Branch <code class="docutils literal notranslate"><span class="pre">fix1</span></code> in dein remote Repository <code class="docutils literal notranslate"><span class="pre">REMOTE_NAME</span></code>, welches du zuvor erstellt hast. Zusätzlich wird ein Link angezeigt, welcher geklickt werden kann um einen neuen merge request zu starten. Nach dem Klicken, schreibe einen Titel und eine kurze Beschreibung, anschließend klicke auf den „Create“-Button. Du bist nun fertig.</p>
 </section>
 </section>
 <section id="add-new-features">
 <h2 id="add-new-features">Neue Funktionen hinzufügen<a class="headerlink" href="#add-new-features" title="Link zu dieser Überschrift">¶</a></h2>
-<p>The example below shows the steps it would take to create a caret binary operator <strong>^</strong> which computes the average value of the two operands.</p>
+<p>Das folgende Beispiel zeigt die Schritte die erforderlich sind um den binären Operator <strong>^</strong> zu erstellen, welcher den Mittelwert der beiden Operanden berechnet.</p>
 <section id="create-new-token-s">
 <h3 id="create-new-token-s">Neue(s) Token erstellen<a class="headerlink" href="#create-new-token-s" title="Link zu dieser Überschrift">¶</a></h3>
-<p>We extend the <em>tokenizer.re</em> as well as <em>parser.yy</em> to add the new token <strong>^</strong>.
-We also tell LFortran how to print the new token in <em>parser.cpp</em>.</p>
+<p>Wir erweitern den <em>tokenizer.re</em> und den <em>parser.yy</em> um den Token <strong>^</strong>. Wir werden außerdem LFortran in <em>parser.cpp</em> sagen, wie der neue Token ausgegeben werden soll.</p>
 <p>:fontawesome-solid-code: <em>src/lfortran/parser/tokenizer.re</em></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="s2">"^"</span> <span class="p">{</span> <span class="n">RET</span><span class="p">(</span><span class="n">TK_CARET</span><span class="p">)</span> <span class="p">}</span>
 </pre></div>
@@ -549,11 +548,11 @@ We also tell LFortran how to print the new token in <em>parser.cpp</em>.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The added code is tested with <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">--show-tokens</span> <span class="pre">examples2/expr2.f90</span></code></p>
+<p>Der hinzugefügte Code wird mit <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">--show-tokens</span> <span class="pre">examples2/expr2.f90</span></code> getestet</p>
 </section>
 <section id="parse-the-new-token">
-<h3 id="parse-the-new-token">Parse the New Token<a class="headerlink" href="#parse-the-new-token" title="Link zu dieser Überschrift">¶</a></h3>
-<p>Now we have to parse the new operator. We add it to the AST by extending the BinOp with a caret operator and modifying the <em>AST.asdl</em> file. Then we add it in <em>parse.yy</em> to properly parse and generate the new AST in <em>semantics.h</em>.Finally we extend <em>pickle.cpp</em> so that the new operator can print itself.</p>
+<h3 id="parse-the-new-token">Parsen des neuen Tokens<a class="headerlink" href="#parse-the-new-token" title="Link zu dieser Überschrift">¶</a></h3>
+<p>Nun muss der neue Operator geparsed werden. Wir fügen ihn zum AST hinzu, indem wir den BinOp um den Caret-Operator erweitern und die <em>AST.asdl</em> -Datei anpassen. Anschließend fügen wir ihn in <em>parse.yy</em> hinzu um den neuen AST in <em>semantics.h</em> richtig zu parsen und zu generieren. Abschließend erweitern wir <em>pickle.cpp</em>, sodass der neue Operator sich selbst ausgeben kann.</p>
 <p>:fontawesome-solid-code:<em>grammar/AST.asdl</em></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">operator</span> <span class="o">=</span> <span class="n">Add</span> <span class="o">|</span> <span class="n">Sub</span> <span class="o">|</span> <span class="n">Mul</span> <span class="o">|</span> <span class="n">Div</span> <span class="o">|</span> <span class="n">Pow</span> <span class="o">|</span> <span class="n">Caret</span>
 </pre></div>
@@ -580,11 +579,11 @@ expr
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The section is tested with <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">--show-ast</span> <span class="pre">examples/expr2.f90</span></code></p>
+<p>Der Abschnitt lässt sich mit <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">--show-ast</span> <span class="pre">examples/expr2.f90</span></code> testen</p>
 </section>
 <section id="implement-the-semantics-of-the-new-token">
-<h3 id="implement-the-semantics-of-the-new-token">Implement the Semantics of the New Token<a class="headerlink" href="#implement-the-semantics-of-the-new-token" title="Link zu dieser Überschrift">¶</a></h3>
-<p>We first extend the ASR in <em>ASR.asdl</em> and add ^ as a BinOp operator option.</p>
+<h3 id="implement-the-semantics-of-the-new-token">Implementieren der Semantik des neuen Tokens<a class="headerlink" href="#implement-the-semantics-of-the-new-token" title="Link zu dieser Überschrift">¶</a></h3>
+<p>Zuerst erweitern wir den ASR in <em>ASR.asdl</em> und fügen ^ als eine BinOp-operator Option hinzu.</p>
 <p>:fontawesome-solid-code:<em>src/libasr/ASR.asdl</em></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">binop</span> <span class="o">=</span> <span class="n">Add</span> <span class="o">|</span> <span class="n">Sub</span> <span class="o">|</span> <span class="n">Mul</span> <span class="o">|</span> <span class="n">Div</span> <span class="o">|</span> <span class="n">Pow</span> <span class="o">|</span> <span class="n">Caret</span>
 </pre></div>
@@ -625,16 +624,13 @@ expr
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Then we transform it from AST to ASR by extending <em>src/lfortran/semantics/ast_common_visitor.h</em>.</p>
-<p>We also add it into compile time evaluation triggered by expressions such as <code class="docutils literal notranslate"><span class="pre">e</span> <span class="pre">=</span> <span class="pre">(2+3)^5</span></code> which is evaluated at compile time. An expression such as <code class="docutils literal notranslate"><span class="pre">e</span> <span class="pre">=</span> <span class="pre">x^5</span></code> is evaluated at run time only.</p>
-<p>The section is tested with <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">--show-asr</span> <span class="pre">examples/expr2.f90</span></code></p>
+<p>Anschließend wandeln wir ihn vom AST zum ASR um, indem wir <em>src/lfortran/semantics/ast_common_visitor.h</em> ergänzen.</p>
+<p>Zusätzlich fügen wir ihn in die „Compile time evaluation“ hinzu, die durch Ausdrücke wie z.B. <code class="docutils literal notranslate"><span class="pre">e</span> <span class="pre">=</span> <span class="pre">(2+3)^5</span></code> ausgelöst wird. Ein Ausdruck wie beispielsweise <code class="docutils literal notranslate"><span class="pre">e</span> <span class="pre">=</span> <span class="pre">x^5</span></code> wird nur zur Laufzeit evaluiert.</p>
+<p>Dieser Abschnitt lässt sich mit <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">--show-asr</span> <span class="pre">examples/expr2.f90</span></code> testen</p>
 </section>
 <section id="implement-the-new-token-in-llvm">
-<h3 id="implement-the-new-token-in-llvm">Implement the New Token in LLVM<a class="headerlink" href="#implement-the-new-token-in-llvm" title="Link zu dieser Überschrift">¶</a></h3>
-<p>To implement in LLVM, we extend the BinOp
-translation by handling the new operator. We first add the two numbers then
-divide by two.
-:fontawesome-solid-code:<em>src/lfortran/codegen/asr_to_llvm.cpp</em></p>
+<h3 id="implement-the-new-token-in-llvm">Implementierung des neuen Tokens in LLVM<a class="headerlink" href="#implement-the-new-token-in-llvm" title="Link zu dieser Überschrift">¶</a></h3>
+<p>Zur Implementierung in LLVM erweitern wir die BinOp-Übersetzung um die Verarbeitung des neuen Operators. Wir addieren im ersten Schritt die beiden Zahlen und dividieren diese anschließend durch zwei. :fontawesome-solid-code:<em>src/lfortran/codegen/asr_to_llvm.cpp</em></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">void</span> <span class="n">visit_BinOp</span><span class="p">(</span><span class="n">const</span> <span class="n">ASR</span><span class="p">::</span><span class="n">BinOp_t</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">m_value</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">this</span><span class="o">-&gt;</span><span class="n">visit_expr_wrapper</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">m_value</span><span class="p">,</span> <span class="n">true</span><span class="p">);</span>
@@ -661,14 +657,14 @@ divide by two.
 
 </pre></div>
 </div>
-<p>The section is tested with <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">--show-llvm</span> <span class="pre">examples/expr2.f90</span></code></p>
-<p>Now when LLVM works, we can test the final executable by:</p>
+<p>Dieser Abschnitt lässt sich mit <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">--show-llvm</span> <span class="pre">examples/expr2.f90</span></code> testen</p>
+<p>Wenn LLVM nun funktioniert, können wir die endgültige ausführbare Datei testen, indem wir:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lfortran</span> <span class="n">examples</span><span class="o">/</span><span class="n">expr2</span><span class="o">.</span><span class="n">f90</span>
 <span class="o">./</span><span class="n">a</span><span class="o">.</span><span class="n">out</span>
 </pre></div>
 </div>
-<p>And it should print 6.</p>
-<p>It also works interactively:</p>
+<p>Und es sollte 6 ausgegeben werden.</p>
+<p>Es funktioniert auch interaktiv:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ lfortran
 Interactive Fortran. Experimental prototype, not ready for end users.
   * Use Ctrl-D to exit
@@ -687,15 +683,10 @@ Interactive Fortran. Experimental prototype, not ready for end users.
 </section>
 </section>
 <section id="reach-out">
-<h2 id="reach-out">Reach Out<a class="headerlink" href="#reach-out" title="Link zu dieser Überschrift">¶</a></h2>
-<p>If you have any questions or need help, please ask as at our
-<a class="reference external" href="https://groups.io/g/lfortran">mailinglist</a> or a
-<a class="reference external" href="https://lfortran.zulipchat.com/">chat</a>.</p>
-<p>Please note that all participants of this project are expected to follow our
-Code of Conduct. By participating in this project you agree to abide by its
-terms. See <a class="reference external" href="https://github.com/lfortran/lfortran/blob/main/CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a>.</p>
-<p>By submitting a PR you agree to license your contribution under
-the LFortran’s BSD <a class="reference external" href="https://github.com/lfortran/lfortran/blob/main/LICENSE">license</a> unless explicitly noted otherwise.</p>
+<h2 id="reach-out">Kontakt aufnehmen<a class="headerlink" href="#reach-out" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wenn du Fragen hast oder Hilfe brauchst, wende dich bitte an unsere <a class="reference external" href="https://groups.io/g/lfortran">Mailinglist</a> oder and den <a class="reference external" href="https://lfortran.zulipchat.com/">Chat</a>.</p>
+<p>Bitte beachte, dass von allen Teilnehmern an diesem Projekt erwartet wird, dass sie unseren Verhaltenskodex befolgen. Mit der Teilnahme an diesem Projekt erklärst du dich damit einverstanden, diese Bedingungen einzuhalten. Siehe <a class="reference external" href="https://github.com/lfortran/lfortran/blob/main/CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a>.</p>
+<p>Durch das Einreichen eines Beitrags stimmst du der Lizenzierung deines Beitrags unter LFortrans BSD <a class="reference external" href="https://github.com/lfortran/lfortran/blob/main/LICENSE">Lizenz</a> zu, es sei denn, es ist ausdrücklich anders vermerkt.</p>
 </section>
 </section>
 
