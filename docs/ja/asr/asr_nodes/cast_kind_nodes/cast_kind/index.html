@@ -64,7 +64,7 @@
     <link rel="shortcut icon" href="../../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="索引" href="../../../../genindex/" />
     <link rel="search" title="検索" href="../../../../search/" />
-    <link rel="next" title="kinds" href="../../kinds_nodes/kinds/" />
+    <link rel="next" title="ASR Expression Nodes" href="../../expression_nodes/expression_nodes/" />
     <link rel="prev" title="new_line(x): New Line Character" href="../../../../intrinsics/misc/new_line/" />
   
    
@@ -452,6 +452,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../kinds_nodes/kinds/" class="md-nav__link">kinds</a>
       
     
@@ -459,7 +466,21 @@
     <li class="md-nav__item">
     
     
+      <a href="../../statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../symbol_nodes/symbol/" class="md-nav__link">symbol</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../symbol_nodes/program/" class="md-nav__link">Program</a>
       
     
     </li>
@@ -522,27 +543,27 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>cast_kind
-    = RealToInteger
-    | IntegerToReal
-    | LogicalToReal
-    | RealToReal
-    | IntegerToInteger
-    | RealToComplex
-    | IntegerToComplex
-    | IntegerToLogical
-    | RealToLogical
-    | CharacterToLogical
-    | CharacterToInteger
-    | CharacterToList
-    | ComplexToLogical
-    | ComplexToComplex
-    | ComplexToReal
-    | ComplexToInteger
-    | LogicalToInteger
-    | RealToCharacter
-    | IntegerToCharacter
-    | LogicalToCharacter
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cast_kind</span>
+    <span class="o">=</span> <span class="n">RealToInteger</span>
+    <span class="o">|</span> <span class="n">IntegerToReal</span>
+    <span class="o">|</span> <span class="n">LogicalToReal</span>
+    <span class="o">|</span> <span class="n">RealToReal</span>
+    <span class="o">|</span> <span class="n">IntegerToInteger</span>
+    <span class="o">|</span> <span class="n">RealToComplex</span>
+    <span class="o">|</span> <span class="n">IntegerToComplex</span>
+    <span class="o">|</span> <span class="n">IntegerToLogical</span>
+    <span class="o">|</span> <span class="n">RealToLogical</span>
+    <span class="o">|</span> <span class="n">CharacterToLogical</span>
+    <span class="o">|</span> <span class="n">CharacterToInteger</span>
+    <span class="o">|</span> <span class="n">CharacterToList</span>
+    <span class="o">|</span> <span class="n">ComplexToLogical</span>
+    <span class="o">|</span> <span class="n">ComplexToComplex</span>
+    <span class="o">|</span> <span class="n">ComplexToReal</span>
+    <span class="o">|</span> <span class="n">ComplexToInteger</span>
+    <span class="o">|</span> <span class="n">LogicalToInteger</span>
+    <span class="o">|</span> <span class="n">RealToCharacter</span>
+    <span class="o">|</span> <span class="n">IntegerToCharacter</span>
+    <span class="o">|</span> <span class="n">LogicalToCharacter</span>
 </pre></div>
 </div>
 </section>
@@ -602,82 +623,82 @@ another.</p>
 </pre></div>
 </div>
 <p>ASR:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>(TranslationUnit
-    (SymbolTable
-        1
-        {
-            types_03:
-                (Program
-                    (SymbolTable
-                        2
-                        {
-                            i:
-                                (Variable
-                                    2
-                                    i
-                                    Local
-                                    ()
-                                    ()
-                                    Default
-                                    (Integer 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                ),
-                            r:
-                                (Variable
-                                    2
-                                    r
-                                    Local
-                                    ()
-                                    ()
-                                    Default
-                                    (Real 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                )
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">TranslationUnit</span>
+    <span class="p">(</span><span class="n">SymbolTable</span>
+        <span class="mi">1</span>
+        <span class="p">{</span>
+            <span class="n">types_03</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">Program</span>
+                    <span class="p">(</span><span class="n">SymbolTable</span>
+                        <span class="mi">2</span>
+                        <span class="p">{</span>
+                            <span class="n">i</span><span class="p">:</span>
+                                <span class="p">(</span><span class="n">Variable</span>
+                                    <span class="mi">2</span>
+                                    <span class="n">i</span>
+                                    <span class="n">Local</span>
+                                    <span class="p">()</span>
+                                    <span class="p">()</span>
+                                    <span class="n">Default</span>
+                                    <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[])</span>
+                                    <span class="n">Source</span>
+                                    <span class="n">Public</span>
+                                    <span class="n">Required</span>
+                                    <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+                                <span class="p">),</span>
+                            <span class="n">r</span><span class="p">:</span>
+                                <span class="p">(</span><span class="n">Variable</span>
+                                    <span class="mi">2</span>
+                                    <span class="n">r</span>
+                                    <span class="n">Local</span>
+                                    <span class="p">()</span>
+                                    <span class="p">()</span>
+                                    <span class="n">Default</span>
+                                    <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                                    <span class="n">Source</span>
+                                    <span class="n">Public</span>
+                                    <span class="n">Required</span>
+                                    <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+                                <span class="p">)</span>
 
-                        })
-                    types_03
-                    []
-                    [(=
-                        (Var 2 r)
-                        (RealConstant
-                            1.500000
-                            (Real 4 [])
-                        )
-                        ()
-                    )
-                    (Print
-                        ()
-                        [(Var 2 r)]
-                        ()
-                        ()
-                    )
-                    (=
-                        (Var 2 i)
-                        (Cast
-                            (Var 2 r)
-                            RealToInteger
-                            (Integer 4 [])
-                            ()
-                        )
-                        ()
-                    )
-                    (Print
-                        ()
-                        [(Var 2 i)]
-                        ()
-                        ()
-                    )]
-                )
+                        <span class="p">})</span>
+                    <span class="n">types_03</span>
+                    <span class="p">[]</span>
+                    <span class="p">[(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">r</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">RealConstant</span>
+                            <span class="mf">1.500000</span>
+                            <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="n">Print</span>
+                        <span class="p">()</span>
+                        <span class="p">[(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">r</span><span class="p">)]</span>
+                        <span class="p">()</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">i</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">Cast</span>
+                            <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">r</span><span class="p">)</span>
+                            <span class="n">RealToInteger</span>
+                            <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[])</span>
+                            <span class="p">()</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="n">Print</span>
+                        <span class="p">()</span>
+                        <span class="p">[(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">i</span><span class="p">)]</span>
+                        <span class="p">()</span>
+                        <span class="p">()</span>
+                    <span class="p">)]</span>
+                <span class="p">)</span>
 
-        })
-    []
-)
+        <span class="p">})</span>
+    <span class="p">[]</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Example for <code class="docutils literal notranslate"><span class="pre">IntegerToReal</span></code>:</p>
@@ -692,80 +713,80 @@ another.</p>
 </pre></div>
 </div>
 <p>ASR:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>(TranslationUnit
-    (SymbolTable
-        1
-        {
-            types_02:
-                (Program
-                    (SymbolTable
-                        2
-                        {
-                            i:
-                                (Variable
-                                    2
-                                    i
-                                    Local
-                                    ()
-                                    ()
-                                    Default
-                                    (Integer 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                ),
-                            r:
-                                (Variable
-                                    2
-                                    r
-                                    Local
-                                    ()
-                                    ()
-                                    Default
-                                    (Real 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                )
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">TranslationUnit</span>
+    <span class="p">(</span><span class="n">SymbolTable</span>
+        <span class="mi">1</span>
+        <span class="p">{</span>
+            <span class="n">types_02</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">Program</span>
+                    <span class="p">(</span><span class="n">SymbolTable</span>
+                        <span class="mi">2</span>
+                        <span class="p">{</span>
+                            <span class="n">i</span><span class="p">:</span>
+                                <span class="p">(</span><span class="n">Variable</span>
+                                    <span class="mi">2</span>
+                                    <span class="n">i</span>
+                                    <span class="n">Local</span>
+                                    <span class="p">()</span>
+                                    <span class="p">()</span>
+                                    <span class="n">Default</span>
+                                    <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[])</span>
+                                    <span class="n">Source</span>
+                                    <span class="n">Public</span>
+                                    <span class="n">Required</span>
+                                    <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+                                <span class="p">),</span>
+                            <span class="n">r</span><span class="p">:</span>
+                                <span class="p">(</span><span class="n">Variable</span>
+                                    <span class="mi">2</span>
+                                    <span class="n">r</span>
+                                    <span class="n">Local</span>
+                                    <span class="p">()</span>
+                                    <span class="p">()</span>
+                                    <span class="n">Default</span>
+                                    <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                                    <span class="n">Source</span>
+                                    <span class="n">Public</span>
+                                    <span class="n">Required</span>
+                                    <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+                                <span class="p">)</span>
 
-                        })
-                    types_02
-                    []
-                    [(=
-                        (Var 2 i)
-                        (IntegerConstant 1 (Integer 4 []))
-                        ()
-                    )
-                    (=
-                        (Var 2 r)
-                        (Cast
-                            (IntegerConstant 1 (Integer 4 []))
-                            IntegerToReal
-                            (Real 4 [])
-                            (RealConstant
-                                1.000000
-                                (Real 4 [])
-                            )
-                        )
-                        ()
-                    )
-                    (=
-                        (Var 2 r)
-                        (Cast
-                            (Var 2 i)
-                            IntegerToReal
-                            (Real 4 [])
-                            ()
-                        )
-                        ()
-                    )]
-                )
+                        <span class="p">})</span>
+                    <span class="n">types_02</span>
+                    <span class="p">[]</span>
+                    <span class="p">[(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">i</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">IntegerConstant</span> <span class="mi">1</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[]))</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">r</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">Cast</span>
+                            <span class="p">(</span><span class="n">IntegerConstant</span> <span class="mi">1</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[]))</span>
+                            <span class="n">IntegerToReal</span>
+                            <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                            <span class="p">(</span><span class="n">RealConstant</span>
+                                <span class="mf">1.000000</span>
+                                <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">r</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">Cast</span>
+                            <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">i</span><span class="p">)</span>
+                            <span class="n">IntegerToReal</span>
+                            <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                            <span class="p">()</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)]</span>
+                <span class="p">)</span>
 
-        })
-    []
-)
+        <span class="p">})</span>
+    <span class="p">[]</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Example of <code class="docutils literal notranslate"><span class="pre">RealToReal</span></code>:</p>
@@ -781,104 +802,104 @@ another.</p>
 </pre></div>
 </div>
 <p>ASR:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>(TranslationUnit
-    (SymbolTable
-        1
-        {
-            types_01:
-                (Program
-                    (SymbolTable
-                        2
-                        {
-                            r:
-                                (Variable
-                                    2
-                                    r
-                                    Local
-                                    ()
-                                    ()
-                                    Default
-                                    (Real 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                )
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">TranslationUnit</span>
+    <span class="p">(</span><span class="n">SymbolTable</span>
+        <span class="mi">1</span>
+        <span class="p">{</span>
+            <span class="n">types_01</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">Program</span>
+                    <span class="p">(</span><span class="n">SymbolTable</span>
+                        <span class="mi">2</span>
+                        <span class="p">{</span>
+                            <span class="n">r</span><span class="p">:</span>
+                                <span class="p">(</span><span class="n">Variable</span>
+                                    <span class="mi">2</span>
+                                    <span class="n">r</span>
+                                    <span class="n">Local</span>
+                                    <span class="p">()</span>
+                                    <span class="p">()</span>
+                                    <span class="n">Default</span>
+                                    <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                                    <span class="n">Source</span>
+                                    <span class="n">Public</span>
+                                    <span class="n">Required</span>
+                                    <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+                                <span class="p">)</span>
 
-                        })
-                    types_01
-                    []
-                    [(=
-                        (Var 2 r)
-                        (RealConstant
-                            1.000000
-                            (Real 4 [])
-                        )
-                        ()
-                    )
-                    (=
-                        (Var 2 r)
-                        (RealConstant
-                            1.500000
-                            (Real 4 [])
-                        )
-                        ()
-                    )
-                    (=
-                        (Var 2 r)
-                        (RealConstant
-                            1.000000
-                            (Real 4 [])
-                        )
-                        ()
-                    )
-                    (=
-                        (Var 2 r)
-                        (Cast
-                            (Cast
-                                (IntegerConstant 2 (Integer 4 []))
-                                IntegerToReal
-                                (Real 8 [])
-                                (RealConstant
-                                    2.000000
-                                    (Real 8 [])
-                                )
-                            )
-                            RealToReal
-                            (Real 4 [])
-                            (RealConstant
-                                2.000000
-                                (Real 4 [])
-                            )
-                        )
-                        ()
-                    )
-                    (=
-                        (Var 2 r)
-                        (Cast
-                            (Cast
-                                (IntegerConstant 3 (Integer 4 []))
-                                IntegerToReal
-                                (Real 8 [])
-                                (RealConstant
-                                    3.000000
-                                    (Real 8 [])
-                                )
-                            )
-                            RealToReal
-                            (Real 4 [])
-                            (RealConstant
-                                3.000000
-                                (Real 4 [])
-                            )
-                        )
-                        ()
-                    )]
-                )
+                        <span class="p">})</span>
+                    <span class="n">types_01</span>
+                    <span class="p">[]</span>
+                    <span class="p">[(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">r</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">RealConstant</span>
+                            <span class="mf">1.000000</span>
+                            <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">r</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">RealConstant</span>
+                            <span class="mf">1.500000</span>
+                            <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">r</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">RealConstant</span>
+                            <span class="mf">1.000000</span>
+                            <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">r</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">Cast</span>
+                            <span class="p">(</span><span class="n">Cast</span>
+                                <span class="p">(</span><span class="n">IntegerConstant</span> <span class="mi">2</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[]))</span>
+                                <span class="n">IntegerToReal</span>
+                                <span class="p">(</span><span class="n">Real</span> <span class="mi">8</span> <span class="p">[])</span>
+                                <span class="p">(</span><span class="n">RealConstant</span>
+                                    <span class="mf">2.000000</span>
+                                    <span class="p">(</span><span class="n">Real</span> <span class="mi">8</span> <span class="p">[])</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+                            <span class="n">RealToReal</span>
+                            <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                            <span class="p">(</span><span class="n">RealConstant</span>
+                                <span class="mf">2.000000</span>
+                                <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">r</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">Cast</span>
+                            <span class="p">(</span><span class="n">Cast</span>
+                                <span class="p">(</span><span class="n">IntegerConstant</span> <span class="mi">3</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[]))</span>
+                                <span class="n">IntegerToReal</span>
+                                <span class="p">(</span><span class="n">Real</span> <span class="mi">8</span> <span class="p">[])</span>
+                                <span class="p">(</span><span class="n">RealConstant</span>
+                                    <span class="mf">3.000000</span>
+                                    <span class="p">(</span><span class="n">Real</span> <span class="mi">8</span> <span class="p">[])</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+                            <span class="n">RealToReal</span>
+                            <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                            <span class="p">(</span><span class="n">RealConstant</span>
+                                <span class="mf">3.000000</span>
+                                <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)]</span>
+                <span class="p">)</span>
 
-        })
-    []
-)
+        <span class="p">})</span>
+    <span class="p">[]</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Example of <code class="docutils literal notranslate"><span class="pre">IntegerToLogical</span></code>:</p>
@@ -900,108 +921,108 @@ another.</p>
 </pre></div>
 </div>
 <p>ASR:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>(TranslationUnit
-    (SymbolTable
-        1
-        {
-            logical4:
-                (Program
-                    (SymbolTable
-                        2
-                        {
-                            a:
-                                (Variable
-                                    2
-                                    a
-                                    Local
-                                    ()
-                                    ()
-                                    Default
-                                    (Logical 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                ),
-                            b:
-                                (Variable
-                                    2
-                                    b
-                                    Local
-                                    ()
-                                    ()
-                                    Default
-                                    (Logical 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                ),
-                            c:
-                                (Variable
-                                    2
-                                    c
-                                    Local
-                                    ()
-                                    ()
-                                    Default
-                                    (Logical 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                )
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">TranslationUnit</span>
+    <span class="p">(</span><span class="n">SymbolTable</span>
+        <span class="mi">1</span>
+        <span class="p">{</span>
+            <span class="n">logical4</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">Program</span>
+                    <span class="p">(</span><span class="n">SymbolTable</span>
+                        <span class="mi">2</span>
+                        <span class="p">{</span>
+                            <span class="n">a</span><span class="p">:</span>
+                                <span class="p">(</span><span class="n">Variable</span>
+                                    <span class="mi">2</span>
+                                    <span class="n">a</span>
+                                    <span class="n">Local</span>
+                                    <span class="p">()</span>
+                                    <span class="p">()</span>
+                                    <span class="n">Default</span>
+                                    <span class="p">(</span><span class="n">Logical</span> <span class="mi">4</span> <span class="p">[])</span>
+                                    <span class="n">Source</span>
+                                    <span class="n">Public</span>
+                                    <span class="n">Required</span>
+                                    <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+                                <span class="p">),</span>
+                            <span class="n">b</span><span class="p">:</span>
+                                <span class="p">(</span><span class="n">Variable</span>
+                                    <span class="mi">2</span>
+                                    <span class="n">b</span>
+                                    <span class="n">Local</span>
+                                    <span class="p">()</span>
+                                    <span class="p">()</span>
+                                    <span class="n">Default</span>
+                                    <span class="p">(</span><span class="n">Logical</span> <span class="mi">4</span> <span class="p">[])</span>
+                                    <span class="n">Source</span>
+                                    <span class="n">Public</span>
+                                    <span class="n">Required</span>
+                                    <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+                                <span class="p">),</span>
+                            <span class="n">c</span><span class="p">:</span>
+                                <span class="p">(</span><span class="n">Variable</span>
+                                    <span class="mi">2</span>
+                                    <span class="n">c</span>
+                                    <span class="n">Local</span>
+                                    <span class="p">()</span>
+                                    <span class="p">()</span>
+                                    <span class="n">Default</span>
+                                    <span class="p">(</span><span class="n">Logical</span> <span class="mi">4</span> <span class="p">[])</span>
+                                    <span class="n">Source</span>
+                                    <span class="n">Public</span>
+                                    <span class="n">Required</span>
+                                    <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+                                <span class="p">)</span>
 
-                        })
-                    logical4
-                    []
-                    [(=
-                        (Var 2 a)
-                        (Cast
-                            (IntegerConstant 2 (Integer 4 []))
-                            IntegerToLogical
-                            (Logical 4 [])
-                            ()
-                        )
-                        ()
-                    )
-                    (=
-                        (Var 2 b)
-                        (Cast
-                            (IntegerUnaryMinus
-                                (IntegerConstant 1 (Integer 4 []))
-                                (Integer 4 [])
-                                (IntegerConstant -1 (Integer 4 []))
-                            )
-                            IntegerToLogical
-                            (Logical 4 [])
-                            ()
-                        )
-                        ()
-                    )
-                    (=
-                        (Var 2 c)
-                        (Cast
-                            (IntegerConstant 0 (Integer 4 []))
-                            IntegerToLogical
-                            (Logical 4 [])
-                            ()
-                        )
-                        ()
-                    )
-                    (Print
-                        ()
-                        [(Var 2 a)
-                        (Var 2 b)
-                        (Var 2 c)]
-                        ()
-                        ()
-                    )]
-                )
+                        <span class="p">})</span>
+                    <span class="n">logical4</span>
+                    <span class="p">[]</span>
+                    <span class="p">[(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">a</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">Cast</span>
+                            <span class="p">(</span><span class="n">IntegerConstant</span> <span class="mi">2</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[]))</span>
+                            <span class="n">IntegerToLogical</span>
+                            <span class="p">(</span><span class="n">Logical</span> <span class="mi">4</span> <span class="p">[])</span>
+                            <span class="p">()</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">b</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">Cast</span>
+                            <span class="p">(</span><span class="n">IntegerUnaryMinus</span>
+                                <span class="p">(</span><span class="n">IntegerConstant</span> <span class="mi">1</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[]))</span>
+                                <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[])</span>
+                                <span class="p">(</span><span class="n">IntegerConstant</span> <span class="o">-</span><span class="mi">1</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[]))</span>
+                            <span class="p">)</span>
+                            <span class="n">IntegerToLogical</span>
+                            <span class="p">(</span><span class="n">Logical</span> <span class="mi">4</span> <span class="p">[])</span>
+                            <span class="p">()</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="o">=</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">c</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">Cast</span>
+                            <span class="p">(</span><span class="n">IntegerConstant</span> <span class="mi">0</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[]))</span>
+                            <span class="n">IntegerToLogical</span>
+                            <span class="p">(</span><span class="n">Logical</span> <span class="mi">4</span> <span class="p">[])</span>
+                            <span class="p">()</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                    <span class="p">)</span>
+                    <span class="p">(</span><span class="n">Print</span>
+                        <span class="p">()</span>
+                        <span class="p">[(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">a</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">b</span><span class="p">)</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">c</span><span class="p">)]</span>
+                        <span class="p">()</span>
+                        <span class="p">()</span>
+                    <span class="p">)]</span>
+                <span class="p">)</span>
 
-        })
-    []
-)
+        <span class="p">})</span>
+    <span class="p">[]</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Example of <code class="docutils literal notranslate"><span class="pre">ComplexToComplex</span></code>:</p>
@@ -1186,12 +1207,12 @@ another.</p>
             </a>
           
           
-            <a href="../../kinds_nodes/kinds/" title="kinds"
+            <a href="../../expression_nodes/expression_nodes/" title="ASR Expression Nodes"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> kinds </span>
+                class="md-footer-nav__direction"> Next </span> ASR Expression Nodes </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
