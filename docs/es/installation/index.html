@@ -609,21 +609,21 @@
 <section id="binaries">
 <h2 id="binaries">Binarios<a class="headerlink" href="#binaries" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>La forma recomendada de instalar LFortran es usando Conda. Instale Conda, por ejemplo, instalando la instalación de <a class="reference external" href="https://conda.io/en/latest/miniconda.html">Miniconda</a> siguiendo las instrucciones allí para su plataforma. Luego cree un nuevo entorno (puede elegir cualquier nombre, aquí elegimos <code class="docutils literal notranslate"><span class="pre">lf</span></code>) y actívelo:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n lf
-conda activate lf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf
+conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
 <p>Luego instale LFortran haciendo:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install lfortran -c conda-forge
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>lfortran<span class="w"> </span>-c<span class="w"> </span>conda-forge
 </pre></div>
 </div>
 <p>Ahora que el entorno <code class="docutils literal notranslate"><span class="pre">lf</span></code> tiene disponible el compilador <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>, puede iniciar el aviso interactivo ejecutando <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>, o ver las opciones de la línea de comando usando <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">-h</span></code>.</p>
 <p>El núcleo Jupyter es automáticamente instalado con el comando anterior, por lo que después de instalar Jupyter:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install jupyter -c conda-forge
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>-c<span class="w"> </span>conda-forge
 </pre></div>
 </div>
 <p>Puede crear un cuaderno Jupyter basado en Fortran ejecutando:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter notebook
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>notebook
 </pre></div>
 </div>
 <p>y seleccionando <code class="docutils literal notranslate"><span class="pre">New-&gt;Fortran</span></code>.</p>
@@ -632,14 +632,14 @@ conda activate lf
 <h2 id="build-from-a-source-tarball">Construir desde una fuente de archivo tar<a class="headerlink" href="#build-from-a-source-tarball" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Este método es el método recomendado si solo desea instalar LFortran, ya sea usted mismo o en un administrador de paquetes (Spack, Conda, Debian, etc.). La fuente de archivo tar tiene todos los archivos generados incluidos y tiene dependencias mínimas.</p>
 <p>Primero tenemos que instalar dependencias, por ejemplo usando Conda:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n lf python cmake llvmdev
-conda activate lf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>llvmdev
+conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
 <p>Luego descargue un archivo tar de <a class="reference external" href="https://lfortran.org/download/">https://lfortran.org/download/</a>, por ejemplo:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://lfortran.github.io/tarballs/dev/lfortran-0.9.0.tar.gz
-tar xzf lfortran-0.9.0.tar.gz
-<span class="nb">cd</span> lfortran-0.9.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://lfortran.github.io/tarballs/dev/lfortran-0.9.0.tar.gz
+tar<span class="w"> </span>xzf<span class="w"> </span>lfortran-0.9.0.tar.gz
+<span class="nb">cd</span><span class="w"> </span>lfortran-0.9.0
 </pre></div>
 </div>
 <p>Y construir:</p>
@@ -654,14 +654,14 @@ make install
 <h2 id="build-from-git">Construir desde Git<a class="headerlink" href="#build-from-git" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Suponemos que tiene instalados compiladores de C++, así como <code class="docutils literal notranslate"><span class="pre">git</span></code> y <code class="docutils literal notranslate"><span class="pre">wget</span></code>. En Ubuntu, también puede instalar <code class="docutils literal notranslate"><span class="pre">binutils-dev</span></code> para stacktraces.</p>
 <p>Si no tiene Conda instalado, puede hacerlo en Linux (y de manera similar en otras plataformas):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget --no-check-certificate https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-bash miniconda.sh -b -p <span class="nv">$HOME</span>/conda_root
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>--no-check-certificate<span class="w"> </span>https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh<span class="w"> </span>-O<span class="w"> </span>miniconda.sh
+bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/conda_root
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
 </pre></div>
 </div>
 <p>Luego prepara el ambiente:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n lf -c conda-forge <span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1 <span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4 re2c python cmake make toml
-conda activate lf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1<span class="w"> </span><span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4<span class="w"> </span>re2c<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>make<span class="w"> </span>toml
+conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
 <p>Clone el repositorio git de LFortran:</p>
@@ -731,21 +731,21 @@ link /?
 <li><p>Vaya a la tienda de Microsoft, descargue Ubuntu 20.04 y ejecútelo.</p></li>
 <li><p>Ejecute los siguientes comandos.</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget  https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O miniconda.sh
-bash miniconda.sh -b -p <span class="nv">$HOME</span>/conda_root
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w">  </span>https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh<span class="w"> </span>-O<span class="w"> </span>miniconda.sh
+bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/conda_root
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>Ahora haga lo siguiente para configurar la ruta</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo nano .bashrc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>.bashrc
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>Luego ve al final del archivo y pega lo siguiente</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -753,18 +753,18 @@ bash miniconda.sh -b -p <span class="nv">$HOME</span>/conda_root
 <li><p>Después de eso, reinicie Ubuntu</p></li>
 <li><p>Ejecute lo siguiente</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n lf -c conda-forge <span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1 <span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4 re2c python cmake make toml
-conda init bash
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1<span class="w"> </span><span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4<span class="w"> </span>re2c<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>make<span class="w"> </span>toml
+conda<span class="w"> </span>init<span class="w"> </span>bash
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>Reinicie Ubuntu de nuevo</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate lf
-sudo apt update
-sudo apt-get install build-essential
-sudo apt-get install zlib1g-dev
-sudo apt install clang
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lf
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>zlib1g-dev
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>clang
 </pre></div>
 </div>
 <ul class="simple">
@@ -772,23 +772,23 @@ sudo apt install clang
 <li><p>p.ej. <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">mnt/c/Users/name/source/repos/</span></code></p></li>
 <li><p>Ahora clone el repositorio LFortran git</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/lfortran/lfortran.git
-<span class="nb">cd</span> lfortran
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lfortran/lfortran.git
+<span class="nb">cd</span><span class="w"> </span>lfortran
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>Ejecute los siguientes comandos</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate lf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lf
 ./build0.sh
-cmake -DCMAKE_BUILD_TYPE<span class="o">=</span>Debug -DWITH_LLVM<span class="o">=</span>yes -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/inst .<span class="se">\</span>
-make -j8
+cmake<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span>-DWITH_LLVM<span class="o">=</span>yes<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/inst<span class="w"> </span>.<span class="se">\</span>
+make<span class="w"> </span>-j8
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>Si todo se compila, puede usar LFortran de la siguiente manera</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran ./examples/expr2.f90
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran<span class="w"> </span>./examples/expr2.f90
 ./a.out
 </pre></div>
 </div>
@@ -842,28 +842,28 @@ make -j8
 <section id="with-root">
 <h3 id="with-root">With Root<a class="headerlink" href="#with-root" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>Empezamos por obtener <code class="docutils literal notranslate"><span class="pre">nix</span></code>. La siguiente instalación multiusuario funcionará en cualquier máquina con una distribución de Linux, MacOS o Windows (a través de WSL):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sh &lt;<span class="o">(</span>curl -L https://nixos.org/nix/install<span class="o">)</span> --daemon
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sh<span class="w"> </span>&lt;<span class="o">(</span>curl<span class="w"> </span>-L<span class="w"> </span>https://nixos.org/nix/install<span class="o">)</span><span class="w"> </span>--daemon
 </pre></div>
 </div>
 </section>
 <section id="without-root">
 <h3 id="without-root">Without Root<a class="headerlink" href="#without-root" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>Si no desea proporcionar a <code class="docutils literal notranslate"><span class="pre">nix</span></code> acceso raíz a su máquina, en las distribuciones de Linux podemos usar <a class="reference external" href="https://github.com/DavHau/nix-portable">nix-portable</a>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/DavHau/nix-portable/releases/download/v003/nix-portable
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/DavHau/nix-portable/releases/download/v003/nix-portable
 </pre></div>
 </div>
 <p>Ahora solo anteponga todos los comandos <code class="docutils literal notranslate"><span class="pre">nix-shell</span></code> con <code class="docutils literal notranslate"><span class="pre">NP_RUNTIME=bwrap</span> <span class="pre">./nix-portable</span></code>. Asi que:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do not</span>
-nix-shell --run <span class="s2">"bash"</span>
+nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span>
 <span class="c1"># Do</span>
-<span class="nv">NP_RUNTIME</span><span class="o">=</span>bwrap ./nix-portable nix-shell --run <span class="s2">"bash"</span>
+<span class="nv">NP_RUNTIME</span><span class="o">=</span>bwrap<span class="w"> </span>./nix-portable<span class="w"> </span>nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span>
 </pre></div>
 </div>
 </section>
 <section id="development">
 <h3 id="development">Desarrollo<a class="headerlink" href="#development" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>Ahora podemos entrar en el entorno de desarrollo:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell --run <span class="s2">"bash"</span> --cores <span class="m">4</span> -j4 --pure ci/shell.nix
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span><span class="w"> </span>--cores<span class="w"> </span><span class="m">4</span><span class="w"> </span>-j4<span class="w"> </span>--pure<span class="w"> </span>ci/shell.nix
 </pre></div>
 </div>
 <p>El indicador <code class="docutils literal notranslate"><span class="pre">--pure</span></code> garantiza que no se utilicen dependencias del sistema en el entorno.</p>
@@ -873,7 +873,7 @@ nix-shell --run <span class="s2">"bash"</span>
 </pre></div>
 </div>
 <p>Para cambiar el entorno de compilación de <code class="docutils literal notranslate"><span class="pre">gcc</span></code> (predeterminado) a <code class="docutils literal notranslate"><span class="pre">clang</span></code> podemos usar <code class="docutils literal notranslate"><span class="pre">--argstr</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell --run <span class="s2">"bash"</span> --cores <span class="m">4</span> -j4 --pure ci/shell.nix --argstr clangOnly <span class="s2">"yes"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span><span class="w"> </span>--cores<span class="w"> </span><span class="m">4</span><span class="w"> </span>-j4<span class="w"> </span>--pure<span class="w"> </span>ci/shell.nix<span class="w"> </span>--argstr<span class="w"> </span>clangOnly<span class="w"> </span><span class="s2">"yes"</span>
 </pre></div>
 </div>
 </section>

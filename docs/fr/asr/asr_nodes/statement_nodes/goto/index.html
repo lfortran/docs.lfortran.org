@@ -712,7 +712,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Lien permanent vers ce titre">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Lien permanent vers ce titre">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">GoTo</span><span class="p">(</span><span class="nb">int </span><span class="n">target_id</span><span class="p">,</span><span class="w"> </span><span class="n">identifier</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"></span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">GoTo</span><span class="p">(</span><span class="nb">int </span><span class="n">target_id</span><span class="p">,</span><span class="w"> </span><span class="n">identifier</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -738,63 +738,63 @@ GoToTarget to avoid issues with serialization.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Lien permanent vers ce titre">¶</a></h2>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program goto</span><span class="w"></span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program goto</span>
 <span class="k">implicit none</span>
-<span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="w"></span>
-<span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
-<span class="k">go</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="mi">1</span><span class="w"> </span><span class="k">print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="w"></span>
-<span class="k">end program</span><span class="w"></span>
+<span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span>
+<span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="k">go</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">1</span>
+<span class="mi">1</span><span class="w"> </span><span class="k">print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">a</span>
+<span class="k">end program</span>
 </pre></div>
 </div>
 <p>ASR:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">TranslationUnit</span><span class="w"></span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">TranslationUnit</span>
 <span class="w">    </span><span class="p">[(</span><span class="k">Program</span>
-<span class="k">        </span><span class="n">goto_01</span><span class="w"></span>
-<span class="w">        </span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">[]</span><span class="w"></span>
-<span class="w">        </span><span class="p">[(</span><span class="n">ImplicitNone</span><span class="w"></span>
-<span class="w">            </span><span class="p">[]</span><span class="w"></span>
-<span class="w">            </span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">)]</span><span class="w"></span>
-<span class="w">        </span><span class="p">[(</span><span class="n">Declaration</span><span class="w"></span>
-<span class="w">            </span><span class="p">(</span><span class="n">AttrType</span><span class="w"></span>
-<span class="w">                </span><span class="n">TypeInteger</span><span class="w"></span>
-<span class="w">                </span><span class="p">[]</span><span class="w"></span>
-<span class="w">                </span><span class="p">()</span><span class="w"></span>
-<span class="w">                </span><span class="k">None</span><span class="w"></span>
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">[]</span><span class="w"></span>
-<span class="w">            </span><span class="p">[(</span><span class="n">a</span><span class="w"></span>
-<span class="w">            </span><span class="p">[]</span><span class="w"></span>
-<span class="w">            </span><span class="p">[]</span><span class="w"></span>
-<span class="w">            </span><span class="p">()</span><span class="w"></span>
-<span class="w">            </span><span class="k">None</span><span class="w"></span>
-<span class="w">            </span><span class="p">())]</span><span class="w"></span>
-<span class="w">            </span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">)]</span><span class="w"></span>
-<span class="w">        </span><span class="p">[(</span><span class="o">=</span><span class="w"></span>
-<span class="w">            </span><span class="mi">0</span><span class="w"></span>
-<span class="w">            </span><span class="n">a</span><span class="w"></span>
-<span class="w">            </span><span class="mi">5</span><span class="w"></span>
-<span class="w">            </span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">(</span><span class="k">GoTo</span><span class="w"></span>
-<span class="w">            </span><span class="mi">0</span><span class="w"></span>
-<span class="w">            </span><span class="p">()</span><span class="w"></span>
-<span class="w">            </span><span class="mi">1</span><span class="w"></span>
-<span class="w">            </span><span class="p">[]</span><span class="w"></span>
-<span class="w">            </span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="k">        </span><span class="n">goto_01</span>
+<span class="w">        </span><span class="p">()</span>
+<span class="w">        </span><span class="p">[]</span>
+<span class="w">        </span><span class="p">[(</span><span class="n">ImplicitNone</span>
+<span class="w">            </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">()</span>
+<span class="w">        </span><span class="p">)]</span>
+<span class="w">        </span><span class="p">[(</span><span class="n">Declaration</span>
+<span class="w">            </span><span class="p">(</span><span class="n">AttrType</span>
+<span class="w">                </span><span class="n">TypeInteger</span>
+<span class="w">                </span><span class="p">[]</span>
+<span class="w">                </span><span class="p">()</span>
+<span class="w">                </span><span class="k">None</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">[(</span><span class="n">a</span>
+<span class="w">            </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">()</span>
+<span class="w">            </span><span class="k">None</span>
+<span class="w">            </span><span class="p">())]</span>
+<span class="w">            </span><span class="p">()</span>
+<span class="w">        </span><span class="p">)]</span>
+<span class="w">        </span><span class="p">[(</span><span class="o">=</span>
+<span class="w">            </span><span class="mi">0</span>
+<span class="w">            </span><span class="n">a</span>
+<span class="w">            </span><span class="mi">5</span>
+<span class="w">            </span><span class="p">()</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="k">GoTo</span>
+<span class="w">            </span><span class="mi">0</span>
+<span class="w">            </span><span class="p">()</span>
+<span class="w">            </span><span class="mi">1</span>
+<span class="w">            </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">()</span>
+<span class="w">        </span><span class="p">)</span>
 <span class="w">        </span><span class="p">(</span><span class="k">Print</span>
-<span class="k">            </span><span class="mi">1</span><span class="w"></span>
-<span class="w">            </span><span class="p">()</span><span class="w"></span>
-<span class="w">            </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"></span>
-<span class="w">            </span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">)]</span><span class="w"></span>
-<span class="w">        </span><span class="p">[]</span><span class="w"></span>
-<span class="w">    </span><span class="p">)]</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="k">            </span><span class="mi">1</span>
+<span class="w">            </span><span class="p">()</span>
+<span class="w">            </span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="w">            </span><span class="p">()</span>
+<span class="w">        </span><span class="p">)]</span>
+<span class="w">        </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">)]</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </section>

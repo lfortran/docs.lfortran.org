@@ -609,21 +609,21 @@
 <section id="binaries">
 <h2 id="binaries">二进制文件<a class="headerlink" href="#binaries" title="永久链接至标题">¶</a></h2>
 <p>安装 LFortran 的推荐方法是使用 Conda。例如，按照你的平台的说明安装 <a class="reference external" href="https://conda.io/en/latest/miniconda.html">Miniconda</a>，安装 Conda。然后创建一个新环境（你可以选择任何名称，这里我们选择了<code class="docutils literal notranslate"><span class="pre">lf</span></code>）并激活它：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n lf
-conda activate lf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf
+conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
 <p>然后通过以下方式安装 LFortran：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install lfortran -c conda-forge
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>lfortran<span class="w"> </span>-c<span class="w"> </span>conda-forge
 </pre></div>
 </div>
 <p>现在 <code class="docutils literal notranslate"><span class="pre">lf</span></code> 环境有 <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> 编译器可用，你可以通过执行 <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> 启动交互式提示，或使用 <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">-h</span></code> 查看命令行选项。</p>
 <p>Jupyter 内核是通过上面的命令自动安装的，所以在安装 Jupyter 本身之后：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install jupyter -c conda-forge
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>-c<span class="w"> </span>conda-forge
 </pre></div>
 </div>
 <p>你可以通过执行以下命令来创建基于 Fortran 的 Jupyter 笔记本：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter notebook
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>notebook
 </pre></div>
 </div>
 <p>并选择 <code class="docutils literal notranslate"><span class="pre">New-&gt;Fortran</span></code>。</p>
@@ -632,14 +632,14 @@ conda activate lf
 <h2 id="build-from-a-source-tarball">从源代码构建<a class="headerlink" href="#build-from-a-source-tarball" title="永久链接至标题">¶</a></h2>
 <p>如果你只想自己或在包管理器（Spack、Conda、Debian 等）中安装 LFortran，建议使用此方法。源代码包含所有生成的文件，并且具有最小的依赖关系。</p>
 <p>首先，我们必须安装依赖项，例如使用 Conda：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n lf python cmake llvmdev
-conda activate lf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>llvmdev
+conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
 <p>然后从 <a class="reference external" href="https://lfortran.org/download/">https://lfortran.org/download/</a> 下载源代码，例如：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://lfortran.github.io/tarballs/dev/lfortran-0.9.0.tar.gz
-tar xzf lfortran-0.9.0.tar.gz
-<span class="nb">cd</span> lfortran-0.9.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://lfortran.github.io/tarballs/dev/lfortran-0.9.0.tar.gz
+tar<span class="w"> </span>xzf<span class="w"> </span>lfortran-0.9.0.tar.gz
+<span class="nb">cd</span><span class="w"> </span>lfortran-0.9.0
 </pre></div>
 </div>
 <p>并构建：</p>
@@ -654,14 +654,14 @@ make install
 <h2 id="build-from-git">从 Git 构建<a class="headerlink" href="#build-from-git" title="永久链接至标题">¶</a></h2>
 <p>我们假设你安装了 C++ 编译器，以及 <code class="docutils literal notranslate"><span class="pre">git</span></code> 和 <code class="docutils literal notranslate"><span class="pre">wget</span></code>。在 Ubuntu 中，你还可以为 stacktraces 安装 <code class="docutils literal notranslate"><span class="pre">binutils-dev</span></code>。</p>
 <p>如果你没有安装 Conda，你可以在 Linux 上安装（在其他平台上类似）：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget --no-check-certificate https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-bash miniconda.sh -b -p <span class="nv">$HOME</span>/conda_root
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>--no-check-certificate<span class="w"> </span>https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh<span class="w"> </span>-O<span class="w"> </span>miniconda.sh
+bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/conda_root
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
 </pre></div>
 </div>
 <p>然后准备环境：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n lf -c conda-forge <span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1 <span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4 re2c python cmake make toml
-conda activate lf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1<span class="w"> </span><span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4<span class="w"> </span>re2c<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>make<span class="w"> </span>toml
+conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
 <p>克隆 LFortran git 存储库：</p>
@@ -731,21 +731,21 @@ link /?
 <li><p>到微软商店下载 Ubuntu 20.04，并启动它。</p></li>
 <li><p>运行下列程序语句。</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget  https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O miniconda.sh
-bash miniconda.sh -b -p <span class="nv">$HOME</span>/conda_root
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w">  </span>https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh<span class="w"> </span>-O<span class="w"> </span>miniconda.sh
+bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/conda_root
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>现在做以下工作来配置路径</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo nano .bashrc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>.bashrc
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>然后转到文件底部，粘贴以下内容</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -753,18 +753,18 @@ bash miniconda.sh -b -p <span class="nv">$HOME</span>/conda_root
 <li><p>之后，重新启动 Ubuntu</p></li>
 <li><p>运行以下内容</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n lf -c conda-forge <span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1 <span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4 re2c python cmake make toml
-conda init bash
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1<span class="w"> </span><span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4<span class="w"> </span>re2c<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>make<span class="w"> </span>toml
+conda<span class="w"> </span>init<span class="w"> </span>bash
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>再次重启 Ubuntu</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate lf
-sudo apt update
-sudo apt-get install build-essential
-sudo apt-get install zlib1g-dev
-sudo apt install clang
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lf
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>zlib1g-dev
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>clang
 </pre></div>
 </div>
 <ul class="simple">
@@ -772,23 +772,23 @@ sudo apt install clang
 <li><p>例如：<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">mnt/c/Users/name/source/repos/</span></code></p></li>
 <li><p>现在克隆 LFortran 的 git 仓库</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/lfortran/lfortran.git
-<span class="nb">cd</span> lfortran
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lfortran/lfortran.git
+<span class="nb">cd</span><span class="w"> </span>lfortran
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>运行以下命令</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate lf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lf
 ./build0.sh
-cmake -DCMAKE_BUILD_TYPE<span class="o">=</span>Debug -DWITH_LLVM<span class="o">=</span>yes -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/inst .<span class="se">\</span>
-make -j8
+cmake<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span>-DWITH_LLVM<span class="o">=</span>yes<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/inst<span class="w"> </span>.<span class="se">\</span>
+make<span class="w"> </span>-j8
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>如果一切都能编译，你可以使用 LFortran，如下所示</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran ./examples/expr2.f90
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran<span class="w"> </span>./examples/expr2.f90
 ./a.out
 </pre></div>
 </div>
@@ -842,28 +842,28 @@ make -j8
 <section id="with-root">
 <h3 id="with-root">带有 root 权限<a class="headerlink" href="#with-root" title="永久链接至标题">¶</a></h3>
 <p>我们从获得 <code class="docutils literal notranslate"><span class="pre">nix</span></code> 开始。下面的多用户安装将在任何装有 Linux 发行版、MacOS 或 Windows（通过 WSL）的机器上工作：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sh &lt;<span class="o">(</span>curl -L https://nixos.org/nix/install<span class="o">)</span> --daemon
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sh<span class="w"> </span>&lt;<span class="o">(</span>curl<span class="w"> </span>-L<span class="w"> </span>https://nixos.org/nix/install<span class="o">)</span><span class="w"> </span>--daemon
 </pre></div>
 </div>
 </section>
 <section id="without-root">
 <h3 id="without-root">不带有 root 权限<a class="headerlink" href="#without-root" title="永久链接至标题">¶</a></h3>
 <p>如果你想不给<code class="docutils literal notranslate"><span class="pre">nix</span></code>提供机器的root权限，在Linux发行版上，我们可以使用 <a class="reference external" href="https://github.com/DavHau/nix-portable">nix-portable</a>.。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/DavHau/nix-portable/releases/download/v003/nix-portable
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/DavHau/nix-portable/releases/download/v003/nix-portable
 </pre></div>
 </div>
 <p>现在只要在所有 <code class="docutils literal notranslate"><span class="pre">nix-shell</span> </code>命令前加上 <code class="docutils literal notranslate"><span class="pre">NP_RUNTIME=bwrap</span> <span class="pre">.</span> <span class="pre">/nix-portable</span></code>。所以：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do not</span>
-nix-shell --run <span class="s2">"bash"</span>
+nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span>
 <span class="c1"># Do</span>
-<span class="nv">NP_RUNTIME</span><span class="o">=</span>bwrap ./nix-portable nix-shell --run <span class="s2">"bash"</span>
+<span class="nv">NP_RUNTIME</span><span class="o">=</span>bwrap<span class="w"> </span>./nix-portable<span class="w"> </span>nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span>
 </pre></div>
 </div>
 </section>
 <section id="development">
 <h3 id="development">开发<a class="headerlink" href="#development" title="永久链接至标题">¶</a></h3>
 <p>现在进入开发环境:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell --run <span class="s2">"bash"</span> --cores <span class="m">4</span> -j4 --pure ci/shell.nix
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span><span class="w"> </span>--cores<span class="w"> </span><span class="m">4</span><span class="w"> </span>-j4<span class="w"> </span>--pure<span class="w"> </span>ci/shell.nix
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">--pure</span></code> 标志确保在环境中不使用系统依赖。</p>
@@ -873,7 +873,7 @@ nix-shell --run <span class="s2">"bash"</span>
 </pre></div>
 </div>
 <p>要把编译环境从 <code class="docutils literal notranslate"><span class="pre">gcc</span></code>（默认）改为 <code class="docutils literal notranslate"><span class="pre">clang</span></code>，我们可以使用 <code class="docutils literal notranslate"><span class="pre">--argstr</span></code>：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell --run <span class="s2">"bash"</span> --cores <span class="m">4</span> -j4 --pure ci/shell.nix --argstr clangOnly <span class="s2">"yes"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span><span class="w"> </span>--cores<span class="w"> </span><span class="m">4</span><span class="w"> </span>-j4<span class="w"> </span>--pure<span class="w"> </span>ci/shell.nix<span class="w"> </span>--argstr<span class="w"> </span>clangOnly<span class="w"> </span><span class="s2">"yes"</span>
 </pre></div>
 </div>
 </section>
