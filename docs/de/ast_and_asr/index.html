@@ -767,7 +767,7 @@ div.rendered_html tbody tr:hover {
 <span class="k">end function</span>
 </pre></div>
 </div>
-<p>und sehen uns an, wie der AST und die ASR aussehen.</p>
+<p>and look at what the AST and ASR look like.</p>
 <section id="AST">
 <h2 id="AST">AST<a class="headerlink" href="#AST" title="Link zu dieser Überschrift">¶</a></h2>
 <div class="nbinput docutils container">
@@ -793,6 +793,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <p>Der AST enthält keine semantischen Informationen, hat aber Knoten zur Darstellung von Deklarationen wie <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">intent(in)</span> <span class="pre">::</span> <span class="pre">a</span></code>. Variablen wie <code class="docutils literal notranslate"><span class="pre">a</span></code> werden durch einen <code class="docutils literal notranslate"><span class="pre">Name</span></code> Knoten dargestellt und sind noch nicht mit ihren Deklarationen verbunden.</p>
+<p>The AST can also be exported in JSON, including source file name, line and column information: <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">example.f90</span> <span class="pre">--show-ast</span> <span class="pre">--json</span></code></p>
 </section>
 <section id="ASR">
 <h2 id="ASR">ASR<a class="headerlink" href="#ASR" title="Link zu dieser Überschrift">¶</a></h2>
@@ -819,6 +820,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <p>Die ASR enthält alle semantischen Informationen (Typen usw.), Knoten wie <code class="docutils literal notranslate"><span class="pre">Function</span></code> haben eine Symboltabelle und keine Deklarationsknoten. Variablen sind einfach Zeiger auf die Symboltabelle.</p>
+<p>The ASR can also be exported in JSON, including source file name, line and column information: <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">example.f90</span> <span class="pre">--show-asr</span> <span class="pre">--json</span></code></p>
 </section>
 <section id="Diskussion">
 <h2 id="Diskussion">Diskussion<a class="headerlink" href="#Diskussion" title="Link zu dieser Überschrift">¶</a></h2>

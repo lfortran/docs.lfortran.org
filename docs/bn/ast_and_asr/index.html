@@ -767,7 +767,7 @@ div.rendered_html tbody tr:hover {
 <span class="k">end function</span>
 </pre></div>
 </div>
-<p>and look at how the AST and ASR looks like.</p>
+<p>and look at what the AST and ASR look like.</p>
 <section id="AST">
 <h2 id="AST">AST<a class="headerlink" href="#AST" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
 <div class="nbinput docutils container">
@@ -793,6 +793,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <p>The AST does not have any semantic information, but has nodes to represent declarations such as <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">intent(in)</span> <span class="pre">::</span> <span class="pre">a</span></code>. Variables such as <code class="docutils literal notranslate"><span class="pre">a</span></code> are represented by a <code class="docutils literal notranslate"><span class="pre">Name</span></code> node, and are not connected to their declarations yet.</p>
+<p>The AST can also be exported in JSON, including source file name, line and column information: <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">example.f90</span> <span class="pre">--show-ast</span> <span class="pre">--json</span></code></p>
 </section>
 <section id="ASR">
 <h2 id="ASR">ASR<a class="headerlink" href="#ASR" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
@@ -819,6 +820,7 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <p>The ASR has all the semantic information (types, etc.), nodes like <code class="docutils literal notranslate"><span class="pre">Function</span></code> have a symbol table and do not have any declaration nodes. Variables are simply pointers to the symbol table.</p>
+<p>The ASR can also be exported in JSON, including source file name, line and column information: <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">example.f90</span> <span class="pre">--show-asr</span> <span class="pre">--json</span></code></p>
 </section>
 <section id="Discussion">
 <h2 id="Discussion">Discussion<a class="headerlink" href="#Discussion" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
