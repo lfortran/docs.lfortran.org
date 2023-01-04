@@ -569,8 +569,9 @@ determined from the text of the basic <em>symbol</em>.</p>
         expr? symbolic_value, expr? value, storage_type storage, ttype type,
         abi abi, access access, presence presence, bool value_attr)
     | ClassType(symbol_table symtab, identifier name, abi abi, access access)
-    | ClassProcedure(symbol_table parent_symtab, identifier name, identifier
-        proc_name, symbol proc, abi abi)
+    | ClassProcedure(symbol_table parent_symtab, identifier name,
+    identifier?
+        self_argument, identifier proc_name, symbol proc, abi abi)
     | AssociateBlock(symbol_table symtab, identifier name, stmt* body)
     | Block(symbol_table symtab, identifier name, stmt* body)
 </pre></div>
@@ -632,6 +633,9 @@ determined from the text of the basic <em>symbol</em>.</p>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">presence</span></code></p></td>
 <td><p>Required/Optional</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">self_argument</span></code></p></td>
+<td><p>the argument which contains the object calling the class procedure</p></td>
 </tr>
 </tbody>
 </table>
