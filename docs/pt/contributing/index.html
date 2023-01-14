@@ -561,7 +561,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">fix1</span>
 </pre></div>
 </div>
-<p>Passo 3. Faça mudanças no(s) arquivo(s) relevante(s)</p>
+<p>Passo 3. Faça mudanças no(s) ficheiro(s) relevante(s)</p>
 <p>Passo 3. Realize o commit de suas mudanças:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">add</span> <span class="n">FILE1</span> <span class="p">(</span><span class="n">FILE2</span> <span class="o">...</span><span class="p">)</span>
 <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">"YOUR_COMMIT_MESSAGE"</span>
@@ -606,7 +606,7 @@
 </section>
 <section id="parse-the-new-token">
 <h3 id="parse-the-new-token">Realize o Parsing do Novo Token<a class="headerlink" href="#parse-the-new-token" title="Link permanente para este título">¶</a></h3>
-<p>Agora temos que fazer o parsing do novo operador. Nós adicionamos ele à AST ao extender o BinOp com o operador «chapéu» ao modificar o arquivo <em>AST.asdl</em>. Então, colocamos ele no <em>parse.yy</em> para realizar o parsing apropriadamente e gerar a nova AST em <em>semantics.h</em>. Por fim, estendemos o arquivo <em>pickle.cpp</em> para que o novo operador possa ser mostrado.</p>
+<p>Agora temos que fazer o parsing do novo operador. Adicionamo-lo à AST ao extender o BinOp com o operador «chapéu» ao modificar o ficheiro <em>AST.asdl</em>. Então, colocamos-o no <em>parse.yy</em> para realizar o parsing apropriadamente e gerar a nova AST em <em>semantics.h</em>. Por fim, estendemos o ficheiro <em>pickle.cpp</em> para que o novo operador possa ser mostrado.</p>
 <p>:fontawesome-solid-code:<em>grammar/AST.asdl</em></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">operator</span> <span class="o">=</span> <span class="n">Add</span> <span class="o">|</span> <span class="n">Sub</span> <span class="o">|</span> <span class="n">Mul</span> <span class="o">|</span> <span class="n">Div</span> <span class="o">|</span> <span class="n">Pow</span> <span class="o">|</span> <span class="n">Caret</span>
 </pre></div>

@@ -566,7 +566,7 @@
 <li><p>Semântica: converte uma AST em uma ASR</p></li>
 <li><p>Otimizações de alto nível: otimiza a ASR para uma simplificá-la e possivelmente torná-la mais rápida (coisas como alinhamento de funções, eliminação de expressões ou comandos redundantes, etc.)</p></li>
 <li><p>Geração de código LLVM IR e otimizações de baixo nível: converte uma ASR em uma LLVM IR. Nesta etapa são feitas outras otimizações que não produzem uma ASR, porém ainda faz sentido fazê-las antes de passá-las ao LLVM IR.</p></li>
-<li><p>Geração de código de máquina: LLVM fará todas as suas otimizações e gerará código de máquina (como um executável, uma biblioteca, um arquivo objeto, ou carregado e executado usando JIT como parte de uma sessão interativa LFortran ou em um kernel do Jupyter).</p></li>
+<li><p>Geração de código de máquina: LLVM fará todas as suas otimizações e gerará código de máquina (como um executável, uma biblioteca, um ficheiro objeto, ou carregado e executado usando JIT como parte de uma sessão interativa LFortran ou em um kernel do Jupyter).</p></li>
 </ul>
 <p>O LFortran está estruturado em forma de uma biblioteca, podendo ser usado para obter uma AST, ou usar o analisador semântico para obter uma ASR, podendo usá-las em uma aplicação. Também é possível gerar uma ASR diretamente (Ex: a partir do SymPy) e depois convertê-la a uma AST, para em seguida montar um código em Fortran, ou usar o LFortran para compilá-la em código de máquina diretamente. Em outras palavras, é fácil usar o LFortran para converter facilmente entre às três representações equivalentes:</p>
 <ul class="simple">
