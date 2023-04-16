@@ -642,21 +642,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../symbol_nodes/symbol/" class="md-nav__link">symbol</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../symbol_nodes/program/" class="md-nav__link">Program</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../symbol_nodes/variable/" class="md-nav__link">Variable</a>
+      <a href="../../symbol_nodes/symbol_nodes/" class="md-nav__link">ASR Symbol Nodes</a>
       
     
     </li>
@@ -725,8 +711,8 @@
 </section>
 <section id="arguments">
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Lien permanent vers ce titre">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">lable</span></code> contains integer value of the label.
-<code class="docutils literal notranslate"><span class="pre">m</span></code> contains symbol passed to block call.</p>
+<p><code class="docutils literal notranslate"><span class="pre">label</span></code> contains integer value of a label.
+<code class="docutils literal notranslate"><span class="pre">m</span></code> points to the Block symbol to call.</p>
 </section>
 <section id="return-values">
 <h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Lien permanent vers ce titre">¶</a></h3>
@@ -735,8 +721,10 @@
 </section>
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Lien permanent vers ce titre">¶</a></h2>
-<p><strong>BlockCall</strong> signifies the block symbol call. Find more information on
-<a class="reference internal" href="../../symbol_nodes/symbol/"><span class="doc std std-doc">block</span></a>.</p>
+<p><strong>BlockCall</strong> signifies the block symbol call. The Block represents a
+scoped collection of statements and its own symbol table. The Block itself is
+part of a symbol table, and the BlockCall node is used to call it in order to execute the statements inside the block i.e., once the control reaches the <code class="docutils literal notranslate"><span class="pre">BlockCall</span></code> only then the statements inside the block it refers to are executed.</p>
+<p>Find more information on <a class="reference internal" href="../../symbol_nodes/symbol/"><span class="doc std std-doc">block</span></a>.</p>
 </section>
 <section id="types">
 <h2 id="types">Types<a class="headerlink" href="#types" title="Lien permanent vers ce titre">¶</a></h2>
