@@ -576,6 +576,11 @@ contains its own symbol table and can contain variable declarations that are
 local to the block.</p>
 <p>The Block itself is part of a symbol table and one uses the BlockCall <code class="docutils literal notranslate"><span class="pre">stmt</span></code>
 node to call (enter) the block from a list of statements.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">BlockCall</span></code> is different from a <code class="docutils literal notranslate"><span class="pre">FunctionCall</span></code> in the sense that it does
+not expect/accept any arguments. Also,
+the statements inside a <code class="docutils literal notranslate"><span class="pre">Block</span></code> can access the variables in the parent/caller
+scope, unlike <code class="docutils literal notranslate"><span class="pre">Function</span></code> where statements cannot access variables of the caller
+scope.</p>
 </section>
 <section id="types">
 <h2 id="types">类型<a class="headerlink" href="#types" title="永久链接至标题">¶</a></h2>
