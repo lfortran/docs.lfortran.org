@@ -802,7 +802,7 @@ make<span class="w"> </span>-j8
 <section id="enabling-the-jupyter-kernel">
 <h2 id="enabling-the-jupyter-kernel">Habilitación del núcleo de Jupyter<a class="headerlink" href="#enabling-the-jupyter-kernel" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Para instalar el kernel de Jupyter, instale también los siguientes paquetes de Conda:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">xeus</span> <span class="n">xtl</span> <span class="n">nlohmann_json</span> <span class="n">cppzmq</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">xeus</span><span class="o">=</span><span class="mf">3.0.5</span> <span class="n">xeus</span><span class="o">-</span><span class="n">zmq</span><span class="o">=</span><span class="mf">1.0.2</span> <span class="n">xtl</span> <span class="n">nlohmann_json</span> <span class="n">cppzmq</span>
 </pre></div>
 </div>
 <p>y habilite el núcleo con <code class="docutils literal notranslate"><span class="pre">-DWITH_XEUS=yes</span></code> e instálelo en <code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code>. Por ejemplo:</p>
