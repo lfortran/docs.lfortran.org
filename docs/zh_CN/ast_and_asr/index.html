@@ -782,7 +782,87 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span> [(<span class="ansi-magenta-intense-fg ansi-bold">Function</span> f [(a) (b)] [(<span class="ansi-magenta-intense-fg ansi-bold">AttrType</span> <span class="ansi-green-intense-fg ansi-bold">TypeInteger</span> [] () () <span class="ansi-green-intense-fg ansi-bold">None</span>)] <span class="ansi-yellow-fg">r</span> () () [] [] [] [(<span class="ansi-magenta-intense-fg ansi-bold">Declaration</span> (<span class="ansi-magenta-intense-fg ansi-bold">AttrType</span> <span class="ansi-green-intense-fg ansi-bold">TypeInteger</span> [] () () <span class="ansi-green-intense-fg ansi-bold">None</span>) [(<span class="ansi-magenta-intense-fg ansi-bold">AttrIntent</span> <span class="ansi-green-intense-fg ansi-bold">In</span>)] [(a [] [] () <span class="ansi-green-intense-fg ansi-bold">None</span> ()) (b [] [] () <span class="ansi-green-intense-fg ansi-bold">None</span> ())] ()) (<span class="ansi-magenta-intense-fg ansi-bold">Declaration</span> (<span class="ansi-magenta-intense-fg ansi-bold">AttrType</span> <span class="ansi-green-intense-fg ansi-bold">TypeInteger</span> [] () () <span class="ansi-green-intense-fg ansi-bold">None</span>) [] [(c [] [] () <span class="ansi-green-intense-fg ansi-bold">None</span> ()) (d [] [] () <span class="ansi-green-intense-fg ansi-bold">None</span> ())] ())] [(<span class="ansi-magenta-intense-fg ansi-bold">=</span> 0 <span class="ansi-yellow-fg">c</span> (- (+ <span class="ansi-yellow-fg">a</span> <span class="ansi-yellow-fg">b</span>) <span class="ansi-yellow-fg">d</span>) ()) (<span class="ansi-magenta-intense-fg ansi-bold">=</span> 0 <span class="ansi-yellow-fg">r</span> (* <span class="ansi-yellow-fg">c</span> <span class="ansi-yellow-fg">a</span>) ())] [])])
+(<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span>
+    [(<span class="ansi-magenta-intense-fg ansi-bold">Function</span>
+        f
+        [(a)
+        (b)]
+        [(<span class="ansi-magenta-intense-fg ansi-bold">AttrType</span>
+            <span class="ansi-green-intense-fg ansi-bold">TypeInteger</span>
+            []
+            ()
+            ()
+            <span class="ansi-green-intense-fg ansi-bold">None</span>
+        )]
+        <span class="ansi-yellow-fg">r</span>
+        ()
+        ()
+        []
+        []
+        []
+        [(<span class="ansi-magenta-intense-fg ansi-bold">Declaration</span>
+            (<span class="ansi-magenta-intense-fg ansi-bold">AttrType</span>
+                <span class="ansi-green-intense-fg ansi-bold">TypeInteger</span>
+                []
+                ()
+                ()
+                <span class="ansi-green-intense-fg ansi-bold">None</span>
+            )
+            [(<span class="ansi-magenta-intense-fg ansi-bold">AttrIntent</span>
+                <span class="ansi-green-intense-fg ansi-bold">In</span>
+            )]
+            [(a
+            []
+            []
+            ()
+            <span class="ansi-green-intense-fg ansi-bold">None</span>
+            ())
+            (b
+            []
+            []
+            ()
+            <span class="ansi-green-intense-fg ansi-bold">None</span>
+            ())]
+            ()
+        )
+        (<span class="ansi-magenta-intense-fg ansi-bold">Declaration</span>
+            (<span class="ansi-magenta-intense-fg ansi-bold">AttrType</span>
+                <span class="ansi-green-intense-fg ansi-bold">TypeInteger</span>
+                []
+                ()
+                ()
+                <span class="ansi-green-intense-fg ansi-bold">None</span>
+            )
+            []
+            [(c
+            []
+            []
+            ()
+            <span class="ansi-green-intense-fg ansi-bold">None</span>
+            ())
+            (d
+            []
+            []
+            ()
+            <span class="ansi-green-intense-fg ansi-bold">None</span>
+            ())]
+            ()
+        )]
+        [(<span class="ansi-magenta-intense-fg ansi-bold">=</span>
+            0
+            <span class="ansi-yellow-fg">c</span>
+            (- (+ <span class="ansi-yellow-fg">a</span> <span class="ansi-yellow-fg">b</span>) <span class="ansi-yellow-fg">d</span>)
+            ()
+        )
+        (<span class="ansi-magenta-intense-fg ansi-bold">=</span>
+            0
+            <span class="ansi-yellow-fg">r</span>
+            (* <span class="ansi-yellow-fg">c</span> <span class="ansi-yellow-fg">a</span>)
+            ()
+        )]
+        []
+    )]
+)
 </pre></div></div>
 </div>
 <p>AST 没有任何语义信息，但具有表示声明的节点，例如 <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">intent(in)</span> <span class="pre">::</span> <span class="pre">a</span></code>。诸如 <code class="docutils literal notranslate"><span class="pre">a</span></code> 之类的变量由 <code class="docutils literal notranslate"><span class="pre">Name</span></code> 节点表示，并且尚未连接到它们的声明。</p>
@@ -809,7 +889,152 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span> (<span class="ansi-yellow-fg">SymbolTable</span> 1 {f: (<span class="ansi-magenta-intense-fg ansi-bold">Function</span> (<span class="ansi-yellow-fg">SymbolTable</span> 2 {a: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 2 a [] <span class="ansi-green-intense-fg ansi-bold">In</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) () <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), b: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 2 b [] <span class="ansi-green-intense-fg ansi-bold">In</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) () <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), c: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 2 c [] <span class="ansi-green-intense-fg ansi-bold">Local</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) () <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), d: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 2 d [] <span class="ansi-green-intense-fg ansi-bold">Local</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) () <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.), r: (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span> 2 r [] <span class="ansi-green-intense-fg ansi-bold">ReturnVar</span> () () <span class="ansi-green-intense-fg ansi-bold">Default</span> (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) () <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Public</span> <span class="ansi-green-intense-fg ansi-bold">Required</span> .false.)}) f (<span class="ansi-magenta-intense-fg ansi-bold">FunctionType</span> [(<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])] (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) <span class="ansi-green-intense-fg ansi-bold">Source</span> <span class="ansi-green-intense-fg ansi-bold">Implementation</span> () .false. .false. .false. .false. .false. [] [] .false.) [] [(<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">a</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">b</span>)] [(<span class="ansi-magenta-intense-fg ansi-bold">=</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">c</span>) (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span> (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">a</span>) <span class="ansi-green-intense-fg ansi-bold">Add</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">b</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) ()) <span class="ansi-green-intense-fg ansi-bold">Sub</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">d</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) ()) ()) (<span class="ansi-magenta-intense-fg ansi-bold">=</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">r</span>) (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">c</span>) <span class="ansi-green-intense-fg ansi-bold">Mul</span> (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">a</span>) (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 []) ()) ())] (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">r</span>) <span class="ansi-green-intense-fg ansi-bold">Public</span> .false. .false.)}) [])
+(<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span>
+    (<span class="ansi-yellow-fg">SymbolTable</span>
+        1
+        {
+            f:
+                (<span class="ansi-magenta-intense-fg ansi-bold">Function</span>
+                    (<span class="ansi-yellow-fg">SymbolTable</span>
+                        2
+                        {
+                            a:
+                                (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span>
+                                    2
+                                    a
+                                    []
+                                    <span class="ansi-green-intense-fg ansi-bold">In</span>
+                                    ()
+                                    ()
+                                    <span class="ansi-green-intense-fg ansi-bold">Default</span>
+                                    (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])
+                                    ()
+                                    <span class="ansi-green-intense-fg ansi-bold">Source</span>
+                                    <span class="ansi-green-intense-fg ansi-bold">Public</span>
+                                    <span class="ansi-green-intense-fg ansi-bold">Required</span>
+                                    .false.
+                                ),
+                            b:
+                                (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span>
+                                    2
+                                    b
+                                    []
+                                    <span class="ansi-green-intense-fg ansi-bold">In</span>
+                                    ()
+                                    ()
+                                    <span class="ansi-green-intense-fg ansi-bold">Default</span>
+                                    (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])
+                                    ()
+                                    <span class="ansi-green-intense-fg ansi-bold">Source</span>
+                                    <span class="ansi-green-intense-fg ansi-bold">Public</span>
+                                    <span class="ansi-green-intense-fg ansi-bold">Required</span>
+                                    .false.
+                                ),
+                            c:
+                                (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span>
+                                    2
+                                    c
+                                    []
+                                    <span class="ansi-green-intense-fg ansi-bold">Local</span>
+                                    ()
+                                    ()
+                                    <span class="ansi-green-intense-fg ansi-bold">Default</span>
+                                    (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])
+                                    ()
+                                    <span class="ansi-green-intense-fg ansi-bold">Source</span>
+                                    <span class="ansi-green-intense-fg ansi-bold">Public</span>
+                                    <span class="ansi-green-intense-fg ansi-bold">Required</span>
+                                    .false.
+                                ),
+                            d:
+                                (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span>
+                                    2
+                                    d
+                                    []
+                                    <span class="ansi-green-intense-fg ansi-bold">Local</span>
+                                    ()
+                                    ()
+                                    <span class="ansi-green-intense-fg ansi-bold">Default</span>
+                                    (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])
+                                    ()
+                                    <span class="ansi-green-intense-fg ansi-bold">Source</span>
+                                    <span class="ansi-green-intense-fg ansi-bold">Public</span>
+                                    <span class="ansi-green-intense-fg ansi-bold">Required</span>
+                                    .false.
+                                ),
+                            r:
+                                (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span>
+                                    2
+                                    r
+                                    []
+                                    <span class="ansi-green-intense-fg ansi-bold">ReturnVar</span>
+                                    ()
+                                    ()
+                                    <span class="ansi-green-intense-fg ansi-bold">Default</span>
+                                    (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])
+                                    ()
+                                    <span class="ansi-green-intense-fg ansi-bold">Source</span>
+                                    <span class="ansi-green-intense-fg ansi-bold">Public</span>
+                                    <span class="ansi-green-intense-fg ansi-bold">Required</span>
+                                    .false.
+                                )
+                        })
+                    f
+                    (<span class="ansi-magenta-intense-fg ansi-bold">FunctionType</span>
+                        [(<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])
+                        (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])]
+                        (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])
+                        <span class="ansi-green-intense-fg ansi-bold">Source</span>
+                        <span class="ansi-green-intense-fg ansi-bold">Implementation</span>
+                        ()
+                        .false.
+                        .false.
+                        .false.
+                        .false.
+                        .false.
+                        []
+                        []
+                        .false.
+                    )
+                    []
+                    [(<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">a</span>)
+                    (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">b</span>)]
+                    [(<span class="ansi-magenta-intense-fg ansi-bold">=</span>
+                        (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">c</span>)
+                        (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span>
+                            (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span>
+                                (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">a</span>)
+                                <span class="ansi-green-intense-fg ansi-bold">Add</span>
+                                (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">b</span>)
+                                (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])
+                                ()
+                            )
+                            <span class="ansi-green-intense-fg ansi-bold">Sub</span>
+                            (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">d</span>)
+                            (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])
+                            ()
+                        )
+                        ()
+                    )
+                    (<span class="ansi-magenta-intense-fg ansi-bold">=</span>
+                        (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">r</span>)
+                        (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span>
+                            (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">c</span>)
+                            <span class="ansi-green-intense-fg ansi-bold">Mul</span>
+                            (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">a</span>)
+                            (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4 [])
+                            ()
+                        )
+                        ()
+                    )]
+                    (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">r</span>)
+                    <span class="ansi-green-intense-fg ansi-bold">Public</span>
+                    .false.
+                    .false.
+                )
+        })
+    []
+)
 </pre></div></div>
 </div>
 <p>ASR 有所有的语义信息（类型等），像 <code class="docutils literal notranslate"><span class="pre">Function</span></code> 这样的节点有一个符号表，没有任何声明节点。变量只是指向符号表的指针。</p>
