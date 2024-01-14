@@ -715,7 +715,7 @@ link /?
 </div>
 <p>Si todo está compilado, puede usar LFortran de la siguiente manera:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inst</span>\<span class="nb">bin</span>\<span class="n">lfortran</span> <span class="n">examples</span><span class="o">/</span><span class="n">expr2</span><span class="o">.</span><span class="n">f90</span>
-<span class="n">a</span><span class="o">.</span><span class="n">out</span>
+<span class="n">expr2</span><span class="o">.</span><span class="n">exe</span>
 <span class="n">inst</span>\<span class="nb">bin</span>\<span class="n">lfortran</span>
 </pre></div>
 </div>
@@ -764,7 +764,7 @@ conda<span class="w"> </span>init<span class="w"> </span>bash
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lf
 sudo<span class="w"> </span>apt<span class="w"> </span>update
 sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>zlib1g-dev
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>zlib1g-dev<span class="w"> </span>libzstd-dev
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>clang
 </pre></div>
 </div>
@@ -790,7 +790,7 @@ make<span class="w"> </span>-j8
 <li><p>Si todo se compila, puede usar LFortran de la siguiente manera</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran<span class="w"> </span>./examples/expr2.f90
-./a.out
+./expr2.out
 </pre></div>
 </div>
 <ul class="simple">
