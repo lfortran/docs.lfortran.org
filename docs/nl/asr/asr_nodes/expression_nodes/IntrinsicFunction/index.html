@@ -64,6 +64,8 @@
     <link rel="shortcut icon" href="../../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="Index" href="../../../../genindex/" />
     <link rel="search" title="Zoeken" href="../../../../search/" />
+    <link rel="next" title="LogicalBinOp" href="../LogicalBinOp/" />
+    <link rel="prev" title="IntegerUnaryMinus" href="../IntegerUnaryMinus/" />
   
    
 
@@ -205,6 +207,7 @@
             <li class="md-tabs__item"><a href="../../../../design/" class="md-tabs__link">Developers's Guide</a></li>
             
             <li class="md-tabs__item"><a href="../../../../intrinsics/array/" class="md-tabs__link">Intrinsics</a></li>
+          <li class="md-tabs__item"><a href="../expression_nodes/" class="md-tabs__link">ASR Expression Nodes</a></li>
       </ul>
     </div>
   </nav>
@@ -391,7 +394,319 @@
     
     
       <a href="../expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayBound/" class="md-nav__link">ArrayBound</a>
       
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayConstant/" class="md-nav__link">ArrayConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayItem/" class="md-nav__link">ArrayItem</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayMatMul/" class="md-nav__link">ArrayMatMul</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayPack/" class="md-nav__link">ArrayPack</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayReshape/" class="md-nav__link">ArrayReshape</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArraySection/" class="md-nav__link">ArraySection</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArraySize/" class="md-nav__link">ArraySize</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayTranspose/" class="md-nav__link">ArrayTranspose</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../BitCast/" class="md-nav__link">BitCast</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../Cast/" class="md-nav__link">Cast</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexBinOp/" class="md-nav__link">ComplexBinOp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexCompare/" class="md-nav__link">ComplexCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexConstant/" class="md-nav__link">ComplexConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexConstructor/" class="md-nav__link">ComplexConstructor</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexUnaryMinus/" class="md-nav__link">ComplexUnaryMinus</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../DerivedTypeConstructor/" class="md-nav__link">DerivedTypeConstructor</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../FunctionCall/" class="md-nav__link">FunctionCall</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IfExp/" class="md-nav__link">IfExp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ichar/" class="md-nav__link">Ichar</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../implieddoloop/" class="md-nav__link">ImpliedDoLoop</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerBOZ/" class="md-nav__link">IntegerBOZ</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerBinOp/" class="md-nav__link">IntegerBinOp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerBitNot/" class="md-nav__link">IntegerBitNot</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerCompare/" class="md-nav__link">IntegerCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerConstant/" class="md-nav__link">IntegerConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerUnaryMinus/" class="md-nav__link">IntegerUnaryMinus</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> IntrinsicFunction </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">IntrinsicFunction</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#asr-asr-nodes-expression-nodes-intrinsicfunction--page-root" class="md-nav__link">IntrinsicFunction</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaration</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Syntax</a>
+        </li>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Arguments</a>
+        </li>
+        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Return values</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        </li>
+        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        </li>
+        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../LogicalBinOp/" class="md-nav__link">LogicalBinOp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../LogicalCompare/" class="md-nav__link">LogicalCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../LogicalConstant/" class="md-nav__link">LogicalConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../RealBinOp/" class="md-nav__link">RealBinOp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../RealCompare/" class="md-nav__link">RealCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../RealConstant/" class="md-nav__link">RealConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../RealUnaryMinus/" class="md-nav__link">RealUnaryMinus</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringCompare/" class="md-nav__link">StringCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringConcat/" class="md-nav__link">StringConcat</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringConstant/" class="md-nav__link">StringConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../TypeInquiry/" class="md-nav__link">TypeInquiry</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../Var/" class="md-nav__link">Var</a>
+      
+    
+    </li></ul>
     
     </li>
     <li class="md-nav__item">
@@ -572,7 +887,7 @@ determined by <code class="docutils literal notranslate"><span class="pre">intri
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permalink naar deze titel">¶</a></h2>
-<p><span class="xref myst">FunctionCall</span></p>
+<p><a class="reference internal" href="../FunctionCall/"><span class="doc std std-doc">FunctionCall</span></a></p>
 </section>
 </section>
 
@@ -586,6 +901,30 @@ determined by <code class="docutils literal notranslate"><span class="pre">intri
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
+            <a href="../IntegerUnaryMinus/" title="IntegerUnaryMinus"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> IntegerUnaryMinus </span>
+              </div>
+            </a>
+          
+          
+            <a href="../LogicalBinOp/" title="LogicalBinOp"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> LogicalBinOp </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
           
         </a>
         
