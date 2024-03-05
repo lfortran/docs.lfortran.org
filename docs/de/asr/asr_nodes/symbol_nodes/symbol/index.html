@@ -65,7 +65,7 @@
     <link rel="index" title="Stichwortverzeichnis" href="../../../../genindex/" />
     <link rel="search" title="Suche" href="../../../../search/" />
     <link rel="next" title="ttype" href="../../type_nodes/ttype/" />
-    <link rel="prev" title="Program" href="../program/" />
+    <link rel="prev" title="Template" href="../Template/" />
   
    
 
@@ -447,6 +447,20 @@
     <li class="md-nav__item">
     
     
+      <a href="../Requirement/" class="md-nav__link">Requirement</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../Template/" class="md-nav__link">Template</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     <label class="md-nav__link md-nav__link--active" for="__toc"> symbol </label>
     
@@ -576,6 +590,8 @@ determined from the text of the basic <em>symbol</em>.</p>
         self_argument, identifier proc_name, symbol proc, abi abi)
     | AssociateBlock(symbol_table symtab, identifier name, stmt* body)
     | Block(symbol_table symtab, identifier name, stmt* body)
+    | Requirement(symbol_table symtab, identifier name, identifier* args, require_instantiation* requires)
+    | Template(symbol_table symtab, identifier name, identifier* args, require_instantiation* requires)
 </pre></div>
 </div>
 </section>
@@ -639,6 +655,9 @@ determined from the text of the basic <em>symbol</em>.</p>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">self_argument</span></code></p></td>
 <td><p>the argument which contains the object calling the class procedure</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">requires</span></code></p></td>
+<td><p>assigning types to requirement or template arguments</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -698,6 +717,8 @@ previous cell. That allows function / declaration shadowing.</p>
 <li><p>ClassProcedure</p></li>
 <li><p>AssociateBlock</p></li>
 <li><p>Block</p></li>
+<li><p>Requirement</p></li>
+<li><p>Template</p></li>
 </ol>
 </section>
 <section id="types">
@@ -1503,7 +1524,7 @@ previous cell. That allows function / declaration shadowing.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../program/" title="Program"
+            <a href="../Template/" title="Template"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -1512,7 +1533,7 @@ previous cell. That allows function / declaration shadowing.</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Program </span>
+                      class="md-footer-nav__direction"> Previous </span> Template </span>
               </div>
             </a>
           
