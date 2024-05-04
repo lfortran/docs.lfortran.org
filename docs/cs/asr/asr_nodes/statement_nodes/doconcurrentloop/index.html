@@ -713,13 +713,15 @@ iterations of a DO loop.</p>
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Trvalý odkaz na tento nadpis">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Trvalý odkaz na tento nadpis">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">DoConcurrentLoop</span><span class="p">(</span><span class="n">do_loop_head</span><span class="w"> </span><span class="n">head</span><span class="p">,</span><span class="w"> </span><span class="n">stmt</span><span class="o">*</span><span class="w"> </span><span class="n">body</span><span class="p">)</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">DoConcurrentLoop</span><span class="p">(</span><span class="n">do_loop_head</span><span class="w"> </span><span class="n">head</span><span class="p">,</span><span class="w"> </span><span class="n">expr</span><span class="o">*</span><span class="w"> </span><span class="n">shared</span><span class="p">,</span><span class="w"> </span><span class="n">expr</span><span class="o">*</span><span class="w"> </span><span class="n">local</span><span class="p">,</span><span class="w"> </span><span class="n">stmt</span><span class="o">*</span><span class="w"> </span><span class="n">body</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="arguments">
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Trvalý odkaz na tento nadpis">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">head</span></code> contains do loop concurrent header.
+<code class="docutils literal notranslate"><span class="pre">shared</span></code> contains a list of variables that are shared amongst all threads
+<code class="docutils literal notranslate"><span class="pre">local</span></code> contains a list of variables that are local to each thread
 <code class="docutils literal notranslate"><span class="pre">body</span></code> contains loop body.</p>
 </section>
 <section id="return-values">
@@ -729,9 +731,9 @@ iterations of a DO loop.</p>
 </section>
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Trvalý odkaz na tento nadpis">¶</a></h2>
-<p><strong>DoConcurrentLoop</strong> specifies that there are no data dependecies between the
+<p><strong>DoConcurrentLoop</strong> specifies that there are no data dependencies between the
 iterations of a DO loop. Within the body of a <code class="docutils literal notranslate"><span class="pre">DoConcurrent</span></code> loop the program
-must adgere to a the list of restrictions specified on its use of Fortran
+must adhere to a the list of restrictions specified on its use of Fortran
 language features. Actions that can’t be executed in parallel or that don’t
 allow all iterations to execute are prohibited, like:</p>
 <ul class="simple">
@@ -739,11 +741,12 @@ allow all iterations to execute are prohibited, like:</p>
 iterations.</p></li>
 <li><p>Image control statements, like <code class="docutils literal notranslate"><span class="pre">STOP</span></code>, <code class="docutils literal notranslate"><span class="pre">SYNC</span></code>, <code class="docutils literal notranslate"><span class="pre">ALLOCATE/DEALLOCATE</span></code>.</p></li>
 </ul>
+<p><code class="docutils literal notranslate"><span class="pre">OMPPragma</span></code> is converted to <code class="docutils literal notranslate"><span class="pre">DoConcurrentLoop</span></code> in the AST-&gt;ASR phase.</p>
 </section>
 <section id="types">
 <h2 id="types">Types<a class="headerlink" href="#types" title="Trvalý odkaz na tento nadpis">¶</a></h2>
 <p>Accessible global identifier and a sequence of zero or more statements or
-construst that make the <code class="docutils literal notranslate"><span class="pre">DO</span></code> range.</p>
+construct that make the <code class="docutils literal notranslate"><span class="pre">DO</span></code> range.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Trvalý odkaz na tento nadpis">¶</a></h2>
@@ -779,7 +782,7 @@ construst that make the <code class="docutils literal notranslate"><span class="
     (SymbolTable
         1
         {
-            doconcurrentloop_02:
+            doconcurrentloop:
                 (Program
                     (SymbolTable
                         2
@@ -788,12 +791,18 @@ construst that make the <code class="docutils literal notranslate"><span class="
                                 (Variable
                                     2
                                     a
+                                    []
                                     Local
                                     ()
                                     ()
                                     Default
-                                    (Real 4 [((IntegerConstant 1 (Integer 4 []))
-                                    (IntegerConstant 10 (Integer 4 [])))])
+                                    (Array
+                                        (Real 4)
+                                        [((IntegerConstant 1 (Integer 4))
+                                        (IntegerConstant 10 (Integer 4)))]
+                                        FixedSizeArray
+                                    )
+                                    ()
                                     Source
                                     Public
                                     Required
@@ -808,12 +817,18 @@ construst that make the <code class="docutils literal notranslate"><span class="
                                                 (Variable
                                                     3
                                                     a
+                                                    []
                                                     In
                                                     ()
                                                     ()
                                                     Default
-                                                    (Real 4 [(()
-                                                    ())])
+                                                    (Array
+                                                        (Real 4)
+                                                        [(()
+                                                        ())]
+                                                        DescriptorArray
+                                                    )
+                                                    ()
                                                     Source
                                                     Public
                                                     Required
@@ -823,27 +838,51 @@ construst that make the <code class="docutils literal notranslate"><span class="
                                                 (Variable
                                                     3
                                                     sum
+                                                    []
                                                     Out
                                                     ()
                                                     ()
                                                     Default
-                                                    (Real 4 [])
+                                                    (Real 4)
+                                                    ()
                                                     Source
                                                     Public
                                                     Required
                                                     .false.
                                                 )
-
                                         })
                                     arraysum
+                                    (FunctionType
+                                        [(Array
+                                            (Real 4)
+                                            [(()
+                                            ())]
+                                            DescriptorArray
+                                        )
+                                        (Real 4)]
+                                        ()
+                                        Source
+                                        Implementation
+                                        ()
+                                        .false.
+                                        .false.
+                                        .false.
+                                        .false.
+                                        .false.
+                                        []
+                                        .false.
+                                    )
+                                    []
                                     [(Var 3 a)
                                     (Var 3 sum)]
                                     [(DoConcurrentLoop
                                         ((Var 2 i)
-                                        (IntegerConstant 1 (Integer 4 []))
+                                        (IntegerConstant 1 (Integer 4))
                                         (Var 2 n)
                                         ())
-                                        [(=
+                                        []
+                                        []
+                                        [(Assignment
                                             (Var 3 sum)
                                             (RealBinOp
                                                 (Var 3 sum)
@@ -853,38 +892,33 @@ construst that make the <code class="docutils literal notranslate"><span class="
                                                     [(()
                                                     (Var 2 i)
                                                     ())]
-                                                    (Real 4 [])
+                                                    (Real 4)
+                                                    ColMajor
                                                     ()
                                                 )
-                                                (Real 4 [])
+                                                (Real 4)
                                                 ()
                                             )
                                             ()
                                         )]
                                     )]
                                     ()
-                                    Source
                                     Public
-                                    Implementation
+                                    .false.
+                                    .false.
                                     ()
-                                    .false.
-                                    .false.
-                                    .false.
-                                    .false.
-                                    .false.
-                                    []
-                                    []
-                                    .false.
                                 ),
                             i:
                                 (Variable
                                     2
                                     i
+                                    []
                                     Local
                                     ()
                                     ()
                                     Default
-                                    (Integer 4 [])
+                                    (Integer 4)
+                                    ()
                                     Source
                                     Public
                                     Required
@@ -894,11 +928,13 @@ construst that make the <code class="docutils literal notranslate"><span class="
                                 (Variable
                                     2
                                     n
+                                    []
                                     Local
                                     ()
                                     ()
                                     Default
-                                    (Integer 4 [])
+                                    (Integer 4)
+                                    ()
                                     Source
                                     Public
                                     Required
@@ -908,55 +944,59 @@ construst that make the <code class="docutils literal notranslate"><span class="
                                 (Variable
                                     2
                                     sum
+                                    []
                                     Local
                                     ()
                                     ()
                                     Default
-                                    (Real 4 [])
+                                    (Real 4)
+                                    ()
                                     Source
                                     Public
                                     Required
                                     .false.
                                 )
-
                         })
-                    doconcurrentloop_02
+                    doconcurrentloop
                     []
-                    [(=
+                    [(Assignment
                         (Var 2 n)
                         (ArraySize
                             (Var 2 a)
                             ()
-                            (Integer 4 [])
-                            (IntegerConstant 10 (Integer 4 []))
+                            (Integer 4)
+                            (IntegerConstant 10 (Integer 4))
                         )
                         ()
                     )
-                    (=
+                    (Assignment
                         (Var 2 sum)
                         (Cast
-                            (IntegerConstant 0 (Integer 4 []))
+                            (IntegerConstant 0 (Integer 4))
                             IntegerToReal
-                            (Real 4 [])
+                            (Real 4)
                             (RealConstant
                                 0.000000
-                                (Real 4 [])
+                                (Real 4)
                             )
                         )
                         ()
                     )
                     (DoConcurrentLoop
                         ((Var 2 i)
-                        (IntegerConstant 1 (Integer 4 []))
+                        (IntegerConstant 1 (Integer 4))
                         (Var 2 n)
                         ())
-                        [(=
+                        []
+                        []
+                        [(Assignment
                             (ArrayItem
                                 (Var 2 a)
                                 [(()
                                 (Var 2 i)
                                 ())]
-                                (Real 4 [])
+                                (Real 4)
+                                ColMajor
                                 ()
                             )
                             (RealBinOp
@@ -966,25 +1006,26 @@ construst that make the <code class="docutils literal notranslate"><span class="
                                     (IntegerBinOp
                                         (Var 2 i)
                                         Sub
-                                        (IntegerConstant 1 (Integer 4 []))
-                                        (Integer 4 [])
+                                        (IntegerConstant 1 (Integer 4))
+                                        (Integer 4)
                                         ()
                                     )
                                     ())]
-                                    (Real 4 [])
+                                    (Real 4)
+                                    ColMajor
                                     ()
                                 )
                                 Add
                                 (Cast
-                                    (IntegerConstant 5 (Integer 4 []))
+                                    (IntegerConstant 5 (Integer 4))
                                     IntegerToReal
-                                    (Real 4 [])
+                                    (Real 4)
                                     (RealConstant
                                         5.000000
-                                        (Real 4 [])
+                                        (Real 4)
                                     )
                                 )
-                                (Real 4 [])
+                                (Real 4)
                                 ()
                             )
                             ()
@@ -993,12 +1034,22 @@ construst that make the <code class="docutils literal notranslate"><span class="
                     (SubroutineCall
                         2 arraysum
                         ()
-                        [((Var 2 a))
+                        [((ArrayPhysicalCast
+                            (Var 2 a)
+                            FixedSizeArray
+                            DescriptorArray
+                            (Array
+                                (Real 4)
+                                [((IntegerConstant 1 (Integer 4))
+                                (IntegerConstant 10 (Integer 4)))]
+                                DescriptorArray
+                            )
+                            ()
+                        ))
                         ((Var 2 sum))]
                         ()
                     )]
                 )
-
         })
     []
 )
