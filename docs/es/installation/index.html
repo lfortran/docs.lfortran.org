@@ -631,6 +631,12 @@ conda<span class="w"> </span>activate<span class="w"> </span>lf
 <section id="build-from-a-source-tarball">
 <h2 id="build-from-a-source-tarball">Construir desde una fuente de archivo tar<a class="headerlink" href="#build-from-a-source-tarball" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Este método es el método recomendado si solo desea instalar LFortran, ya sea usted mismo o en un administrador de paquetes (Spack, Conda, Debian, etc.). La fuente de archivo tar tiene todos los archivos generados incluidos y tiene dependencias mínimas.</p>
+<p>The source tarball of LFortran only depends on:</p>
+<ul class="simple">
+<li><p>Python</p></li>
+<li><p>cmake</p></li>
+<li><p>LLVM 10-16 (versions 17 and 18 not supported yet)</p></li>
+</ul>
 <p>Primero tenemos que instalar dependencias, por ejemplo usando Conda:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>llvmdev
 conda<span class="w"> </span>activate<span class="w"> </span>lf

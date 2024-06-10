@@ -637,6 +637,12 @@ interactive prompt by executing <code class="docutils literal notranslate"><span
 <section id="build-from-a-source-tarball">
 <h2 id="build-from-a-source-tarball">Build From a Source Tarball<a class="headerlink" href="#build-from-a-source-tarball" title="Link zu dieser Überschrift">¶</a></h2>
 <p>This method is the recommended method if you just want to install LFortran, either yourself or in a package manager (Spack, Conda, Debian, etc.). The source tarball has all the generated files included and has minimal dependencies.</p>
+<p>The source tarball of LFortran only depends on:</p>
+<ul class="simple">
+<li><p>Python</p></li>
+<li><p>cmake</p></li>
+<li><p>LLVM 10-16 (versions 17 and 18 not supported yet)</p></li>
+</ul>
 <p>First we have to install dependencies, for example using Conda:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>llvmdev
 conda<span class="w"> </span>activate<span class="w"> </span>lf

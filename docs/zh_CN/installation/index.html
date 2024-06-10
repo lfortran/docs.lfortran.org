@@ -631,6 +631,12 @@ conda<span class="w"> </span>activate<span class="w"> </span>lf
 <section id="build-from-a-source-tarball">
 <h2 id="build-from-a-source-tarball">从源代码构建<a class="headerlink" href="#build-from-a-source-tarball" title="永久链接至标题">¶</a></h2>
 <p>如果你只想自己或在包管理器（Spack、Conda、Debian 等）中安装 LFortran，建议使用此方法。源代码包含所有生成的文件，并且具有最小的依赖关系。</p>
+<p>The source tarball of LFortran only depends on:</p>
+<ul class="simple">
+<li><p>Python</p></li>
+<li><p>cmake</p></li>
+<li><p>LLVM 10-16 (versions 17 and 18 not supported yet)</p></li>
+</ul>
 <p>首先，我们必须安装依赖项，例如使用 Conda：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>llvmdev
 conda<span class="w"> </span>activate<span class="w"> </span>lf
