@@ -292,6 +292,8 @@
         </li>
         <li class="md-nav__item"><a href="#stacktraces" class="md-nav__link">Stacktraces</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#llvm" class="md-nav__link">LLVM</a>
+        </li>
         <li class="md-nav__item"><a href="#ubuntu" class="md-nav__link">Ubuntu</a>
         </li>
         <li class="md-nav__item"><a href="#macos" class="md-nav__link">macOS</a>
@@ -586,6 +588,8 @@
         </li>
         <li class="md-nav__item"><a href="#stacktraces" class="md-nav__link">Stacktraces</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#llvm" class="md-nav__link">LLVM</a>
+        </li>
         <li class="md-nav__item"><a href="#ubuntu" class="md-nav__link">Ubuntu</a>
         </li>
         <li class="md-nav__item"><a href="#macos" class="md-nav__link">macOS</a>
@@ -904,6 +908,12 @@ nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"
 <section id="stacktraces">
 <h2 id="stacktraces">Stacktraces<a class="headerlink" href="#stacktraces" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>LFortran puede imprimir stacktraces cuando hay una excepción no controlada, así como en cualquier error del compilador con la opción <code class="docutils literal notranslate"><span class="pre">--show-stacktrace</span></code>. Esto es muy útil para desarrollar el propio compilador para ver dónde está el problema en LFortran. La compatibilidad con stacktrace está desactivada de manera predeterminada; para habilitarla, compile LFortran con la opción cmake <code class="docutils literal notranslate"><span class="pre">-DWITH_STACKTRACE=yes</span></code> después de instalar los requisitos previos en cada plataforma según las instrucciones a continuación.</p>
+<section id="llvm">
+<h3 id="llvm">LLVM<a class="headerlink" href="#llvm" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>In all platforms having LLVM, stacktraces can be shown with LLVM, so no
+additional prerequisites are required. If LLVM is not available, you can use
+the following instructions, depending on your platform.</p>
+</section>
 <section id="ubuntu">
 <h3 id="ubuntu">Ubuntu<a class="headerlink" href="#ubuntu" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>En Ubuntu, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">binutils-dev</span></code>.</p>

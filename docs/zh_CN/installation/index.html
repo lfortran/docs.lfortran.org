@@ -292,6 +292,8 @@
         </li>
         <li class="md-nav__item"><a href="#stacktraces" class="md-nav__link">堆栈跟踪</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#llvm" class="md-nav__link">LLVM</a>
+        </li>
         <li class="md-nav__item"><a href="#ubuntu" class="md-nav__link">Ubuntu</a>
         </li>
         <li class="md-nav__item"><a href="#macos" class="md-nav__link">macOS</a>
@@ -586,6 +588,8 @@
         </li>
         <li class="md-nav__item"><a href="#stacktraces" class="md-nav__link">堆栈跟踪</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#llvm" class="md-nav__link">LLVM</a>
+        </li>
         <li class="md-nav__item"><a href="#ubuntu" class="md-nav__link">Ubuntu</a>
         </li>
         <li class="md-nav__item"><a href="#macos" class="md-nav__link">macOS</a>
@@ -904,6 +908,12 @@ nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"
 <section id="stacktraces">
 <h2 id="stacktraces">堆栈跟踪<a class="headerlink" href="#stacktraces" title="永久链接至标题">¶</a></h2>
 <p>LFortran 可以在出现未处理的异常时打印堆栈跟踪，也可以在任何编译器错误时使用 <code class="docutils literal notranslate"><span class="pre">--show-stacktrace</span></code> 选项。这对开发编译器本身很有帮助，可以看到 LFortran 中的问题所在。默认情况下，堆栈跟踪支持是关闭的，要启用它，需要在每个平台上按照下面的说明安装先决条件后，用<code class="docutils literal notranslate"><span class="pre">-DWITH_STACKTRACE=yes</span></code> cmake 选项编译 LFortran。</p>
+<section id="llvm">
+<h3 id="llvm">LLVM<a class="headerlink" href="#llvm" title="永久链接至标题">¶</a></h3>
+<p>In all platforms having LLVM, stacktraces can be shown with LLVM, so no
+additional prerequisites are required. If LLVM is not available, you can use
+the following instructions, depending on your platform.</p>
+</section>
 <section id="ubuntu">
 <h3 id="ubuntu">Ubuntu<a class="headerlink" href="#ubuntu" title="永久链接至标题">¶</a></h3>
 <p>在 Ubuntu 系统，<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">binutils-dev</span></code>。</p>

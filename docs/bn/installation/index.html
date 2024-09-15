@@ -292,6 +292,8 @@
         </li>
         <li class="md-nav__item"><a href="#stacktraces" class="md-nav__link">Stacktraces</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#llvm" class="md-nav__link">LLVM</a>
+        </li>
         <li class="md-nav__item"><a href="#ubuntu" class="md-nav__link">Ubuntu</a>
         </li>
         <li class="md-nav__item"><a href="#macos" class="md-nav__link">macOS</a>
@@ -586,6 +588,8 @@
         </li>
         <li class="md-nav__item"><a href="#stacktraces" class="md-nav__link">Stacktraces</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#llvm" class="md-nav__link">LLVM</a>
+        </li>
         <li class="md-nav__item"><a href="#ubuntu" class="md-nav__link">Ubuntu</a>
         </li>
         <li class="md-nav__item"><a href="#macos" class="md-nav__link">macOS</a>
@@ -933,6 +937,12 @@ for developing the compiler itself to see where in LFortran the problem is. The
 stacktrace support is turned off by default, to enable it,
 compile LFortran with the <code class="docutils literal notranslate"><span class="pre">-DWITH_STACKTRACE=yes</span></code> cmake option after installing
 the prerequisites on each platform per the instructions below.</p>
+<section id="llvm">
+<h3 id="llvm">LLVM<a class="headerlink" href="#llvm" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
+<p>In all platforms having LLVM, stacktraces can be shown with LLVM, so no
+additional prerequisites are required. If LLVM is not available, you can use
+the following instructions, depending on your platform.</p>
+</section>
 <section id="ubuntu">
 <h3 id="ubuntu">Ubuntu<a class="headerlink" href="#ubuntu" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
 <p>In Ubuntu, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">binutils-dev</span></code>.</p>
