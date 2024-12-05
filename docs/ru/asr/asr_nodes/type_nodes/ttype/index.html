@@ -553,7 +553,7 @@
     | Tuple(ttype* type)
     | Struct(symbol derived_type, dimension* dims)
     | Enum(symbol enum_type, dimension *dims)
-    | Union(symbol union_type, dimension *dims)
+    | UnionType(symbol union_type, dimension *dims)
     | Class(symbol class_type, dimension* dims)
     | Dict(ttype key_type, ttype value_type)
     | Pointer(ttype type)
@@ -596,7 +596,7 @@ symbol with a symbol table.
 <li><p><code class="docutils literal notranslate"><span class="pre">Tuple</span></code> denotes tuple type.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Struct</span></code> denotes structure type.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Enum</span></code> denotes enumeration type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Union</span></code> denotes union type.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UnionType</span></code> denotes union type.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Class</span></code> denotes class type.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Dict</span></code> denotes dictionary type.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Pointer</span></code> denotes Pointer type.</p></li>
