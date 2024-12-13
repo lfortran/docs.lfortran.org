@@ -647,9 +647,9 @@ conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
 <p>然后从 <a class="reference external" href="https://lfortran.org/download/">https://lfortran.org/download/</a> 下载源代码，例如：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://lfortran.github.io/tarballs/dev/lfortran-0.9.0.tar.gz
-tar<span class="w"> </span>xzf<span class="w"> </span>lfortran-0.9.0.tar.gz
-<span class="nb">cd</span><span class="w"> </span>lfortran-0.9.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/lfortran/lfortran/releases/download/v0.42.0/lfortran-0.42.0.tar.gz
+tar<span class="w"> </span>xzf<span class="w"> </span>lfortran-0.42.0.tar.gz
+<span class="nb">cd</span><span class="w"> </span>lfortran-0.42.0.tar.gz
 </pre></div>
 </div>
 <p>并构建：</p>
@@ -684,9 +684,16 @@ conda<span class="w"> </span>activate<span class="w"> </span>lf
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build0.sh
 </pre></div>
 </div>
-<p>现在的过程与从源 tarball 安装相同。例如在 Debug 模式下构建:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_BUILD_TYPE=Debug -DWITH_LLVM=yes -DCMAKE_INSTALL_PREFIX=`pwd`/inst .
-make -j8
+<p>Now you can use our script <code class="docutils literal notranslate"><span class="pre">./build1.sh</span></code> to build in Debug mode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build1.sh
+</pre></div>
+</div>
+<p>and can use <code class="docutils literal notranslate"><span class="pre">ninja</span></code> to rebuild.</p>
+<p>To do a clean rebuild, you can use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># NOTE: the below git command deletes all untracked files</span>
+git<span class="w"> </span>clean<span class="w"> </span>-dfx<span class="w">  </span><span class="c1"># reset repository to a clean state by removing artifacts generated during the build process</span>
+./build0.sh
+./build1.sh
 </pre></div>
 </div>
 <p>运行测试:</p>
