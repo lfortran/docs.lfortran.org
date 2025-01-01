@@ -641,15 +641,21 @@ interactive prompt by executing <code class="docutils literal notranslate"><span
 <section id="build-from-a-source-tarball">
 <h2 id="build-from-a-source-tarball">Build From a Source Tarball<a class="headerlink" href="#build-from-a-source-tarball" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
 <p>This method is the recommended method if you just want to install LFortran, either yourself or in a package manager (Spack, Conda, Debian, etc.). The source tarball has all the generated files included and has minimal dependencies.</p>
-<p>The source tarball of LFortran only depends on:</p>
+<p>The source tarball of LFortran depends on:</p>
 <ul class="simple">
 <li><p>Python</p></li>
 <li><p>cmake</p></li>
 <li><p>LLVM 10-19</p></li>
+<li><p>zstd-static</p></li>
+<li><p>zlib</p></li>
 </ul>
 <p>First we have to install dependencies, for example using Conda:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>llvmdev
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>llvmdev<span class="w"> </span>zstd-static<span class="w"> </span>zlib
 conda<span class="w"> </span>activate<span class="w"> </span>lf
+</pre></div>
+</div>
+<p>On a Linux system, we additionally need to install <code class="docutils literal notranslate"><span class="pre">libunwind</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>libunwind
 </pre></div>
 </div>
 <p>Then download a tarball from
@@ -657,7 +663,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>lf
 e.g.:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/lfortran/lfortran/releases/download/v0.42.0/lfortran-0.42.0.tar.gz
 tar<span class="w"> </span>xzf<span class="w"> </span>lfortran-0.42.0.tar.gz
-<span class="nb">cd</span><span class="w"> </span>lfortran-0.42.0.tar.gz
+<span class="nb">cd</span><span class="w"> </span>lfortran-0.42.0
 </pre></div>
 </div>
 <p>And build:</p>
