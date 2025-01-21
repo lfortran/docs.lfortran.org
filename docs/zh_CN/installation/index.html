@@ -676,14 +676,14 @@ bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w
 <span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
 </pre></div>
 </div>
-<p>然后准备环境：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1<span class="w"> </span><span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4<span class="w"> </span>re2c<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>make<span class="w"> </span>toml<span class="w"> </span>zstd-static<span class="w"> </span>pandoc<span class="w"> </span>gcc<span class="w"> </span>gxx<span class="w"> </span>libcxx
-conda<span class="w"> </span>activate<span class="w"> </span>lf
-</pre></div>
-</div>
 <p>克隆 LFortran git 存储库：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">lfortran</span><span class="o">/</span><span class="n">lfortran</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">lfortran</span>
+</pre></div>
+</div>
+<p>然后准备环境：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment_linux.yml
+conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
 <p>生成构建所需的文件（此步骤取决于 <code class="docutils literal notranslate"><span class="pre">re2c</span></code>、<code class="docutils literal notranslate"><span class="pre">bison</span></code> 和 <code class="docutils literal notranslate"><span class="pre">python</span></code>）：</p>
@@ -774,10 +774,19 @@ bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w
 </div>
 <ul class="simple">
 <li><p>然后按 ctrl + O（保存），Enter（确认），ctrl + X（退出）</p></li>
-<li><p>之后，重新启动 Ubuntu</p></li>
+<li><p>After that restart Ubuntu.</p></li>
+<li><p>You can change the directory to a Windows location using
+<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/mnt/[drive</span> <span class="pre">letter]/[windows</span> <span class="pre">location]</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">mnt/c/Users/name/source/repos/</span></code>.</p></li>
+<li><p>Now clone the LFortran git repository.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lfortran/lfortran.git
+<span class="nb">cd</span><span class="w"> </span>lfortran
+</pre></div>
+</div>
+<ul class="simple">
 <li><p>运行以下内容</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">llvmdev</span><span class="o">=</span><span class="m">11</span>.0.1<span class="w"> </span><span class="nv">bison</span><span class="o">=</span><span class="m">3</span>.4<span class="w"> </span>re2c<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>make<span class="w"> </span>toml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment_linux.yml
 conda<span class="w"> </span>init<span class="w"> </span>bash
 </pre></div>
 </div>
@@ -789,15 +798,6 @@ sudo<span class="w"> </span>apt<span class="w"> </span>update
 sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential
 sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>zlib1g-dev<span class="w"> </span>libzstd-dev
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>clang
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>你可以使用 <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/mnt/[drive</span> <span class="pre">letter]/[windows</span> <span class="pre">location]</span></code>将路径改为 Windows 位置。</p></li>
-<li><p>例如：<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">mnt/c/Users/name/source/repos/</span></code></p></li>
-<li><p>现在克隆 LFortran 的 git 仓库</p></li>
-</ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lfortran/lfortran.git
-<span class="nb">cd</span><span class="w"> </span>lfortran
 </pre></div>
 </div>
 <ul class="simple">
