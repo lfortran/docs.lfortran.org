@@ -299,6 +299,18 @@
         <li class="md-nav__item"><a href="#macos" class="md-nav__link">macOS</a>
         </li></ul>
             </nav>
+        </li>
+        <li class="md-nav__item"><a href="#tests" class="md-nav__link">Tests</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#run-tests" class="md-nav__link">Run tests:</a>
+        </li>
+        <li class="md-nav__item"><a href="#update-test-references" class="md-nav__link">Update test references:</a>
+        </li>
+        <li class="md-nav__item"><a href="#run-integration-tests" class="md-nav__link">Run integration tests</a>
+        </li>
+        <li class="md-nav__item"><a href="#speed-up-integration-tests-on-macos" class="md-nav__link">Speed up integration tests on macOS</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -372,6 +384,13 @@
     
     
       <a href="#stacktraces" class="md-nav__link">Stacktraces</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#tests" class="md-nav__link">Tests</a>
       
     
     </li></ul>
@@ -595,6 +614,18 @@
         <li class="md-nav__item"><a href="#macos" class="md-nav__link">macOS</a>
         </li></ul>
             </nav>
+        </li>
+        <li class="md-nav__item"><a href="#tests" class="md-nav__link">Tests</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#run-tests" class="md-nav__link">Run tests:</a>
+        </li>
+        <li class="md-nav__item"><a href="#update-test-references" class="md-nav__link">Update test references:</a>
+        </li>
+        <li class="md-nav__item"><a href="#run-integration-tests" class="md-nav__link">Run integration tests</a>
+        </li>
+        <li class="md-nav__item"><a href="#speed-up-integration-tests-on-macos" class="md-nav__link">Speed up integration tests on macOS</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -712,15 +743,11 @@ git<span class="w"> </span>clean<span class="w"> </span>-dfx<span class="w">  </
 ./build1.sh
 </pre></div>
 </div>
-<p>Run tests:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ctest
-./run_tests.py
-</pre></div>
-</div>
 <p>Run an interactive prompt:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran
 </pre></div>
 </div>
+<p>See <span class="xref myst">how to run tests</span> to make sure all tests pass</p>
 </section>
 <section id="build-from-git-on-windows-with-visual-studio">
 <h2 id="build-from-git-on-windows-with-visual-studio">Build from Git on Windows with Visual Studio<a class="headerlink" href="#build-from-git-on-windows-with-visual-studio" title="Stały odnośnik do tego nagłówka">¶</a></h2>
@@ -825,13 +852,7 @@ make<span class="w"> </span>-j8
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Run tests</p></li>
-</ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ctest
-./run_tests.py
-</pre></div>
-</div>
+<p>See <span class="xref myst">how to run tests</span> to make sure all tests pass</p>
 </section>
 <section id="enabling-the-jupyter-kernel">
 <h2 id="enabling-the-jupyter-kernel">Enabling the Jupyter Kernel<a class="headerlink" href="#enabling-the-jupyter-kernel" title="Stały odnośnik do tego nagłówka">¶</a></h2>
@@ -969,6 +990,35 @@ this path to your shell config file, e.g.:</p>
 <code class="docutils literal notranslate"><span class="pre">-DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH_LFORTRAN;$CONDA_PREFIX"</span></code> cmake option.
 The <code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code> is there if you install some other dependencies (such as
 <code class="docutils literal notranslate"><span class="pre">llvm</span></code>) using Conda, otherwise you can remove it.</p>
+</section>
+</section>
+<section id="tests">
+<h2 id="tests">Tests<a class="headerlink" href="#tests" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<section id="run-tests">
+<h3 id="run-tests">Run tests:<a class="headerlink" href="#run-tests" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ctest
+./run_tests.py
+</pre></div>
+</div>
+</section>
+<section id="update-test-references">
+<h3 id="update-test-references">Update test references:<a class="headerlink" href="#update-test-references" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_tests.py<span class="w"> </span>-u
+</pre></div>
+</div>
+</section>
+<section id="run-integration-tests">
+<h3 id="run-integration-tests">Run integration tests<a class="headerlink" href="#run-integration-tests" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>integration_tests
+./run_tests.py
+</pre></div>
+</div>
+</section>
+<section id="speed-up-integration-tests-on-macos">
+<h3 id="speed-up-integration-tests-on-macos">Speed up integration tests on macOS<a class="headerlink" href="#speed-up-integration-tests-on-macos" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Integration tests run slowly because Apple checks the hash of each executable online before running.</p>
+<p>You can turn off that feature in the Privacy tab of the Security and Privacy item of System Preferences &gt; Developer Tools &gt; Terminal.app &gt; „allow the apps below to run software locally that does not meet the system’s security
+policy.”</p>
 </section>
 </section>
 </section>
