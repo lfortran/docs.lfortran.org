@@ -690,9 +690,9 @@ tar<span class="w"> </span>xzf<span class="w"> </span>lfortran-0.42.0.tar.gz
 </pre></div>
 </div>
 <p>Y construir:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cmake -DWITH_LLVM=yes -DCMAKE_INSTALL_PREFIX=`pwd`/inst .
-make -j8
-make install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DWITH_LLVM<span class="o">=</span>yes<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/inst<span class="w"> </span>.
+make<span class="w"> </span>-j8
+make<span class="w"> </span>install
 </pre></div>
 </div>
 <p>This will install <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> into <code class="docutils literal notranslate"><span class="pre">inst/bin</span></code>.  It assumes that c++ and cc are available, which on Linux
@@ -775,37 +775,33 @@ link /?
 </section>
 <section id="build-from-git-on-windows-with-wsl">
 <h2 id="build-from-git-on-windows-with-wsl">Construya desde Git en Windows con WSL<a class="headerlink" href="#build-from-git-on-windows-with-wsl" title="Enlazar permanentemente con este título">¶</a></h2>
-<ul class="simple">
+<ul>
 <li><p>In windows search «turn windows features on or off».</p></li>
 <li><p>Marque el subsistema de Windows para Linux.</p></li>
 <li><p>Presione Aceptar y reinicie la computadora.</p></li>
 <li><p>Go to Microsoft store and download Ubuntu (20.04 or 22.04 or 24.04), and launch it.</p></li>
-<li><p>Now setup LFortran by running the following commands.</p></li>
-</ul>
+<li><p>Now setup LFortran by running the following commands.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w">  </span>https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh<span class="w"> </span>-O<span class="w"> </span>miniconda.sh
 bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/conda_root
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"export PATH=</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
-<ul class="simple">
+</li>
 <li><p>After that restart the Ubuntu terminal.</p></li>
-<li><p>Now clone the LFortran git repository (you should clone it inside a linux owned directory like <code class="docutils literal notranslate"><span class="pre">~</span></code> or  any of its sub-directories).</p></li>
-</ul>
+<li><p>Now clone the LFortran git repository (you should clone it inside a linux owned directory like <code class="docutils literal notranslate"><span class="pre">~</span></code> or  any of its sub-directories).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lfortran/lfortran.git
 <span class="nb">cd</span><span class="w"> </span>lfortran
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Ejecute lo siguiente</p></li>
-</ul>
+</li>
+<li><p>Ejecute lo siguiente</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment_linux.yml
 conda<span class="w"> </span>init<span class="w"> </span>bash
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Restart Ubuntu terminal again</p></li>
-</ul>
+</li>
+<li><p>Restart Ubuntu terminal again</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lf
 sudo<span class="w"> </span>apt<span class="w"> </span>update
 sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential
@@ -813,28 +809,27 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>clang
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Ejecute los siguientes comandos</p></li>
-</ul>
+</li>
+<li><p>Ejecute los siguientes comandos</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lf
 ./build0.sh
 cmake<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span>-DWITH_LLVM<span class="o">=</span>yes<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/inst<span class="w"> </span>.
 make<span class="w"> </span>-j8
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Si todo se compila, puede usar LFortran de la siguiente manera</p></li>
-</ul>
+</li>
+<li><p>Si todo se compila, puede usar LFortran de la siguiente manera</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran<span class="w"> </span>./examples/expr2.f90
 ./expr2.out
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Ejecutar un aviso interactivo</p></li>
-</ul>
+</li>
+<li><p>Ejecutar un aviso interactivo</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran
 </pre></div>
 </div>
+</li>
+</ul>
 <p>See <span class="xref myst">how to run tests</span> to make sure all tests pass</p>
 </section>
 <section id="enabling-the-jupyter-kernel">
@@ -942,12 +937,12 @@ the following instructions, depending on your platform.</p>
 <h3 id="macos">macOS<a class="headerlink" href="#macos" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>Si usa el compilador Clang predeterminado en macOS, entonces los seguimientos de pila deberían funcionar tanto en macOS basados en Intel como en M1 (el sistema de compilación CMake invoca automáticamente la herramienta <code class="docutils literal notranslate"><span class="pre">dsymtuil</span></code> y nuestras secuencias de comandos de Python para almacenar la información de depuración, consulte <code class="docutils literal notranslate"><span class="pre">src/bin</span> <span class="pre">/CMakeLists.txt</span></code> para más detalles). Si no funciona, informe un error.</p>
 <p>Si no le gusta la forma predeterminada, una alternativa es usar bintutils. Para eso, primero instale <a class="reference external" href="https://spack.io/">Spack</a>, luego:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spack</span> <span class="n">install</span> <span class="n">binutils</span>
-<span class="n">spack</span> <span class="n">find</span> <span class="o">-</span><span class="n">p</span> <span class="n">binutils</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>spack<span class="w"> </span>install<span class="w"> </span>binutils
+spack<span class="w"> </span>find<span class="w"> </span>-p<span class="w"> </span>binutils
 </pre></div>
 </div>
 <p>El último comando mostrará una ruta completa al paquete <code class="docutils literal notranslate"><span class="pre">binutils</span></code> instalado. Agregue esta ruta a su archivo de configuración de la interfaz, por ejemplo:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">CMAKE_PREFIX_PATH_LFORTRAN</span><span class="o">=/</span><span class="n">Users</span><span class="o">/</span><span class="n">ondrej</span><span class="o">/</span><span class="n">repos</span><span class="o">/</span><span class="n">spack</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">spack</span><span class="o">/</span><span class="n">darwin</span><span class="o">-</span><span class="n">catalina</span><span class="o">-</span><span class="n">broadwell</span><span class="o">/</span><span class="n">apple</span><span class="o">-</span><span class="n">clang</span><span class="o">-</span><span class="mf">11.0.0</span><span class="o">/</span><span class="n">binutils</span><span class="o">-</span><span class="mf">2.36.1</span><span class="o">-</span><span class="n">wy6osfm6bp2323g3jpv2sjuttthwx3gd</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CMAKE_PREFIX_PATH_LFORTRAN</span><span class="o">=</span>/Users/ondrej/repos/spack/opt/spack/darwin-catalina-broadwell/apple-clang-11.0.0/binutils-2.36.1-wy6osfm6bp2323g3jpv2sjuttthwx3gd
 </pre></div>
 </div>
 <p>y compile LFortran con la opción cmake <code class="docutils literal notranslate"><span class="pre">-DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH_LFORTRAN;$CONDA_PREFIX"</span></code>. El <code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code> está ahí si instala algunas otras dependencias (como <code class="docutils literal notranslate"><span class="pre">llvm</span></code>) usando Conda, de lo contrario, puede eliminarlo.</p>
