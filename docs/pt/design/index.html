@@ -313,6 +313,8 @@
         </li>
         <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">Detalhes do design da ASR</a>
         </li>
+        <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
+        </li>
         <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notas:</a>
         </li>
         <li class="md-nav__item"><a href="#fortran-2008" class="md-nav__link">Fortran 2008</a>
@@ -347,6 +349,13 @@
     
     
       <a href="#asr-design-details" class="md-nav__link">Detalhes do design da ASR</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
       
     
     </li>
@@ -522,6 +531,8 @@
         </li>
         <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">Detalhes do design da ASR</a>
         </li>
+        <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
+        </li>
         <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notas:</a>
         </li>
         <li class="md-nav__item"><a href="#fortran-2008" class="md-nav__link">Fortran 2008</a>
@@ -602,6 +613,17 @@ message, then the ASR C++ classes are constructed correctly. Thus by
 construction, the ASR classes always contain valid Fortran code and the rest
 of LFortran can depend on it.</p></li>
 </ul>
+</section>
+<section id="compilation-modes">
+<h2 id="compilation-modes">Compilation Modes<a class="headerlink" href="#compilation-modes" title="Link permanente para este título">¶</a></h2>
+<p>We support two compilation modes:</p>
+<ol class="arabic simple">
+<li><p>Monolithic Compilation Mode: The standard compilation mode.
+In this mode, LFortran produces empty object files (<code class="docutils literal notranslate"><span class="pre">.o</span></code> files) with <code class="docutils literal notranslate"><span class="pre">-c</span></code> flag (the only reason to produce those is to satisfy existing build systems that typically expect <code class="docutils literal notranslate"><span class="pre">.o</span></code> files to be created). The object code is generated only when main program is encountered: all modules are loaded from <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files and everything compiled and linked at once. When a module is compiled, only a <code class="docutils literal notranslate"><span class="pre">.mod</span></code> file is generated with full code. For files with global procedures, LFortran identifies those automatically and sets <code class="docutils literal notranslate"><span class="pre">generate_code_for_global_procedures</span></code> compiler option to <code class="docutils literal notranslate"><span class="pre">true</span></code> (not exposed to user), which then generates object code only for global procedures (you must thus link these generated <code class="docutils literal notranslate"><span class="pre">.o</span></code> object files with the main program), and rest of the modules are serialized to <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files which do not contain global procedure.</p></li>
+<li><p>Separate compilation mode: This mode is enabled with <code class="docutils literal notranslate"><span class="pre">--separate-compilation</span></code> flag. In this mode, LFortran generates full code for each file into object files (<code class="docutils literal notranslate"><span class="pre">.o</span></code> files) with full symbol information. This
+is usually the default mode used by most other Fortran compilers. We create object code, and we still create <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files for modules and they contain everything just like for direct mode but when any <code class="docutils literal notranslate"><span class="pre">.mod</span></code> file is loaded, we change all symbols to <code class="docutils literal notranslate"><span class="pre">ExternalUndefined</span></code> ABI. We don’t change the ABI for <code class="docutils literal notranslate"><span class="pre">bind(c)</span></code> (since those are undefined already in object code, the user is responsible to provide an implementation at link time).</p></li>
+</ol>
+<p>Note: <strong><em>If you enable separate compilation mode, you have to enable it for all the files.</em></strong></p>
 </section>
 <section id="notes">
 <h2 id="notes">Notas:<a class="headerlink" href="#notes" title="Link permanente para este título">¶</a></h2>
