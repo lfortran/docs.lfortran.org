@@ -726,7 +726,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>Assignment(expr target, expr value, stmt? overloaded)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>Assignment(expr target, expr value, stmt? overloaded, bool realloc_lhs, bool move_allocation)
 </pre></div>
 </div>
 </section>
@@ -734,7 +734,9 @@
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">target</span></code> contains expression target.
 <code class="docutils literal notranslate"><span class="pre">value</span></code> expressions giving the value to be assigned.
-<code class="docutils literal notranslate"><span class="pre">overloaded</span></code> denotes if overloaded.</p>
+<code class="docutils literal notranslate"><span class="pre">overloaded</span></code> denotes if overloaded.
+<code class="docutils literal notranslate"><span class="pre">realloc_lhs</span></code> denotes if target has to be reallocated to the size of value before the assignment.
+<code class="docutils literal notranslate"><span class="pre">move_allocation</span></code> denotes if this is a move assignment for allocatable arrays.</p>
 </section>
 <section id="return-values">
 <h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -747,6 +749,10 @@
 record, or record field.</p>
 <p>The value can be a constant or the result of an expression. The kinds of assignment
 statements: are arithmetic, logical, character, and record assignments.</p>
+<p>If realloc_lhs is true then before the assignment the target is reallocated to the size of the value.</p>
+<p>move_allocation must only be true if both target and value are allocatable arrays of DescriptorArray physical type. The data pointer of value's descriptor
+is copied to the target's descriptor. And rest of the fields of value's descriptor are copied into target's descriptor. After the move, the data pointer of
+value's descriptor is set to null.</p>
 </section>
 <section id="types">
 <h2 id="types">Types<a class="headerlink" href="#types" title="このヘッドラインへのパーマリンク">¶</a></h2>
