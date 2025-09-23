@@ -483,9 +483,10 @@
 <section id="general-rules">
 <h2 id="general-rules">General Rules :<a class="headerlink" href="#general-rules" title="Link zu dieser Überschrift">¶</a></h2>
 <ul class="simple">
-<li><p>Allocation with (length = <code class="docutils literal notranslate"><span class="pre">0</span></code>) is fine, and string is considered <strong>allocated</strong> even when the (length = <code class="docutils literal notranslate"><span class="pre">0</span></code>).</p></li>
+<li><p>Allocation with length=<code class="docutils literal notranslate"><span class="pre">0</span></code> (<code class="docutils literal notranslate"><span class="pre">allocate(character(0)</span> <span class="pre">::</span> <span class="pre">str)</span></code>) is fine, and string is considered <strong>allocated</strong> even when the length=<code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
 <li><p>We make sure to follow this statement when allocating strings -&gt; <code class="docutils literal notranslate"><span class="pre">MAX(alloc_len,</span> <span class="pre">1)</span></code>; That makes sure that the preceding point is valid and working properly.</p></li>
-<li><p>Allocation with (length &lt; <code class="docutils literal notranslate"><span class="pre">0</span></code>) isn’t tolerated in LFortran, It raises error on both compile-time and run-time.</p></li>
+<li><p>Allocation with length&lt;<code class="docutils literal notranslate"><span class="pre">0</span></code> (<code class="docutils literal notranslate"><span class="pre">allocate(character(-1)</span> <span class="pre">::</span> <span class="pre">str)</span></code>) isn’t tolerated in LFortran, It raises error on both compile-time and run-time.</p></li>
+<li><p>Copying from unallocated string (<code class="docutils literal notranslate"><span class="pre">str1</span> <span class="pre">=</span> <span class="pre">str2</span></code>) isn’t tolerated and raises run-time error. We don’t know how to determine the <strong>allocation</strong> state of the LHS so we don’t tolerate that case; In addition, Fortran standards don’t allow referencing non-allocated variables.</p></li>
 </ul>
 </section>
 <section id="explicit-allocation">
