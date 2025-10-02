@@ -486,7 +486,7 @@
 </pre></div>
 </div>
 <blockquote>
-<div><p>array_physical_type = DescriptorArray | PointerArray | UnboundedPointerArray | FixedSizeArray | StringArraySinglePointer | NumPyArray | ISODescriptorArray | SIMDArray</p>
+<div><p>array_physical_type = DescriptorArray | PointerArray | UnboundedPointerArray | FixedSizeArray | StringArraySinglePointer | NumPyArray | ISODescriptorArray | SIMDArray | AssumedRankArrays</p>
 </div></blockquote>
 </section>
 <section id="arguments">
@@ -647,6 +647,14 @@ other cases can also be a PointerArray, and usually it is.</p>
 <span class="k">end subroutine</span>
 </pre></div>
 </div>
+<p><strong>AssumedRankArrays</strong>: Usedf for writing procedures that can accept arrays of any rank without creating multiple procedure overloads. They can only be used as dummy arguments in procedures and cannot be declared as local variables or function results. The rank of an assumed rank array is not known at compile-time and is determined at runtime from desriptor of the array which is used in the function/subroutine call.</p>
+<p>Only a limited set of operations are allowed on assumed-rank arrays, such as <code class="docutils literal notranslate"><span class="pre">rank</span></code>, <code class="docutils literal notranslate"><span class="pre">shape</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">lbound</span></code>, <code class="docutils literal notranslate"><span class="pre">ubound</span></code> where the results of the operation can be completely determined from the array descriptor. Other operations and functions can be performed by using the <code class="docutils literal notranslate"><span class="pre">select_rank</span></code> construct to handle different ranks explicitly.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="p">(..)</span>
+<span class="k">end subroutine</span>
+</pre></div>
+</div>
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">(..)</span></code> represents that the array <code class="docutils literal notranslate"><span class="pre">a</span></code> is an assumed-rank array.</p>
 </section>
 </section>
 </section>
