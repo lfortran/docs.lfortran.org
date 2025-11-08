@@ -727,7 +727,7 @@ function (<code class="docutils literal notranslate"><span class="pre">name</spa
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Permalink naar deze titel">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permalink naar deze titel">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>SubroutineCall(symbol name, symbol? original_name, call_arg* args, expr? dt)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>SubroutineCall(symbol name, symbol? original_name, call_arg* args, expr? dt, bool strict_bounds_checking)
 </pre></div>
 </div>
 </section>
@@ -736,7 +736,8 @@ function (<code class="docutils literal notranslate"><span class="pre">name</spa
 <p><code class="docutils literal notranslate"><span class="pre">name</span></code> contains symbol name.
 <code class="docutils literal notranslate"><span class="pre">original_name</span></code> contains name present in program unit.
 <code class="docutils literal notranslate"><span class="pre">args</span></code> contains arguments passed to subroutine call.
-<code class="docutils literal notranslate"><span class="pre">dt</span></code> contains expression for variable name, array name, an aseterist e.t.c.</p>
+<code class="docutils literal notranslate"><span class="pre">dt</span></code> contains expression for variable name, array name, an aseterist e.t.c.
+<code class="docutils literal notranslate"><span class="pre">strict_bounds_checking</span></code> indicates if this SubroutineCall was a FunctionCall before getting converted by subroutine_from_function pass, if it was then we need to do strict_bounds_checking for the return argument.</p>
 </section>
 <section id="return-values">
 <h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Permalink naar deze titel">¶</a></h3>
