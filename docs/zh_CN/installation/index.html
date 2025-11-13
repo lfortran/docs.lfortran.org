@@ -278,11 +278,9 @@
         </li>
         <li class="md-nav__item"><a href="#build-from-git-with-nix" class="md-nav__link">使用 Nix 从 Git 构建</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#with-root" class="md-nav__link">带有 root 权限</a>
+        <li class="md-nav__item"><a href="#using-the-environment" class="md-nav__link">Using the Environment</a>
         </li>
-        <li class="md-nav__item"><a href="#without-root" class="md-nav__link">不带有 root 权限</a>
-        </li>
-        <li class="md-nav__item"><a href="#development" class="md-nav__link">开发</a>
+        <li class="md-nav__item"><a href="#building-the-code" class="md-nav__link">Building the Code</a>
         </li></ul>
             </nav>
         </li>
@@ -600,11 +598,9 @@
         </li>
         <li class="md-nav__item"><a href="#build-from-git-with-nix" class="md-nav__link">使用 Nix 从 Git 构建</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#with-root" class="md-nav__link">带有 root 权限</a>
+        <li class="md-nav__item"><a href="#using-the-environment" class="md-nav__link">Using the Environment</a>
         </li>
-        <li class="md-nav__item"><a href="#without-root" class="md-nav__link">不带有 root 权限</a>
-        </li>
-        <li class="md-nav__item"><a href="#development" class="md-nav__link">开发</a>
+        <li class="md-nav__item"><a href="#building-the-code" class="md-nav__link">Building the Code</a>
         </li></ul>
             </nav>
         </li>
@@ -871,44 +867,35 @@ make<span class="w"> </span>-j8
 </section>
 <section id="build-from-git-with-nix">
 <h2 id="build-from-git-with-nix">使用 Nix 从 Git 构建<a class="headerlink" href="#build-from-git-with-nix" title="永久链接至标题">¶</a></h2>
-<p>确保精确环境和依赖关系的方法之一是使用 <code class="docutils literal notranslate"><span class="pre">nix</span></code>。这将确保系统的依赖性不会干扰到开发环境。如果你愿意，你可以在 <code class="docutils literal notranslate"><span class="pre">nix-shell</span></code> 环境下报告 bug，以方便别人复制。</p>
-<section id="with-root">
-<h3 id="with-root">带有 root 权限<a class="headerlink" href="#with-root" title="永久链接至标题">¶</a></h3>
-<p>我们从获得 <code class="docutils literal notranslate"><span class="pre">nix</span></code> 开始。下面的多用户安装将在任何装有 Linux 发行版、MacOS 或 Windows（通过 WSL）的机器上工作：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sh<span class="w"> </span>&lt;<span class="o">(</span>curl<span class="w"> </span>-L<span class="w"> </span>https://nixos.org/nix/install<span class="o">)</span><span class="w"> </span>--daemon
+<p>There’s a provided Nix shell for making a consistent build environment with the exact same dependency versions across users.</p>
+<section id="using-the-environment">
+<h3 id="using-the-environment">Using the Environment<a class="headerlink" href="#using-the-environment" title="永久链接至标题">¶</a></h3>
+<p>Enter the development environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix<span class="w"> </span>develop<span class="w"> </span>./ci/nix
+</pre></div>
+</div>
+<p>To change the compilation environment from <code class="docutils literal notranslate"><span class="pre">gcc</span></code> (default) to <code class="docutils literal notranslate"><span class="pre">clang</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix<span class="w"> </span>develop<span class="w"> </span>./ci/nix#clangOnly
+</pre></div>
+</div>
+<p>Depending on your system configuration, you might have to run <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code> with the following extra nix features explicitly enabled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix<span class="w"> </span>--extra-experimental-features<span class="w"> </span><span class="s2">"flakes nix-command"</span><span class="w"> </span>develop<span class="w"> </span>./ci/nix
 </pre></div>
 </div>
 </section>
-<section id="without-root">
-<h3 id="without-root">不带有 root 权限<a class="headerlink" href="#without-root" title="永久链接至标题">¶</a></h3>
-<p>如果你想不给<code class="docutils literal notranslate"><span class="pre">nix</span></code>提供机器的root权限，在Linux发行版上，我们可以使用 <a class="reference external" href="https://github.com/DavHau/nix-portable">nix-portable</a>.。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/DavHau/nix-portable/releases/download/v003/nix-portable
-</pre></div>
-</div>
-<p>现在只要在所有 <code class="docutils literal notranslate"><span class="pre">nix-shell</span> </code>命令前加上 <code class="docutils literal notranslate"><span class="pre">NP_RUNTIME=bwrap</span> <span class="pre">.</span> <span class="pre">/nix-portable</span></code>。所以：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do not</span>
-nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span>
-<span class="c1"># Do</span>
-<span class="nv">NP_RUNTIME</span><span class="o">=</span>bwrap<span class="w"> </span>./nix-portable<span class="w"> </span>nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span>
-</pre></div>
-</div>
-</section>
-<section id="development">
-<h3 id="development">开发<a class="headerlink" href="#development" title="永久链接至标题">¶</a></h3>
-<p>现在进入开发环境:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span><span class="w"> </span>--cores<span class="w"> </span><span class="m">4</span><span class="w"> </span>-j4<span class="w"> </span>--pure<span class="w"> </span>ci/shell.nix
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">--pure</span></code> 标志确保在环境中不使用系统依赖。</p>
-<p>构建步骤与 <code class="docutils literal notranslate"><span class="pre">ci</span> </code> 相同:</p>
+<section id="building-the-code">
+<h3 id="building-the-code">Building the Code<a class="headerlink" href="#building-the-code" title="永久链接至标题">¶</a></h3>
+<p>The build steps are the same as when building from git:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build0.sh
 ./build1.sh
 </pre></div>
 </div>
-<p>要把编译环境从 <code class="docutils literal notranslate"><span class="pre">gcc</span></code>（默认）改为 <code class="docutils literal notranslate"><span class="pre">clang</span></code>，我们可以使用 <code class="docutils literal notranslate"><span class="pre">--argstr</span></code>：</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix-shell<span class="w"> </span>--run<span class="w"> </span><span class="s2">"bash"</span><span class="w"> </span>--cores<span class="w"> </span><span class="m">4</span><span class="w"> </span>-j4<span class="w"> </span>--pure<span class="w"> </span>ci/shell.nix<span class="w"> </span>--argstr<span class="w"> </span>clangOnly<span class="w"> </span><span class="s2">"yes"</span>
+<p>As of 2025-11-10, the environment passes the CI tests, provided you tell it where to install the Jupyter kernel:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">LFORTRAN_CMAKE_GENERATOR</span><span class="o">=</span>Ninja<span class="w"> </span><span class="nv">CONDA_PREFIX</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="w"> </span><span class="nv">JUPYTER_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/share/jupyter<span class="w"> </span>bash<span class="w"> </span>ci/build.sh
 </pre></div>
 </div>
+<p>(take note that the Nix shell does not use conda)</p>
+<p>Give the same <code class="docutils literal notranslate"><span class="pre">JUPYTER_PATH</span></code> when running <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code> / <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code> to use the same jupyter kernel.</p>
 </section>
 </section>
 <section id="note-about-dependencies">
