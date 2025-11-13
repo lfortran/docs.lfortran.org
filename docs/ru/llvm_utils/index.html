@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="../_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="../_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="../_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="../_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="../_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>LLVMFinalize Class &#8212; LFortran</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/material.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansi.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../_static/lfortran-logo.svg"/>
+    <link rel="index" title="Алфавитный указатель" href="../genindex/" />
+    <link rel="search" title="Поиск" href="../search/" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=amber data-md-color-accent=orange>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#llvm_utils" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../" title="LFortran"
+           class="md-header-nav__button md-logo">
+          
+              <img src="../_static/lfortran-logo.svg" height="26"
+                   alt="LFortran logo">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">LFortran Documentation</span>
+          <span class="md-header-nav__topic"> LLVMFinalize Class </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="../search/" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+  
+  <div class="md-flex__cell md-flex__cell--shrink dropdown">
+    <button class="dropdownbutton">Versions</button>
+    <div class="dropdown-content md-hero">
+          <a title="English" href="/../en/">English</a>
+      
+          <a title="Bengali" href="/../bn/">Bengali</a>
+      
+          <a title="Czech" href="/../cs/">Czech</a>
+      
+          <a title="German" href="/../de/">German</a>
+      
+          <a title="Spanish" href="/../es/">Spanish</a>
+      
+          <a title="French" href="/../fr/">French</a>
+      
+          <a title="Japanese" href="/../ja/">Japanese</a>
+      
+          <a title="Dutch" href="/../nl/">Dutch</a>
+      
+          <a title="Polish" href="/../pl/">Polish</a>
+      
+          <a title="Portuguese" href="/../pt/">Portuguese</a>
+      
+          <a title="Russian" href="/../ru/">Russian</a>
+      
+          <a title="Chinese" href="/../zh_CN/">Chinese</a>
+      
+    </div>
+  </div>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="../" class="md-tabs__link">LFortran</a></li>
+            
+            <li class="md-tabs__item"><a href="../installation/" class="md-tabs__link">Getting started</a></li>
+            
+            <li class="md-tabs__item"><a href="../progress/" class="md-tabs__link">LFortran Development Status</a></li>
+            
+            <li class="md-tabs__item"><a href="../design/" class="md-tabs__link">Developers's Guide</a></li>
+            
+            <li class="md-tabs__item"><a href="../intrinsics/array/" class="md-tabs__link">Intrinsics</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../" title="LFortran" class="md-nav__button md-logo">
+      
+        <img src="../_static/lfortran-logo.svg" alt=" logo" width="48" height="48">
+      
+    </a>
+    <a href="../"
+       title="LFortran">LFortran Documentation</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Первые шаги</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../installation/" class="md-nav__link">Installation</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../language/" class="md-nav__link">Fortran Language</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../usage/" class="md-nav__link">LFortran User Guide</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran Development Status</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../progress/" class="md-nav__link">LFortran Development Status</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../progress/#topics" class="md-nav__link">Topics</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Developer's Guide</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../design/" class="md-nav__link">LFortran Design</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../developer_tutorial/" class="md-nav__link">Developer Tutorial</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ast_and_asr/" class="md-nav__link">Difference between an AST and ASR</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../contributing/" class="md-nav__link">Contributing</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran Intrinsics</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/array/" class="md-nav__link">Array Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/bit/" class="md-nav__link">Bit Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/character/" class="md-nav__link">Character Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/kind-type/" class="md-nav__link">Kind Type Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/mathematical/" class="md-nav__link">Mathematical Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/numeric/" class="md-nav__link">Numeric Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/misc/" class="md-nav__link">Miscellaneous Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran ASR Nodes</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/kinds_nodes/kinds/" class="md-nav__link">kinds</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/symbol_nodes/symbol_nodes/" class="md-nav__link">ASR Symbol Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/type_nodes/ttype/" class="md-nav__link">ttype</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMp Nodes</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#llvm-utils--page-root" class="md-nav__link">LLVMFinalize Class</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#brief" class="md-nav__link">Brief</a>
+        </li>
+        <li class="md-nav__item"><a href="#how-to-use" class="md-nav__link">How to use</a>
+        </li>
+        <li class="md-nav__item"><a href="#design-flow" class="md-nav__link">Design Flow</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#main-finalizers" class="md-nav__link">Main Finalizers</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#type-t-alloatable-t-arr" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">type(t),</span> <span class="pre">alloatable</span> <span class="pre">::</span> <span class="pre">t_arr(:)</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="llvmfinalize-class">
+<h1 id="llvm-utils--page-root">LLVMFinalize Class<a class="headerlink" href="#llvm-utils--page-root" title="Ссылка на этот заголовок">¶</a></h1>
+<section id="brief">
+<h2 id="brief">Brief<a class="headerlink" href="#brief" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li><p>Finalizes symbol-table’s variables.</p></li>
+<li><p>It’s used right after inserting return or end block of an ASR construct (program, function, block, etc.)</p></li>
+</ul>
+</section>
+<section id="how-to-use">
+<h2 id="how-to-use">How to use<a class="headerlink" href="#how-to-use" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li><p>Create an instance by using the exposed constructor.</p></li>
+<li><p>Call the only exposed member function <code class="docutils literal notranslate"><span class="pre">finalize_symtab()</span></code> with the desired symbol table to finalize.</p></li>
+<li><p>Use it after declaring the return block OR the end block of the construct you’re freeing the symbol table of.</p></li>
+<li><p>Notice it doesn’t work with module’s symbol table.</p></li>
+</ul>
+</section>
+<section id="design-flow">
+<h2 id="design-flow">Design Flow<a class="headerlink" href="#design-flow" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Global variables aren’t finalized; They live till program ends anyway so we don’t care much about them.
+The class has finalizers for each and every type.
+There are 2 general finalizer types that handles the job – <code class="docutils literal notranslate"><span class="pre">finalize_type_shell</span></code> and <code class="docutils literal notranslate"><span class="pre">finalize_type</span></code></p>
+<section id="main-finalizers">
+<h3 id="main-finalizers">Main Finalizers<a class="headerlink" href="#main-finalizers" title="Ссылка на этот заголовок">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> :
+It’s a finalizer that gets a ptr to the type you’re finalizing (integer, array, struct, list, etc..). It’s responsible of finalizing the <strong>shell</strong> of the type not the internals of it.
+Notice : If the <strong>shell</strong> is owned by some containing type and that container has got some rules over finalizing that <strong>shell</strong>, it’s completely the responsibility of the container and not the responsibility of <code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> (see arrays and lists).</p>
+<p><strong>Example</strong>: <code class="docutils literal notranslate"><span class="pre">type(t),</span> <span class="pre">allocatable</span> <span class="pre">::</span> <span class="pre">n</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> finalizes the <strong>shell</strong> of the type. it’s responsible of freeing the type based on how we actually do allocate it,
+so for allocatable-structs we happen to declare it as <code class="docutils literal notranslate"><span class="pre">{type1,</span> <span class="pre">type2,</span> <span class="pre">..}*</span></code> in LLVM IR and when we allocate it we happen to
+heap allocate the size of the struct and store that memory in that struct pointer, That makes alloctable-structs type on its own a type that needs
+a finalization, the internals of the struct is the responsibility of <code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code> which is a type-specific finalizers.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code>
+This disptaches to the following :</p>
+<p><code class="docutils literal notranslate"><span class="pre">finalize_scalars()</span></code>, <code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code>, <code class="docutils literal notranslate"><span class="pre">finalize_string()</span></code>,<code class="docutils literal notranslate"><span class="pre">finalize_array()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">finalize_list()</span></code>, <code class="docutils literal notranslate"><span class="pre">finalize_set()</span></code> ,<code class="docutils literal notranslate"><span class="pre">finalize_dict()</span></code> ,<code class="docutils literal notranslate"><span class="pre">finalize_tuple()</span></code>, <code class="docutils literal notranslate"><span class="pre">finalize_union()</span></code></p>
+<p>Each one of those is responsible of finalizing the internals of the type it’s named after.</p>
+<p><strong>Example</strong>: <code class="docutils literal notranslate"><span class="pre">type(t),</span> <span class="pre">allocatable</span> <span class="pre">::</span> <span class="pre">n</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code> once works on that <code class="docutils literal notranslate"><span class="pre">t</span></code> type, it will loop on each and every variable (struct member) and free it using both <code class="docutils literal notranslate"><span class="pre">finalize_specifictype()</span></code> and <code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> that we just discussed above. Notice <code class="docutils literal notranslate"><span class="pre">finalize_struct</span></code> used <code class="docutils literal notranslate"><span class="pre">finalize_type_shell</span></code> as it’s okay with how <code class="docutils literal notranslate"><span class="pre">finalize_type_shell</span></code> finalizes the shell of the types.</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="examples">
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Ссылка на этот заголовок">¶</a></h2>
+<section id="type-t-alloatable-t-arr">
+<h3 id="type-t-alloatable-t-arr"><code class="docutils literal notranslate"><span class="pre">type(t),</span> <span class="pre">alloatable</span> <span class="pre">::</span> <span class="pre">t_arr(:)</span></code><a class="headerlink" href="#type-t-alloatable-t-arr" title="Ссылка на этот заголовок">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code> –&gt; dispatches to <code class="docutils literal notranslate"><span class="pre">finalize_array</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array()</span></code> –&gt; Finalizes internals elements and other info (if any is heap allocated). Let’s see how.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array()</span></code> –&gt; Calls utility <code class="docutils literal notranslate"><span class="pre">finalize_array_data()</span></code> to free array’s elements as different array types require different handling.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array_data()</span></code> –&gt; Loops on the array size to get each and every structtype <code class="docutils literal notranslate"><span class="pre">t</span></code> allocated.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array_data()</span></code> –&gt; calls <code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code> on each element. Notice <code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> won’t get called for array’s elements as arrays are containers that are responsible of the contained types. It’s responsible of freeing the <strong>shell</strong>s of the contained types (in array’s case all structs are just consecutively allocated and freed all at once).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code> –&gt; loops on each and every element attempting to finalize each memeber within the struct by its own finalizer based on the struct member type using <code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code> + Finalize the <strong>shells</strong> of the contained types through <code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code>. <strong>Notice</strong> we could come across struct member that’s of an array type, which will make us go through these steps again recursively.</p></li>
+<li><p>back to <code class="docutils literal notranslate"><span class="pre">free_array_ptr_to_consecutive_data()</span></code> –&gt; this is responsible of freeing consecutively allocated memory of the array (You can say these are the <strong>shells</strong> of the contained types in the array).</p></li>
+<li><p>back to <code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> –&gt; finalizes the <strong>shell</strong> of the array <code class="docutils literal notranslate"><span class="pre">t_arr</span></code> <strong>(if needed)</strong>.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2022 LFortran contributors.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>
