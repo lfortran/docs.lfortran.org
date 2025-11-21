@@ -447,7 +447,7 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#brief" class="md-nav__link">Brief</a>
         </li>
-        <li class="md-nav__item"><a href="#how-to-use" class="md-nav__link">How to use</a>
+        <li class="md-nav__item"><a href="#how-to-use" class="md-nav__link">How To Use ?</a>
         </li>
         <li class="md-nav__item"><a href="#design-flow" class="md-nav__link">Design Flow</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -482,7 +482,7 @@
 </ul>
 </section>
 <section id="how-to-use">
-<h2 id="how-to-use">How to use<a class="headerlink" href="#how-to-use" title="永久链接至标题">¶</a></h2>
+<h2 id="how-to-use">How To Use ?<a class="headerlink" href="#how-to-use" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li><p>Create an instance by using the exposed constructor.</p></li>
 <li><p>Call the only exposed member function <code class="docutils literal notranslate"><span class="pre">finalize_symtab()</span></code> with the desired symbol table to finalize.</p></li>
@@ -493,27 +493,24 @@
 <section id="design-flow">
 <h2 id="design-flow">Design Flow<a class="headerlink" href="#design-flow" title="永久链接至标题">¶</a></h2>
 <p>Global variables aren’t finalized; They live till program ends anyway so we don’t care much about them.
-The class has finalizers for each and every type.
-There are 2 general finalizer types that handles the job – <code class="docutils literal notranslate"><span class="pre">finalize_type_shell</span></code> and <code class="docutils literal notranslate"><span class="pre">finalize_type</span></code></p>
+The Class has a main finalizer function <code class="docutils literal notranslate"><span class="pre">finalize()</span></code> that either dispatches to <code class="docutils literal notranslate"><span class="pre">finalize_allocatable()</span></code> or <code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code></p>
 <section id="main-finalizers">
 <h3 id="main-finalizers">Main Finalizers<a class="headerlink" href="#main-finalizers" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> :
-It’s a finalizer that gets a ptr to the type you’re finalizing (integer, array, struct, list, etc..). It’s responsible of finalizing the <strong>shell</strong> of the type not the internals of it.
-Notice : If the <strong>shell</strong> is owned by some containing type and that container has got some rules over finalizing that <strong>shell</strong>, it’s completely the responsibility of the container and not the responsibility of <code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> (see arrays and lists).</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_allocatable()</span></code> :
+It finalizes the type first by calling <code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code> that consequently dispatches to the actual finalizer function based on the type of couse. Next, It frees the allocated memory (due to the nature of the <code class="docutils literal notranslate"><span class="pre">allocatable</span></code> attribute for sure).</p>
 <p><strong>Example</strong>: <code class="docutils literal notranslate"><span class="pre">type(t),</span> <span class="pre">allocatable</span> <span class="pre">::</span> <span class="pre">n</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> finalizes the <strong>shell</strong> of the type. it’s responsible of freeing the type based on how we actually do allocate it,
-so for allocatable-structs we happen to declare it as <code class="docutils literal notranslate"><span class="pre">{type1,</span> <span class="pre">type2,</span> <span class="pre">..}*</span></code> in LLVM IR and when we allocate it we happen to
-heap allocate the size of the struct and store that memory in that struct pointer, That makes alloctable-structs type on its own a type that needs
-a finalization, the internals of the struct is the responsibility of <code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code> which is a type-specific finalizers.</p>
+<ul class="simple">
+<li><p>Calls <code class="docutils literal notranslate"><span class="pre">finalize()</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">finalize_allocatable()</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">free_allocatable()</span></code></p></li>
+</ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code>
-This disptaches to the following :</p>
+This disptaches to one of following :</p>
 <p><code class="docutils literal notranslate"><span class="pre">finalize_scalars()</span></code>, <code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code>, <code class="docutils literal notranslate"><span class="pre">finalize_string()</span></code>,<code class="docutils literal notranslate"><span class="pre">finalize_array()</span></code>,
 <code class="docutils literal notranslate"><span class="pre">finalize_list()</span></code>, <code class="docutils literal notranslate"><span class="pre">finalize_set()</span></code> ,<code class="docutils literal notranslate"><span class="pre">finalize_dict()</span></code> ,<code class="docutils literal notranslate"><span class="pre">finalize_tuple()</span></code>, <code class="docutils literal notranslate"><span class="pre">finalize_union()</span></code></p>
-<p>Each one of those is responsible of finalizing the internals of the type it’s named after.</p>
+<p>Each one of those is responsible of finalizing the type it’s named after.</p>
 <p><strong>Example</strong>: <code class="docutils literal notranslate"><span class="pre">type(t),</span> <span class="pre">allocatable</span> <span class="pre">::</span> <span class="pre">n</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code> once works on that <code class="docutils literal notranslate"><span class="pre">t</span></code> type, it will loop on each and every variable (struct member) and free it using both <code class="docutils literal notranslate"><span class="pre">finalize_specifictype()</span></code> and <code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> that we just discussed above. Notice <code class="docutils literal notranslate"><span class="pre">finalize_struct</span></code> used <code class="docutils literal notranslate"><span class="pre">finalize_type_shell</span></code> as it’s okay with how <code class="docutils literal notranslate"><span class="pre">finalize_type_shell</span></code> finalizes the shell of the types.</p>
+<p><code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code> once works on that <code class="docutils literal notranslate"><span class="pre">t</span></code> type, it will loop on each and every variable (struct member) and free it using <code class="docutils literal notranslate"><span class="pre">finalize()</span></code>.</p>
 </li>
 </ul>
 </section>
@@ -523,14 +520,16 @@ This disptaches to the following :</p>
 <section id="type-t-alloatable-t-arr">
 <h3 id="type-t-alloatable-t-arr"><code class="docutils literal notranslate"><span class="pre">type(t),</span> <span class="pre">alloatable</span> <span class="pre">::</span> <span class="pre">t_arr(:)</span></code><a class="headerlink" href="#type-t-alloatable-t-arr" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code> –&gt; dispatches to <code class="docutils literal notranslate"><span class="pre">finalize_array</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array()</span></code> –&gt; Finalizes internals elements and other info (if any is heap allocated). Let’s see how.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array()</span></code> –&gt; Calls utility <code class="docutils literal notranslate"><span class="pre">finalize_array_data()</span></code> to free array’s elements as different array types require different handling.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array_data()</span></code> –&gt; Loops on the array size to get each and every structtype <code class="docutils literal notranslate"><span class="pre">t</span></code> allocated.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array_data()</span></code> –&gt; calls <code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code> on each element. Notice <code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> won’t get called for array’s elements as arrays are containers that are responsible of the contained types. It’s responsible of freeing the <strong>shell</strong>s of the contained types (in array’s case all structs are just consecutively allocated and freed all at once).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code> –&gt; loops on each and every element attempting to finalize each memeber within the struct by its own finalizer based on the struct member type using <code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code> + Finalize the <strong>shells</strong> of the contained types through <code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code>. <strong>Notice</strong> we could come across struct member that’s of an array type, which will make us go through these steps again recursively.</p></li>
-<li><p>back to <code class="docutils literal notranslate"><span class="pre">free_array_ptr_to_consecutive_data()</span></code> –&gt; this is responsible of freeing consecutively allocated memory of the array (You can say these are the <strong>shells</strong> of the contained types in the array).</p></li>
-<li><p>back to <code class="docutils literal notranslate"><span class="pre">finalize_type_shell()</span></code> –&gt; finalizes the <strong>shell</strong> of the array <code class="docutils literal notranslate"><span class="pre">t_arr</span></code> <strong>(if needed)</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize()</span></code>             –&gt; Dispatches to <code class="docutils literal notranslate"><span class="pre">finalize_allocatable()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_allocatable()</span></code> –&gt; Calls <code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code>        –&gt; Calls <code class="docutils literal notranslate"><span class="pre">finalize_array()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array()</span></code>       –&gt; Finalizes internals elements and other info (if any is heap allocated). Let’s see how.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array()</span></code>       –&gt; Calls utility <code class="docutils literal notranslate"><span class="pre">finalize_array_data()</span></code> to free array’s elements as different array types require different handling, they don’t go and just call <code class="docutils literal notranslate"><span class="pre">finalize</span></code> on the type of array.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array_data()</span></code> –&gt; Loops on the array size to get each and every struct <code class="docutils literal notranslate"><span class="pre">t</span></code> .</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array_data()</span></code> –&gt; Calls <code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code> on each element.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_struct()</span></code>     –&gt; Loops on each and every element attempting to finalize each memeber within the struct by its own finalizer based on the struct member type using <code class="docutils literal notranslate"><span class="pre">finalize_type()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_array()</span></code>      –&gt; Calls <code class="docutils literal notranslate"><span class="pre">free_array_ptr_to_consecutive_data()</span></code> this is responsible of freeing consecutively allocated memory of the array.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">finalize_allocatable()</span></code>–&gt; Calls <code class="docutils literal notranslate"><span class="pre">free_allocatable_ptr()</span></code> which should have the logic if allocatable arrays need a finalization (They physical array type).</p></li>
 </ul>
 </section>
 </section>
