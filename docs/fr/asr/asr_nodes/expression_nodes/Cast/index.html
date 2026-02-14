@@ -796,7 +796,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Lien permanent vers ce titre">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Lien permanent vers ce titre">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>Cast(expr arg, cast_kind kind, ttype type, expr? value)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>Cast(expr arg, cast_kind kind, ttype type, expr? value, expr? dest)
 </pre></div>
 </div>
 </section>
@@ -820,6 +820,9 @@
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
 <td><p>expression value</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dest</span></code></p></td>
+<td><p>use to get struct symbol of destination struct type</p></td>
 </tr>
 </tbody>
 </table>

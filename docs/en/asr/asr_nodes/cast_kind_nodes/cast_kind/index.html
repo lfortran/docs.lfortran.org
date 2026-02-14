@@ -570,6 +570,8 @@
     <span class="o">|</span> <span class="n">RealToCharacter</span>
     <span class="o">|</span> <span class="n">IntegerToCharacter</span>
     <span class="o">|</span> <span class="n">LogicalToCharacter</span>
+    <span class="o">|</span> <span class="n">ClassToStruct</span>
+    <span class="o">|</span> <span class="n">ClassToClass</span>
 </pre></div>
 </div>
 </section>
@@ -1181,6 +1183,108 @@ another.</p>
         <span class="p">})</span>
     <span class="p">[]</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+<p>Example of <code class="docutils literal notranslate"><span class="pre">ClassToStruct/ClassToClass</span></code>:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">select type</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+<span class="w">    </span><span class="k">type is</span><span class="w"> </span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+<span class="w">        </span><span class="k">print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">var</span><span class="p">%</span><span class="n">x</span>
+<span class="w">    </span><span class="k">class is</span><span class="w"> </span><span class="p">(</span><span class="n">derived</span><span class="p">)</span>
+<span class="w">        </span><span class="k">print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">var</span><span class="p">%</span><span class="n">y</span>
+<span class="k">end select</span>
+</pre></div>
+</div>
+<p>ASR:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~</span><span class="n">select_type_block_</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">Block</span>
+        <span class="p">(</span><span class="n">SymbolTable</span>
+            <span class="mi">5</span>
+            <span class="p">{</span>
+                <span class="mi">1</span><span class="n">_base_x</span><span class="p">:</span>
+                    <span class="p">(</span><span class="n">ExternalSymbol</span>
+                        <span class="mi">5</span>
+                        <span class="mi">1</span><span class="n">_base_x</span>
+                        <span class="mi">3</span> <span class="n">x</span>
+                        <span class="n">base</span>
+                        <span class="p">[]</span>
+                        <span class="n">x</span>
+                        <span class="n">Public</span>
+                    <span class="p">)</span>
+            <span class="p">})</span>
+        <span class="o">~</span><span class="n">select_type_block_</span>
+        <span class="p">[(</span><span class="n">Print</span>
+            <span class="p">(</span><span class="n">StringFormat</span>
+                <span class="p">()</span>
+                <span class="p">[(</span><span class="n">StructInstanceMember</span>
+                    <span class="p">(</span><span class="n">Cast</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">var</span><span class="p">)</span>
+                        <span class="n">ClassToStruct</span>
+                        <span class="p">(</span><span class="n">StructType</span>
+                            <span class="p">[(</span><span class="n">Integer</span> <span class="mi">4</span><span class="p">)]</span>
+                            <span class="p">[]</span>
+                            <span class="o">.</span><span class="n">true</span><span class="o">.</span>
+                            <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">base</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="mi">5</span> <span class="mi">1</span><span class="n">_base_x</span>
+                    <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span><span class="p">)</span>
+                    <span class="p">()</span>
+                <span class="p">)]</span>
+                <span class="n">FormatFortran</span>
+                <span class="p">(</span><span class="n">Allocatable</span>
+                    <span class="p">(</span><span class="n">String</span> <span class="mi">1</span> <span class="p">()</span> <span class="n">DeferredLength</span> <span class="n">DescriptorString</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="p">()</span>
+            <span class="p">)</span>
+        <span class="p">)]</span>
+    <span class="p">),</span>
+<span class="o">~</span><span class="n">select_type_block_1</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">Block</span>
+        <span class="p">(</span><span class="n">SymbolTable</span>
+            <span class="mi">6</span>
+            <span class="p">{</span>
+                <span class="mi">1</span><span class="n">_derived_y</span><span class="p">:</span>
+                    <span class="p">(</span><span class="n">ExternalSymbol</span>
+                        <span class="mi">6</span>
+                        <span class="mi">1</span><span class="n">_derived_y</span>
+                        <span class="mi">4</span> <span class="n">y</span>
+                        <span class="n">derived</span>
+                        <span class="p">[]</span>
+                        <span class="n">y</span>
+                        <span class="n">Public</span>
+                    <span class="p">)</span>
+            <span class="p">})</span>
+        <span class="o">~</span><span class="n">select_type_block_1</span>
+        <span class="p">[(</span><span class="n">Print</span>
+            <span class="p">(</span><span class="n">StringFormat</span>
+                <span class="p">()</span>
+                <span class="p">[(</span><span class="n">StructInstanceMember</span>
+                    <span class="p">(</span><span class="n">Cast</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">var</span><span class="p">)</span>
+                        <span class="n">ClassToClass</span>
+                        <span class="p">(</span><span class="n">StructType</span>
+                            <span class="p">[(</span><span class="n">Integer</span> <span class="mi">4</span><span class="p">)]</span>
+                            <span class="p">[]</span>
+                            <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+                            <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+                        <span class="p">)</span>
+                        <span class="p">()</span>
+                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">derived</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="mi">6</span> <span class="mi">1</span><span class="n">_derived_y</span>
+                    <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span><span class="p">)</span>
+                    <span class="p">()</span>
+                <span class="p">)]</span>
+                <span class="n">FormatFortran</span>
+                <span class="p">(</span><span class="n">Allocatable</span>
+                    <span class="p">(</span><span class="n">String</span> <span class="mi">1</span> <span class="p">()</span> <span class="n">DeferredLength</span> <span class="n">DescriptorString</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="p">()</span>
+            <span class="p">)</span>
+        <span class="p">)]</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </section>
