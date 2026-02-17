@@ -264,7 +264,11 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#installation--page-root" class="md-nav__link">Installation</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#binaries" class="md-nav__link">Binaries</a>
+        <li class="md-nav__item"><a href="#binaries" class="md-nav__link">Binaries</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#note-about-conda-installation" class="md-nav__link">Note about Conda Installation</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#build-from-a-source-tarball" class="md-nav__link">Build From a Source Tarball</a>
         </li>
@@ -584,7 +588,11 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#installation--page-root" class="md-nav__link">Installation</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#binaries" class="md-nav__link">Binaries</a>
+        <li class="md-nav__item"><a href="#binaries" class="md-nav__link">Binaries</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#note-about-conda-installation" class="md-nav__link">Note about Conda Installation</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#build-from-a-source-tarball" class="md-nav__link">Build From a Source Tarball</a>
         </li>
@@ -662,6 +670,16 @@ conda<span class="w"> </span>activate<span class="w"> </span>lf
 <p>Now the <code class="docutils literal notranslate"><span class="pre">lf</span></code> environment has the <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> compiler available, you can start the
 interactive prompt by executing <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>, or see the command line options using
 <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">-h</span></code>.</p>
+<section id="note-about-conda-installation">
+<h3 id="note-about-conda-installation">Note about Conda Installation<a class="headerlink" href="#note-about-conda-installation" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>When installing LFortran using Conda, multiple copies of the <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>
+executable may be present in different locations (for example, in the package
+cache). Only the executable inside the active Conda environment should be used.</p>
+<p>After activating a conda environment, the correct executable is typically located at:
+<code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX/bin/lfortran</span></code></p>
+<p>To verify which executable is being used, activate a conda environment and run:
+<code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">lfortran</span></code></p>
+<p>Other copies located in package directories may not run correctly and can be ignored.</p>
 <p>The Jupyter kernel is automatically installed by the above command, so after installing Jupyter itself:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>-c<span class="w"> </span>conda-forge
 </pre></div>
@@ -671,6 +689,7 @@ interactive prompt by executing <code class="docutils literal notranslate"><span
 </pre></div>
 </div>
 <p>and selecting <code class="docutils literal notranslate"><span class="pre">New-&gt;Fortran</span></code>.</p>
+</section>
 </section>
 <section id="build-from-a-source-tarball">
 <h2 id="build-from-a-source-tarball">Build From a Source Tarball<a class="headerlink" href="#build-from-a-source-tarball" title="Stały odnośnik do tego nagłówka">¶</a></h2>

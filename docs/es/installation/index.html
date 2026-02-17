@@ -264,7 +264,11 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#installation--page-root" class="md-nav__link">Instalación</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#binaries" class="md-nav__link">Binarios</a>
+        <li class="md-nav__item"><a href="#binaries" class="md-nav__link">Binarios</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#note-about-conda-installation" class="md-nav__link">Note about Conda Installation</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#build-from-a-source-tarball" class="md-nav__link">Construir desde una fuente de archivo tar</a>
         </li>
@@ -584,7 +588,11 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#installation--page-root" class="md-nav__link">Instalación</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#binaries" class="md-nav__link">Binarios</a>
+        <li class="md-nav__item"><a href="#binaries" class="md-nav__link">Binarios</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#note-about-conda-installation" class="md-nav__link">Note about Conda Installation</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#build-from-a-source-tarball" class="md-nav__link">Construir desde una fuente de archivo tar</a>
         </li>
@@ -656,6 +664,16 @@ conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
 <p>Ahora que el entorno <code class="docutils literal notranslate"><span class="pre">lf</span></code> tiene disponible el compilador <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>, puede iniciar el aviso interactivo ejecutando <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>, o ver las opciones de la línea de comando usando <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">-h</span></code>.</p>
+<section id="note-about-conda-installation">
+<h3 id="note-about-conda-installation">Note about Conda Installation<a class="headerlink" href="#note-about-conda-installation" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>When installing LFortran using Conda, multiple copies of the <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>
+executable may be present in different locations (for example, in the package
+cache). Only the executable inside the active Conda environment should be used.</p>
+<p>After activating a conda environment, the correct executable is typically located at:
+<code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX/bin/lfortran</span></code></p>
+<p>To verify which executable is being used, activate a conda environment and run:
+<code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">lfortran</span></code></p>
+<p>Other copies located in package directories may not run correctly and can be ignored.</p>
 <p>El núcleo Jupyter es automáticamente instalado con el comando anterior, por lo que después de instalar Jupyter:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>-c<span class="w"> </span>conda-forge
 </pre></div>
@@ -665,6 +683,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
 <p>y seleccionando <code class="docutils literal notranslate"><span class="pre">New-&gt;Fortran</span></code>.</p>
+</section>
 </section>
 <section id="build-from-a-source-tarball">
 <h2 id="build-from-a-source-tarball">Construir desde una fuente de archivo tar<a class="headerlink" href="#build-from-a-source-tarball" title="Enlazar permanentemente con este título">¶</a></h2>
