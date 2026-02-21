@@ -282,7 +282,19 @@
         </li>
         <li class="md-nav__item"><a href="#standards" class="md-nav__link">Standards</a>
         </li>
-        <li class="md-nav__item"><a href="#extensions" class="md-nav__link">Extensions</a>
+        <li class="md-nav__item"><a href="#extensions" class="md-nav__link">Extensions</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#type-inference-with" class="md-nav__link">Type Inference with <code class="docutils literal notranslate"><span class="pre">:=</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#rules" class="md-nav__link">Rules</a>
+        </li>
+        <li class="md-nav__item"><a href="#guidance" class="md-nav__link">Guidance</a>
+        </li>
+        <li class="md-nav__item"><a href="#infer-mode" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">--infer</span></code> mode</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#interactive-compiler" class="md-nav__link">Interactive Compiler</a>
         </li>
@@ -564,7 +576,19 @@
         </li>
         <li class="md-nav__item"><a href="#standards" class="md-nav__link">Standards</a>
         </li>
-        <li class="md-nav__item"><a href="#extensions" class="md-nav__link">Extensions</a>
+        <li class="md-nav__item"><a href="#extensions" class="md-nav__link">Extensions</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#type-inference-with" class="md-nav__link">Type Inference with <code class="docutils literal notranslate"><span class="pre">:=</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#rules" class="md-nav__link">Rules</a>
+        </li>
+        <li class="md-nav__item"><a href="#guidance" class="md-nav__link">Guidance</a>
+        </li>
+        <li class="md-nav__item"><a href="#infer-mode" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">--infer</span></code> mode</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#interactive-compiler" class="md-nav__link">Interactive Compiler</a>
         </li>
@@ -644,8 +668,100 @@ the interfaces to external libraries such as OpenMPI.</p></li>
 <li><p>Global Scope (statements outside of a program block).</p></li>
 <li><p>Interactive Fortran (in alpha).</p></li>
 <li><p>Jupyter integration.</p></li>
-<li><p>Support for GPUs and other accelerators</p></li>
+<li><p>Support for GPUs and other accelerators.</p></li>
+<li><p>Type inference (<code class="docutils literal notranslate"><span class="pre">:=</span></code> operator and <code class="docutils literal notranslate"><span class="pre">--infer</span></code> mode).</p></li>
 </ul>
+<section id="type-inference-with">
+<h3 id="type-inference-with">Type Inference with <code class="docutils literal notranslate"><span class="pre">:=</span></code><a class="headerlink" href="#type-inference-with" title="Link permanente para este título">¶</a></h3>
+<p><strong>Experimental, subject to change.</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">:=</span></code> operator declares a new variable whose type is inferred from the
+right-hand side. It is closely inspired by Go’s short variable declaration
+(<code class="docutils literal notranslate"><span class="pre">:=</span></code>), where it is the dominant way to declare local variables. The
+rationale is the same: when the right-hand side already communicates the
+type, repeating it on the left is redundant noise. <code class="docutils literal notranslate"><span class="pre">:=</span></code> makes declarations
+visible at a glance without requiring the programmer to spell out types
+that the compiler can deduce.</p>
+<p><code class="docutils literal notranslate"><span class="pre">:=</span></code> is not standard Fortran syntax. It is an LFortran-specific extension,
+and the compiler emits a warning on each use to make this clear. The
+<code class="docutils literal notranslate"><span class="pre">--infer</span></code> flag suppresses the warning.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="w">              </span><span class="c">! integer</span>
+<span class="n">y</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mf">3.14d0</span><span class="w">          </span><span class="c">! real(8)</span>
+<span class="n">z</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">1.0d0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0d0</span><span class="p">)</span><span class="w">  </span><span class="c">! complex(8)</span>
+<span class="n">vals</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w">    </span><span class="c">! integer, dimension(3)</span>
+<span class="n">p</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">point_t</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">)</span><span class="w">  </span><span class="c">! type(point_t)</span>
+</pre></div>
+</div>
+<section id="rules">
+<h4 id="rules">Rules<a class="headerlink" href="#rules" title="Link permanente para este título">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">:=</span></code> always declares a new variable. It never assigns to an existing one.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w">     </span><span class="c">! ok: plain assignment to existing variable</span>
+<span class="n">x</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w">    </span><span class="c">! error: x is already declared in this scope</span>
+</pre></div>
+</div>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
+<span class="n">x</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w">     </span><span class="c">! error: x is already declared</span>
+</pre></div>
+</div>
+<p>Inner blocks may shadow outer variables:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="k">block</span>
+<span class="k">    </span><span class="n">x</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s2">"hello"</span><span class="w">   </span><span class="c">! ok: new x in inner scope</span>
+<span class="k">end block</span>
+<span class="c">! outer x is still integer 5</span>
+</pre></div>
+</div>
+<p>Supported right-hand sides: integer, real, complex, logical, character
+scalars; fixed-size arrays when dimensions are compile-time constants;
+derived types via structure constructors or typed expressions.
+The inferred kind matches the expression (<code class="docutils literal notranslate"><span class="pre">3.14d0</span></code> produces <code class="docutils literal notranslate"><span class="pre">real(8)</span></code>).</p>
+</section>
+<section id="guidance">
+<h4 id="guidance">Guidance<a class="headerlink" href="#guidance" title="Link permanente para este título">¶</a></h4>
+<p>Use <code class="docutils literal notranslate"><span class="pre">:=</span></code> when the type is evident from the right-hand side:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">cfg</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">load_config</span><span class="p">(</span><span class="s2">"input.nml"</span><span class="p">)</span>
+<span class="n">origin</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">point_t</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">coeffs</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0d0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5d0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.25d0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Use explicit declarations when the type matters for clarity or safety:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="k">result</span>
+<span class="k">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">compute</span><span class="p">(</span><span class="k">data</span><span class="p">)</span><span class="w">    </span><span class="c">! reader sees the type; catches signature changes</span>
+
+<span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w">           </span><span class="c">! simple counters are clearer with explicit types</span>
+</pre></div>
+</div>
+</section>
+<section id="infer-mode">
+<h4 id="infer-mode"><code class="docutils literal notranslate"><span class="pre">--infer</span></code> mode<a class="headerlink" href="#infer-mode" title="Link permanente para este título">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">--infer</span></code> enables a second, more permissive form of inference: the first
+plain <code class="docutils literal notranslate"><span class="pre">=</span></code> to an undeclared name declares it, like a scripting language.
+This is intended for interactive and notebook use.</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Sintaxe</p></th>
+<th class="head"><p>Declares</p></th>
+<th class="head"><p>Intended for</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:=</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">:=</span> <span class="pre">expr</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>Production code</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--infer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">expr</span></code></p></td>
+<td><p>On first use</p></td>
+<td><p>Interactive / notebooks</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">:=</span></code> works independently of <code class="docutils literal notranslate"><span class="pre">--infer</span></code>. When both are active, either form
+declares, but <code class="docutils literal notranslate"><span class="pre">:=</span></code> makes the intent explicit.</p>
+</section>
+</section>
 </section>
 <section id="interactive-compiler">
 <h2 id="interactive-compiler">Interactive Compiler<a class="headerlink" href="#interactive-compiler" title="Link permanente para este título">¶</a></h2>
