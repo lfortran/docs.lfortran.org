@@ -455,7 +455,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#symbol-type" class="md-nav__link">Symbol type</a>
+        <li class="md-nav__item"><a href="#symbol-type" class="md-nav__link">Symbol type</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#call-argument-intent-contract" class="md-nav__link">Call argument intent contract</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#abi-type" class="md-nav__link">ABI Type</a>
         </li>
@@ -552,6 +556,18 @@ otherwise, it is external (interface ASR, such as procedure interface).</p>
 function (<code class="docutils literal notranslate"><span class="pre">name</span></code> member). They also store the original symbol
 (<code class="docutils literal notranslate"><span class="pre">original_name</span></code>), which can be one of: <code class="docutils literal notranslate"><span class="pre">null</span></code>, <code class="docutils literal notranslate"><span class="pre">GenericProcedure</span></code> or
 <code class="docutils literal notranslate"><span class="pre">ExternalSymbol</span></code>.</p>
+<section id="call-argument-intent-contract">
+<h3 id="call-argument-intent-contract">Call argument intent contract<a class="headerlink" href="#call-argument-intent-contract" title="Ссылка на этот заголовок">¶</a></h3>
+<p>For call nodes (<code class="docutils literal notranslate"><span class="pre">SubroutineCall</span></code> / <code class="docutils literal notranslate"><span class="pre">FunctionCall</span></code>), actual argument expressions
+must satisfy the dummy argument intent:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">intent(in)</span></code>: any expression is allowed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">intent(out)</span></code> / <code class="docutils literal notranslate"><span class="pre">intent(inout)</span></code>: actual argument must be writable (a variable
+expression, or a cast wrapper such as <code class="docutils literal notranslate"><span class="pre">Cast</span></code>, <code class="docutils literal notranslate"><span class="pre">ArrayPhysicalCast</span></code>,
+<code class="docutils literal notranslate"><span class="pre">StringPhysicalCast</span></code> around writable storage).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">intent(unspecified)</span></code>: any expression is allowed at the call site. Whether
+the callee writes through the argument is runtime-dependent.</p></li>
+</ul>
 <p>When a module is compiled, it is parsed into full ASR, an object file is
 produced, and the full ASR (abi=Source, «body» is non-empty) is transformed into
 interface ASR (abi=LFortran, «body» is empty). Both interface and full ASR
@@ -578,6 +594,7 @@ local variable in a function <code class="docutils literal notranslate"><span cl
 is transformed into interface ASR (abi=LFortran) and kept in the symbol
 table. A new cell starts with an empty symbol table, whose parent symbol
 table is the previous cell. That allows function/declaration shadowing.</p>
+</section>
 </section>
 <section id="abi-type">
 <h2 id="abi-type">ABI Type<a class="headerlink" href="#abi-type" title="Ссылка на этот заголовок">¶</a></h2>
