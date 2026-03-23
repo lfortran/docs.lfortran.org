@@ -735,7 +735,7 @@ function (<code class="docutils literal notranslate"><span class="pre">name</spa
 <p><code class="docutils literal notranslate"><span class="pre">name</span></code> contains symbol name.
 <code class="docutils literal notranslate"><span class="pre">original_name</span></code> contains name present in program unit.
 <code class="docutils literal notranslate"><span class="pre">args</span></code> contains arguments passed to subroutine call.
-<code class="docutils literal notranslate"><span class="pre">dt</span></code> contains expression for variable name, array name, an aseterist e.t.c.
+<code class="docutils literal notranslate"><span class="pre">dt</span></code> is set if and only if this is a method call (i.e., a call through a derived type instance such as <code class="docutils literal notranslate"><span class="pre">obj%method(args)</span></code>). When <code class="docutils literal notranslate"><span class="pre">dt</span></code> is non-null, it holds the expression for the object whose method is being called. When <code class="docutils literal notranslate"><span class="pre">dt</span></code> is null, this is a regular subroutine call.
 <code class="docutils literal notranslate"><span class="pre">strict_bounds_checking</span></code> indicates if this SubroutineCall was a FunctionCall before getting converted by subroutine_from_function pass, if it was then we need to do strict_bounds_checking for the return argument.</p>
 </section>
 <section id="return-values">

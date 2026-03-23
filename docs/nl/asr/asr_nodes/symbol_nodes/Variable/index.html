@@ -454,7 +454,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#procedure-pointer-components" class="md-nav__link">Procedure Pointer Components</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -537,7 +541,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#procedure-pointer-components" class="md-nav__link">Procedure Pointer Components</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -563,8 +571,11 @@
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permalink naar deze titel">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Variable(symbol_table parent_symtab, identifier name, identifier* dependencies,
     intent intent, expr? symbolic_value, expr? value, storage_type storage,
-    ttype type, symbol type_declaration,
-    abi abi, access access, presence presence, bool value_attr)
+    ttype type, symbol? type_declaration,
+    abi abi, access access, presence presence, bool value_attr,
+    bool target_attr, bool contiguous_attr, string? bindc_name,
+    bool is_volatile, bool is_protected,
+    pass_attr pass_attr, identifier? self_argument)
 </pre></div>
 </div>
 </section>
@@ -589,6 +600,29 @@ symbol that declares the type</p>
 <p><code class="docutils literal notranslate"><span class="pre">access</span></code> visibility: <code class="docutils literal notranslate"><span class="pre">Public</span></code>, <code class="docutils literal notranslate"><span class="pre">Private</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">presence</span></code> for parameters: <code class="docutils literal notranslate"><span class="pre">Required</span></code> or <code class="docutils literal notranslate"><span class="pre">Optional</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">value_attr</span></code> if true, this parameter has a <code class="docutils literal notranslate"><span class="pre">value</span></code> attribute set</p>
+<p><code class="docutils literal notranslate"><span class="pre">target_attr</span></code> if true, this variable has the <code class="docutils literal notranslate"><span class="pre">target</span></code> attribute</p>
+<p><code class="docutils literal notranslate"><span class="pre">contiguous_attr</span></code> if true, this variable has the <code class="docutils literal notranslate"><span class="pre">contiguous</span></code> attribute</p>
+<p><code class="docutils literal notranslate"><span class="pre">bindc_name</span></code> optional C binding name from <code class="docutils literal notranslate"><span class="pre">bind(c,</span> <span class="pre">name="...")</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">is_volatile</span></code> if true, this variable has the <code class="docutils literal notranslate"><span class="pre">volatile</span></code> attribute</p>
+<p><code class="docutils literal notranslate"><span class="pre">is_protected</span></code> if true, this variable has the <code class="docutils literal notranslate"><span class="pre">protected</span></code> attribute</p>
+<p><code class="docutils literal notranslate"><span class="pre">pass_attr</span></code> determines whether this variable is a procedure pointer component
+with pass/nopass semantics. A three-valued enum:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NotMethod</span></code> — this is not a type-bound procedure pointer (default for all
+regular variables, standalone procedure pointers, and non-procedure variables)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pass</span></code> — this is a procedure pointer component inside a derived type with
+pass semantics: the object through which it is called is implicitly passed
+as an argument at the position identified by <code class="docutils literal notranslate"><span class="pre">self_argument</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NoPass</span></code> — this is a procedure pointer component inside a derived type with
+nopass semantics: no object is passed implicitly</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">self_argument</span></code> only meaningful when <code class="docutils literal notranslate"><span class="pre">pass_attr</span></code> is <code class="docutils literal notranslate"><span class="pre">Pass</span></code>. Identifies which
+dummy argument of the procedure interface receives the passed object:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nullptr</span></code> — the passed object goes to the first dummy argument (default)</p></li>
+<li><p>a name (e.g. <code class="docutils literal notranslate"><span class="pre">"pt"</span></code>) — the passed object goes to the dummy argument with
+that name, which may be at any position in the argument list</p></li>
+</ul>
 </section>
 <section id="return-values">
 <h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Permalink naar deze titel">¶</a></h3>
@@ -598,7 +632,7 @@ symbol that declares the type</p>
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permalink naar deze titel">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">Variable</span></code> node represents a declaration of any variable in the
-program. It contais information about the type, visibility, compile-time value,
+program. It contains information about the type, visibility, compile-time value,
 etc.</p>
 <p>The type of the variable can be any of the primitive types like integer,
 real, complex, pointers, arrays. In such cases, the <code class="docutils literal notranslate"><span class="pre">type_declaration</span></code> member of
@@ -607,9 +641,30 @@ the <code class="docutils literal notranslate"><span class="pre">Variable</span>
 classes, enums, and function pointers. Such types are not declared inline to the
 <code class="docutils literal notranslate"><span class="pre">Variable</span></code> node itself. In such cases, the <code class="docutils literal notranslate"><span class="pre">type_declaration</span></code> member of
 <code class="docutils literal notranslate"><span class="pre">Variable</span></code> points to the symbol containing the declaration of the type.</p>
+<section id="procedure-pointer-components">
+<h3 id="procedure-pointer-components">Procedure Pointer Components<a class="headerlink" href="#procedure-pointer-components" title="Permalink naar deze titel">¶</a></h3>
+<p>When a derived type declares a procedure pointer component, that component is
+represented as a <code class="docutils literal notranslate"><span class="pre">Variable</span></code> whose <code class="docutils literal notranslate"><span class="pre">type</span></code> is a <code class="docutils literal notranslate"><span class="pre">FunctionType</span></code> (possibly wrapped
+in a <code class="docutils literal notranslate"><span class="pre">Pointer</span></code>). The <code class="docutils literal notranslate"><span class="pre">pass_attr</span></code> and <code class="docutils literal notranslate"><span class="pre">self_argument</span></code> fields distinguish three
+cases:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">mytype</span>
+<span class="w">    </span><span class="c">! NotMethod, self_argument=null: plain procedure pointer, no pass/nopass attribute</span>
+<span class="w">    </span><span class="k">procedure</span><span class="p">(</span><span class="n">iface</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">null</span><span class="p">()</span>
+<span class="w">    </span><span class="c">! NoPass, self_argument=null: explicitly no implicit self</span>
+<span class="w">    </span><span class="k">procedure</span><span class="p">(</span><span class="n">iface</span><span class="p">),</span><span class="w"> </span><span class="k">nopass</span><span class="p">,</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">action</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">null</span><span class="p">()</span>
+<span class="w">    </span><span class="c">! Pass, self_argument=null: self is passed as the first argument (default position)</span>
+<span class="w">    </span><span class="k">procedure</span><span class="p">(</span><span class="n">iface</span><span class="p">),</span><span class="w"> </span><span class="k">pass</span><span class="p">,</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="nb">scale</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">null</span><span class="p">()</span>
+<span class="w">    </span><span class="c">! Pass, self_argument="self": self is passed at the position of dummy arg "self"</span>
+<span class="w">    </span><span class="k">procedure</span><span class="p">(</span><span class="n">iface</span><span class="p">),</span><span class="w"> </span><span class="k">pass</span><span class="p">(</span><span class="n">self</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">combine</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nb">null</span><span class="p">()</span>
+<span class="k">end type</span>
+</pre></div>
+</div>
+<p>For type-bound procedures declared with <code class="docutils literal notranslate"><span class="pre">contains</span></code> (not procedure pointer
+components), see <a class="reference internal" href="../StructMethodDeclaration/"><span class="doc std std-doc">StructMethodDeclaration</span></a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Variable</span></code> represents declarations of variables. <code class="docutils literal notranslate"><span class="pre">Var</span></code> nodes represent instances
 of variables in code. To represent the use of a variable in an expression,
 employ the ASR <code class="docutils literal notranslate"><span class="pre">expr</span> <span class="pre">Var</span></code> node.</p>
+</section>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink naar deze titel">¶</a></h2>
@@ -683,7 +738,8 @@ employ the ASR <code class="docutils literal notranslate"><span class="pre">expr
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permalink naar deze titel">¶</a></h2>
-<p><a class="reference internal" href="../../expression_nodes/Var/"><span class="doc std std-doc">Var</span></a></p>
+<p><a class="reference internal" href="../../expression_nodes/Var/"><span class="doc std std-doc">Var</span></a>,
+<a class="reference internal" href="../StructMethodDeclaration/"><span class="doc std std-doc">StructMethodDeclaration</span></a></p>
 </section>
 </section>
 
