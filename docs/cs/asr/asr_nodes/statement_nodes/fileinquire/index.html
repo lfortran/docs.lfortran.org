@@ -455,7 +455,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#specifier-behavior-brief" class="md-nav__link">Specifier behavior (brief)</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -479,12 +483,13 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Trvalý odkaz na tento nadpis">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Trvalý odkaz na tento nadpis">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>FileInquire(int label, expr? unit, expr? file, expr? iostat, expr? err, expr? exist, expr? opened, expr? number, expr? named, expr? name, expr? access, expr? sequential, expr? direct, expr? form, expr? formatted, expr? unformatted, expr? recl, expr? nextrec, expr? blank, expr? position, expr? action, expr? read, expr? write, expr? readwrite, expr? delim, expr? pad, expr? flen, expr? blocksize, expr? convert, expr? carriagecontrol, expr? size, expr? pos, expr? iolength, expr* iolength_vars, expr? decimal, expr? sign)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>FileInquire(int label, expr? unit, expr? file, expr? iostat, expr? err, expr? exist, expr? opened, expr? number, expr? named, expr? name, expr? access, expr? sequential, expr? direct, expr? form, expr? formatted, expr? unformatted, expr? recl, expr? nextrec, expr? blank, expr? position, expr? action, expr? read, expr? write, expr? readwrite, expr? delim, expr? pad, expr? flen, expr? blocksize, expr? convert, expr? carriagecontrol, expr? size, expr? pos, expr? iolength, expr* iolength_vars, expr? decimal, expr? sign, expr? encoding, expr? stream, expr? iomsg, expr? round, expr? pending, expr? asynchronous)
 </pre></div>
 </div>
 </section>
 <section id="arguments">
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Trvalý odkaz na tento nadpis">¶</a></h3>
+<p>For details on the arguments, see <span class="xref myst">FileOpen</span>. The <code class="docutils literal notranslate"><span class="pre">FileInquire</span></code> node shares many of the same arguments as <code class="docutils literal notranslate"><span class="pre">FileOpen</span></code>, but they are all optional and used to receive information about the file or unit rather than to specify properties for opening a file.</p>
 <table>
 <thead>
 <tr class="row-odd"><th class="text-left head"><p>Argument</p></th>
@@ -495,7 +500,7 @@
 <tbody>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">label</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
-<td class="text-left"><p>Statement label.</p></td>
+<td class="text-left"><p>Statement label. See <span class="xref myst">FileOpen</span>.</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">unit</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
@@ -507,7 +512,7 @@
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Integer variable for status.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">err</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
@@ -535,7 +540,7 @@
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">access</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable to receive access method.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">access</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sequential</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
@@ -547,7 +552,7 @@
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">form</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable to receive connection form (<code class="docutils literal notranslate"><span class="pre">'FORMATTED'</span></code> or <code class="docutils literal notranslate"><span class="pre">'UNFORMATTED'</span></code>).</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">form</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">formatted</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
@@ -559,7 +564,7 @@
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">recl</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Integer variable to receive record length.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">recl</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">nextrec</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
@@ -567,15 +572,15 @@
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">blank</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable to receive blank interpretation mode.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">blank</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">position</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable to receive file position.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">position</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">action</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable to receive allowed actions.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">action</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">read</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
@@ -591,11 +596,11 @@
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">delim</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable to receive delimiter mode.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">delim</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">pad</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable to receive padding mode.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">pad</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">flen</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
@@ -631,11 +636,35 @@
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">decimal</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable to receive decimal mode.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">decimal</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">sign</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable to receive sign mode.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">sign</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">encoding</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">stream</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
+<td class="text-left"><p>Character variable to receive whether stream access is allowed.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">iomsg</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">round</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen arguments</span> (<code class="docutils literal notranslate"><span class="pre">round</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">pending</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
+<td class="text-left"><p>Logical variable to receive whether an asynchronous transfer is pending for the unit.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">asynchronous</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
+<td class="text-left"><p>Character variable to receive asynchronous capability/mode information for the connection.</p></td>
 </tr>
 </tbody>
 </table>
@@ -648,6 +677,135 @@
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Trvalý odkaz na tento nadpis">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">FileInquire</span></code> node represents the Fortran <code class="docutils literal notranslate"><span class="pre">INQUIRE</span></code> statement, which is used to inquire about the properties of a particular file or of the connection to a particular unit.</p>
+<section id="specifier-behavior-brief">
+<h3 id="specifier-behavior-brief">Specifier behavior (brief)<a class="headerlink" href="#specifier-behavior-brief" title="Trvalý odkaz na tento nadpis">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">unit</span></code> and <code class="docutils literal notranslate"><span class="pre">file</span></code>:</p>
+<ul class="simple">
+<li><p>Select inquiry target by connected unit (<code class="docutils literal notranslate"><span class="pre">unit=</span></code>) or by file path (<code class="docutils literal notranslate"><span class="pre">file=</span></code>).</p></li>
+<li><p>In practice, one target selector is typically used per inquiry.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>:</p>
+<ul class="simple">
+<li><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">access</span></code>, <code class="docutils literal notranslate"><span class="pre">form</span></code>, <code class="docutils literal notranslate"><span class="pre">recl</span></code>, <code class="docutils literal notranslate"><span class="pre">blank</span></code>, <code class="docutils literal notranslate"><span class="pre">position</span></code>, <code class="docutils literal notranslate"><span class="pre">action</span></code>, <code class="docutils literal notranslate"><span class="pre">delim</span></code>, <code class="docutils literal notranslate"><span class="pre">pad</span></code>, <code class="docutils literal notranslate"><span class="pre">decimal</span></code>, <code class="docutils literal notranslate"><span class="pre">sign</span></code>, <code class="docutils literal notranslate"><span class="pre">encoding</span></code>, <code class="docutils literal notranslate"><span class="pre">round</span></code>:</p>
+<ul class="simple">
+<li><p>These report connection modes using the same value families documented for OPEN.</p></li>
+<li><p>See <span class="xref myst">FileOpen mode behavior</span>.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exist</span></code>:</p>
+<ul class="simple">
+<li><p>Returns whether the file exists.</p></li>
+<li><p>Typical values: <code class="docutils literal notranslate"><span class="pre">.true.</span></code> / <code class="docutils literal notranslate"><span class="pre">.false.</span></code>.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">logical</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ex</span>
+<span class="k">inquire</span><span class="p">(</span><span class="k">file</span><span class="o">=</span><span class="s2">"data.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">exist</span><span class="o">=</span><span class="n">ex</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">opened</span></code>:</p>
+<ul class="simple">
+<li><p>Returns whether the file or unit is currently connected.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">logical</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">is_open</span>
+<span class="k">inquire</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">opened</span><span class="o">=</span><span class="n">is_open</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">number</span></code>:</p>
+<ul class="simple">
+<li><p>Returns the connected unit number (if one exists for the file inquiry).</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">named</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">named</span></code> indicates whether the connected file has a name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> returns that file name when available.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">logical</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">has_name</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">fname</span>
+<span class="k">inquire</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">named</span><span class="o">=</span><span class="n">has_name</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="n">fname</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sequential</span></code>, <code class="docutils literal notranslate"><span class="pre">direct</span></code>, <code class="docutils literal notranslate"><span class="pre">stream</span></code>:</p>
+<ul class="simple">
+<li><p>Return whether each access form is allowed for the connection.</p></li>
+<li><p>Common processor values are character results like <code class="docutils literal notranslate"><span class="pre">"YES"</span></code>, <code class="docutils literal notranslate"><span class="pre">"NO"</span></code>, or <code class="docutils literal notranslate"><span class="pre">"UNKNOWN"</span></code>.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">formatted</span></code>, <code class="docutils literal notranslate"><span class="pre">unformatted</span></code>:</p>
+<ul class="simple">
+<li><p>Return whether formatted or unformatted transfer is allowed.</p></li>
+<li><p>Common processor values are character results like <code class="docutils literal notranslate"><span class="pre">"YES"</span></code>, <code class="docutils literal notranslate"><span class="pre">"NO"</span></code>, or <code class="docutils literal notranslate"><span class="pre">"UNKNOWN"</span></code>.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">read</span></code>, <code class="docutils literal notranslate"><span class="pre">write</span></code>, <code class="docutils literal notranslate"><span class="pre">readwrite</span></code>:</p>
+<ul class="simple">
+<li><p>Return whether corresponding data transfer modes are permitted.</p></li>
+<li><p>Common processor values are character results like <code class="docutils literal notranslate"><span class="pre">"YES"</span></code>, <code class="docutils literal notranslate"><span class="pre">"NO"</span></code>, or <code class="docutils literal notranslate"><span class="pre">"UNKNOWN"</span></code>.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pending</span></code> and <code class="docutils literal notranslate"><span class="pre">asynchronous</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pending</span></code> reports whether an asynchronous I/O operation is currently pending.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">asynchronous</span></code> reports asynchronous I/O mode/capability for the connection (for example values similar to <code class="docutils literal notranslate"><span class="pre">"YES"</span></code>, <code class="docutils literal notranslate"><span class="pre">"NO"</span></code>, or <code class="docutils literal notranslate"><span class="pre">"UNKNOWN"</span></code>).</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nextrec</span></code>:</p>
+<ul class="simple">
+<li><p>For direct-access connections, returns the next record number for sequential processing.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">pos</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code> returns file size in file storage units (processor dependent).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pos</span></code> returns current file position for stream access.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flen</span></code> and <code class="docutils literal notranslate"><span class="pre">blocksize</span></code>:</p>
+<ul class="simple">
+<li><p>Return processor-dependent file length and block size information when available.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">convert</span></code>:</p>
+<ul class="simple">
+<li><p>Returns processor/runtime data conversion mode for the connection.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">carriagecontrol</span></code>:</p>
+<ul class="simple">
+<li><p>Returns carriage control mode for formatted records, when supported by the processor.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iolength</span></code> and <code class="docutils literal notranslate"><span class="pre">iolength_vars</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">iolength</span></code> requests inquiry-by-I/O-list mode.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iolength_vars</span></code> is the I/O list used to compute transfer length, and no other INQUIRE specifiers are allowed at the same time.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">i</span>
+<span class="kt">real</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
+<span class="k">inquire</span><span class="p">(</span><span class="n">iolength</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">x</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">err</span></code>:</p>
+<ul class="simple">
+<li><p>Label to branch to if an error occurs during the inquiry.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ios</span>
+<span class="k">inquire</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">iostat</span><span class="o">=</span><span class="n">ios</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="n">opened</span><span class="o">=</span><span class="n">is_open</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>100 continue
+```</p>
+</section>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Trvalý odkaz na tento nadpis">¶</a></h2>
@@ -690,6 +848,12 @@
     <span class="p">()</span>
     <span class="p">()</span>
     <span class="p">[]</span>
+    <span class="p">()</span>
+    <span class="p">()</span>
+    <span class="p">()</span>
+    <span class="p">()</span>
+    <span class="p">()</span>
+    <span class="p">()</span>
     <span class="p">()</span>
     <span class="p">()</span>
 <span class="p">)</span>

@@ -455,7 +455,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#mode-behavior-brief" class="md-nav__link">Mode behavior (brief)</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -479,7 +483,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Lien permanent vers ce titre">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Lien permanent vers ce titre">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>FileOpen(int label, expr? newunit, expr? filename, expr? status, expr? form, expr? access, expr? iostat, expr? iomsg, expr? action, expr? delim, expr? recl, expr? position, expr? blank, expr? encoding, expr? sign, expr? decimal)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>FileOpen(int label, expr? newunit, expr? filename, expr? status, expr? form, expr? access, expr? iostat, expr? iomsg, expr? action, expr? delim, expr? recl, expr? position, expr? blank, expr? encoding, expr? sign, expr? decimal, expr? round, expr? pad)
 </pre></div>
 </div>
 </section>
@@ -557,6 +561,14 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
 <td class="text-left"><p>Character expression specifying the decimal mode for formatted I/O (<code class="docutils literal notranslate"><span class="pre">'COMMA'</span></code> or <code class="docutils literal notranslate"><span class="pre">'POINT'</span></code>).</p></td>
 </tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">round</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
+<td class="text-left"><p>Character expression specifying the rounding mode for formatted output (<code class="docutils literal notranslate"><span class="pre">'UP'</span></code>, <code class="docutils literal notranslate"><span class="pre">'DOWN'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ZERO'</span></code>, <code class="docutils literal notranslate"><span class="pre">'NEAREST'</span></code>, <code class="docutils literal notranslate"><span class="pre">'COMPATIBLE'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'PROCESSOR_DEFINED'</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">pad</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
+<td class="text-left"><p>Character expression specifying the padding mode for formatted input (<code class="docutils literal notranslate"><span class="pre">'YES'</span></code> or <code class="docutils literal notranslate"><span class="pre">'NO'</span></code>).</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -568,6 +580,176 @@
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Lien permanent vers ce titre">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">FileOpen</span></code> node represents the Fortran <code class="docutils literal notranslate"><span class="pre">OPEN</span></code> statement, which is used to connect an external file to a unit, create a new file and connect it to a unit, or change certain specifiers of a connection between a file and a unit.</p>
+<section id="mode-behavior-brief">
+<h3 id="mode-behavior-brief">Mode behavior (brief)<a class="headerlink" href="#mode-behavior-brief" title="Lien permanent vers ce titre">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">newunit</span></code>:</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">newunit</span></code> is present, the system will select an available unit number and return it in <code class="docutils literal notranslate"><span class="pre">newunit</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">newunit</span></code> is not present, the unit number must be specified in the <code class="docutils literal notranslate"><span class="pre">filename</span></code> argument.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code>:</p>
+<ul class="simple">
+<li><p>Statement label for branching on error.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code> receives a processor-dependent status code for the I/O statement.</p></li>
+<li><p>A value of <code class="docutils literal notranslate"><span class="pre">0</span></code> indicates success; nonzero values indicate error or end conditions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iomsg</span></code> receives a processor-provided diagnostic message when a nonzero <code class="docutils literal notranslate"><span class="pre">iostat</span></code> condition is reported.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ios</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">msg</span>
+<span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"data.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="o">=</span><span class="s2">"old"</span><span class="p">,</span><span class="w"> </span><span class="n">iostat</span><span class="o">=</span><span class="n">ios</span><span class="p">,</span><span class="w"> </span><span class="n">iomsg</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">OLD</span></code>: file must already exist.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NEW</span></code>: file must not exist.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SCRATCH</span></code>: connect to a temporary unnamed file (typically deleted on close).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REPLACE</span></code>: replace if exists, otherwise create.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNKNOWN</span></code>: processor/runtime chooses behavior when file existence is unknown.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"out.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="o">=</span><span class="s2">"replace"</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">form</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FORMATTED</span></code>: text I/O.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNFORMATTED</span></code>: binary-like record I/O.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"data.bin"</span><span class="p">,</span><span class="w"> </span><span class="n">form</span><span class="o">=</span><span class="s2">"unformatted"</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">access</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SEQUENTIAL</span></code>: read/write in order.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DIRECT</span></code>: fixed-length records (<code class="docutils literal notranslate"><span class="pre">recl=</span></code> needed).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">STREAM</span></code>: byte stream (no record boundaries).</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"tbl.dat"</span><span class="p">,</span><span class="w"> </span><span class="nb">access</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span><span class="w"> </span><span class="n">recl</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">action</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">READ</span></code>, <code class="docutils literal notranslate"><span class="pre">WRITE</span></code>, <code class="docutils literal notranslate"><span class="pre">READWRITE</span></code> control permitted operations.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"in.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">action</span><span class="o">=</span><span class="s2">"read"</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delim</span></code> (list-directed/namelist output):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">QUOTE</span></code>: uses <code class="docutils literal notranslate"><span class="pre">"text"</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">APOSTROPHE</span></code>: uses <code class="docutils literal notranslate"><span class="pre">'text'</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code>: no delimiters around character values.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">41</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"out.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">delim</span><span class="o">=</span><span class="s2">"quote"</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">position</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">REWIND</span></code>: start of file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">APPEND</span></code>: end of file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ASIS</span></code>: keep current position.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"log.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">position</span><span class="o">=</span><span class="s2">"append"</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">blank</span></code> (formatted numeric input):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NULL</span></code>: ignore embedded blanks in numeric input fields.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ZERO</span></code>: interpret embedded blanks as zeros.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"nums.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">blank</span><span class="o">=</span><span class="s2">"zero"</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">UTF-8</span></code>: UTF-8 encoded text stream.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DEFAULT</span></code>: processor default encoding.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"utf8.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sign</span></code> (formatted numeric output):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PLUS</span></code>: always print sign for positive and negative values.</p></li>
+<li><p>Example effect: <code class="docutils literal notranslate"><span class="pre">+3</span></code>, <code class="docutils literal notranslate"><span class="pre">-3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SUPPRESS</span></code>: do not print <code class="docutils literal notranslate"><span class="pre">+</span></code> for positive values; still print <code class="docutils literal notranslate"><span class="pre">-</span></code> for negatives.</p></li>
+<li><p>Example effect: <code class="docutils literal notranslate"><span class="pre">3</span></code>, <code class="docutils literal notranslate"><span class="pre">-3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PROCESSOR_DEFINED</span></code>: use compiler/runtime default sign behavior.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">53</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"nums.txt"</span><span class="p">,</span><span class="w"> </span><span class="nb">sign</span><span class="o">=</span><span class="s2">"plus"</span><span class="p">)</span>
+<span class="c">! write(53,'(F5.1)') 3.0   -&gt; " +3.0"</span>
+<span class="c">! write(53,'(F5.1)') -3.0  -&gt; " -3.0"</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">decimal</span></code> (formatted I/O):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">POINT</span></code>: decimal point, e.g., <code class="docutils literal notranslate"><span class="pre">3.14</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COMMA</span></code>: decimal comma, e.g., <code class="docutils literal notranslate"><span class="pre">3,14</span></code>.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"nums.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">decimal</span><span class="o">=</span><span class="s2">"comma"</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">round</span></code> (formatted output rounding mode):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">UP</span></code>: round away from zero at halfway and above.</p></li>
+<li><p>Example effect (<code class="docutils literal notranslate"><span class="pre">1.26</span></code> to one decimal): <code class="docutils literal notranslate"><span class="pre">1.3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOWN</span></code>: round toward zero.</p></li>
+<li><p>Example effect (<code class="docutils literal notranslate"><span class="pre">1.26</span></code> to one decimal): <code class="docutils literal notranslate"><span class="pre">1.2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ZERO</span></code>: round toward zero (same direction idea as <code class="docutils literal notranslate"><span class="pre">DOWN</span></code> for many cases).</p></li>
+<li><p>Example effect (<code class="docutils literal notranslate"><span class="pre">-1.26</span></code> to one decimal): <code class="docutils literal notranslate"><span class="pre">-1.2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NEAREST</span></code>: round to nearest representable result.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COMPATIBLE</span></code>: round in a processor-compatible mode.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PROCESSOR_DEFINED</span></code>: compiler/runtime default rounding mode.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"nums.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">round</span><span class="o">=</span><span class="s2">"down"</span><span class="p">)</span>
+<span class="c">! write(55,'(F4.1)') 1.26   -&gt; "1.2"</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pad</span></code> (formatted input only):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">YES</span></code>: if a read needs more characters than remain in the record, missing characters are treated as blanks.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NO</span></code>: no blank padding; attempting to read past record end can raise an end-of-record condition.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">! File line is only: "12"</span>
+<span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"nums.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">form</span><span class="o">=</span><span class="s2">"formatted"</span><span class="p">,</span><span class="w"> </span><span class="n">pad</span><span class="o">=</span><span class="s2">"yes"</span><span class="p">)</span>
+<span class="k">read</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span><span class="w"> </span><span class="s1">'(A4)'</span><span class="p">)</span><span class="w"> </span><span class="n">s</span><span class="w">   </span><span class="c">! s becomes "12  " (padded with blanks)</span>
+</pre></div>
+</div>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">! Same file line: "12"</span>
+<span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">61</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"nums.txt"</span><span class="p">,</span><span class="w"> </span><span class="n">form</span><span class="o">=</span><span class="s2">"formatted"</span><span class="p">,</span><span class="w"> </span><span class="n">pad</span><span class="o">=</span><span class="s2">"no"</span><span class="p">)</span>
+<span class="k">read</span><span class="p">(</span><span class="mi">61</span><span class="p">,</span><span class="w"> </span><span class="s1">'(A4)'</span><span class="p">)</span><span class="w"> </span><span class="n">s</span><span class="w">   </span><span class="c">! no padding; read can hit end-of-record</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recl</span></code>:</p>
+<ul class="simple">
+<li><p>For <code class="docutils literal notranslate"><span class="pre">DIRECT</span></code> access, specifies the record length in file storage units (processor dependent).</p></li>
+<li><p>Required when <code class="docutils literal notranslate"><span class="pre">access="DIRECT"</span></code>.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">open</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">=</span><span class="s2">"data.dat"</span><span class="p">,</span><span class="w"> </span><span class="nb">access</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span><span class="w"> </span><span class="n">recl</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Lien permanent vers ce titre">¶</a></h2>
@@ -580,6 +762,8 @@
     <span class="p">()</span>
     <span class="p">(</span><span class="n">StringConstant</span> <span class="s2">"test.txt"</span><span class="p">)</span>
     <span class="p">(</span><span class="n">StringConstant</span> <span class="s2">"old"</span><span class="p">)</span>
+    <span class="p">()</span>
+    <span class="p">()</span>
     <span class="p">()</span>
     <span class="p">()</span>
     <span class="p">()</span>

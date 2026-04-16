@@ -455,7 +455,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#specifier-behavior-brief" class="md-nav__link">Specifier behavior (brief)</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -479,7 +483,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Lien permanent vers ce titre">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Lien permanent vers ce titre">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>FileRead(int label, expr? unit, expr? fmt, expr? iomsg, expr? iostat, expr? advance, expr? size, expr? id, expr? pos, expr* values, stmt? overloaded, bool is_formatted, symbol? nml, expr? rec)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>FileRead(int label, expr? unit, expr? fmt, expr? iomsg, expr? iostat, expr? advance, expr? size, expr? id, expr? pos, expr* values, stmt? overloaded, bool is_formatted, symbol? nml, expr? rec, expr? pad)
 </pre></div>
 </div>
 </section>
@@ -507,11 +511,11 @@
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">iomsg</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable for error message.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Integer variable for status.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">advance</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
@@ -549,6 +553,10 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
 <td class="text-left"><p>Record number for direct access I/O.</p></td>
 </tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">pad</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
+<td class="text-left"><p>Character expression for padding mode. For details, see <span class="xref myst">FileOpen</span>.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -560,6 +568,92 @@
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Lien permanent vers ce titre">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">FileRead</span></code> node represents the Fortran <code class="docutils literal notranslate"><span class="pre">READ</span></code> statement, which is used to transfer data from an external file or an internal file to the items in the input list or a namelist group.</p>
+<section id="specifier-behavior-brief">
+<h3 id="specifier-behavior-brief">Specifier behavior (brief)<a class="headerlink" href="#specifier-behavior-brief" title="Lien permanent vers ce titre">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">unit</span></code>:</p>
+<ul class="simple">
+<li><p>Selects the external unit (or internal file expression) used as the read source.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fmt</span></code>:</p>
+<ul class="simple">
+<li><p>Selects formatted input interpretation.</p></li>
+<li><p>Typical forms include explicit format strings and list-directed input (<code class="docutils literal notranslate"><span class="pre">*</span></code>).</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">read</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s1">'(I5,1X,F8.3)'</span><span class="p">)</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">x</span>
+<span class="k">read</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">x</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">advance</span></code> (formatted sequential I/O):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">YES</span></code>: normal advancing read (default behavior).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NO</span></code>: non-advancing read; the file position stays on the current record.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">read</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s1">'(A)'</span><span class="p">,</span><span class="w"> </span><span class="n">advance</span><span class="o">=</span><span class="s1">'no'</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="n">chunk</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>:</p>
+<ul class="simple">
+<li><p>Receives the number of characters transferred in a non-advancing formatted read.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>:</p>
+<ul class="simple">
+<li><p>Associates the statement with an asynchronous transfer identifier.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pos</span></code>:</p>
+<ul class="simple">
+<li><p>Sets/uses stream file position for stream access reads.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rec</span></code>:</p>
+<ul class="simple">
+<li><p>Record number for direct-access I/O.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">read</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="n">rec</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="n">row</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>:</p>
+<ul class="simple">
+<li><p>Input list of variables/items populated by the read.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is_formatted</span></code>:</p>
+<ul class="simple">
+<li><p>Internal ASR flag indicating whether this read is treated as formatted transfer.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">overloaded</span></code>:</p>
+<ul class="simple">
+<li><p>Internal lowered statement used when READ resolves through an overloaded procedure.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nml</span></code>:</p>
+<ul class="simple">
+<li><p>Namelist group symbol when the read is namelist-driven.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">read</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="n">nml</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pad</span></code>:</p>
+<ul class="simple">
+<li><p>Uses OPEN-compatible padding mode semantics for formatted input.</p></li>
+<li><p>See <span class="xref myst">FileOpen mode behavior</span>.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>:</p>
+<ul class="simple">
+<li><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Lien permanent vers ce titre">¶</a></h2>
@@ -580,6 +674,7 @@
     <span class="p">[(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">b</span><span class="p">)]</span>
     <span class="p">()</span>
     <span class="o">.</span><span class="n">true</span><span class="o">.</span>
+    <span class="p">()</span>
     <span class="p">()</span>
     <span class="p">()</span>
 <span class="p">)</span>

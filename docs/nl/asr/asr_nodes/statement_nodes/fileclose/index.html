@@ -455,7 +455,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#specifier-behavior-brief" class="md-nav__link">Specifier behavior (brief)</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -503,11 +507,11 @@
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Integer variable that will receive the status of the I/O operation.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">iomsg</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable that will receive an error message if an error occurs.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">err</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
@@ -528,6 +532,43 @@
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permalink naar deze titel">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">FileClose</span></code> node represents the Fortran <code class="docutils literal notranslate"><span class="pre">CLOSE</span></code> statement, which is used to disconnect an external file from a unit.</p>
+<section id="specifier-behavior-brief">
+<h3 id="specifier-behavior-brief">Specifier behavior (brief)<a class="headerlink" href="#specifier-behavior-brief" title="Permalink naar deze titel">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">unit</span></code>:</p>
+<ul class="simple">
+<li><p>Identifies the connected unit to close.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">KEEP</span></code>: keep the file after closing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span></code>: delete the file when closing.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">close</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="o">=</span><span class="s1">'delete'</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">err</span></code>:</p>
+<ul class="simple">
+<li><p>Statement label to branch to if an error occurs during close.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ios</span>
+<span class="k">close</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">iostat</span><span class="o">=</span><span class="n">ios</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>100 continue
+```</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>:</p>
+<ul>
+<li><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink naar deze titel">¶</a></h2>

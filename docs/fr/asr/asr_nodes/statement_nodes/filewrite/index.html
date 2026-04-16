@@ -455,7 +455,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#specifier-behavior-brief" class="md-nav__link">Specifier behavior (brief)</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -503,11 +507,11 @@
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">iomsg</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Character variable for error message.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Integer variable for status.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
@@ -556,6 +560,67 @@
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Lien permanent vers ce titre">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">FileWrite</span></code> node represents the Fortran <code class="docutils literal notranslate"><span class="pre">WRITE</span></code> statement, which is used to transfer data from the items in the output list or a namelist group to an external file or an internal file.</p>
+<section id="specifier-behavior-brief">
+<h3 id="specifier-behavior-brief">Specifier behavior (brief)<a class="headerlink" href="#specifier-behavior-brief" title="Lien permanent vers ce titre">¶</a></h3>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">unit</span></code>:</p>
+<ul class="simple">
+<li><p>Selects the external unit (or internal file expression) used as the write target.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>:</p>
+<ul class="simple">
+<li><p>Output list of expressions/items written by the statement.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code>:</p>
+<ul class="simple">
+<li><p>Associates the statement with an asynchronous transfer identifier.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rec</span></code>:</p>
+<ul class="simple">
+<li><p>Record number for direct-access I/O writes.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">write</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="n">rec</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="n">row</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pos</span></code>:</p>
+<ul class="simple">
+<li><p>Sets/uses stream file position for stream access writes.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nml</span></code>:</p>
+<ul class="simple">
+<li><p>Namelist group symbol when the write is namelist-driven.</p></li>
+</ul>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">write</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="n">nml</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">separator</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code>:</p>
+<ul class="simple">
+<li><p>Optional output formatting controls used by lowered/internal write forms.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is_formatted</span></code>:</p>
+<ul class="simple">
+<li><p>Internal ASR flag indicating whether this write is treated as formatted transfer.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">overloaded</span></code>:</p>
+<ul class="simple">
+<li><p>Internal lowered statement used when WRITE resolves through an overloaded procedure.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>:</p>
+<ul class="simple">
+<li><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Lien permanent vers ce titre">¶</a></h2>

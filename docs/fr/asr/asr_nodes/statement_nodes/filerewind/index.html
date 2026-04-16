@@ -455,7 +455,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#specifier-behavior-brief" class="md-nav__link">Specifier behavior (brief)</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -479,7 +483,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Lien permanent vers ce titre">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Lien permanent vers ce titre">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>FileRewind(int label, expr? unit, expr? iostat, expr? err)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>FileRewind(int label, expr? unit, expr? iostat, expr? err, expr? iomsg)
 </pre></div>
 </div>
 </section>
@@ -503,11 +507,15 @@
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
-<td class="text-left"><p>Integer variable for status.</p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">err</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
 <td class="text-left"><p>Statement label for error branching.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">iomsg</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></td>
 </tr>
 </tbody>
 </table>
@@ -520,6 +528,26 @@
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Lien permanent vers ce titre">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">FileRewind</span></code> node represents the Fortran <code class="docutils literal notranslate"><span class="pre">REWIND</span></code> statement, which positions the specified file at its initial point.</p>
+<section id="specifier-behavior-brief">
+<h3 id="specifier-behavior-brief">Specifier behavior (brief)<a class="headerlink" href="#specifier-behavior-brief" title="Lien permanent vers ce titre">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">unit</span></code>:</p>
+<ul>
+<li><p>Identifies the connected unit to rewind.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>:</p>
+<ul>
+<li><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">err</span></code>:</p>
+<ul>
+<li><p>Statement label to branch to if an error occurs during rewind.</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Lien permanent vers ce titre">¶</a></h2>
@@ -530,6 +558,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">FileRewind</span>
     <span class="mi">0</span>
     <span class="p">(</span><span class="n">IntegerConstant</span> <span class="mi">10</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[]))</span>
+    <span class="p">()</span>
     <span class="p">()</span>
     <span class="p">()</span>
 <span class="p">)</span>
