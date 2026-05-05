@@ -583,7 +583,8 @@
     abi abi, access access, presence presence, bool value_attr,
     bool target_attr, bool contiguous_attr, string? bindc_name,
     bool is_volatile, bool is_protected,
-    pass_attr pass_attr, identifier? self_argument, int corank)
+    pass_attr pass_attr, identifier? self_argument,
+    int corank, codimension* codims, bool is_coarray)
 </pre></div>
 </div>
 </section>
@@ -633,6 +634,14 @@ that name, which may be at any position in the argument list</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">corank</span></code> the number of codimensions for coarray variables (0 for non-coarrays).
 When non-zero, indicates that this variable is a coarray and specifies how many
+coarray indices (image selectors) are required in <code class="docutils literal notranslate"><span class="pre">CoarrayRef</span></code> expressions to
+reference it across images.</p>
+<p><code class="docutils literal notranslate"><span class="pre">codims</span></code> optional codimension bounds for coarray variables. Each entry follows
+the same structure as a <code class="docutils literal notranslate"><span class="pre">dimension</span></code> (start and length). When omitted, the
+coarray is treated as having deferred/unknown codimension bounds.</p>
+<p><code class="docutils literal notranslate"><span class="pre">is_coarray</span></code> if true, this variable is marked as a coarray declaration. This is
+typically true when <code class="docutils literal notranslate"><span class="pre">corank</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>.</p>
+<p>When non-zero, indicates that this variable is a coarray and specifies how many
 coarray indices (image selectors) are required in <code class="docutils literal notranslate"><span class="pre">CoarrayRef</span></code> expressions to
 reference it across images. For example, <code class="docutils literal notranslate"><span class="pre">integer</span> <span class="pre">::</span> <span class="pre">x[*]</span></code> has <code class="docutils literal notranslate"><span class="pre">corank=1</span></code>, while
 <code class="docutils literal notranslate"><span class="pre">integer</span> <span class="pre">::</span> <span class="pre">y(10)[*,*]</span></code> has <code class="docutils literal notranslate"><span class="pre">corank=2</span></code>.</p>
