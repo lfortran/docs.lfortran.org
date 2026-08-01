@@ -479,7 +479,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Lien permanent vers ce titre">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Lien permanent vers ce titre">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>FileBackspace(int label, expr? unit, expr? iostat, expr? err)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>FileBackspace(int label, expr? unit, expr? iostat, expr? iomsg, expr? err)
 </pre></div>
 </div>
 </section>
@@ -505,7 +505,11 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
 <td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span> (<code class="docutils literal notranslate"><span class="pre">iostat</span></code> and <code class="docutils literal notranslate"><span class="pre">iomsg</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">err</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">iomsg</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
+<td class="text-left"><p>See <span class="xref myst">FileOpen mode behavior</span>.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">err</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">expr?</span></code></p></td>
 <td class="text-left"><p>Statement label for error branching.</p></td>
 </tr>
@@ -530,6 +534,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">FileBackspace</span>
     <span class="mi">0</span>
     <span class="p">(</span><span class="n">IntegerConstant</span> <span class="mi">10</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[]))</span>
+    <span class="p">()</span>
     <span class="p">()</span>
     <span class="p">()</span>
 <span class="p">)</span>
