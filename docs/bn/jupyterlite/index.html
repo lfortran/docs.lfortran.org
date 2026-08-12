@@ -65,7 +65,7 @@
     <link rel="index" title="ইনডেক্স" href="../genindex/" />
     <link rel="search" title="অনুসন্ধান" href="../search/" />
     <link rel="next" title="Contributing" href="../contributing/" />
-    <link rel="prev" title="Difference between an AST and ASR" href="../ast_and_asr/" />
+    <link rel="prev" title="Interactive evaluation: one TranslationUnit per cell" href="../interactive_cells/" />
   
    
 
@@ -313,6 +313,13 @@
     
     
       <a href="../ast_and_asr/" class="md-nav__link">Difference between an AST and ASR</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../interactive_cells/" class="md-nav__link">Interactive evaluation: one TranslationUnit per cell</a>
       
     
     </li>
@@ -953,10 +960,11 @@ compile it with <code class="docutils literal notranslate"><span class="pre">lfo
 Write an ordinary <strong>integration test</strong> in <code class="docutils literal notranslate"><span class="pre">integration_tests/</span></code> and register it
 in <code class="docutils literal notranslate"><span class="pre">integration_tests/CMakeLists.txt</span></code> with the <code class="docutils literal notranslate"><span class="pre">gfortran</span></code> and <code class="docutils literal notranslate"><span class="pre">llvm</span></code> labels.
 That is the preferred form of every LFortran test.</p></li>
-<li><p>If it only fails when the code is split across cells (state persisting in the
-global symbol table between cells, modules defined in one cell and used in the
-next, a symbol re-added on a second evaluation, ...), it is an <em>interactive
-mode</em> bug and needs an evaluator test — continue below.</p></li>
+<li><p>If it only fails when the code is split across cells (state persisting
+between cells, modules defined in one cell and used in the next, a symbol
+re-added on a second evaluation, ...), it is an <em>interactive mode</em> bug and
+needs an evaluator test — continue below. <a class="reference internal" href="../interactive_cells/"><span class="doc">Interactive evaluation: one TranslationUnit per cell</span></a> describes
+how cells are represented in ASR, which is usually where such a bug lives.</p></li>
 </ul>
 </section>
 <section id="step-2-write-the-mre-as-an-evaluator-test">
@@ -1077,7 +1085,7 @@ plus an evaluator test for whatever compile-time part can be asserted.</p></li>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../ast_and_asr/" title="Difference between an AST and ASR"
+            <a href="../interactive_cells/" title="Interactive evaluation: one TranslationUnit per cell"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -1086,7 +1094,7 @@ plus an evaluator test for whatever compile-time part can be asserted.</p></li>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Difference between an AST and ASR </span>
+                      class="md-footer-nav__direction"> Previous </span> Interactive evaluation: one TranslationUnit per cell </span>
               </div>
             </a>
           

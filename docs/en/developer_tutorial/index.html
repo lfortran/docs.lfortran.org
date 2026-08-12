@@ -361,6 +361,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../interactive_cells/" class="md-nav__link">Interactive evaluation: one TranslationUnit per cell</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../jupyterlite/" class="md-nav__link">LFortran in the Browser (JupyterLite)</a>
       
     
@@ -914,132 +921,16 @@ r = a + b
 <div class="highlight"><pre>
 (<span class="ansi-magenta-intense-fg ansi-bold">TranslationUnit</span>
     (<span class="ansi-yellow-fg">SymbolTable</span>
-        1
+        5
         {
-            f:
-                (<span class="ansi-magenta-intense-fg ansi-bold">Function</span>
-                    (<span class="ansi-yellow-fg">SymbolTable</span>
-                        2
-                        {
-                            a:
-                                (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span>
-                                    2
-                                    a
-                                    []
-                                    <span class="ansi-green-intense-fg ansi-bold">In</span>
-                                    ()
-                                    ()
-                                    <span class="ansi-green-intense-fg ansi-bold">Default</span>
-                                    (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4)
-                                    ()
-                                    <span class="ansi-green-intense-fg ansi-bold">ExternalUndefined</span>
-                                    <span class="ansi-green-intense-fg ansi-bold">Public</span>
-                                    <span class="ansi-green-intense-fg ansi-bold">Required</span>
-                                    .false.
-                                    .false.
-                                    .false.
-                                    ()
-                                    .false.
-                                    .false.
-                                    <span class="ansi-green-intense-fg ansi-bold">NotMethod</span>
-                                    ()
-                                    []
-                                ),
-                            b:
-                                (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span>
-                                    2
-                                    b
-                                    []
-                                    <span class="ansi-green-intense-fg ansi-bold">In</span>
-                                    ()
-                                    ()
-                                    <span class="ansi-green-intense-fg ansi-bold">Default</span>
-                                    (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4)
-                                    ()
-                                    <span class="ansi-green-intense-fg ansi-bold">ExternalUndefined</span>
-                                    <span class="ansi-green-intense-fg ansi-bold">Public</span>
-                                    <span class="ansi-green-intense-fg ansi-bold">Required</span>
-                                    .false.
-                                    .false.
-                                    .false.
-                                    ()
-                                    .false.
-                                    .false.
-                                    <span class="ansi-green-intense-fg ansi-bold">NotMethod</span>
-                                    ()
-                                    []
-                                ),
-                            r:
-                                (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span>
-                                    2
-                                    r
-                                    []
-                                    <span class="ansi-green-intense-fg ansi-bold">ReturnVar</span>
-                                    ()
-                                    ()
-                                    <span class="ansi-green-intense-fg ansi-bold">Default</span>
-                                    (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4)
-                                    ()
-                                    <span class="ansi-green-intense-fg ansi-bold">ExternalUndefined</span>
-                                    <span class="ansi-green-intense-fg ansi-bold">Public</span>
-                                    <span class="ansi-green-intense-fg ansi-bold">Required</span>
-                                    .false.
-                                    .false.
-                                    .false.
-                                    ()
-                                    .false.
-                                    .false.
-                                    <span class="ansi-green-intense-fg ansi-bold">NotMethod</span>
-                                    ()
-                                    []
-                                )
-                        })
-                    f
-                    (<span class="ansi-magenta-intense-fg ansi-bold">FunctionType</span>
-                        [(<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4)
-                        (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4)]
-                        (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4)
-                        <span class="ansi-green-intense-fg ansi-bold">ExternalUndefined</span>
-                        <span class="ansi-green-intense-fg ansi-bold">Implementation</span>
-                        ()
-                        .false.
-                        .false.
-                        .false.
-                        .false.
-                        .false.
-                        []
-                        .false.
-                    )
-                    []
-                    [(<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">a</span>)
-                    (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">b</span>)]
-                    [(<span class="ansi-magenta-intense-fg ansi-bold">Assignment</span>
-                        (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">r</span>)
-                        (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span>
-                            (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">a</span>)
-                            <span class="ansi-green-intense-fg ansi-bold">Add</span>
-                            (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">b</span>)
-                            (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4)
-                            ()
-                        )
-                        ()
-                        .false.
-                        .false.
-                    )]
-                    (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 2 <span class="ansi-yellow-fg">r</span>)
-                    <span class="ansi-green-intense-fg ansi-bold">Public</span>
-                    .true.
-                    .true.
-                    ()
-                ),
             f2:
                 (<span class="ansi-magenta-intense-fg ansi-bold">Function</span>
                     (<span class="ansi-yellow-fg">SymbolTable</span>
-                        3
+                        6
                         {
                             a:
                                 (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span>
-                                    3
+                                    6
                                     a
                                     []
                                     <span class="ansi-green-intense-fg ansi-bold">In</span>
@@ -1063,7 +954,7 @@ r = a + b
                                 ),
                             b:
                                 (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span>
-                                    3
+                                    6
                                     b
                                     []
                                     <span class="ansi-green-intense-fg ansi-bold">In</span>
@@ -1087,7 +978,7 @@ r = a + b
                                 ),
                             r:
                                 (<span class="ansi-magenta-intense-fg ansi-bold">Variable</span>
-                                    3
+                                    6
                                     r
                                     []
                                     <span class="ansi-green-intense-fg ansi-bold">ReturnVar</span>
@@ -1127,14 +1018,14 @@ r = a + b
                         .false.
                     )
                     []
-                    [(<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">a</span>)
-                    (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">b</span>)]
+                    [(<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 6 <span class="ansi-yellow-fg">a</span>)
+                    (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 6 <span class="ansi-yellow-fg">b</span>)]
                     [(<span class="ansi-magenta-intense-fg ansi-bold">Assignment</span>
-                        (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">r</span>)
+                        (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 6 <span class="ansi-yellow-fg">r</span>)
                         (<span class="ansi-magenta-intense-fg ansi-bold">IntegerBinOp</span>
-                            (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">a</span>)
+                            (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 6 <span class="ansi-yellow-fg">a</span>)
                             <span class="ansi-green-intense-fg ansi-bold">Add</span>
-                            (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">b</span>)
+                            (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 6 <span class="ansi-yellow-fg">b</span>)
                             (<span class="ansi-magenta-intense-fg ansi-bold">Integer</span> 4)
                             ()
                         )
@@ -1142,7 +1033,7 @@ r = a + b
                         .false.
                         .false.
                     )]
-                    (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 3 <span class="ansi-yellow-fg">r</span>)
+                    (<span class="ansi-magenta-intense-fg ansi-bold">Var</span> 6 <span class="ansi-yellow-fg">r</span>)
                     <span class="ansi-green-intense-fg ansi-bold">Public</span>
                     .true.
                     .true.
