@@ -1,0 +1,1128 @@
+
+<!DOCTYPE html>
+
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="../_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="../_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="../_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="../_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="../_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>LFortran in the Browser (JupyterLite) &#8212; LFortran</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/material.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansi.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../_static/lfortran-logo.svg"/>
+    <link rel="index" title="Índice" href="../genindex/" />
+    <link rel="search" title="Pesquisar" href="../search/" />
+    <link rel="next" title="Contribuindo" href="../contributing/" />
+    <link rel="prev" title="Diferenças entre uma AST e uma ASR" href="../ast_and_asr/" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=amber data-md-color-accent=orange>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#jupyterlite" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../" title="LFortran"
+           class="md-header-nav__button md-logo">
+          
+              <img src="../_static/lfortran-logo.svg" height="26"
+                   alt="LFortran logo">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">LFortran Documentation</span>
+          <span class="md-header-nav__topic"> LFortran in the Browser (JupyterLite) </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="../search/" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+  
+  <div class="md-flex__cell md-flex__cell--shrink dropdown">
+    <button class="dropdownbutton">Versions</button>
+    <div class="dropdown-content md-hero">
+          <a title="English" href="/../en/">English</a>
+      
+          <a title="Bengali" href="/../bn/">Bengali</a>
+      
+          <a title="Czech" href="/../cs/">Czech</a>
+      
+          <a title="German" href="/../de/">German</a>
+      
+          <a title="Spanish" href="/../es/">Spanish</a>
+      
+          <a title="French" href="/../fr/">French</a>
+      
+          <a title="Japanese" href="/../ja/">Japanese</a>
+      
+          <a title="Dutch" href="/../nl/">Dutch</a>
+      
+          <a title="Polish" href="/../pl/">Polish</a>
+      
+          <a title="Portuguese" href="/../pt/">Portuguese</a>
+      
+          <a title="Russian" href="/../ru/">Russian</a>
+      
+          <a title="Chinese" href="/../zh_CN/">Chinese</a>
+      
+    </div>
+  </div>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="../" class="md-tabs__link">LFortran</a></li>
+            
+            <li class="md-tabs__item"><a href="../installation/" class="md-tabs__link">Getting started</a></li>
+            
+            <li class="md-tabs__item"><a href="../progress/" class="md-tabs__link">LFortran Development Status</a></li>
+            
+            <li class="md-tabs__item"><a href="../design/" class="md-tabs__link">Developers's Guide</a></li>
+            
+            <li class="md-tabs__item"><a href="../intrinsics/array/" class="md-tabs__link">Intrinsics</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../" title="LFortran" class="md-nav__button md-logo">
+      
+        <img src="../_static/lfortran-logo.svg" alt=" logo" width="48" height="48">
+      
+    </a>
+    <a href="../"
+       title="LFortran">LFortran Documentation</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Começando</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../installation/" class="md-nav__link">Instalação</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../language/" class="md-nav__link">Linguagem Fortran</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../usage/" class="md-nav__link">LFortran User Guide</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Progresso no Desenvolvimento do LFortran</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../progress/" class="md-nav__link">Progresso no Desenvolvimento do LFortran</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../progress/#topics" class="md-nav__link">Tópicos</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Guia do Desenvolvedor</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../design/" class="md-nav__link">Design do LFortran</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../developer_tutorial/" class="md-nav__link">Tutorial de Desenvolvedor</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ast_and_asr/" class="md-nav__link">Diferenças entre uma AST e uma ASR</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> LFortran in the Browser (JupyterLite) </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">LFortran in the Browser (JupyterLite)</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#jupyterlite--page-root" class="md-nav__link">LFortran in the Browser (JupyterLite)</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#how-the-deployed-site-is-produced" class="md-nav__link">How the deployed site is produced</a>
+        </li>
+        <li class="md-nav__item"><a href="#three-ways-to-reproduce-a-lab-bug-locally" class="md-nav__link">Three ways to reproduce a lab bug locally</a>
+        </li>
+        <li class="md-nav__item"><a href="#option-a-native-jupyter-kernel-fast-loop" class="md-nav__link">Option A — native Jupyter kernel (fast loop)</a>
+        </li>
+        <li class="md-nav__item"><a href="#option-b-full-jupyterlite-build" class="md-nav__link">Option B — full JupyterLite build</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#the-tasks" class="md-nav__link">The tasks</a>
+        </li>
+        <li class="md-nav__item"><a href="#the-environments" class="md-nav__link">The environments</a>
+        </li>
+        <li class="md-nav__item"><a href="#what-each-step-actually-does" class="md-nav__link">What each step actually does</a>
+        </li>
+        <li class="md-nav__item"><a href="#edit-rebuild-loop" class="md-nav__link">Edit → rebuild loop</a>
+        </li>
+        <li class="md-nav__item"><a href="#troubleshooting" class="md-nav__link">Troubleshooting</a>
+        </li>
+        <li class="md-nav__item"><a href="#running-the-same-commands-as-ci" class="md-nav__link">Running the same commands as CI</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#writing-a-test-for-a-lab-bug" class="md-nav__link">Writing a test for a lab bug</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#step-1-decide-whether-the-bug-is-interactive-mode-specific" class="md-nav__link">Step 1 — decide whether the bug is interactive-mode specific</a>
+        </li>
+        <li class="md-nav__item"><a href="#step-2-write-the-mre-as-an-evaluator-test" class="md-nav__link">Step 2 — write the MRE as an evaluator test</a>
+        </li>
+        <li class="md-nav__item"><a href="#step-3-reduce" class="md-nav__link">Step 3 — reduce</a>
+        </li>
+        <li class="md-nav__item"><a href="#step-4-run-it" class="md-nav__link">Step 4 — run it</a>
+        </li>
+        <li class="md-nav__item"><a href="#a-note-on-rich-display-display-data" class="md-nav__link">A note on rich display (<code class="docutils literal notranslate"><span class="pre">display_data</span></code>)</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#how-the-deployed-site-is-produced" class="md-nav__link">How the deployed site is produced</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#three-ways-to-reproduce-a-lab-bug-locally" class="md-nav__link">Three ways to reproduce a lab bug locally</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#option-a-native-jupyter-kernel-fast-loop" class="md-nav__link">Option A — native Jupyter kernel (fast loop)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#option-b-full-jupyterlite-build" class="md-nav__link">Option B — full JupyterLite build</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#writing-a-test-for-a-lab-bug" class="md-nav__link">Writing a test for a lab bug</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../contributing/" class="md-nav__link">Contribuindo</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Funções Intrínsecas do LFortran</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/array/" class="md-nav__link">Funções Intrínsecas em Arrays</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/bit/" class="md-nav__link">Funções Intrínsecas de Bits</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/character/" class="md-nav__link">Funções Intrínsecas para Caracteres</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/kind-type/" class="md-nav__link">Kind Type Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/mathematical/" class="md-nav__link">Mathematical Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/numeric/" class="md-nav__link">Numeric Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/misc/" class="md-nav__link">Miscellaneous Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran ASR Nodes</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/kinds_nodes/kinds/" class="md-nav__link">kinds</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/symbol_nodes/symbol_nodes/" class="md-nav__link">ASR Symbol Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/type_nodes/ttype/" class="md-nav__link">ttype</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMp Nodes</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#jupyterlite--page-root" class="md-nav__link">LFortran in the Browser (JupyterLite)</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#how-the-deployed-site-is-produced" class="md-nav__link">How the deployed site is produced</a>
+        </li>
+        <li class="md-nav__item"><a href="#three-ways-to-reproduce-a-lab-bug-locally" class="md-nav__link">Three ways to reproduce a lab bug locally</a>
+        </li>
+        <li class="md-nav__item"><a href="#option-a-native-jupyter-kernel-fast-loop" class="md-nav__link">Option A — native Jupyter kernel (fast loop)</a>
+        </li>
+        <li class="md-nav__item"><a href="#option-b-full-jupyterlite-build" class="md-nav__link">Option B — full JupyterLite build</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#the-tasks" class="md-nav__link">The tasks</a>
+        </li>
+        <li class="md-nav__item"><a href="#the-environments" class="md-nav__link">The environments</a>
+        </li>
+        <li class="md-nav__item"><a href="#what-each-step-actually-does" class="md-nav__link">What each step actually does</a>
+        </li>
+        <li class="md-nav__item"><a href="#edit-rebuild-loop" class="md-nav__link">Edit → rebuild loop</a>
+        </li>
+        <li class="md-nav__item"><a href="#troubleshooting" class="md-nav__link">Troubleshooting</a>
+        </li>
+        <li class="md-nav__item"><a href="#running-the-same-commands-as-ci" class="md-nav__link">Running the same commands as CI</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#writing-a-test-for-a-lab-bug" class="md-nav__link">Writing a test for a lab bug</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#step-1-decide-whether-the-bug-is-interactive-mode-specific" class="md-nav__link">Step 1 — decide whether the bug is interactive-mode specific</a>
+        </li>
+        <li class="md-nav__item"><a href="#step-2-write-the-mre-as-an-evaluator-test" class="md-nav__link">Step 2 — write the MRE as an evaluator test</a>
+        </li>
+        <li class="md-nav__item"><a href="#step-3-reduce" class="md-nav__link">Step 3 — reduce</a>
+        </li>
+        <li class="md-nav__item"><a href="#step-4-run-it" class="md-nav__link">Step 4 — run it</a>
+        </li>
+        <li class="md-nav__item"><a href="#a-note-on-rich-display-display-data" class="md-nav__link">A note on rich display (<code class="docutils literal notranslate"><span class="pre">display_data</span></code>)</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="lfortran-in-the-browser-jupyterlite">
+<h1 id="jupyterlite--page-root">LFortran in the Browser (JupyterLite)<a class="headerlink" href="#jupyterlite--page-root" title="Link permanente para este título">¶</a></h1>
+<p>LFortran runs entirely inside the browser at</p>
+<p><a class="reference external" href="https://lfortran.github.io/lfortran/lab/index.html">https://lfortran.github.io/lfortran/lab/index.html</a></p>
+<p>(linked from the <code class="docutils literal notranslate"><span class="pre">README.md</span></code> badge). There is no server: the whole compiler is
+compiled to WebAssembly and executed by the browser through the <code class="docutils literal notranslate"><span class="pre">xlfortran</span></code>
+<a class="reference external" href="https://github.com/jupyter-xeus/xeus-lite">xeus-lite</a> kernel inside
+<a class="reference external" href="https://jupyterlite.readthedocs.io/">JupyterLite</a>.</p>
+<p>This page explains how to build and run that site locally, so that bugs seen in
+the online lab can be reproduced and fixed without going through CI, and how to
+turn such a bug into a test. The short version, on Linux or macOS:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>lab<span class="w">   </span><span class="c1"># builds the WASM kernel and the site, then serves it at</span>
+<span class="w">               </span><span class="c1"># http://localhost:8000/lab/index.html</span>
+</pre></div>
+</div>
+<section id="how-the-deployed-site-is-produced">
+<h2 id="how-the-deployed-site-is-produced">How the deployed site is produced<a class="headerlink" href="#how-the-deployed-site-is-produced" title="Link permanente para este título">¶</a></h2>
+<p>The site is built and deployed by the <code class="docutils literal notranslate"><span class="pre">build_xlfortran_jupyterlite</span></code> and
+<code class="docutils literal notranslate"><span class="pre">deploy_jupyterlite</span></code> jobs in <code class="docutils literal notranslate"><span class="pre">.github/workflows/Exhaustive-Checks-CI.yml</span></code>.
+The jobs run on every push to <code class="docutils literal notranslate"><span class="pre">main</span></code> (and on PRs labelled
+<code class="docutils literal notranslate"><span class="pre">Tests::Run-Exhaustive</span></code>) and run the same scripts the pixi tasks below wrap:</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>CI step</p></th>
+<th class="head"><p>Local equivalent</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">./build0.sh</span></code> — generate the parser / AST / ASR headers</p></td>
+<td><p>(run automatically)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">./wasm-build0.sh</span></code> — build a <em>native</em> <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> and compile the runtime <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files into the WASM <em>host</em> environment</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">wasm-mods</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">./wasm-build1.sh</span></code> — cross-compile LFortran and the <code class="docutils literal notranslate"><span class="pre">xlfortran</span></code> kernel to WebAssembly with Emscripten</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">wasm-kernel</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">node</span> <span class="pre">build-wasm/src/lfortran/tests/test_lfortran.js</span></code> — evaluator test-suite inside the WASM runtime</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">wasm-test</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lite</span> <span class="pre">build</span></code> — assemble the site (<code class="docutils literal notranslate"><span class="pre">dist/</span></code>) with the kernel and the demo notebooks from <code class="docutils literal notranslate"><span class="pre">share/lfortran/nb/</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">lab-build</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Deploy <code class="docutils literal notranslate"><span class="pre">dist/</span></code> to GitHub Pages</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">lab</span></code> (serves it locally instead)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="three-ways-to-reproduce-a-lab-bug-locally">
+<h2 id="three-ways-to-reproduce-a-lab-bug-locally">Three ways to reproduce a lab bug locally<a class="headerlink" href="#three-ways-to-reproduce-a-lab-bug-locally" title="Link permanente para este título">¶</a></h2>
+<p>Pick the cheapest one that still shows the bug:</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Approach</p></th>
+<th class="head"><p>Build cost</p></th>
+<th class="head"><p>Use when</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>C++ evaluator test (<code class="docutils literal notranslate"><span class="pre">FortranEvaluator::evaluate2</span></code>)</p></td>
+<td><p>native build only</p></td>
+<td><p>Almost always — this is also the form the <em>fix</em> has to be tested in. See «Writing a test» below.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Native Jupyter kernel (<code class="docutils literal notranslate"><span class="pre">-DWITH_XEUS=yes</span></code>) + JupyterLab</p></td>
+<td><p>native build only</p></td>
+<td><p>You need real notebook behaviour: rich display (<code class="docutils literal notranslate"><span class="pre">display_data</span></code>), streams, cell-by-cell state, error rendering.</p></td>
+</tr>
+<tr class="row-even"><td><p>Full JupyterLite/WASM build (<code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">lab</span></code>)</p></td>
+<td><p>~30–60 min the first time</p></td>
+<td><p>The bug is WASM-specific, or you want to confirm the fix in exactly the deployed artifact.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The kernel logic is shared by all three: <code class="docutils literal notranslate"><span class="pre">src/lfortran/fortran_kernel.cpp</span></code>
+drives <code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span></code> (<code class="docutils literal notranslate"><span class="pre">src/lfortran/fortran_evaluator.cpp</span></code>), and each
+notebook cell is one call to <code class="docutils literal notranslate"><span class="pre">FortranEvaluator::evaluate2()</span></code>. Only the transport
+(ZeroMQ vs. <code class="docutils literal notranslate"><span class="pre">xeus-lite</span></code> in a web worker) and the code generator target differ.
+So a bug that is not about WASM itself will reproduce in the native kernel and,
+usually, in a plain C++ evaluator test.</p>
+</section>
+<section id="option-a-native-jupyter-kernel-fast-loop">
+<h2 id="option-a-native-jupyter-kernel-fast-loop">Option A — native Jupyter kernel (fast loop)<a class="headerlink" href="#option-a-native-jupyter-kernel-fast-loop" title="Link permanente para este título">¶</a></h2>
+<p>This is the ordinary xeus kernel, described in
+<a class="reference internal" href="../installation/"><span class="doc std std-doc">Enabling the Jupyter Kernel</span></a>. In short:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>xeus&gt;<span class="o">=</span><span class="m">6</span>.0.0<span class="w"> </span>xeus-zmq&gt;<span class="o">=</span><span class="m">4</span>.0.0<span class="w"> </span>nlohmann_json<span class="w"> </span>jupyter<span class="w"> </span>-c<span class="w"> </span>conda-forge
+
+cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DWITH_LLVM<span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DWITH_XEUS<span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_PREFIX_PATH<span class="o">=</span><span class="s2">"</span><span class="nv">$CONDA_PREFIX</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">"</span><span class="nv">$CONDA_PREFIX</span><span class="s2">"</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j<span class="w"> </span>--target<span class="w"> </span>install
+
+jupyter<span class="w"> </span>kernelspec<span class="w"> </span>list<span class="w"> </span>--json<span class="w">   </span><span class="c1"># "fortran" must be listed</span>
+jupyter<span class="w"> </span>lab<span class="w"> </span>share/lfortran/nb/Mandelbrot.ipynb
+</pre></div>
+</div>
+<p>Open one of the notebooks under <code class="docutils literal notranslate"><span class="pre">share/lfortran/nb/</span></code> — these are the same
+notebooks that ship with the online lab (<code class="docutils literal notranslate"><span class="pre">Demo1</span></code>, <code class="docutils literal notranslate"><span class="pre">Demo2</span></code>, <code class="docutils literal notranslate"><span class="pre">Variables</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Mandelbrot</span></code>, <code class="docutils literal notranslate"><span class="pre">Rich_Display</span></code>) — and run the failing cell. Rich output
+(<code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">lfortran_display;</span> <span class="pre">call</span> <span class="pre">display_data(...)</span></code>) works here, because the
+<code class="docutils literal notranslate"><span class="pre">lfortran_display_data</span></code> / <code class="docutils literal notranslate"><span class="pre">lfortran_clear_output</span></code> bridge symbols are defined in
+the kernel binary and resolved by the JIT.</p>
+<p>Note that the command-line REPL (<code class="docutils literal notranslate"><span class="pre">lfortran</span></code> with no arguments) is <strong>not</strong> a
+substitute: it is line-oriented, so a multi-line cell (in particular one
+containing a <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">...</span> <span class="pre">end</span> <span class="pre">module</span></code>) is evaluated as a sequence of separate
+<code class="docutils literal notranslate"><span class="pre">evaluate2()</span></code> calls rather than as one cell, which changes the behaviour.</p>
+</section>
+<section id="option-b-full-jupyterlite-build">
+<h2 id="option-b-full-jupyterlite-build">Option B — full JupyterLite build<a class="headerlink" href="#option-b-full-jupyterlite-build" title="Link permanente para este título">¶</a></h2>
+<p>Everything is driven by <a class="reference external" href="https://pixi.sh">pixi</a> tasks defined in <code class="docutils literal notranslate"><span class="pre">pixi.toml</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>wasm-kernel<span class="w">   </span><span class="c1"># cross-compile LFortran + the xlfortran kernel to WASM</span>
+pixi<span class="w"> </span>run<span class="w"> </span>lab<span class="w">           </span><span class="c1"># assemble the site and serve it</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">lab</span></code> depends on <code class="docutils literal notranslate"><span class="pre">wasm-kernel</span></code>, so <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">lab</span></code> on its own builds everything
+it needs. Then open <a class="reference external" href="http://localhost:8000/lab/index.html">http://localhost:8000/lab/index.html</a> — the local
+equivalent of the deployed URL. A plain <code class="docutils literal notranslate"><span class="pre">file://</span></code> open does <strong>not</strong> work: the
+kernel is loaded by a web worker and needs a real HTTP origin.</p>
+<p>Pixi creates the required environments on first use; expect ~30–60 min and
+several GB for the first full build (<code class="docutils literal notranslate"><span class="pre">dist/</span></code> alone is about 250 MB). The build
+tasks declare <code class="docutils literal notranslate"><span class="pre">inputs</span></code>/<code class="docutils literal notranslate"><span class="pre">outputs</span></code>, so re-running <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">lab</span></code> with nothing
+changed is a cache hit and starts serving in under a second; edit a source file
+and only the affected steps re-run.</p>
+<p>Supported on Linux and macOS — the Emscripten cross toolchain is not published
+for Windows. Verified end-to-end on macOS (arm64) and, in CI, on Linux.</p>
+<section id="the-tasks">
+<h3 id="the-tasks">The tasks<a class="headerlink" href="#the-tasks" title="Link permanente para este título">¶</a></h3>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Task</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">wasm-host-env</span></code></p></td>
+<td><p>Installs the <code class="docutils literal notranslate"><span class="pre">wasm-host</span></code> environment (see below). Pulled in automatically.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">wasm-mods</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wasm-build0.sh</span></code>: builds a native <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> and compiles the runtime <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files into the <code class="docutils literal notranslate"><span class="pre">wasm-host</span></code> environment.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">wasm-kernel</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wasm-build1.sh</span></code>: cross-compiles LFortran and <code class="docutils literal notranslate"><span class="pre">xlfortran</span></code> to WebAssembly into <code class="docutils literal notranslate"><span class="pre">build-wasm/</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">wasm-test</span></code></p></td>
+<td><p>Runs the evaluator test-suite inside the WASM runtime under <code class="docutils literal notranslate"><span class="pre">node</span></code>, exactly as CI does.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">lab-build</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lite</span> <span class="pre">build</span></code>: assembles the site into <code class="docutils literal notranslate"><span class="pre">dist/</span></code>, embedding the kernel and the demo notebooks.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">lab</span></code></p></td>
+<td><p>Serves <code class="docutils literal notranslate"><span class="pre">dist/</span></code> at <a class="reference external" href="http://localhost:8000/lab/index.html">http://localhost:8000/lab/index.html</a>.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Each task depends on the previous ones, so any of them can be invoked directly.</p>
+<p>Two things about these tasks are worth knowing when editing <code class="docutils literal notranslate"><span class="pre">pixi.toml</span></code>:</p>
+<ul class="simple">
+<li><p>Task <code class="docutils literal notranslate"><span class="pre">outputs</span></code> must live outside <code class="docutils literal notranslate"><span class="pre">.pixi/</span></code>, which pixi’s glob walker skips —
+that is why <code class="docutils literal notranslate"><span class="pre">wasm-kernel</span></code> declares <code class="docutils literal notranslate"><span class="pre">build-wasm/xlfortran.*</span></code> rather than the
+installed copies in the <code class="docutils literal notranslate"><span class="pre">wasm-host</span></code> environment.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lab-build</span></code> passes <code class="docutils literal notranslate"><span class="pre">--XeusAddon.default_channels</span></code> explicitly. <code class="docutils literal notranslate"><span class="pre">jupyterlite-xeus</span></code>
+otherwise recovers the channel list from the prefix’s <code class="docutils literal notranslate"><span class="pre">conda-meta/history</span></code>,
+which micromamba writes and pixi does not; without it the build fails late
+with <code class="docutils literal notranslate"><span class="pre">Cannot</span> <span class="pre">detect</span> <span class="pre">channels</span> <span class="pre">from</span> <span class="pre">prefix</span> <span class="pre">...</span></code>. The flag must be <strong>repeated
+once per channel</strong> — passing a quoted list (<code class="docutils literal notranslate"><span class="pre">="['a','b']"</span></code>) makes traitlets
+store the bracketed text as a single channel, which builds without error but
+produces a site whose kernel fails to start.</p></li>
+</ul>
+</section>
+<section id="the-environments">
+<h3 id="the-environments">The environments<a class="headerlink" href="#the-environments" title="Link permanente para este título">¶</a></h3>
+<p>Three pixi environments back these tasks:</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Environment</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wasm-build</span></code></p></td>
+<td><p>native tools (python, cmake, re2c, bison) plus the Emscripten toolchain (<code class="docutils literal notranslate"><span class="pre">emcmake</span></code>, <code class="docutils literal notranslate"><span class="pre">emmake</span></code>, <code class="docutils literal notranslate"><span class="pre">node</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wasm-host</span></code></p></td>
+<td><p>WASM <em>target</em> libraries — <code class="docutils literal notranslate"><span class="pre">llvm</span></code>, <code class="docutils literal notranslate"><span class="pre">xeus</span></code>, <code class="docutils literal notranslate"><span class="pre">xeus-lite</span></code>, <code class="docutils literal notranslate"><span class="pre">nlohmann_json</span></code> — plus the runtime <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lite</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jupyterlite-xeus</span></code> + <code class="docutils literal notranslate"><span class="pre">jupyter_server</span></code>, to assemble and serve the site</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">wasm-host</span></code> targets the <code class="docutils literal notranslate"><span class="pre">emscripten-wasm32</span></code> platform, which the host machine
+cannot execute, so pixi only installs it when that platform is named
+explicitly. That is what the <code class="docutils literal notranslate"><span class="pre">wasm-host-env</span></code> task does:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>wasm-host<span class="w"> </span>--platform<span class="w"> </span>emscripten-wasm32
+</pre></div>
+</div>
+<p>Its directory, <code class="docutils literal notranslate"><span class="pre">.pixi/envs/wasm-host</span></code>, is what the build scripts see as
+<code class="docutils literal notranslate"><span class="pre">$PREFIX</span></code>; the tasks set that variable for you.</p>
+<p>Because that environment adds <code class="docutils literal notranslate"><span class="pre">emscripten-wasm32</span></code> to the workspace, every other
+feature in <code class="docutils literal notranslate"><span class="pre">pixi.toml</span></code> declares an explicit <code class="docutils literal notranslate"><span class="pre">platforms</span></code> list — an environment is
+only solved for the platforms shared by all of its features, and packages like
+<code class="docutils literal notranslate"><span class="pre">python</span></code> do not exist for <code class="docutils literal notranslate"><span class="pre">emscripten-wasm32</span></code>.</p>
+</section>
+<section id="what-each-step-actually-does">
+<h3 id="what-each-step-actually-does">What each step actually does<a class="headerlink" href="#what-each-step-actually-does" title="Link permanente para este título">¶</a></h3>
+<ol class="arabic">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">wasm-mods</span></code> / <code class="docutils literal notranslate"><span class="pre">wasm-build0.sh</span></code></strong> builds a throwaway native <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> (in
+<code class="docutils literal notranslate"><span class="pre">asset_dir/</span></code>, without LLVM), compiles <code class="docutils literal notranslate"><span class="pre">src/runtime/**/*.f90</span></code> with it, and
+copies the resulting <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files into <code class="docutils literal notranslate"><span class="pre">$PREFIX/lib/</span></code>. They are preloaded
+into the WASM virtual filesystem at <code class="docutils literal notranslate"><span class="pre">/lib/</span></code> at link time, which is how
+<code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">iso_c_binding</span></code> and <code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">lfortran_display</span></code> resolve in the browser.
+Re-run after any change under <code class="docutils literal notranslate"><span class="pre">src/runtime/</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>wasm-mods
+ls<span class="w"> </span>.pixi/envs/wasm-host/lib/*.mod
+</pre></div>
+</div>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">wasm-kernel</span></code> / <code class="docutils literal notranslate"><span class="pre">wasm-build1.sh</span></code></strong> configures <code class="docutils literal notranslate"><span class="pre">build-wasm/</span></code> via <code class="docutils literal notranslate"><span class="pre">emcmake</span></code>
+with <code class="docutils literal notranslate"><span class="pre">-DXEUS_LFORTRAN_WASM_BUILD=yes</span></code>, builds <code class="docutils literal notranslate"><span class="pre">xlfortran.js</span></code>,
+<code class="docutils literal notranslate"><span class="pre">xlfortran.wasm</span></code> and <code class="docutils literal notranslate"><span class="pre">xlfortran.data</span></code> there and installs them into
+<code class="docutils literal notranslate"><span class="pre">$PREFIX/bin/</span></code>, alongside the
+kernelspec in <code class="docutils literal notranslate"><span class="pre">$PREFIX/share/jupyter/kernels/fortran/</span></code> (generated from
+<code class="docutils literal notranslate"><span class="pre">share/jupyter/kernels/fortran/wasm_kernel.json.in</span></code>). This is the slow step
+(it links LLVM); incremental rebuilds after a source edit are much faster.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">lab-build</span></code> / <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lite</span> <span class="pre">build</span></code></strong> assembles <code class="docutils literal notranslate"><span class="pre">dist/</span></code> from the kernel in
+the <code class="docutils literal notranslate"><span class="pre">wasm-host</span></code> environment plus the demo notebooks in <code class="docutils literal notranslate"><span class="pre">share/lfortran/nb/</span></code>
+(<code class="docutils literal notranslate"><span class="pre">Demo1</span></code>, <code class="docutils literal notranslate"><span class="pre">Demo2</span></code>, <code class="docutils literal notranslate"><span class="pre">Variables</span></code>, <code class="docutils literal notranslate"><span class="pre">Mandelbrot</span></code>, <code class="docutils literal notranslate"><span class="pre">Rich_Display</span></code>) — the same set
+the deployed site ships. To add your own reproducer notebook, add another
+<code class="docutils literal notranslate"><span class="pre">--contents</span></code> flag to the <code class="docutils literal notranslate"><span class="pre">lab-build</span></code> task in <code class="docutils literal notranslate"><span class="pre">pixi.toml</span></code>.</p></li>
+</ol>
+</section>
+<section id="edit-rebuild-loop">
+<h3 id="edit-rebuild-loop">Edit → rebuild loop<a class="headerlink" href="#edit-rebuild-loop" title="Link permanente para este título">¶</a></h3>
+<p>After changing LFortran sources:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>lab<span class="w">       </span><span class="c1"># rebuilds the kernel and the site, then serves it</span>
+</pre></div>
+</div>
+<p><strong>Then clear the browser state — a reload is not enough.</strong> JupyterLite installs
+a service worker that serves the app itself from cache, and <code class="docutils literal notranslate"><span class="pre">jupyterlite-xeus</span></code>
+keeps the unpacked kernel packages in IndexedDB. Both survive a rebuild <em>and</em> a
+hard reload, so after replacing <code class="docutils literal notranslate"><span class="pre">dist/</span></code> the browser can keep running the
+previous build — including a previously broken one, which looks exactly like
+«my fix did nothing».</p>
+<p>The reliable options, in order of convenience:</p>
+<ul class="simple">
+<li><p>Open the site in a <strong>private/incognito window</strong> — fresh state every time.
+This is the sanest default while iterating.</p></li>
+<li><p>Clear the origin’s storage: in Firefox click the <strong>padlock</strong> in the URL bar →
+<em>Clear cookies and site data…</em>; in Chrome use DevTools → Application →
+Storage → <em>Clear site data</em>. Both drop the service worker, IndexedDB and
+local storage in one step. Note this also discards notebooks you edited
+inside the lab, which live in browser storage.</p></li>
+<li><p>Serve on another port (<code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">http.server</span> <span class="pre">-d</span> <span class="pre">dist</span> <span class="pre">8001</span></code>). A different
+port is a different origin, so there is no service worker and no cached app.</p></li>
+</ul>
+<p>A hard reload (<code class="docutils literal notranslate"><span class="pre">Cmd</span></code>/<code class="docutils literal notranslate"><span class="pre">Ctrl</span></code>+<code class="docutils literal notranslate"><span class="pre">Shift</span></code>+<code class="docutils literal notranslate"><span class="pre">R</span></code>) is <em>not</em> sufficient on its own: it
+bypasses the HTTP cache, but the service worker still answers first.</p>
+<p>A quick way to tell whether you are looking at cached content: watch the
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">http.server</span></code> log while you load the page. A genuinely fresh load
+requests <code class="docutils literal notranslate"><span class="pre">/lab/index.html</span></code>, <code class="docutils literal notranslate"><span class="pre">/build/lab/bundle.js</span></code> and a long list of
+<code class="docutils literal notranslate"><span class="pre">/build/*.js</span></code> and <code class="docutils literal notranslate"><span class="pre">/extensions/...</span></code> files. If you only see <code class="docutils literal notranslate"><span class="pre">jupyter-lite.json</span></code>
+and the <code class="docutils literal notranslate"><span class="pre">xeus/</span></code> kernel assets, the app came from the service worker.</p>
+<p>Notebook <em>contents</em> are likewise stored in browser storage, so an edited
+notebook keeps its locally-stored version even after a rebuild — use
+«File → Reset» or clear storage to pick up a new <code class="docutils literal notranslate"><span class="pre">--contents</span></code> version.</p>
+</section>
+<section id="troubleshooting">
+<h3 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link permanente para este título">¶</a></h3>
+<ul>
+<li><p>The site behaves as it did before your rebuild (an old bug is still there, a
+fix has no effect, the kernel still fails to start) — almost always the
+service worker / IndexedDB cache described above. Retry in a private window
+before debugging anything else.</p></li>
+<li><p>To check whether the problem is the build or the browser, serve <code class="docutils literal notranslate"><span class="pre">dist/</span></code> and
+load it in a fresh browser profile. If the kernel works there, <code class="docutils literal notranslate"><span class="pre">dist/</span></code> is
+fine and the browser state is stale.</p></li>
+<li><p>The kernel indicator spins at <em>Connecting</em> and cells stay at <code class="docutils literal notranslate"><span class="pre">[*]</span></code>, with the
+server log showing every asset fetched successfully. Open the browser console
+and look at the stack of the first error. If it runs through
+<code class="docutils literal notranslate"><span class="pre">xeus-extension/static/327.*.js</span></code> and ends in <code class="docutils literal notranslate"><span class="pre">___syscall_openat</span></code> with
+<code class="docutils literal notranslate"><span class="pre">InvalidStateError:</span> <span class="pre">An</span> <span class="pre">attempt</span> <span class="pre">was</span> <span class="pre">made</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">an</span> <span class="pre">object</span> <span class="pre">that</span> <span class="pre">is</span> <span class="pre">not,</span> <span class="pre">or</span> <span class="pre">is</span> <span class="pre">no</span> <span class="pre">longer,</span> <span class="pre">usable</span></code>, the page is <strong>not cross-origin isolated</strong>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">jupyterlite-xeus</span></code> chooses its kernel worker accordingly:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">crossOriginIsolated</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Worker</span><span class="p">(</span><span class="nx">URL</span><span class="p">(</span><span class="mf">654</span><span class="p">))</span><span class="w">   </span><span class="c1">// SharedArrayBuffer + Atomics.wait</span>
+<span class="w">                    </span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Worker</span><span class="p">(</span><span class="nx">URL</span><span class="p">(</span><span class="mf">327</span><span class="p">))</span><span class="w">   </span><span class="c1">// sync XHR via the service worker</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">327</span></code> fallback proxies every filesystem syscall through a synchronous
+<code class="docutils literal notranslate"><span class="pre">XMLHttpRequest</span></code> to the service worker, and racing that kills the kernel
+worker at startup. <code class="docutils literal notranslate"><span class="pre">ci/lite_server.py</span></code> — used by the <code class="docutils literal notranslate"><span class="pre">lab</span></code> task — sends
+<code class="docutils literal notranslate"><span class="pre">Cross-Origin-Opener-Policy:</span> <span class="pre">same-origin</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Cross-Origin-Embedder-Policy:</span> <span class="pre">require-corp</span></code> so the <code class="docutils literal notranslate"><span class="pre">654</span></code> path is taken
+instead. A plain <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">http.server</span></code> sends neither. Check with
+<code class="docutils literal notranslate"><span class="pre">self.crossOriginIsolated</span></code> in the console; it must be <code class="docutils literal notranslate"><span class="pre">true</span></code>. In the server
+log, a healthy start fetches <code class="docutils literal notranslate"><span class="pre">654.*.js</span></code>; <code class="docutils literal notranslate"><span class="pre">327.*.js</span></code> means the page is not
+isolated. This was an intermittent hang on Firefox 153/macOS that the
+isolated server resolved.</p>
+<p>Ignore <code class="docutils literal notranslate"><span class="pre">Trying</span> <span class="pre">to</span> <span class="pre">send</span> <span class="pre">message</span> <span class="pre">on</span> <span class="pre">removed</span> <span class="pre">socket</span></code> in the console — it
+appears on healthy startups too.</p>
+<p>Note that the deployed GitHub Pages site cannot set these headers, so it
+runs the <code class="docutils literal notranslate"><span class="pre">327</span></code> fallback. A hang that reproduces there but not locally is
+most likely this, not a compiler bug.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">crossOriginIsolated</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code> and the kernel still hangs, the cause is
+something else and the console stack will differ. Recovery, cheapest first:
+<em>Kernel → Restart Kernel…</em>, reload, then a fresh storage context (private
+window or new profile). Before chasing the browser, confirm where the fault
+is: if a headless run of the same <code class="docutils literal notranslate"><span class="pre">dist/</span></code> executes cells, the build is good.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">runtime</span> <span class="pre">.mod</span> <span class="pre">files</span> <span class="pre">found</span> <span class="pre">in</span> <span class="pre">.../lib</span></code> — run <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">wasm-mods</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">does</span> <span class="pre">not</span> <span class="pre">support</span> <span class="pre">'osx-arm64'</span> <span class="pre">on</span> <span class="pre">this</span> <span class="pre">machine</span></code> for <code class="docutils literal notranslate"><span class="pre">wasm-host</span></code> — install it
+with <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">wasm-host</span> <span class="pre">--platform</span> <span class="pre">emscripten-wasm32</span></code> (the
+<code class="docutils literal notranslate"><span class="pre">wasm-host-env</span></code> task).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Module</span> <span class="pre">'x'</span> <span class="pre">modfile</span> <span class="pre">was</span> <span class="pre">not</span> <span class="pre">found</span></code> in the browser but not natively — the
+module’s <code class="docutils literal notranslate"><span class="pre">.mod</span></code> file was not preloaded; check <code class="docutils literal notranslate"><span class="pre">.pixi/envs/wasm-host/lib/*.mod</span></code>
+and rebuild with <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">wasm-kernel</span></code>.</p></li>
+<li><p>Blank page or «kernel failed to start» — check the browser console; usually a
+missing <code class="docutils literal notranslate"><span class="pre">xlfortran.data</span></code>, meaning <code class="docutils literal notranslate"><span class="pre">lab-build</span></code> ran against a stale kernel.
+Re-run <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">wasm-kernel</span></code> then <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">lab</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">detect</span> <span class="pre">channel</span> <span class="pre">from</span> <span class="pre">&lt;url&gt;</span> <span class="pre">with</span> <span class="pre">known</span> <span class="pre">channels</span> <span class="pre">...</span></code> in the browser
+console, followed by the kernel never becoming ready — the channel list in
+<code class="docutils literal notranslate"><span class="pre">dist/xeus/wasm-host/empack_env_meta.json</span></code> does not match the channels the
+packages came from. Check that file: <code class="docutils literal notranslate"><span class="pre">channels</span></code> must be a list of plain URLs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Cannot</span> <span class="pre">detect</span> <span class="pre">channels</span> <span class="pre">from</span> <span class="pre">prefix</span> <span class="pre">...</span></code> — the <code class="docutils literal notranslate"><span class="pre">--XeusAddon.default_channels</span></code>
+argument was dropped from the <code class="docutils literal notranslate"><span class="pre">lab-build</span></code> task; see above.</p></li>
+<li><p>A task is skipped when you expected it to run — its <code class="docutils literal notranslate"><span class="pre">inputs</span></code> did not change.
+Touch the relevant file, or delete the task’s <code class="docutils literal notranslate"><span class="pre">outputs</span></code> (for example
+<code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-rf</span> <span class="pre">build-wasm/xlfortran.*</span></code>), and re-run.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Incompatible</span> <span class="pre">format:</span> <span class="pre">LFortran</span> <span class="pre">Modfile</span></code> in the browser — the preloaded <code class="docutils literal notranslate"><span class="pre">.mod</span></code>
+files predate a modfile-format change, and <code class="docutils literal notranslate"><span class="pre">wasm-mods</span></code> only watches
+<code class="docutils literal notranslate"><span class="pre">src/runtime/</span></code>. Force it: <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-rf</span> <span class="pre">.pixi/envs/wasm-host/lib/*.mod</span></code> and run
+<code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">wasm-mods</span></code> after touching <code class="docutils literal notranslate"><span class="pre">wasm-build0.sh</span></code>, or just
+<code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-rf</span> <span class="pre">.pixi/envs/wasm-host</span></code> and rebuild.</p></li>
+<li><p>To start over: <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-rf</span> <span class="pre">build-wasm</span> <span class="pre">dist</span> <span class="pre">.pixi/envs/wasm-host</span></code>.</p></li>
+</ul>
+</section>
+<section id="running-the-same-commands-as-ci">
+<h3 id="running-the-same-commands-as-ci">Running the same commands as CI<a class="headerlink" href="#running-the-same-commands-as-ci" title="Link permanente para este título">¶</a></h3>
+<p>CI does not use pixi; it drives the same three scripts with micromamba
+environments built from <code class="docutils literal notranslate"><span class="pre">ci/environment_linux.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">environment-wasm-build.yml</span></code>
+and <code class="docutils literal notranslate"><span class="pre">environment-wasm-host.yml</span></code> (see <code class="docutils literal notranslate"><span class="pre">.github/workflows/Exhaustive-Checks-CI.yml</span></code>).
+The scripts are identical — only the environment manager and the value of
+<code class="docutils literal notranslate"><span class="pre">PREFIX</span></code> differ:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PREFIX</span><span class="o">=</span><span class="nv">$MAMBA_ROOT_PREFIX</span>/envs/xeus-lfortran-wasm-host
+micromamba<span class="w"> </span>run<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>./wasm-build0.sh
+micromamba<span class="w"> </span>run<span class="w"> </span>-n<span class="w"> </span>xeus-lfortran-wasm-build<span class="w"> </span>./wasm-build1.sh
+</pre></div>
+</div>
+</section>
+</section>
+<section id="writing-a-test-for-a-lab-bug">
+<h2 id="writing-a-test-for-a-lab-bug">Writing a test for a lab bug<a class="headerlink" href="#writing-a-test-for-a-lab-bug" title="Link permanente para este título">¶</a></h2>
+<p>Follow the general rules in <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> / <code class="docutils literal notranslate"><span class="pre">CLAUDE.md</span></code>: one bug = one MRE = one
+PR, and the test must fail before the fix and pass after it.</p>
+<section id="step-1-decide-whether-the-bug-is-interactive-mode-specific">
+<h3 id="step-1-decide-whether-the-bug-is-interactive-mode-specific">Step 1 — decide whether the bug is interactive-mode specific<a class="headerlink" href="#step-1-decide-whether-the-bug-is-interactive-mode-specific" title="Link permanente para este título">¶</a></h3>
+<p>Rewrite the failing notebook cells as a single ordinary Fortran program and
+compile it with <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> (and with <code class="docutils literal notranslate"><span class="pre">gfortran</span></code> for a reference):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lfortran<span class="w"> </span>mre.f90<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./a.out
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>If it fails as a program too, the bug has nothing to do with the notebook.
+Write an ordinary <strong>integration test</strong> in <code class="docutils literal notranslate"><span class="pre">integration_tests/</span></code> and register it
+in <code class="docutils literal notranslate"><span class="pre">integration_tests/CMakeLists.txt</span></code> with the <code class="docutils literal notranslate"><span class="pre">gfortran</span></code> and <code class="docutils literal notranslate"><span class="pre">llvm</span></code> labels.
+That is the preferred form of every LFortran test.</p></li>
+<li><p>If it only fails when the code is split across cells (state persisting in the
+global symbol table between cells, modules defined in one cell and used in the
+next, a symbol re-added on a second evaluation, …), it is an <em>interactive
+mode</em> bug and needs an evaluator test — continue below.</p></li>
+</ul>
+</section>
+<section id="step-2-write-the-mre-as-an-evaluator-test">
+<h3 id="step-2-write-the-mre-as-an-evaluator-test">Step 2 — write the MRE as an evaluator test<a class="headerlink" href="#step-2-write-the-mre-as-an-evaluator-test" title="Link permanente para este título">¶</a></h3>
+<p>One notebook cell == one <code class="docutils literal notranslate"><span class="pre">evaluate2()</span></code> call. Add a <code class="docutils literal notranslate"><span class="pre">doctest</span></code> <code class="docutils literal notranslate"><span class="pre">TEST_CASE</span></code> to
+<code class="docutils literal notranslate"><span class="pre">src/lfortran/tests/test_llvm.cpp</span></code>, next to the other <code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span></code> cases:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST_CASE</span><span class="p">(</span><span class="s">"FortranEvaluator module defined in one cell, used in the next"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">CompilerOptions</span><span class="w"> </span><span class="n">cu</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cu</span><span class="p">.</span><span class="n">interactive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cu</span><span class="p">.</span><span class="n">po</span><span class="p">.</span><span class="n">runtime_library_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LCompilers</span><span class="o">::</span><span class="n">LFortran</span><span class="o">::</span><span class="n">get_runtime_library_dir</span><span class="p">();</span>
+<span class="w">    </span><span class="n">FortranEvaluator</span><span class="w"> </span><span class="nf">e</span><span class="p">(</span><span class="n">cu</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// cell 1</span>
+<span class="w">    </span><span class="n">LCompilers</span><span class="o">::</span><span class="n">Result</span><span class="o">&lt;</span><span class="n">FortranEvaluator</span><span class="o">::</span><span class="n">EvalResult</span><span class="o">&gt;</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">evaluate2</span><span class="p">(</span>
+<span class="w">        </span><span class="s">"module m</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">        </span><span class="s">"implicit none</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">        </span><span class="s">"contains</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">        </span><span class="s">"    integer function f()</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">        </span><span class="s">"        f = 5</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">        </span><span class="s">"    end function</span><span class="se">\n</span><span class="s">"</span>
+<span class="w">        </span><span class="s">"end module</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">CHECK</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">ok</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// cell 2</span>
+<span class="w">    </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">evaluate2</span><span class="p">(</span><span class="s">"use m</span><span class="se">\n</span><span class="s">integer :: i</span><span class="se">\n</span><span class="s">i = f()</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">CHECK</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">ok</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// cell 3</span>
+<span class="w">    </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">evaluate2</span><span class="p">(</span><span class="s">"i"</span><span class="p">);</span>
+<span class="w">    </span><span class="n">CHECK</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">ok</span><span class="p">);</span>
+<span class="w">    </span><span class="n">CHECK</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">result</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">FortranEvaluator</span><span class="o">::</span><span class="n">EvalResult</span><span class="o">::</span><span class="n">integer4</span><span class="p">);</span>
+<span class="w">    </span><span class="n">CHECK</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">result</span><span class="p">.</span><span class="n">i32</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Points to get right:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cu.interactive</span> <span class="pre">=</span> <span class="pre">true</span></code> — without it the evaluator does not keep the global
+symbol table across calls, and the bug will not reproduce.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cu.po.runtime_library_dir</span> <span class="pre">=</span> <span class="pre">...</span></code> — needed for any cell that does <code class="docutils literal notranslate"><span class="pre">use</span></code> of a
+runtime module.</p></li>
+<li><p>Keep the cell split of the original notebook. Merging cells that the notebook
+kept separate (or splitting a cell the notebook kept together) can make the
+bug disappear — that split <em>is</em> the reproducer.</p></li>
+<li><p>Check the value, not only <code class="docutils literal notranslate"><span class="pre">r.ok</span></code>. <code class="docutils literal notranslate"><span class="pre">EvalResult::type</span></code> is one of
+<code class="docutils literal notranslate"><span class="pre">integer4/integer8/real4/real8/complex4/complex8/boolean/statement/none</span></code>; a
+bare expression cell returns the typed value, a statement cell returns
+<code class="docutils literal notranslate"><span class="pre">statement</span></code>, and a declaration or <code class="docutils literal notranslate"><span class="pre">use</span></code> returns <code class="docutils literal notranslate"><span class="pre">none</span></code>. A cell that silently
+produces nothing usually shows up here as <code class="docutils literal notranslate"><span class="pre">statement</span></code>/<code class="docutils literal notranslate"><span class="pre">none</span></code> where a value was
+expected, or as <code class="docutils literal notranslate"><span class="pre">r.ok</span> <span class="pre">==</span> <span class="pre">false</span></code>.</p></li>
+</ul>
+</section>
+<section id="step-3-reduce">
+<h3 id="step-3-reduce">Step 3 — reduce<a class="headerlink" href="#step-3-reduce" title="Link permanente para este título">¶</a></h3>
+<p>Delete lines and merge/simplify cells until every remaining line is needed to
+make the <code class="docutils literal notranslate"><span class="pre">CHECK</span></code> fail. The <code class="docutils literal notranslate"><span class="pre">create-mre</span></code> skill (<code class="docutils literal notranslate"><span class="pre">.agents/skills/create-mre/</span></code>)
+describes the reduction procedure in detail; it applies unchanged here, with the
+<code class="docutils literal notranslate"><span class="pre">.f90</span></code> + <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> reproducer replaced by the <code class="docutils literal notranslate"><span class="pre">TEST_CASE</span></code> above.</p>
+</section>
+<section id="step-4-run-it">
+<h3 id="step-4-run-it">Step 4 — run it<a class="headerlink" href="#step-4-run-it" title="Link permanente para este título">¶</a></h3>
+<p>Natively:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j<span class="w"> </span>--target<span class="w"> </span>test_lfortran
+./build/src/lfortran/tests/test_lfortran<span class="w"> </span>-tc<span class="o">=</span><span class="s2">"FortranEvaluator module*"</span>
+</pre></div>
+</div>
+<p>(or <code class="docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">-R</span> <span class="pre">test_lfortran</span></code> from <code class="docutils literal notranslate"><span class="pre">build/</span></code> to run the whole suite).</p>
+<p>Inside WASM:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>wasm-test
+</pre></div>
+</div>
+<p>That rebuilds the kernel first. For a tighter loop, rebuild and run only the
+test binary — <code class="docutils literal notranslate"><span class="pre">xlfortran</span></code> itself does not need relinking until you rebuild the
+site:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>wasm-build<span class="w"> </span>emmake<span class="w"> </span>make<span class="w"> </span>-C<span class="w"> </span>build-wasm<span class="w"> </span>test_lfortran<span class="w"> </span>-j8
+<span class="o">(</span><span class="nb">cd</span><span class="w"> </span>build-wasm/src/lfortran/tests<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>wasm-build<span class="w"> </span>node<span class="w"> </span>test_lfortran.js<span class="w"> </span>-tc<span class="o">=</span><span class="s2">"FortranEvaluator module*"</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>For the JupyterLite build, <code class="docutils literal notranslate"><span class="pre">src/lfortran/tests/CMakeLists.txt</span></code> reduces the test
+sources to <code class="docutils literal notranslate"><span class="pre">test_llvm.cpp</span></code> only, so every test you add there is automatically
+part of the WASM run.</p>
+<p>If a test only makes sense in one of the two worlds, guard it:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifdef __EMSCRIPTEN__      </span><span class="c1">// WASM-only (e.g. preloaded .mod resolution)</span>
+<span class="cp">#ifndef __EMSCRIPTEN__     </span><span class="c1">// native-only (e.g. large stack allocations)</span>
+</pre></div>
+</div>
+</section>
+<section id="a-note-on-rich-display-display-data">
+<h3 id="a-note-on-rich-display-display-data">A note on rich display (<code class="docutils literal notranslate"><span class="pre">display_data</span></code>)<a class="headerlink" href="#a-note-on-rich-display-display-data" title="Link permanente para este título">¶</a></h3>
+<p>Bugs of the form «the cell should show an image but shows nothing» cannot be
+asserted end-to-end in an evaluator test: <code class="docutils literal notranslate"><span class="pre">lfortran_display_data()</span></code> is defined
+in the kernel (<code class="docutils literal notranslate"><span class="pre">src/lfortran/fortran_kernel.cpp</span></code>), not in the test binary, so a
+test that actually calls it will not link/resolve. Reduce such a bug to the
+compile/evaluate failure underneath it instead:</p>
+<ol class="arabic simple">
+<li><p>In the notebook, replace <code class="docutils literal notranslate"><span class="pre">call</span> <span class="pre">display_data(...)</span></code> with
+<code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">*,</span> <span class="pre">len(payload)</span></code> (or print a checksum of the payload). If the cell now
+prints nothing or errors, the display bridge is innocent and you have a plain
+evaluator bug — write the test as in step 2.</p></li>
+<li><p>If the payload is computed correctly and only the display is missing, the bug
+is in the kernel/display path. Reproduce it with Option A (native kernel),
+which exercises the same <code class="docutils literal notranslate"><span class="pre">lfortran_display_data</span></code> code path with a debugger
+attached, and keep a notebook-level reproducer under <code class="docutils literal notranslate"><span class="pre">share/lfortran/nb/</span></code>
+plus an evaluator test for whatever compile-time part can be asserted.</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="../ast_and_asr/" title="Diferenças entre uma AST e uma ASR"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> Diferenças entre uma AST e uma ASR </span>
+              </div>
+            </a>
+          
+          
+            <a href="../contributing/" title="Contribuindo"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> Contribuindo </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2022 LFortran contributors.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>
