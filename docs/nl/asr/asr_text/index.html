@@ -434,6 +434,12 @@
         <li class="md-nav__item"><a href="#parser-and-verifier-boundary" class="md-nav__link">Parser and verifier boundary</a>
         </li>
         <li class="md-nav__item"><a href="#regression-corpus" class="md-nav__link">Regression corpus</a>
+        </li>
+        <li class="md-nav__item"><a href="#deterministic-mutation-fuzzing" class="md-nav__link">Deterministic mutation fuzzing</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#running-a-campaign-locally" class="md-nav__link">Running a campaign locally</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -500,6 +506,13 @@
     
     
       <a href="#regression-corpus" class="md-nav__link">Regression corpus</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#deterministic-mutation-fuzzing" class="md-nav__link">Deterministic mutation fuzzing</a>
       
     
     </li></ul>
@@ -587,6 +600,12 @@
         <li class="md-nav__item"><a href="#parser-and-verifier-boundary" class="md-nav__link">Parser and verifier boundary</a>
         </li>
         <li class="md-nav__item"><a href="#regression-corpus" class="md-nav__link">Regression corpus</a>
+        </li>
+        <li class="md-nav__item"><a href="#deterministic-mutation-fuzzing" class="md-nav__link">Deterministic mutation fuzzing</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#running-a-campaign-locally" class="md-nav__link">Running a campaign locally</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -815,6 +834,78 @@ against that pass instead of surfacing later as an unrelated failure.</p>
 <p>The reusable APIs in <code class="docutils literal notranslate"><span class="pre">src/lfortran/pipeline.h</span></code> own Fortran-or-ASR loading and
 the phase-aware ASR-to-default-passes-to-LLVM-to-object path, so the CLI and
 the direct-ASR tools share one implementation.</p>
+</section>
+<section id="deterministic-mutation-fuzzing">
+<h2 id="deterministic-mutation-fuzzing">Deterministic mutation fuzzing<a class="headerlink" href="#deterministic-mutation-fuzzing" title="Permalink naar deze titel">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">tests/asr/fuzz.py</span></code> dynamically prints the verified pre-pass ASR produced from
+registered integration-test seeds, applies one field-aware mutation, and runs
+the two-outcome oracle in isolated compiler subprocesses.
+It also has deterministic schema-generated modes that construct small
+verifier-valid integer programs or intentionally invalid ASR directly, without
+using the Fortran frontend.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python tests/asr/fuzz.py \</span>
+<span class="go">  --lfortran src/bin/lfortran \</span>
+<span class="go">  --seed 1234 \</span>
+<span class="go">  --cases 1000 \</span>
+<span class="go">  --generator all</span>
+</pre></div>
+</div>
+<p>Each case first runs initial verification. A verifier rejection is accepted;
+verifier-valid ASR must then emit both an object and an executable with
+post-pass verification enabled. Timeouts, signals, parser failures, pass
+verification failures, LLVM failures, object failures, and link failures are
+persisted under <code class="docutils literal notranslate"><span class="pre">asr-fuzz-artifacts/</span></code> as the exact ASR input plus JSON metadata.
+The metadata records the source integration test, random seed, case index,
+mutation, input hashes, failing phase, commands, and output.
+Each campaign also writes <code class="docutils literal notranslate"><span class="pre">coverage.json</span></code> containing the ASR constructors,
+enum values, verifier rules, passes, mutation classes, seed sources, outcomes,
+and failure phases observed during the run.</p>
+<p>Persisted failures can be replayed without regenerating or mutating the seed:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python tests/asr/fuzz.py \</span>
+<span class="go">  --lfortran src/bin/lfortran \</span>
+<span class="go">  --replay asr-fuzz-artifacts/failure-000000-....json</span>
+</pre></div>
+</div>
+<p>The structural reducer greedily removes vector elements and symbol-table
+entries, replaces optional fields with <code class="docutils literal notranslate"><span class="pre">nil</span></code>, and shrinks numeric values while
+requiring the same initial-verification status and normalized failure phase:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python tests/asr/reduce.py \</span>
+<span class="go">  --lfortran src/bin/lfortran \</span>
+<span class="go">  --metadata asr-fuzz-artifacts/failure-000000-....json</span>
+</pre></div>
+</div>
+<p>It writes a canonical <code class="docutils literal notranslate"><span class="pre">.min.asr</span></code> file and reduction journal without modifying
+the original failure artifact. The reduced file is written in the indented
+positional form the committed fixtures use, so it can be added to
+<code class="docutils literal notranslate"><span class="pre">tests/asr/verify/</span></code> directly.</p>
+<section id="running-a-campaign-locally">
+<h3 id="running-a-campaign-locally">Running a campaign locally<a class="headerlink" href="#running-a-campaign-locally" title="Permalink naar deze titel">¶</a></h3>
+<p>The registered CTest cases are smoke tests: a handful of cases, so the harness
+cannot rot as the passes change. A real campaign is run by hand, and is worth
+running against a sanitizer build, where a mutation that corrupts memory is
+reported at the point of corruption rather than as a later crash:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cmake -S . -B build-asan -G Ninja -DCMAKE_BUILD_TYPE=Debug -DWITH_LLVM=ON \</span>
+<span class="go">    -DCMAKE_CXX_FLAGS="-fsanitize=address,undefined"</span>
+<span class="go">cmake --build build-asan -j</span>
+<span class="go">python tests/asr/fuzz.py \</span>
+<span class="go">  --lfortran build-asan/src/bin/lfortran \</span>
+<span class="go">  --seed 0 \</span>
+<span class="go">  --cases 1000 \</span>
+<span class="go">  --generator all \</span>
+<span class="go">  --strategy mixed</span>
+</pre></div>
+</div>
+<p>Campaigns are deliberately not scheduled in CI: a finding needs a person to
+triage it, and a scheduled job with no owner turns red and stops meaning
+anything. Run one when the ASR, the passes or the verifier change in a way
+worth stress testing.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tests/asr/check_llvm_coverage.py</span></code> compares every constructor generated from
+<code class="docutils literal notranslate"><span class="pre">ASR.asdl</span></code> with the LLVM visitor and
+<code class="docutils literal notranslate"><span class="pre">tests/asr/llvm_constructor_coverage.toml</span></code>. A constructor must either have a
+direct LLVM visitor or an explicit classification naming its lowering pass,
+helper path, metadata role, or non-executable status. New unclassified
+constructors fail the registered CTest.</p>
+</section>
 </section>
 </section>
 
