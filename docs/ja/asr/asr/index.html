@@ -66,6 +66,8 @@
     <link rel="shortcut icon" href="../../_static/lfortran-logo.svg"/>
     <link rel="index" title="索引" href="../../genindex/" />
     <link rel="search" title="検索" href="../../search/" />
+    <link rel="next" title="ASR text format" href="../asr_text/" />
+    <link rel="prev" title="new_line(x): New Line Character" href="../../intrinsics/misc/new_line/" />
   
    
 
@@ -399,6 +401,90 @@
     <li class="md-nav__item">
     
     
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Abstract Semantic Representation (ASR) </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">Abstract Semantic Representation (ASR)</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#asr-asr--page-root" class="md-nav__link">Abstract Semantic Representation (ASR)</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#abstract-syntax-description-language-asdl" class="md-nav__link">Abstract Syntax Description Language (ASDL)</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        </li>
+        <li class="md-nav__item"><a href="#constructors" class="md-nav__link">Constructors</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#symbol-type" class="md-nav__link">Symbol type</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#call-argument-intent-contract" class="md-nav__link">Call argument intent contract</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#abi-type" class="md-nav__link">ABI Type</a>
+        </li>
+        <li class="md-nav__item"><a href="#short-notes-on-asr-nodes" class="md-nav__link">Short notes on ASR nodes</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#stmt-nodes" class="md-nav__link">Stmt nodes</a>
+        </li>
+        <li class="md-nav__item"><a href="#expr-nodes" class="md-nav__link">Expr nodes</a>
+        </li>
+        <li class="md-nav__item"><a href="#ttype-nodes" class="md-nav__link">Ttype nodes</a>
+        </li>
+        <li class="md-nav__item"><a href="#string-format-kind" class="md-nav__link">String format kind</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#abstract-syntax-description-language-asdl" class="md-nav__link">Abstract Syntax Description Language (ASDL)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#symbol-type" class="md-nav__link">Symbol type</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#abi-type" class="md-nav__link">ABI Type</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#short-notes-on-asr-nodes" class="md-nav__link">Short notes on ASR nodes</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr_text/" class="md-nav__link">ASR text format</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../asr_nodes/cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
       
     
@@ -513,6 +599,8 @@ node), while ensuring no semantic information was lost (no lowering was
 done), so one can still generate Fortran code from ASR that will be logically
 equivalent to the original code.</p>
 <p>ASR can be used to do Fortran-level transformations (such as optimizations).</p>
+<p>For the lossless direct representation used by compiler tests and tools, see
+the <a class="reference internal" href="../asr_text/"><span class="doc std std-doc">ASR text format</span></a>.</p>
 <section id="abstract-syntax-description-language-asdl">
 <h2 id="abstract-syntax-description-language-asdl">Abstract Syntax Description Language (ASDL)<a class="headerlink" href="#abstract-syntax-description-language-asdl" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Abstract Syntax Description Language describes the abstract syntax of the compiler
@@ -745,6 +833,30 @@ integer, so we also use kind=4 for the default logical.)</p></li>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
+            <a href="../../intrinsics/misc/new_line/" title="new_line(x): New Line Character"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> new_line(x): New Line Character </span>
+              </div>
+            </a>
+          
+          
+            <a href="../asr_text/" title="ASR text format"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> ASR text format </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
           
         </a>
         
