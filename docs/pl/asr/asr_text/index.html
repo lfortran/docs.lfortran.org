@@ -432,14 +432,6 @@
         <li class="md-nav__item"><a href="#locations-and-diagnostics" class="md-nav__link">Locations and diagnostics</a>
         </li>
         <li class="md-nav__item"><a href="#parser-and-verifier-boundary" class="md-nav__link">Parser and verifier boundary</a>
-        </li>
-        <li class="md-nav__item"><a href="#regression-corpus" class="md-nav__link">Regression corpus</a>
-        </li>
-        <li class="md-nav__item"><a href="#deterministic-mutation-fuzzing" class="md-nav__link">Deterministic mutation fuzzing</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#running-a-campaign-locally" class="md-nav__link">Running a campaign locally</a>
-        </li></ul>
-            </nav>
         </li></ul>
             </nav>
         </li>
@@ -499,20 +491,6 @@
     
     
       <a href="#parser-and-verifier-boundary" class="md-nav__link">Parser and verifier boundary</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#regression-corpus" class="md-nav__link">Regression corpus</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#deterministic-mutation-fuzzing" class="md-nav__link">Deterministic mutation fuzzing</a>
       
     
     </li></ul>
@@ -598,14 +576,6 @@
         <li class="md-nav__item"><a href="#locations-and-diagnostics" class="md-nav__link">Locations and diagnostics</a>
         </li>
         <li class="md-nav__item"><a href="#parser-and-verifier-boundary" class="md-nav__link">Parser and verifier boundary</a>
-        </li>
-        <li class="md-nav__item"><a href="#regression-corpus" class="md-nav__link">Regression corpus</a>
-        </li>
-        <li class="md-nav__item"><a href="#deterministic-mutation-fuzzing" class="md-nav__link">Deterministic mutation fuzzing</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#running-a-campaign-locally" class="md-nav__link">Running a campaign locally</a>
-        </li></ul>
-            </nav>
         </li></ul>
             </nav>
         </li>
@@ -672,15 +642,8 @@ translation unit itself must contain exactly one main program; additional
 object files and libraries provide dependencies rather than the entry point.</p>
 <p>The parser accepts named and positional constructors. The two forms can appear
 in one file, but a single constructor cannot mix positional members with
-keyword/member pairs. Committed <code class="docutils literal notranslate"><span class="pre">.asr</span></code> fixtures use the positional form,
-the same form as <code class="docutils literal notranslate"><span class="pre">asr_clojure</span></code> reference output: a corpus is expected to
-grow large, and a fixture written positionally is a fraction of the size.
-A valid fixture can therefore be regenerated with
-<code class="docutils literal notranslate"><span class="pre">--show-asr</span> <span class="pre">--clojure</span> <span class="pre">--no-member-names</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">--verify-asr</span></code> parses a standalone ASR file and runs only its initial verifier.
-It does not execute ASR passes or code generation, so corpus runners can
-distinguish an accepted initial verifier rejection from any later compiler
-failure.</p>
+keyword/member pairs. Hand-written <code class="docutils literal notranslate"><span class="pre">.asr</span></code> fixtures may use named form for
+readability. <code class="docutils literal notranslate"><span class="pre">asr_clojure</span></code> reference output is positional.</p>
 </section>
 <section id="grammar">
 <h2 id="grammar">Grammar<a class="headerlink" href="#grammar" title="Stały odnośnik do tego nagłówka">¶</a></h2>
@@ -809,103 +772,6 @@ requirements. Consequently:</p>
 <li><p>verifier-valid standalone ASR proceeds through the normal pass and LLVM
 pipeline.</p></li>
 </ul>
-</section>
-<section id="regression-corpus">
-<h2 id="regression-corpus">Regression corpus<a class="headerlink" href="#regression-corpus" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>A minimized ASR graph is checked in under <code class="docutils literal notranslate"><span class="pre">tests/asr/</span></code> and registered in
-<code class="docutils literal notranslate"><span class="pre">tests/tests.toml</span></code> like any other reference test, so the ordinary reference
-suite runs it:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">tests/asr/compile/</span></code> holds graphs the verifier accepts, registered with
-<code class="docutils literal notranslate"><span class="pre">llvm</span> <span class="pre">=</span> <span class="pre">true</span></code> so they must compile and run;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tests/asr/verify/</span></code> holds graphs the verifier rejects, registered with
-<code class="docutils literal notranslate"><span class="pre">asr</span> <span class="pre">=</span> <span class="pre">true</span></code> so the stored reference captures the exact diagnostic, its
-stable code, and the span it points at.</p></li>
-</ul>
-<p>Because the diagnostic code is part of the rendered message, a fixture pins
-the specific verifier rule it exercises rather than the wording alone.</p>
-<p>Fixtures are stored in the printer’s indented form, so a diagnostic points at
-a single short line rather than at one long one, and the caret identifies the
-offending constructor. Regenerate a valid fixture with
-<code class="docutils literal notranslate"><span class="pre">--show-asr</span> <span class="pre">--clojure</span> <span class="pre">--no-member-names</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">--verify-all-passes</span></code> runs the verifier after every ASR pass regardless of
-the build type, so a pass that corrupts a previously valid graph is reported
-against that pass instead of surfacing later as an unrelated failure.</p>
-<p>The reusable APIs in <code class="docutils literal notranslate"><span class="pre">src/lfortran/pipeline.h</span></code> own Fortran-or-ASR loading and
-the phase-aware ASR-to-default-passes-to-LLVM-to-object path, so the CLI and
-the direct-ASR tools share one implementation.</p>
-</section>
-<section id="deterministic-mutation-fuzzing">
-<h2 id="deterministic-mutation-fuzzing">Deterministic mutation fuzzing<a class="headerlink" href="#deterministic-mutation-fuzzing" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">tests/asr/fuzz.py</span></code> dynamically prints the verified pre-pass ASR produced from
-registered integration-test seeds, applies one field-aware mutation, and runs
-the two-outcome oracle in isolated compiler subprocesses.
-It also has deterministic schema-generated modes that construct small
-verifier-valid integer programs or intentionally invalid ASR directly, without
-using the Fortran frontend.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python tests/asr/fuzz.py \</span>
-<span class="go">  --lfortran src/bin/lfortran \</span>
-<span class="go">  --seed 1234 \</span>
-<span class="go">  --cases 1000 \</span>
-<span class="go">  --generator all</span>
-</pre></div>
-</div>
-<p>Each case first runs initial verification. A verifier rejection is accepted;
-verifier-valid ASR must then emit both an object and an executable with
-post-pass verification enabled. Timeouts, signals, parser failures, pass
-verification failures, LLVM failures, object failures, and link failures are
-persisted under <code class="docutils literal notranslate"><span class="pre">asr-fuzz-artifacts/</span></code> as the exact ASR input plus JSON metadata.
-The metadata records the source integration test, random seed, case index,
-mutation, input hashes, failing phase, commands, and output.
-Each campaign also writes <code class="docutils literal notranslate"><span class="pre">coverage.json</span></code> containing the ASR constructors,
-enum values, verifier rules, passes, mutation classes, seed sources, outcomes,
-and failure phases observed during the run.</p>
-<p>Persisted failures can be replayed without regenerating or mutating the seed:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python tests/asr/fuzz.py \</span>
-<span class="go">  --lfortran src/bin/lfortran \</span>
-<span class="go">  --replay asr-fuzz-artifacts/failure-000000-....json</span>
-</pre></div>
-</div>
-<p>The structural reducer greedily removes vector elements and symbol-table
-entries, replaces optional fields with <code class="docutils literal notranslate"><span class="pre">nil</span></code>, and shrinks numeric values while
-requiring the same initial-verification status and normalized failure phase:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python tests/asr/reduce.py \</span>
-<span class="go">  --lfortran src/bin/lfortran \</span>
-<span class="go">  --metadata asr-fuzz-artifacts/failure-000000-....json</span>
-</pre></div>
-</div>
-<p>It writes a canonical <code class="docutils literal notranslate"><span class="pre">.min.asr</span></code> file and reduction journal without modifying
-the original failure artifact. The reduced file is written in the indented
-positional form the committed fixtures use, so it can be added to
-<code class="docutils literal notranslate"><span class="pre">tests/asr/verify/</span></code> directly.</p>
-<section id="running-a-campaign-locally">
-<h3 id="running-a-campaign-locally">Running a campaign locally<a class="headerlink" href="#running-a-campaign-locally" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>The registered CTest cases are smoke tests: a handful of cases, so the harness
-cannot rot as the passes change. A real campaign is run by hand, and is worth
-running against a sanitizer build, where a mutation that corrupts memory is
-reported at the point of corruption rather than as a later crash:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cmake -S . -B build-asan -G Ninja -DCMAKE_BUILD_TYPE=Debug -DWITH_LLVM=ON \</span>
-<span class="go">    -DCMAKE_CXX_FLAGS="-fsanitize=address,undefined"</span>
-<span class="go">cmake --build build-asan -j</span>
-<span class="go">python tests/asr/fuzz.py \</span>
-<span class="go">  --lfortran build-asan/src/bin/lfortran \</span>
-<span class="go">  --seed 0 \</span>
-<span class="go">  --cases 1000 \</span>
-<span class="go">  --generator all \</span>
-<span class="go">  --strategy mixed</span>
-</pre></div>
-</div>
-<p>Campaigns are deliberately not scheduled in CI: a finding needs a person to
-triage it, and a scheduled job with no owner turns red and stops meaning
-anything. Run one when the ASR, the passes or the verifier change in a way
-worth stress testing.</p>
-<p><code class="docutils literal notranslate"><span class="pre">tests/asr/check_llvm_coverage.py</span></code> compares every constructor generated from
-<code class="docutils literal notranslate"><span class="pre">ASR.asdl</span></code> with the LLVM visitor and
-<code class="docutils literal notranslate"><span class="pre">tests/asr/llvm_constructor_coverage.toml</span></code>. A constructor must either have a
-direct LLVM visitor or an explicit classification naming its lowering pass,
-helper path, metadata role, or non-executable status. New unclassified
-constructors fail the registered CTest.</p>
-</section>
 </section>
 </section>
 
