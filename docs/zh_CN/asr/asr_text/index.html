@@ -432,6 +432,8 @@
         <li class="md-nav__item"><a href="#locations-and-diagnostics" class="md-nav__link">Locations and diagnostics</a>
         </li>
         <li class="md-nav__item"><a href="#parser-and-verifier-boundary" class="md-nav__link">Parser and verifier boundary</a>
+        </li>
+        <li class="md-nav__item"><a href="#regression-corpus" class="md-nav__link">Regression corpus</a>
         </li></ul>
             </nav>
         </li>
@@ -491,6 +493,13 @@
     
     
       <a href="#parser-and-verifier-boundary" class="md-nav__link">Parser and verifier boundary</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#regression-corpus" class="md-nav__link">Regression corpus</a>
       
     
     </li></ul>
@@ -576,6 +585,8 @@
         <li class="md-nav__item"><a href="#locations-and-diagnostics" class="md-nav__link">Locations and diagnostics</a>
         </li>
         <li class="md-nav__item"><a href="#parser-and-verifier-boundary" class="md-nav__link">Parser and verifier boundary</a>
+        </li>
+        <li class="md-nav__item"><a href="#regression-corpus" class="md-nav__link">Regression corpus</a>
         </li></ul>
             </nav>
         </li>
@@ -604,7 +615,7 @@ a future incompatible encoding would announce itself, with its absence meaning
 the encoding described here.</p>
 <section id="printing-asr-text">
 <h2 id="printing-asr-text">Printing ASR text<a class="headerlink" href="#printing-asr-text" title="永久链接至标题">¶</a></h2>
-<p>The named form is canonical:</p>
+<p>The named form is the default for interactive dumps:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lfortran input.f90 --show-asr --clojure</span>
 </pre></div>
 </div>
@@ -615,14 +626,15 @@ the encoding described here.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>The positional form omits field names but preserves ASDL declaration order:</p>
+<p>The positional form omits field names but preserves ASDL declaration order.
+<code class="docutils literal notranslate"><span class="pre">asr_clojure</span></code> reference tests use this form so the stored dumps stay small:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lfortran input.f90 --show-asr --clojure --no-member-names</span>
 </pre></div>
 </div>
 <div class="highlight-clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">Var</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"x"</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">--no-indent</span></code> emits either form on one line. Canonical ASR text never contains
+<p><code class="docutils literal notranslate"><span class="pre">--no-indent</span></code> emits either form on one line. Printed ASR text never contains
 color escape sequences, elides intrinsic modules, or truncates constant data.</p>
 <p>The legacy output of <code class="docutils literal notranslate"><span class="pre">--show-asr</span></code> without <code class="docutils literal notranslate"><span class="pre">--clojure</span></code> remains available during
 the format migration.</p>
@@ -641,7 +653,15 @@ translation unit itself must contain exactly one main program; additional
 object files and libraries provide dependencies rather than the entry point.</p>
 <p>The parser accepts named and positional constructors. The two forms can appear
 in one file, but a single constructor cannot mix positional members with
-keyword/member pairs. Committed regression fixtures should use named form.</p>
+keyword/member pairs. Committed <code class="docutils literal notranslate"><span class="pre">.asr</span></code> fixtures use the positional form,
+the same form as <code class="docutils literal notranslate"><span class="pre">asr_clojure</span></code> reference output: a corpus is expected to
+grow large, and a fixture written positionally is a fraction of the size.
+A valid fixture can therefore be regenerated with
+<code class="docutils literal notranslate"><span class="pre">--show-asr</span> <span class="pre">--clojure</span> <span class="pre">--no-member-names</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--verify-asr</span></code> parses a standalone ASR file and runs only its initial verifier.
+It does not execute ASR passes or code generation, so corpus runners can
+distinguish an accepted initial verifier rejection from any later compiler
+failure.</p>
 </section>
 <section id="grammar">
 <h2 id="grammar">Grammar<a class="headerlink" href="#grammar" title="永久链接至标题">¶</a></h2>
@@ -770,6 +790,31 @@ requirements. Consequently:</p>
 <li><p>verifier-valid standalone ASR proceeds through the normal pass and LLVM
 pipeline.</p></li>
 </ul>
+</section>
+<section id="regression-corpus">
+<h2 id="regression-corpus">Regression corpus<a class="headerlink" href="#regression-corpus" title="永久链接至标题">¶</a></h2>
+<p>A minimized ASR graph is checked in under <code class="docutils literal notranslate"><span class="pre">tests/asr/</span></code> and registered in
+<code class="docutils literal notranslate"><span class="pre">tests/tests.toml</span></code> like any other reference test, so the ordinary reference
+suite runs it:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tests/asr/compile/</span></code> holds graphs the verifier accepts, registered with
+<code class="docutils literal notranslate"><span class="pre">llvm</span> <span class="pre">=</span> <span class="pre">true</span></code> so they must compile and run;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tests/asr/verify/</span></code> holds graphs the verifier rejects, registered with
+<code class="docutils literal notranslate"><span class="pre">asr</span> <span class="pre">=</span> <span class="pre">true</span></code> so the stored reference captures the exact diagnostic, its
+stable code, and the span it points at.</p></li>
+</ul>
+<p>Because the diagnostic code is part of the rendered message, a fixture pins
+the specific verifier rule it exercises rather than the wording alone.</p>
+<p>Fixtures are stored in the printer’s indented form, so a diagnostic points at
+a single short line rather than at one long one, and the caret identifies the
+offending constructor. Regenerate a valid fixture with
+<code class="docutils literal notranslate"><span class="pre">--show-asr</span> <span class="pre">--clojure</span> <span class="pre">--no-member-names</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--verify-all-passes</span></code> runs the verifier after every ASR pass regardless of
+the build type, so a pass that corrupts a previously valid graph is reported
+against that pass instead of surfacing later as an unrelated failure.</p>
+<p>The reusable APIs in <code class="docutils literal notranslate"><span class="pre">src/lfortran/pipeline.h</span></code> own Fortran-or-ASR loading and
+the phase-aware ASR-to-default-passes-to-LLVM-to-object path, so the CLI and
+the direct-ASR tools share one implementation.</p>
 </section>
 </section>
 
