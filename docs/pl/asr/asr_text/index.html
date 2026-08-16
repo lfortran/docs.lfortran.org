@@ -846,6 +846,21 @@ the two-outcome oracle in isolated compiler subprocesses.
 It also has deterministic schema-generated modes that construct small
 verifier-valid integer programs or intentionally invalid ASR directly, without
 using the Fortran frontend.</p>
+<p>The invalid generators cover three families, chosen because they are the two
+things a frontend most often gets wrong and the one thing that makes separate
+compilation worth having:</p>
+<ul class="simple">
+<li><p><strong>references that do not resolve</strong>: a name read from a scope that does not
+contain it, a call to something that is not a procedure, a type-bound
+procedure that names a variable, an import from a module that is not there.
+This is the ASR a frontend produces when a symbol was never imported;</p></li>
+<li><p><strong>calls that disagree with the procedure they call</strong>: actual arguments whose
+type, kind, rank or count the callee never declared, including through a
+type-bound call, and a call statement naming a function;</p></li>
+<li><p><strong>type-bound procedure overrides that do not conform</strong>: an extending type
+whose binding takes different arguments, or returns differently, from the
+binding it overrides.</p></li>
+</ul>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python tests/asr/fuzz.py \</span>
 <span class="go">  --lfortran src/bin/lfortran \</span>
 <span class="go">  --seed 1234 \</span>
@@ -875,6 +890,15 @@ requiring the same initial-verification status and normalized failure phase:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python tests/asr/reduce.py \</span>
 <span class="go">  --lfortran src/bin/lfortran \</span>
 <span class="go">  --metadata asr-fuzz-artifacts/failure-000000-....json</span>
+</pre></div>
+</div>
+<p>A verifier rejection is an accepted outcome for the fuzzer, but it is worth
+reducing too, since that is what a <code class="docutils literal notranslate"><span class="pre">tests/asr/verify/</span></code> fixture pins. Pass
+<code class="docutils literal notranslate"><span class="pre">--input</span></code> a <code class="docutils literal notranslate"><span class="pre">.asr</span></code> document instead of a fuzzer artifact and the reducer keeps
+the rejection’s diagnostic code fixed rather than a failure phase:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python tests/asr/reduce.py \</span>
+<span class="go">  --lfortran src/bin/lfortran \</span>
+<span class="go">  --input rejected.asr</span>
 </pre></div>
 </div>
 <p>It writes a canonical <code class="docutils literal notranslate"><span class="pre">.min.asr</span></code> file and reduction journal without modifying
