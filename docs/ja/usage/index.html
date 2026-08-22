@@ -833,7 +833,7 @@ compilation options, output options, link options and so on.</p>
 <section id="compiler-feature-selections">
 <h3 id="compiler-feature-selections">Compiler feature selections<a class="headerlink" href="#compiler-feature-selections" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--fast</span></code>, Best performance (disable strict standard compliance)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--fast</span></code>, Optimize for best performance on the host CPU (disable strict standard compliance). This implies native CPU selection unless <code class="docutils literal notranslate"><span class="pre">--march</span></code>, <code class="docutils literal notranslate"><span class="pre">--mcpu</span></code>, <code class="docutils literal notranslate"><span class="pre">--mtune</span></code>, or <code class="docutils literal notranslate"><span class="pre">--target</span></code> is specified.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--implicit-argument-casting</span></code>, Allow implicit argument casting</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--implicit-interface</span></code>, Allow implicit interface</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--implicit-typing</span></code>, Allow implicit typing</p></li>
@@ -842,6 +842,9 @@ compilation options, output options, link options and so on.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">--realloc-lhs-arrays</span></code>, Reallocate left hand side automatically for arrays</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--disable-realloc-lhs-arrays</span></code>, Disables reallocating left hand side automatically for arrays</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--target</span> <span class="pre">&lt;value&gt;</span></code>, Generate code for the given target</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--march</span> <span class="pre">&lt;value&gt;</span></code>, Select the instruction-set architecture. Use <code class="docutils literal notranslate"><span class="pre">native</span></code> for the host ISA.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--mcpu</span> <span class="pre">&lt;value&gt;</span></code>, Select both the CPU instruction set and scheduling model. Use <code class="docutils literal notranslate"><span class="pre">native</span></code> for the host CPU.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--mtune</span> <span class="pre">&lt;value&gt;</span></code>, Select the CPU scheduling model without changing the instruction set. Use <code class="docutils literal notranslate"><span class="pre">native</span></code> for the host CPU.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--backend</span></code> flag is used to specify the target backend for code generation in LFortran. The supported backends are:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">llvm</span></code>: The most advanced and default backend, used for generating LLVM IR or machine code through LLVM.</p></li>
@@ -978,8 +981,8 @@ space " " means
 single-space, a zero "0" means double-space and one "1" means form-feed
 before printing.  This is obsolete and LFortran omits this unless
 <code class="docutils literal notranslate"><span class="pre">--print-leading-space</span></code> is selected at compile-time.</p>
-<p>There is currently no way to specify detailed compiler options to
-Clang such as <code class="docutils literal notranslate"><span class="pre">-O3</span></code> or <code class="docutils literal notranslate"><span class="pre">-flto</span></code> (optimization and link-time optimization).</p>
+<p>LFortran does not currently expose arbitrary Clang options such as <code class="docutils literal notranslate"><span class="pre">-flto</span></code>.
+Use <code class="docutils literal notranslate"><span class="pre">--fast</span></code> and the target-selection options above for native optimization.</p>
 <p>GNU extension declarations <code class="docutils literal notranslate"><span class="pre">real*8</span> <span class="pre">xvalue</span></code> are accepted but deprecated. This
 was never standard-conforming Fortran; it is an old IBM extension that predates Fortran-77.</p>
 </section>
