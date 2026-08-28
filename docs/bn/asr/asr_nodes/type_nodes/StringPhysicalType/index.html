@@ -47,7 +47,7 @@
   
   
   
-    <title>String Physical Type &#8212; LFortran</title>
+    <title>string_physical_type &#8212; LFortran</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
@@ -64,6 +64,8 @@
     <link rel="shortcut icon" href="../../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="ইনডেক্স" href="../../../../genindex/" />
     <link rel="search" title="অনুসন্ধান" href="../../../../search/" />
+    <link rel="next" title="StructType" href="../StructType/" />
+    <link rel="prev" title="String" href="../String/" />
   
    
 
@@ -101,7 +103,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">LFortran Documentation</span>
-          <span class="md-header-nav__topic"> String Physical Type </span>
+          <span class="md-header-nav__topic"> string_physical_type </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -205,6 +207,7 @@
             <li class="md-tabs__item"><a href="../../../../design/" class="md-tabs__link">Developers's Guide</a></li>
             
             <li class="md-tabs__item"><a href="../../../../intrinsics/array/" class="md-tabs__link">Intrinsics</a></li>
+          <li class="md-tabs__item"><a href="../ttype/" class="md-tabs__link">ttype</a></li>
       </ul>
     </div>
   </nav>
@@ -411,28 +414,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../kinds_nodes/kinds/" class="md-nav__link">kinds</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
+      <a href="../../unit_nodes/unit_nodes/" class="md-nav__link">ASR Unit Nodes</a>
       
     
     </li>
@@ -446,14 +428,84 @@
     <li class="md-nav__item">
     
     
-      <a href="../ttype/" class="md-nav__link">ttype</a>
+      <a href="../../statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMp Nodes</a>
+      <a href="../../expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ttype/" class="md-nav__link">ttype</a>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="../ttype/#declaration" class="md-nav__link">Declaration</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ttype/#description" class="md-nav__link">Description</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ttype/#see-also" class="md-nav__link">See Also</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ttype/#type-nodes" class="md-nav__link">Type Nodes</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../helper_nodes/helper_nodes/" class="md-nav__link">ASR Helper Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../enum_nodes/enum_nodes/" class="md-nav__link">ASR Enumerations</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../kinds_nodes/kinds/" class="md-nav__link">kinds</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMP Nodes</a>
       
     
     </li>
@@ -471,17 +523,21 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#asr-asr-nodes-type-nodes-stringphysicaltype--page-root" class="md-nav__link">String Physical Type</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#asr-asr-nodes-type-nodes-stringphysicaltype--page-root" class="md-nav__link">string_physical_type</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
+        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaration</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Syntax</a>
+        </li>
+        <li class="md-nav__item"><a href="#values" class="md-nav__link">Values</a>
+        </li>
+        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Return values</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
         </li>
-        <li class="md-nav__item"><a href="#usage" class="md-nav__link">Usage</a><nav class="md-nav">
-              <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
-        </li></ul>
-            </nav>
         </li></ul>
             </nav>
         </li>
@@ -495,150 +551,54 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="string-physical-type">
-<h1 id="asr-asr-nodes-type-nodes-stringphysicaltype--page-root">String Physical Type<a class="headerlink" href="#asr-asr-nodes-type-nodes-stringphysicaltype--page-root" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h1>
-<section id="types">
-<h2 id="types">Types<a class="headerlink" href="#types" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
-<div class="highlight-ASDL notranslate"><div class="highlight"><pre><span></span>string_physical_type = PointerString | DescriptorString
+<h1 id="asr-asr-nodes-type-nodes-stringphysicaltype--page-root">string_physical_type<a class="headerlink" href="#asr-asr-nodes-type-nodes-stringphysicaltype--page-root" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h1>
+<p>How a string is represented in memory.</p>
+<section id="declaration">
+<h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
+<section id="syntax">
+<h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>string_physical_type = DescriptorString | CChar
 </pre></div>
 </div>
+</section>
+<section id="values">
+<h3 id="values">Values<a class="headerlink" href="#values" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Value</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DescriptorString</span></code></p></td>
+<td><p>a descriptor, <code class="docutils literal notranslate"><span class="pre">{char*</span> <span class="pre">data,</span> <span class="pre">int64</span> <span class="pre">size,</span> <span class="pre">int64</span> <span class="pre">capacity}</span></code>. The length and the capacity travel with the data, so the value can be reallocated and its length asked for.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CChar</span></code></p></td>
+<td><p>a bare <code class="docutils literal notranslate"><span class="pre">char*</span></code>, the representation C uses and the one the string runtime functions take.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values">
+<h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
+<p>None. An enumeration value is not evaluated.</p>
+</section>
 </section>
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
-<ul class="simple">
-<li><p><strong>PointerString :</strong></p>
-<ul>
-<li><p>It's the normal C <code class="docutils literal notranslate"><span class="pre">char*</span></code>. The memory for it gets allocated by the runtime <code class="docutils literal notranslate"><span class="pre">lfortran_str_copy()</span></code>.</p></li>
-<li><p>PointerString can't be an <code class="docutils literal notranslate"><span class="pre">allocatable</span></code> unless it's an allocatable-array or string <a class="reference internal" href="../../expression_nodes/StringPhysicalCast/"><span class="doc std std-doc">casted</span></a> from <code class="docutils literal notranslate"><span class="pre">descriptorString</span></code> to <code class="docutils literal notranslate"><span class="pre">pointerString</span></code> so it remains to be identified as an allocatable variable in the whole code base, like avoiding some semantic errors when you use the string with some intrinsic function that requires the string to be an allocatable.</p></li>
-</ul>
-</li>
-<li><p><strong>DescriptorString :</strong></p>
-<ul>
-<li><p>It's an LLVM struct to hold information about data, size and capacity.</p></li>
-<li><p>It's represented in LLVM IR as : <code class="docutils literal notranslate"><span class="pre">{char*,</span> <span class="pre">int64,</span> <span class="pre">int64}</span></code>. The benefit from having <code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">capacity</span></code> is that it gives us the ability to have dynamic string that's not computationally expensive, just like <code class="docutils literal notranslate"><span class="pre">std::string</span></code> (<code class="docutils literal notranslate"><span class="pre">std::vector</span></code>) in c++. So the key points are:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code> avoids calling <code class="docutils literal notranslate"><span class="pre">strlen</span></code> when we want to know the size of a string.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">capacity</span></code> gives us the flexibility of extending the string without losing performance by doubling the memory location every time we run out of allocated memory space.</p></li>
-</ul>
-</li>
-<li><p>DescriptorString must always be an allocatable.</p></li>
-</ul>
-</li>
-</ul>
+<p>The physical type is separate from the logical type: both representations hold
+the same characters.
+<a class="reference internal" href="../../expression_nodes/StringPhysicalCast/"><span class="doc std std-doc">StringPhysicalCast</span></a> moves between
+them, taking the <code class="docutils literal notranslate"><span class="pre">data</span></code> pointer out of a descriptor in one direction and
+wrapping a pointer in a descriptor with <code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">capacity</span></code> set to <code class="docutils literal notranslate"><span class="pre">-1</span></code> in
+the other, marking a string that must not be extended.</p>
+<p>A local variable may not have the <code class="docutils literal notranslate"><span class="pre">CChar</span></code> physical type: the verifier rejects
+it, because a local string owns its storage and needs a descriptor to describe
+it.</p>
 </section>
-<section id="usage">
-<h2 id="usage">Usage<a class="headerlink" href="#usage" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
-<ul>
-<li><p><strong>DescriptorString</strong></p>
-<p>DescriptorString is used only with allocatable strings.</p>
-</li>
-</ul>
-<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">character</span><span class="p">(:)</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">allocatable</span><span class="kd">::</span><span class="w"> </span><span class="n">chr</span>
-</pre></div>
-</div>
-<div class="highlight-Clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">Variable</span>
-<span class="w">	</span><span class="mi">2</span>
-<span class="w">	</span><span class="nv">chr</span>
-<span class="w">	</span><span class="p">[]</span>
-<span class="w">	</span><span class="nv">Local</span>
-<span class="w">	</span><span class="p">()</span>
-<span class="w">	</span><span class="p">()</span>
-<span class="w">	</span><span class="nv">Default</span>
-<span class="w">	</span><span class="p">(</span><span class="nf">Allocatable</span>
-<span class="w">		</span><span class="p">(</span><span class="nf">Character</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">-2</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="nv">DescriptorString</span><span class="p">)</span><span class="w"> </span><span class="c1">; Notice the physical type.</span>
-<span class="w">	</span><span class="p">)</span>
-<span class="w">	</span><span class="p">()</span>
-<span class="w">	</span><span class="nv">Source</span>
-<span class="w">	</span><span class="nv">Public</span>
-<span class="w">	</span><span class="nv">Required</span>
-<span class="w">	</span><span class="nv">.false.</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">character</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">chr</span>
-<span class="kt">character</span><span class="p">(:),</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">chr_RHS</span>
-<span class="n">chr_RHS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chr</span><span class="w"> </span><span class="c">! Cast RHS from PointerString --&gt; DescriptorString</span>
-</pre></div>
-</div>
-<div class="highlight-Clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">Assignment</span>
-<span class="w">	</span><span class="p">(</span><span class="nf">Var</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="nv">chr_rhs</span><span class="p">)</span>
-<span class="w">	</span><span class="p">(</span><span class="nf">StringPhysicalCast</span>
-<span class="w">		</span><span class="p">(</span><span class="nf">Var</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="nv">chr</span><span class="p">)</span>
-<span class="w">		</span><span class="nv">PointerString</span>
-<span class="w">		</span><span class="nv">DescriptorString</span>
-<span class="w">		</span><span class="p">(</span><span class="nf">Allocatable</span>
-<span class="w">			</span><span class="p">(</span><span class="nf">Character</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="nv">DescriptorString</span><span class="p">)</span><span class="w"> </span><span class="c1">; Notice Physical type</span>
-<span class="w">		</span><span class="p">)</span>
-<span class="w">		</span><span class="p">()</span>
-<span class="w">	</span><span class="p">)</span>
-<span class="w">	</span><span class="p">()</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><strong>PointerString</strong>
-It could be used with allocatable strings and non-allocatable strings.</p>
-<ul>
-<li><p>non-allocatable + pointerString --&gt; fixed-size string and literal string</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">character</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">chr</span><span class="w"> </span>
-<span class="n">chr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Hello"</span>
-</pre></div>
-</div>
-<div class="highlight-Clojure notranslate"><div class="highlight"><pre><span></span>chr:
-	(Variable
-		2
-		chr
-		[]
-		Local
-		()
-		()
-		Default
-		(Character 1 5 () PointerString) ; Notice The Physical Type.
-		()
-		Source
-		Public
-		Required
-		.false.
-	)
-(Assignment
-	(Var 2 chr)
-	(StringConstant
-		"Hello"
-		(Character 1 5 () PointerString) ; Notice The Physical Type
-	)
-	()
-)
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>allocatable + pointerString --&gt; When string casted from descriptorString to pointerString.</p></li>
-</ul>
-<div class="highlight-Fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">character</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">chr</span>
-<span class="kt">character</span><span class="p">(:),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">chr_RHS</span>
-<span class="n">chr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chr_RHS</span><span class="w"> </span><span class="c">! Cast RHS from DescriptorString to PointerString</span>
-</pre></div>
-</div>
-<div class="highlight-Clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">Assignment</span>
-<span class="w">	</span><span class="p">(</span><span class="nf">Var</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="nv">chr</span><span class="p">)</span>
-<span class="w">	</span><span class="p">(</span><span class="nf">StringPhysicalCast</span>
-<span class="w">		</span><span class="p">(</span><span class="nf">Var</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="nv">chr_rhs</span><span class="p">)</span>
-<span class="w">		</span><span class="nv">DescriptorString</span>
-<span class="w">		</span><span class="nv">PointerString</span>
-<span class="w">		</span><span class="p">(</span><span class="nf">Allocatable</span>
-<span class="w">			</span><span class="p">(</span><span class="nf">Character</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">-2</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="nv">PointerString</span><span class="p">)</span><span class="w"> </span><span class="c1">; Notice alloctable pointerString.</span>
-<span class="w">		</span><span class="p">)</span>
-<span class="w">		</span><span class="p">()</span>
-<span class="w">	</span><span class="p">)</span>
-<span class="w">	</span><span class="p">()</span>
-<span class="p">)</span>
-</pre></div>
-</div>
 <section id="see-also">
-<h3 id="see-also">See Also<a class="headerlink" href="#see-also" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
-<p><a class="reference internal" href="../../expression_nodes/StringPhysicalCast/"><span class="doc std std-doc">stringPhysicalCast</span></a></p>
-</section>
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
+<p><a class="reference internal" href="../String/"><span class="doc std std-doc">String</span></a>, <a class="reference internal" href="../../expression_nodes/StringPhysicalCast/"><span class="doc std std-doc">StringPhysicalCast</span></a>, <a class="reference internal" href="../../enum_nodes/array_physical_type/"><span class="doc std std-doc">array_physical_type</span></a></p>
 </section>
 </section>
 
@@ -652,6 +612,30 @@ It could be used with allocatable strings and non-allocatable strings.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
+            <a href="../String/" title="String"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> String </span>
+              </div>
+            </a>
+          
+          
+            <a href="../StructType/" title="StructType"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> StructType </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
           
         </a>
         

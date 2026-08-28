@@ -64,6 +64,8 @@
     <link rel="shortcut icon" href="../../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="Indeks" href="../../../../genindex/" />
     <link rel="search" title="Szukaj" href="../../../../search/" />
+    <link rel="next" title="array_index" href="../array_index/" />
+    <link rel="prev" title="ASR Helper Nodes" href="../helper_nodes/" />
   
    
 
@@ -205,6 +207,7 @@
             <li class="md-tabs__item"><a href="../../../../design/" class="md-tabs__link">Developers's Guide</a></li>
             
             <li class="md-tabs__item"><a href="../../../../intrinsics/array/" class="md-tabs__link">Intrinsics</a></li>
+          <li class="md-tabs__item"><a href="../helper_nodes/" class="md-tabs__link">ASR Helper Nodes</a></li>
       </ul>
     </div>
   </nav>
@@ -411,28 +414,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../kinds_nodes/kinds/" class="md-nav__link">kinds</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
+      <a href="../../unit_nodes/unit_nodes/" class="md-nav__link">ASR Unit Nodes</a>
       
     
     </li>
@@ -446,6 +428,20 @@
     <li class="md-nav__item">
     
     
+      <a href="../../statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../type_nodes/ttype/" class="md-nav__link">ttype</a>
       
     
@@ -453,7 +449,163 @@
     <li class="md-nav__item">
     
     
-      <a href="../../omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMp Nodes</a>
+      <a href="../helper_nodes/" class="md-nav__link">ASR Helper Nodes</a>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> alloc_arg </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">alloc_arg</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#asr-asr-nodes-helper-nodes-alloc-arg--page-root" class="md-nav__link">alloc_arg</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaration</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Syntax</a>
+        </li>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Arguments</a>
+        </li>
+        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Return values</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        </li>
+        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../array_index/" class="md-nav__link">array_index</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../attribute/" class="md-nav__link">attribute</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../call_arg/" class="md-nav__link">call_arg</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../case_stmt/" class="md-nav__link">case_stmt</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../coarray_index/" class="md-nav__link">coarray_index</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../codimension/" class="md-nav__link">codimension</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../dimension/" class="md-nav__link">dimension</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../do_loop_head/" class="md-nav__link">do_loop_head</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../rank_stmt/" class="md-nav__link">rank_stmt</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../reduction_expr/" class="md-nav__link">reduction_expr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../require_instantiation/" class="md-nav__link">require_instantiation</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../tbind/" class="md-nav__link">tbind</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../type_stmt/" class="md-nav__link">type_stmt</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../enum_nodes/enum_nodes/" class="md-nav__link">ASR Enumerations</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../kinds_nodes/kinds/" class="md-nav__link">kinds</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMP Nodes</a>
       
     
     </li>
@@ -485,8 +637,6 @@
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
-        </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
@@ -504,23 +654,45 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="alloc-arg">
 <h1 id="asr-asr-nodes-helper-nodes-alloc-arg--page-root">alloc_arg<a class="headerlink" href="#asr-asr-nodes-helper-nodes-alloc-arg--page-root" title="Stały odnośnik do tego nagłówka">¶</a></h1>
-<p>An <strong>allocation argument</strong> used inside the <code class="docutils literal notranslate"><span class="pre">Allocate</span></code> and <code class="docutils literal notranslate"><span class="pre">ReAlloc</span></code> statement.</p>
+<p>One object of an <code class="docutils literal notranslate"><span class="pre">allocate</span></code> statement, with everything needed to allocate it.</p>
 <section id="declaration">
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Stały odnośnik do tego nagłówka">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>alloc_arg(expr a, dimension* dims, expr? len_expr, symbol? sym_subclass, ttype? type)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>alloc_arg
+    = (expr a, dimension* dims, codimension* codims, expr? len_expr, symbol? sym_subclass, ttype? type)
 </pre></div>
 </div>
 </section>
 <section id="arguments">
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>Input arguments of <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">dims</span></code>, optional <code class="docutils literal notranslate"><span class="pre">len_expr</span></code>, optional <code class="docutils literal notranslate"><span class="pre">sym_subclass</span></code>, and optional <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">a</span></code> contains the variable to be allocated.<br/>
-<code class="docutils literal notranslate"><span class="pre">dims</span></code> contains a list of dimension bounds in the form of tuples <code class="docutils literal notranslate"><span class="pre">(lower,</span> <span class="pre">upper)</span></code> representing shape.<br/>
-<code class="docutils literal notranslate"><span class="pre">len_expr</span></code> is an optional expression specifying length, used for character and derived types.<br/>
-<code class="docutils literal notranslate"><span class="pre">sym_subclass</span></code> is an optional symbol representing subclass type for polymorphic allocation.<br/>
-<code class="docutils literal notranslate"><span class="pre">type</span></code> is an optional type that specifies the target type of allocation.</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">a</span></code></p></td>
+<td><p>the object being allocated.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dims</span></code></p></td>
+<td><p>the shape it is given, one <a class="reference internal" href="../dimension/"><span class="doc std std-doc">dimension</span></a> per rank.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">codims</span></code></p></td>
+<td><p>the codimensions it is given, for a coarray.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">len_expr</span></code></p></td>
+<td><p>the character length, for <code class="docutils literal notranslate"><span class="pre">character(len=n)</span> <span class="pre">::</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sym_subclass</span></code></p></td>
+<td><p>the dynamic type to allocate, for <code class="docutils literal notranslate"><span class="pre">allocate(t</span> <span class="pre">::</span> <span class="pre">x)</span></code> with a polymorphic object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<td><p>the type to allocate, when it differs from the declared type.</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="return-values">
 <h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Stały odnośnik do tego nagłówka">¶</a></h3>
@@ -529,61 +701,244 @@
 </section>
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p><strong>alloc_arg</strong> specifies one element in the <code class="docutils literal notranslate"><span class="pre">Allocate</span></code> statement. It defines what variable to allocate, with what dimensions, type, subclass, and optional length parameters. It is used only as part of the <code class="docutils literal notranslate"><span class="pre">Allocate</span></code> and <code class="docutils literal notranslate"><span class="pre">ReAlloc</span></code> node.</p>
-</section>
-<section id="types">
-<h2 id="types">Types<a class="headerlink" href="#types" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>The variable <code class="docutils literal notranslate"><span class="pre">a</span></code> must be allocatable.<br/>
-Dimensions must be valid integer expressions.<br/>
-Optional fields may be used for polymorphic or character allocations.</p>
+<p>The shape is here rather than in the type of the variable, because an
+allocatable is declared with a deferred shape and gets its bounds at each
+allocation. Everything a backend needs for one object is in one product, so
+<a class="reference internal" href="../../statement_nodes/Allocate/"><span class="doc std std-doc">Allocate</span></a> is a list of them.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>Following example code allocates a memory block of size 3:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">allocate_mem</span>
-<span class="kt">real</span><span class="p">,</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">a</span><span class="p">(:)</span>
-<span class="k">allocate</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="k">end program</span>
+<div class="highlight-clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">alloc_arg</span>
+<span class="w">  </span><span class="ss">:a</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">    </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="w">  </span><span class="ss">:dims</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">dimension</span>
+<span class="w">      </span><span class="ss">:start</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">        </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">        </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">          </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">      </span><span class="p">)</span>
+<span class="w">      </span><span class="ss">:length</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">        </span><span class="ss">:n</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">        </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">          </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">      </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="w">  </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="ss">:len_expr</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">  </span><span class="ss">:sym_subclass</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">  </span><span class="ss">:type</span><span class="w"> </span><span class="nv">nil</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<p>ASR (portion corresponding to <code class="docutils literal notranslate"><span class="pre">alloc_arg</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">((</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">a</span><span class="p">)</span>
-<span class="p">[((</span><span class="n">IntegerConstant</span> <span class="mi">1</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span><span class="p">)</span> <span class="n">Decimal</span><span class="p">)</span>
-<span class="p">(</span><span class="n">IntegerConstant</span> <span class="mi">3</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span><span class="p">)</span> <span class="n">Decimal</span><span class="p">))]</span>
-<span class="p">()</span>
-<span class="p">()</span>
-<span class="p">())</span>
-</pre></div>
-</div>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">base</span>
-<span class="w">    </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
-<span class="k">end type</span>
-
-<span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="k">extends</span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">derived</span>
-<span class="w">    </span><span class="kt">real</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">y</span>
-<span class="k">end type</span>
-
-<span class="k">class</span><span class="p">(</span><span class="n">base</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">obj</span>
-
-<span class="k">allocate</span><span class="p">(</span><span class="n">derived</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">((</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">obj</span><span class="p">)</span>
-<span class="p">[]</span>
-<span class="p">()</span>
-<span class="mi">2</span> <span class="n">derived</span>
-<span class="p">(</span><span class="n">StructType</span>
-    <span class="p">[]</span>
-    <span class="p">[]</span>
-    <span class="o">.</span><span class="n">true</span><span class="o">.</span>
-    <span class="mi">2</span> <span class="n">derived</span>
-<span class="p">))</span>
+<p>It comes from this complete ASR text document:</p>
+<div class="highlight-clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">TranslationUnit</span>
+<span class="w">  </span><span class="ss">:symtab</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolTable</span>
+<span class="w">    </span><span class="ss">:id</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="ss">:symbols</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s">"main"</span><span class="w"> </span><span class="p">(</span><span class="nf">Program</span>
+<span class="w">        </span><span class="ss">:symtab</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolTable</span>
+<span class="w">          </span><span class="ss">:id</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">          </span><span class="ss">:symbols</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="s">"a"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
+<span class="w">              </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="ss">:name</span><span class="w"> </span><span class="s">"a"</span>
+<span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:intent</span><span class="w"> </span><span class="ss">:Local</span>
+<span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Allocatable</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Array</span>
+<span class="w">                  </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                    </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                  </span><span class="ss">:dims</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">(</span><span class="nf">dimension</span>
+<span class="w">                      </span><span class="ss">:start</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                      </span><span class="ss">:length</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                  </span><span class="p">]</span>
+<span class="w">                  </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:DescriptorArray</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
+<span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:presence</span><span class="w"> </span><span class="ss">:Required</span>
+<span class="w">              </span><span class="ss">:value_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:target_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:contiguous_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:bindc_name</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:is_volatile</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:is_protected</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
+<span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="s">"p"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
+<span class="w">              </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="ss">:name</span><span class="w"> </span><span class="s">"p"</span>
+<span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:intent</span><span class="w"> </span><span class="ss">:Local</span>
+<span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Pointer</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
+<span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:presence</span><span class="w"> </span><span class="ss">:Required</span>
+<span class="w">              </span><span class="ss">:value_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:target_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:contiguous_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:bindc_name</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:is_volatile</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:is_protected</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
+<span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="s">"stat"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
+<span class="w">              </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="ss">:name</span><span class="w"> </span><span class="s">"stat"</span>
+<span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:intent</span><span class="w"> </span><span class="ss">:Local</span>
+<span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
+<span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:presence</span><span class="w"> </span><span class="ss">:Required</span>
+<span class="w">              </span><span class="ss">:value_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:target_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:contiguous_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:bindc_name</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:is_volatile</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:is_protected</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
+<span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="ss">:name</span><span class="w"> </span><span class="s">"main"</span>
+<span class="w">        </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">        </span><span class="ss">:body</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Allocate</span>
+<span class="w">            </span><span class="ss">:args</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">(</span><span class="nf">alloc_arg</span>
+<span class="w">                </span><span class="ss">:a</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                  </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:dims</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                  </span><span class="p">(</span><span class="nf">dimension</span>
+<span class="w">                    </span><span class="ss">:start</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:length</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">                </span><span class="ss">:len_expr</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                </span><span class="ss">:sym_subclass</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:stat</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"stat"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:errmsg</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:source</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">ReAlloc</span>
+<span class="w">            </span><span class="ss">:args</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">(</span><span class="nf">alloc_arg</span>
+<span class="w">                </span><span class="ss">:a</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                  </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:dims</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                  </span><span class="p">(</span><span class="nf">dimension</span>
+<span class="w">                    </span><span class="ss">:start</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:length</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">20</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">                </span><span class="ss">:len_expr</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                </span><span class="ss">:sym_subclass</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">ExplicitDeallocate</span>
+<span class="w">            </span><span class="ss">:vars</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Nullify</span>
+<span class="w">            </span><span class="ss">:vars</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"p"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">ImplicitDeallocate</span>
+<span class="w">            </span><span class="ss">:vars</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="w">  </span><span class="ss">:items</span><span class="w"> </span><span class="p">[]</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p><span class="xref myst">Allocate</span></p>
+<p><a class="reference internal" href="../../statement_nodes/Allocate/"><span class="doc std std-doc">Allocate</span></a>, <a class="reference internal" href="../../statement_nodes/ReAlloc/"><span class="doc std std-doc">ReAlloc</span></a>, <a class="reference internal" href="../dimension/"><span class="doc std std-doc">dimension</span></a>, <a class="reference internal" href="../../type_nodes/Allocatable/"><span class="doc std std-doc">Allocatable</span></a></p>
 </section>
 </section>
 
@@ -597,6 +952,30 @@ Optional fields may be used for polymorphic or character allocations.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
+            <a href="../helper_nodes/" title="ASR Helper Nodes"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> ASR Helper Nodes </span>
+              </div>
+            </a>
+          
+          
+            <a href="../array_index/" title="array_index"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> array_index </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
           
         </a>
         

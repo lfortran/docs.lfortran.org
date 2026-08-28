@@ -1,0 +1,1890 @@
+
+<!DOCTYPE html>
+
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="../../../../_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="../../../../_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>ArrayIsContiguous &#8212; LFortran</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/ansi.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/lfortran-logo.svg"/>
+    <link rel="index" title="Rejstřík" href="../../../../genindex/" />
+    <link rel="search" title="Vyhledávání" href="../../../../search/" />
+    <link rel="next" title="ArrayItem" href="../ArrayItem/" />
+    <link rel="prev" title="ArrayConstructor" href="../ArrayConstructor/" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=amber data-md-color-accent=orange>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#asr/asr_nodes/expression_nodes/ArrayIsContiguous" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../../../" title="LFortran"
+           class="md-header-nav__button md-logo">
+          
+              <img src="../../../../_static/lfortran-logo.svg" height="26"
+                   alt="LFortran logo">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">LFortran Documentation</span>
+          <span class="md-header-nav__topic"> ArrayIsContiguous </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="../../../../search/" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+  
+  <div class="md-flex__cell md-flex__cell--shrink dropdown">
+    <button class="dropdownbutton">Versions</button>
+    <div class="dropdown-content md-hero">
+          <a title="English" href="/../en/">English</a>
+      
+          <a title="Bengali" href="/../bn/">Bengali</a>
+      
+          <a title="Czech" href="/../cs/">Czech</a>
+      
+          <a title="German" href="/../de/">German</a>
+      
+          <a title="Spanish" href="/../es/">Spanish</a>
+      
+          <a title="French" href="/../fr/">French</a>
+      
+          <a title="Japanese" href="/../ja/">Japanese</a>
+      
+          <a title="Dutch" href="/../nl/">Dutch</a>
+      
+          <a title="Polish" href="/../pl/">Polish</a>
+      
+          <a title="Portuguese" href="/../pt/">Portuguese</a>
+      
+          <a title="Russian" href="/../ru/">Russian</a>
+      
+          <a title="Chinese" href="/../zh_CN/">Chinese</a>
+      
+    </div>
+  </div>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="../../../../" class="md-tabs__link">LFortran</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../installation/" class="md-tabs__link">Getting started</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../progress/" class="md-tabs__link">LFortran Development Status</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../design/" class="md-tabs__link">Developers's Guide</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../intrinsics/array/" class="md-tabs__link">Intrinsics</a></li>
+          <li class="md-tabs__item"><a href="../expression_nodes/" class="md-tabs__link">ASR Expression Nodes</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../../../" title="LFortran" class="md-nav__button md-logo">
+      
+        <img src="../../../../_static/lfortran-logo.svg" alt=" logo" width="48" height="48">
+      
+    </a>
+    <a href="../../../../"
+       title="LFortran">LFortran Documentation</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Začínáme</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../installation/" class="md-nav__link">Installation</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../language/" class="md-nav__link">Fortran Language</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../usage/" class="md-nav__link">LFortran User Guide</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran Development Status</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../progress/" class="md-nav__link">LFortran Development Status</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../progress/#topics" class="md-nav__link">Topics</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Developer's Guide</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../design/" class="md-nav__link">LFortran Design</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../developer_tutorial/" class="md-nav__link">Developer Tutorial</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../ast_and_asr/" class="md-nav__link">Rozdíly mezi AST a ASR</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../interactive_cells/" class="md-nav__link">Interactive evaluation: one TranslationUnit per cell</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../jupyterlite/" class="md-nav__link">LFortran in the Browser (JupyterLite)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../contributing/" class="md-nav__link">Contributing</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran Intrinsics</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/array/" class="md-nav__link">Array Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/bit/" class="md-nav__link">Bit Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/character/" class="md-nav__link">Character Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/kind-type/" class="md-nav__link">Kind Type Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/mathematical/" class="md-nav__link">Mathematical Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/numeric/" class="md-nav__link">Numeric Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../intrinsics/misc/" class="md-nav__link">Miscellaneous Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran ASR Nodes</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../asr/" class="md-nav__link">Abstract Semantic Representation (ASR)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../asr_text/" class="md-nav__link">ASR text format</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../unit_nodes/unit_nodes/" class="md-nav__link">ASR Unit Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../symbol_nodes/symbol_nodes/" class="md-nav__link">ASR Symbol Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayBound/" class="md-nav__link">ArrayBound</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayBroadcast/" class="md-nav__link">ArrayBroadcast</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayConstant/" class="md-nav__link">ArrayConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayConstructor/" class="md-nav__link">ArrayConstructor</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> ArrayIsContiguous </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">ArrayIsContiguous</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#asr-asr-nodes-expression-nodes-arrayiscontiguous--page-root" class="md-nav__link">ArrayIsContiguous</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaration</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Syntax</a>
+        </li>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Arguments</a>
+        </li>
+        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Return values</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        </li>
+        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayItem/" class="md-nav__link">ArrayItem</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayPack/" class="md-nav__link">ArrayPack</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayPhysicalCast/" class="md-nav__link">ArrayPhysicalCast</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayRank/" class="md-nav__link">ArrayRank</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayReshape/" class="md-nav__link">ArrayReshape</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArraySection/" class="md-nav__link">ArraySection</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArraySize/" class="md-nav__link">ArraySize</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ArrayTranspose/" class="md-nav__link">ArrayTranspose</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../BitCast/" class="md-nav__link">BitCast</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../Cast/" class="md-nav__link">Cast</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../CLoc/" class="md-nav__link">CLoc</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../CoarrayRef/" class="md-nav__link">CoarrayRef</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../CompilerOptions/" class="md-nav__link">CompilerOptions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexBinOp/" class="md-nav__link">ComplexBinOp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexCompare/" class="md-nav__link">ComplexCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexConstant/" class="md-nav__link">ComplexConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexConstructor/" class="md-nav__link">ComplexConstructor</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexIm/" class="md-nav__link">ComplexIm</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexRe/" class="md-nav__link">ComplexRe</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ComplexUnaryMinus/" class="md-nav__link">ComplexUnaryMinus</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../CPtrCompare/" class="md-nav__link">CPtrCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../DictConstant/" class="md-nav__link">DictConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../DictContains/" class="md-nav__link">DictContains</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../DictItem/" class="md-nav__link">DictItem</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../DictLen/" class="md-nav__link">DictLen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../DictPop/" class="md-nav__link">DictPop</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../EnumConstructor/" class="md-nav__link">EnumConstructor</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../EnumName/" class="md-nav__link">EnumName</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../EnumStaticMember/" class="md-nav__link">EnumStaticMember</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../EnumValue/" class="md-nav__link">EnumValue</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../FunctionCall/" class="md-nav__link">FunctionCall</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../FunctionParam/" class="md-nav__link">FunctionParam</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../GetPointer/" class="md-nav__link">GetPointer</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../GpuBlockIndex/" class="md-nav__link">GpuBlockIndex</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../GpuBlockSize/" class="md-nav__link">GpuBlockSize</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../GpuThreadIndex/" class="md-nav__link">GpuThreadIndex</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../Iachar/" class="md-nav__link">Iachar</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../Ichar/" class="md-nav__link">Ichar</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IfExp/" class="md-nav__link">IfExp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ImpliedDoLoop/" class="md-nav__link">ImpliedDoLoop</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerBinOp/" class="md-nav__link">IntegerBinOp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerBitLen/" class="md-nav__link">IntegerBitLen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerBitNot/" class="md-nav__link">IntegerBitNot</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerCompare/" class="md-nav__link">IntegerCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerConstant/" class="md-nav__link">IntegerConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntegerUnaryMinus/" class="md-nav__link">IntegerUnaryMinus</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntrinsicArrayFunction/" class="md-nav__link">IntrinsicArrayFunction</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntrinsicElementalFunction/" class="md-nav__link">IntrinsicElementalFunction</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../IntrinsicImpureFunction/" class="md-nav__link">IntrinsicImpureFunction</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ListCompare/" class="md-nav__link">ListCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ListConcat/" class="md-nav__link">ListConcat</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ListConstant/" class="md-nav__link">ListConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ListContains/" class="md-nav__link">ListContains</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ListCount/" class="md-nav__link">ListCount</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ListItem/" class="md-nav__link">ListItem</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ListLen/" class="md-nav__link">ListLen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ListRepeat/" class="md-nav__link">ListRepeat</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ListSection/" class="md-nav__link">ListSection</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../LogicalBinOp/" class="md-nav__link">LogicalBinOp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../LogicalCompare/" class="md-nav__link">LogicalCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../LogicalConstant/" class="md-nav__link">LogicalConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../LogicalNot/" class="md-nav__link">LogicalNot</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../NamedExpr/" class="md-nav__link">NamedExpr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../OverloadedBinOp/" class="md-nav__link">OverloadedBinOp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../OverloadedBoolOp/" class="md-nav__link">OverloadedBoolOp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../OverloadedCompare/" class="md-nav__link">OverloadedCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../OverloadedStringConcat/" class="md-nav__link">OverloadedStringConcat</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../OverloadedUnaryMinus/" class="md-nav__link">OverloadedUnaryMinus</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../PointerAssociated/" class="md-nav__link">PointerAssociated</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../PointerNullConstant/" class="md-nav__link">PointerNullConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../PointerToCPtr/" class="md-nav__link">PointerToCPtr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../RealBinOp/" class="md-nav__link">RealBinOp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../RealCompare/" class="md-nav__link">RealCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../RealConstant/" class="md-nav__link">RealConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../RealCopySign/" class="md-nav__link">RealCopySign</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../RealSqrt/" class="md-nav__link">RealSqrt</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../RealUnaryMinus/" class="md-nav__link">RealUnaryMinus</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../SetConstant/" class="md-nav__link">SetConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../SetContains/" class="md-nav__link">SetContains</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../SetLen/" class="md-nav__link">SetLen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../SetPop/" class="md-nav__link">SetPop</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../SizeOfType/" class="md-nav__link">SizeOfType</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringChr/" class="md-nav__link">StringChr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringCompare/" class="md-nav__link">StringCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringConcat/" class="md-nav__link">StringConcat</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringConstant/" class="md-nav__link">StringConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringContains/" class="md-nav__link">StringContains</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringFormat/" class="md-nav__link">StringFormat</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringItem/" class="md-nav__link">StringItem</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringLen/" class="md-nav__link">StringLen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringOrd/" class="md-nav__link">StringOrd</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringPhysicalCast/" class="md-nav__link">StringPhysicalCast</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringRepeat/" class="md-nav__link">StringRepeat</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StringSection/" class="md-nav__link">StringSection</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StructConstant/" class="md-nav__link">StructConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StructConstructor/" class="md-nav__link">StructConstructor</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StructInstanceMember/" class="md-nav__link">StructInstanceMember</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../StructStaticMember/" class="md-nav__link">StructStaticMember</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../SymbolicCompare/" class="md-nav__link">SymbolicCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../TupleCompare/" class="md-nav__link">TupleCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../TupleConcat/" class="md-nav__link">TupleConcat</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../TupleConstant/" class="md-nav__link">TupleConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../TupleContains/" class="md-nav__link">TupleContains</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../TupleItem/" class="md-nav__link">TupleItem</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../TupleLen/" class="md-nav__link">TupleLen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../TypeInquiry/" class="md-nav__link">TypeInquiry</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../UnionConstructor/" class="md-nav__link">UnionConstructor</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../UnionInstanceMember/" class="md-nav__link">UnionInstanceMember</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../UnsignedIntegerBinOp/" class="md-nav__link">UnsignedIntegerBinOp</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../UnsignedIntegerBitNot/" class="md-nav__link">UnsignedIntegerBitNot</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../UnsignedIntegerCompare/" class="md-nav__link">UnsignedIntegerCompare</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../UnsignedIntegerConstant/" class="md-nav__link">UnsignedIntegerConstant</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../UnsignedIntegerUnaryMinus/" class="md-nav__link">UnsignedIntegerUnaryMinus</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../Var/" class="md-nav__link">Var</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../type_nodes/ttype/" class="md-nav__link">ttype</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../helper_nodes/helper_nodes/" class="md-nav__link">ASR Helper Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../enum_nodes/enum_nodes/" class="md-nav__link">ASR Enumerations</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../kinds_nodes/kinds/" class="md-nav__link">kinds</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMP Nodes</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#asr-asr-nodes-expression-nodes-arrayiscontiguous--page-root" class="md-nav__link">ArrayIsContiguous</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#declaration" class="md-nav__link">Declaration</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#syntax" class="md-nav__link">Syntax</a>
+        </li>
+        <li class="md-nav__item"><a href="#arguments" class="md-nav__link">Arguments</a>
+        </li>
+        <li class="md-nav__item"><a href="#return-values" class="md-nav__link">Return values</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        </li>
+        <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="arrayiscontiguous">
+<h1 id="asr-asr-nodes-expression-nodes-arrayiscontiguous--page-root">ArrayIsContiguous<a class="headerlink" href="#asr-asr-nodes-expression-nodes-arrayiscontiguous--page-root" title="Trvalý odkaz na tento nadpis">¶</a></h1>
+<p>Whether an array occupies contiguous storage.</p>
+<section id="declaration">
+<h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<section id="syntax">
+<h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Trvalý odkaz na tento nadpis">¶</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ArrayIsContiguous(expr array, ttype type, expr? value)
+</pre></div>
+</div>
+</section>
+<section id="arguments">
+<h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Trvalý odkaz na tento nadpis">¶</a></h3>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">array</span></code></p></td>
+<td><p>the array to test.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<td><p>the logical type of the result.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
+<td><p>the compile time value of the expression, when the frontend could fold it; <code class="docutils literal notranslate"><span class="pre">nil</span></code> otherwise.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values">
+<h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Trvalý odkaz na tento nadpis">¶</a></h3>
+<p>The value of the expression.</p>
+</section>
+</section>
+<section id="description">
+<h2 id="description">Description<a class="headerlink" href="#description" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">is_contiguous(a)</span></code>. A section with a stride, or one that fixes a subscript in
+the wrong dimension, is not contiguous, and a procedure that requires
+contiguity has to copy it. The test lets generated code choose between a fast
+path and a copy.</p>
+</section>
+<section id="examples">
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<div class="highlight-clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">ArrayIsContiguous</span>
+<span class="w">  </span><span class="ss">:array</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">    </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="w">  </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Logical</span>
+<span class="w">    </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="w">  </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>It comes from this complete ASR text document:</p>
+<div class="highlight-clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">TranslationUnit</span>
+<span class="w">  </span><span class="ss">:symtab</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolTable</span>
+<span class="w">    </span><span class="ss">:id</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="ss">:symbols</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s">"main"</span><span class="w"> </span><span class="p">(</span><span class="nf">Program</span>
+<span class="w">        </span><span class="ss">:symtab</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolTable</span>
+<span class="w">          </span><span class="ss">:id</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">          </span><span class="ss">:symbols</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="s">"a"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
+<span class="w">              </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="ss">:name</span><span class="w"> </span><span class="s">"a"</span>
+<span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:intent</span><span class="w"> </span><span class="ss">:Local</span>
+<span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Array</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:dims</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                  </span><span class="p">(</span><span class="nf">dimension</span>
+<span class="w">                    </span><span class="ss">:start</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:length</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
+<span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:presence</span><span class="w"> </span><span class="ss">:Required</span>
+<span class="w">              </span><span class="ss">:value_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:target_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:contiguous_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:bindc_name</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:is_volatile</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:is_protected</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
+<span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="s">"b"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
+<span class="w">              </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="ss">:name</span><span class="w"> </span><span class="s">"b"</span>
+<span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:intent</span><span class="w"> </span><span class="ss">:Local</span>
+<span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Array</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:dims</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                  </span><span class="p">(</span><span class="nf">dimension</span>
+<span class="w">                    </span><span class="ss">:start</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:length</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
+<span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:presence</span><span class="w"> </span><span class="ss">:Required</span>
+<span class="w">              </span><span class="ss">:value_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:target_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:contiguous_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:bindc_name</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:is_volatile</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:is_protected</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
+<span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="s">"i"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
+<span class="w">              </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="ss">:name</span><span class="w"> </span><span class="s">"i"</span>
+<span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:intent</span><span class="w"> </span><span class="ss">:Local</span>
+<span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
+<span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:presence</span><span class="w"> </span><span class="ss">:Required</span>
+<span class="w">              </span><span class="ss">:value_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:target_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:contiguous_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:bindc_name</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:is_volatile</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:is_protected</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
+<span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="s">"l"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
+<span class="w">              </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="ss">:name</span><span class="w"> </span><span class="s">"l"</span>
+<span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:intent</span><span class="w"> </span><span class="ss">:Local</span>
+<span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Logical</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
+<span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:presence</span><span class="w"> </span><span class="ss">:Required</span>
+<span class="w">              </span><span class="ss">:value_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:target_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:contiguous_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:bindc_name</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:is_volatile</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:is_protected</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
+<span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="ss">:name</span><span class="w"> </span><span class="s">"main"</span>
+<span class="w">        </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">        </span><span class="ss">:body</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">ArrayConstant</span>
+<span class="w">              </span><span class="ss">:n_data</span><span class="w"> </span><span class="mi">12</span>
+<span class="w">              </span><span class="ss">:data</span><span class="w"> </span><span class="o">#</span><span class="nv">asr/bytes</span><span class="w"> </span><span class="s">"010000000200000003000000"</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Array</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:dims</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                  </span><span class="p">(</span><span class="nf">dimension</span>
+<span class="w">                    </span><span class="ss">:start</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:length</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:storage_format</span><span class="w"> </span><span class="ss">:ColMajor</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"i"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">ArrayItem</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:args</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">(</span><span class="nf">array_index</span>
+<span class="w">                  </span><span class="ss">:left</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                  </span><span class="ss">:right</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                    </span><span class="ss">:n</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">                    </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                      </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                  </span><span class="ss">:step</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:storage_format</span><span class="w"> </span><span class="ss">:ColMajor</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"b"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">ArraySection</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:args</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">(</span><span class="nf">array_index</span>
+<span class="w">                  </span><span class="ss">:left</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                    </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                    </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                      </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                  </span><span class="ss">:right</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                    </span><span class="ss">:n</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">                    </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                      </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                  </span><span class="ss">:step</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                    </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                    </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                      </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">              </span><span class="p">]</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Array</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:dims</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                  </span><span class="p">(</span><span class="nf">dimension</span>
+<span class="w">                    </span><span class="ss">:start</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:length</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                      </span><span class="p">)</span>
+<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:DescriptorArray</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"i"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">ArraySize</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:dim</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"i"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">ArrayRank</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"i"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">ArrayBound</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:dim</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:bound</span><span class="w"> </span><span class="ss">:UBound</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"l"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">ArrayIsContiguous</span>
+<span class="w">              </span><span class="ss">:array</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Logical</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="w">  </span><span class="ss">:items</span><span class="w"> </span><span class="p">[]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<p><a class="reference internal" href="../ArraySection/"><span class="doc std std-doc">ArraySection</span></a>, <a class="reference internal" href="../ArrayPhysicalCast/"><span class="doc std std-doc">ArrayPhysicalCast</span></a>, <a class="reference internal" href="../../enum_nodes/array_physical_type/"><span class="doc std std-doc">array_physical_type</span></a></p>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="../ArrayConstructor/" title="ArrayConstructor"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> ArrayConstructor </span>
+              </div>
+            </a>
+          
+          
+            <a href="../ArrayItem/" title="ArrayItem"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> ArrayItem </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2022 LFortran contributors.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../../../../_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>

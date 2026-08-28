@@ -64,8 +64,8 @@
     <link rel="shortcut icon" href="../../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="Index" href="../../../../genindex/" />
     <link rel="search" title="Zoeken" href="../../../../search/" />
-    <link rel="next" title="ASR OpenMp Nodes" href="../../omp_nodes/omp_nodes/" />
-    <link rel="prev" title="symbol" href="../../symbol_nodes/symbol/" />
+    <link rel="next" title="Allocatable" href="../Allocatable/" />
+    <link rel="prev" title="Var" href="../../expression_nodes/Var/" />
   
    
 
@@ -413,21 +413,14 @@
     <li class="md-nav__item">
     
     
-      <a href="../../cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
+      <a href="../../unit_nodes/unit_nodes/" class="md-nav__link">ASR Unit Nodes</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../kinds_nodes/kinds/" class="md-nav__link">kinds</a>
+      <a href="../../symbol_nodes/symbol_nodes/" class="md-nav__link">ASR Symbol Nodes</a>
       
     
     </li>
@@ -441,7 +434,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../symbol_nodes/symbol_nodes/" class="md-nav__link">ASR Symbol Nodes</a>
+      <a href="../../expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
       
     
     </li>
@@ -471,11 +464,9 @@
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
-        </li>
-        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
-        </li>
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
+        </li>
+        <li class="md-nav__item"><a href="#type-nodes" class="md-nav__link">Type Nodes</a>
         </li></ul>
             </nav>
         </li>
@@ -499,21 +490,14 @@
     <li class="md-nav__item">
     
     
-      <a href="#types" class="md-nav__link">Types</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#examples" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="#see-also" class="md-nav__link">See Also</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#type-nodes" class="md-nav__link">Type Nodes</a>
       
     
     </li></ul>
@@ -522,7 +506,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMp Nodes</a>
+      <a href="../../helper_nodes/helper_nodes/" class="md-nav__link">ASR Helper Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../enum_nodes/enum_nodes/" class="md-nav__link">ASR Enumerations</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../kinds_nodes/kinds/" class="md-nav__link">kinds</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMP Nodes</a>
       
     
     </li>
@@ -554,11 +566,9 @@
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
-        </li>
-        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
-        </li>
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
+        </li>
+        <li class="md-nav__item"><a href="#type-nodes" class="md-nav__link">Type Nodes</a>
         </li></ul>
             </nav>
         </li>
@@ -573,332 +583,106 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="ttype">
 <h1 id="asr-asr-nodes-type-nodes-ttype--page-root">ttype<a class="headerlink" href="#asr-asr-nodes-type-nodes-ttype--page-root" title="Permalink naar deze titel">¶</a></h1>
-<p>Type nodes.</p>
+<p>The types of ASR.</p>
 <section id="declaration">
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Permalink naar deze titel">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permalink naar deze titel">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>ttype
-    = Integer(int kind, dimension* dims)
-    | Real(int kind, dimension* dims)
-    | Complex(int kind, dimension* dims)
-    | Character(int kind, int len, expr? len_expr, dimension* dims)
-    | Logical(int kind, dimension* dims)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ttype
+    = Integer(int kind)
+    | UnsignedInteger(int kind)
+    | Real(int kind)
+    | Complex(int kind)
+    | String(int kind, expr? len, string_length_kind len_kind, string_physical_type physical_type)
+    | Logical(int kind)
     | Set(ttype type)
     | List(ttype type)
     | Tuple(ttype* type)
-    | Struct(symbol derived_type, dimension* dims)
-    | Enum(symbol enum_type, dimension *dims)
-    | UnionType(symbol union_type, dimension *dims)
-    | Class(symbol class_type, dimension* dims)
+    | StructType(ttype* data_member_types, ttype* member_function_types, bool is_cstruct, bool is_unlimited_polymorphic)
+    | EnumType(symbol enum_type)
+    | UnionType(ttype* data_member_types)
     | Dict(ttype key_type, ttype value_type)
     | Pointer(ttype type)
+    | Allocatable(ttype type)
     | CPtr()
-    | TypeParameter(identifier param, dimension* dims)
+    | SymbolicExpression()
+    | TypeParameter(identifier param)
+    | Array(ttype type, dimension* dims, array_physical_type physical_type)
+    | FunctionType(ttype* arg_types, ttype? return_var_type, abi abi, deftype deftype, string? bindc_name, bool elemental, bool pure, bool module, bool inline, bool static, symbol* restrictions, bool is_restriction)
 </pre></div>
 </div>
 </section>
 <section id="arguments">
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permalink naar deze titel">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">kind</span></code> member selects the kind of a given type.
-<code class="docutils literal notranslate"><span class="pre">dims</span></code> denotes dimension descriptor.
-<code class="docutils literal notranslate"><span class="pre">expr</span></code> denotes expression.
-<code class="docutils literal notranslate"><span class="pre">len</span></code> denotes length of variable allowed.
-<code class="docutils literal notranslate"><span class="pre">derived_type</span></code> denotes derived type of class. <code class="docutils literal notranslate"><span class="pre">derived_type</span></code> must point to a
-symbol with a symbol table.
-<code class="docutils literal notranslate"><span class="pre">enum_type</span></code> denotes enumeration type.
-<code class="docutils literal notranslate"><span class="pre">union_type</span></code> denotes union type.
-<code class="docutils literal notranslate"><span class="pre">class_type</span></code> denotes class type.
-<code class="docutils literal notranslate"><span class="pre">key_type</span></code> denotes key type in dictonary type.
-<code class="docutils literal notranslate"><span class="pre">value_type</span></code> denotes value type in dictionary type.
-<code class="docutils literal notranslate"><span class="pre">param</span></code> denotes identifier or variable’s.</p>
+<p>None.</p>
 </section>
 <section id="return-values">
 <h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Permalink naar deze titel">¶</a></h3>
-<p>None.</p>
+<p>None. A type is not evaluated.</p>
 </section>
 </section>
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permalink naar deze titel">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">ttype</span></code> denotes type of variables supported by LFortran. It consists of:</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Integer</span></code> denotes integer type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Real</span></code> denotes real type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Complex</span></code> denotes complex type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Character</span></code> denotes character type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Logical</span></code> denotes logical type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Set</span></code> denotes set type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">List</span></code> denotes list type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Tuple</span></code> denotes tuple type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Struct</span></code> denotes structure type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Enum</span></code> denotes enumeration type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">UnionType</span></code> denotes union type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Class</span></code> denotes class type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Dict</span></code> denotes dictionary type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Pointer</span></code> denotes Pointer type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CPtr</span></code> denotes C pointer type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">TypeParameter</span></code> denotes type of parameter.</p></li>
-</ol>
-</section>
-<section id="types">
-<h2 id="types">Types<a class="headerlink" href="#types" title="Permalink naar deze titel">¶</a></h2>
-<p><strong>ttype</strong> defines types of variables or identifiers supported by LFortran.</p>
-</section>
-<section id="examples">
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink naar deze titel">¶</a></h2>
-<p>Example for <code class="docutils literal notranslate"><span class="pre">integer</span></code>:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
-<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span>
-<span class="n">x</span>
-</pre></div>
-</div>
-<p>ASR:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>(TranslationUnit
-    (SymbolTable
-        1
-        {
-            x:
-                (Variable
-                    1
-                    x
-                    Local
-                    ()
-                    ()
-                    Default
-                    (Integer 8 [])
-                    Source
-                    Public
-                    Required
-                    .false.
-                )
-
-        })
-    [(=
-        (Var 1 x)
-        (Cast
-            (IntegerConstant 6 (Integer 4 []))
-            IntegerToInteger
-            (Integer 8 [])
-            (IntegerConstant 6 (Integer 8 []))
-        )
-        ()
-    )
-    (Var 1 x)]
-)
-</pre></div>
-</div>
-<p>Example for <code class="docutils literal notranslate"><span class="pre">derived_type</span></code>:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">t01_derived_type</span>
-<span class="k">implicit none</span>
-<span class="k">type </span><span class="n">type_A</span>
-<span class="w">    </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
-<span class="w">    </span><span class="kt">real</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">r</span>
-<span class="k">end type</span>
-<span class="k">type</span><span class="p">(</span><span class="n">type_A</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">A</span>
-<span class="n">A</span><span class="p">%</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
-<span class="n">A</span><span class="p">%</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.5</span>
-<span class="k">end program</span>
-</pre></div>
-</div>
-<p>ASR:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>(TranslationUnit
-    (SymbolTable
-        1
-        {
-            t01_derived_type:
-                (Program
-                    (SymbolTable
-                        2
-                        {
-                            a:
-                                (Variable
-                                    2
-                                    a
-                                    Local
-                                    ()
-                                    ()
-                                    Default
-                                    (Struct
-                                        2 type_a
-                                        []
-                                    )
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                ),
-                            type_a:
-                                (StructType
-                                    (SymbolTable
-                                        3
-                                        {
-                                            i:
-                                                (Variable
-                                                    3
-                                                    i
-                                                    Local
-                                                    ()
-                                                    ()
-                                                    Default
-                                                    (Integer 4 [])
-                                                    Source
-                                                    Public
-                                                    Required
-                                                    .false.
-                                                ),
-                                            r:
-                                                (Variable
-                                                    3
-                                                    r
-                                                    Local
-                                                    ()
-                                                    ()
-                                                    Default
-                                                    (Real 4 [])
-                                                    Source
-                                                    Public
-                                                    Required
-                                                    .false.
-                                                )
-
-                                        })
-                                    type_a
-                                    [i
-                                    r]
-                                    Source
-                                    Public
-                                    ()
-                                )
-
-                        })
-                    t01_derived_type
-                    []
-                    [(=
-                        (StructInstanceMember
-                            (Var 2 a)
-                            3 i
-                            (Integer 4 [])
-                            ()
-                        )
-                        (IntegerConstant 5 (Integer 4 []))
-                        ()
-                    )
-                    (=
-                        (StructInstanceMember
-                            (Var 2 a)
-                            3 r
-                            (Real 4 [])
-                            ()
-                        )
-                        (RealConstant
-                            5.500000
-                            (Real 4 [])
-                        )
-                        ()
-                    )]
-                )
-
-        })
-    []
-)
-</pre></div>
-</div>
-<p>Example for <code class="docutils literal notranslate"><span class="pre">complex</span></code>:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">complex1</span>
-<span class="kt">complex</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
-<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">)</span>
-<span class="k">end program</span>
-</pre></div>
-</div>
-<p>ASR:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">TranslationUnit</span>
-    <span class="p">(</span><span class="n">SymbolTable</span>
-        <span class="mi">1</span>
-        <span class="p">{</span>
-            <span class="n">complex1</span><span class="p">:</span>
-                <span class="p">(</span><span class="n">Program</span>
-                    <span class="p">(</span><span class="n">SymbolTable</span>
-                        <span class="mi">2</span>
-                        <span class="p">{</span>
-                            <span class="n">x</span><span class="p">:</span>
-                                <span class="p">(</span><span class="n">Variable</span>
-                                    <span class="mi">2</span>
-                                    <span class="n">x</span>
-                                    <span class="n">Local</span>
-                                    <span class="p">()</span>
-                                    <span class="p">()</span>
-                                    <span class="n">Default</span>
-                                    <span class="p">(</span><span class="n">Complex</span> <span class="mi">4</span> <span class="p">[])</span>
-                                    <span class="n">Source</span>
-                                    <span class="n">Public</span>
-                                    <span class="n">Required</span>
-                                    <span class="o">.</span><span class="n">false</span><span class="o">.</span>
-                                <span class="p">)</span>
-
-                        <span class="p">})</span>
-                    <span class="n">complex1</span>
-                    <span class="p">[]</span>
-                    <span class="p">[(</span><span class="o">=</span>
-                        <span class="p">(</span><span class="n">Var</span> <span class="mi">2</span> <span class="n">x</span><span class="p">)</span>
-                        <span class="p">(</span><span class="n">ComplexConstructor</span>
-                            <span class="p">(</span><span class="n">RealConstant</span>
-                                <span class="mf">3.000000</span>
-                                <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
-                            <span class="p">)</span>
-                            <span class="p">(</span><span class="n">RealConstant</span>
-                                <span class="mf">4.000000</span>
-                                <span class="p">(</span><span class="n">Real</span> <span class="mi">4</span> <span class="p">[])</span>
-                            <span class="p">)</span>
-                            <span class="p">(</span><span class="n">Complex</span> <span class="mi">4</span> <span class="p">[])</span>
-                            <span class="p">(</span><span class="n">ComplexConstant</span>
-                                <span class="mf">3.000000</span>
-                                <span class="mf">4.000000</span>
-                                <span class="p">(</span><span class="n">Complex</span> <span class="mi">4</span> <span class="p">[])</span>
-                            <span class="p">)</span>
-                        <span class="p">)</span>
-                        <span class="p">()</span>
-                    <span class="p">)]</span>
-                <span class="p">)</span>
-
-        <span class="p">})</span>
-    <span class="p">[]</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>Example for <code class="docutils literal notranslate"><span class="pre">dimension</span></code>:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
-<span class="k">dimension </span><span class="n">x</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>ASR:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">TranslationUnit</span>
-    <span class="p">(</span><span class="n">SymbolTable</span>
-        <span class="mi">1</span>
-        <span class="p">{</span>
-            <span class="n">x</span><span class="p">:</span>
-                <span class="p">(</span><span class="n">Variable</span>
-                    <span class="mi">1</span>
-                    <span class="n">x</span>
-                    <span class="n">Local</span>
-                    <span class="p">()</span>
-                    <span class="p">()</span>
-                    <span class="n">Default</span>
-                    <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[((</span><span class="n">IntegerConstant</span> <span class="mi">1</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[]))</span>
-                    <span class="p">(</span><span class="n">IntegerConstant</span> <span class="mi">3</span> <span class="p">(</span><span class="n">Integer</span> <span class="mi">4</span> <span class="p">[])))])</span>
-                    <span class="n">Source</span>
-                    <span class="n">Public</span>
-                    <span class="n">Required</span>
-                    <span class="o">.</span><span class="n">false</span><span class="o">.</span>
-                <span class="p">)</span>
-
-        <span class="p">})</span>
-    <span class="p">[]</span>
-<span class="p">)</span>
-</pre></div>
-</div>
+<p>A <code class="docutils literal notranslate"><span class="pre">ttype</span></code> describes what a value is: the type of every expression, of every
+variable and of every procedure argument is one of these.</p>
+<p>The types divide into a few groups:</p>
+<ul class="simple">
+<li><p>the intrinsic scalar types, <a class="reference internal" href="../Integer/"><span class="doc std std-doc">Integer</span></a>,
+<a class="reference internal" href="../UnsignedInteger/"><span class="doc std std-doc">UnsignedInteger</span></a>, <a class="reference internal" href="../Real/"><span class="doc std std-doc">Real</span></a>,
+<a class="reference internal" href="../Complex/"><span class="doc std std-doc">Complex</span></a>, <a class="reference internal" href="../Logical/"><span class="doc std std-doc">Logical</span></a> and <a class="reference internal" href="../String/"><span class="doc std std-doc">String</span></a>, each
+fixed by a <a class="reference internal" href="../../kinds_nodes/kinds/"><span class="doc std std-doc">kind</span></a>;</p></li>
+<li><p>the derived types, <a class="reference internal" href="../StructType/"><span class="doc std std-doc">StructType</span></a>, <a class="reference internal" href="../EnumType/"><span class="doc std std-doc">EnumType</span></a> and
+<a class="reference internal" href="../UnionType/"><span class="doc std std-doc">UnionType</span></a>, whose definitions are symbols;</p></li>
+<li><p>the composite types <a class="reference internal" href="../Array/"><span class="doc std std-doc">Array</span></a>, <a class="reference internal" href="../Pointer/"><span class="doc std std-doc">Pointer</span></a> and
+<a class="reference internal" href="../Allocatable/"><span class="doc std std-doc">Allocatable</span></a>, which wrap another type;</p></li>
+<li><p><a class="reference internal" href="../CPtr/"><span class="doc std std-doc">CPtr</span></a> and <a class="reference internal" href="../FunctionType/"><span class="doc std std-doc">FunctionType</span></a>, which describe a C
+address and a procedure signature;</p></li>
+<li><p><a class="reference internal" href="../TypeParameter/"><span class="doc std std-doc">TypeParameter</span></a>, a placeholder inside a generic
+<a class="reference internal" href="../../symbol_nodes/Template/"><span class="doc std std-doc">Template</span></a>;</p></li>
+<li><p>the LPython container types <a class="reference internal" href="../List/"><span class="doc std std-doc">List</span></a>, <a class="reference internal" href="../Set/"><span class="doc std std-doc">Set</span></a>, <a class="reference internal" href="../Dict/"><span class="doc std std-doc">Dict</span></a>
+and <a class="reference internal" href="../Tuple/"><span class="doc std std-doc">Tuple</span></a>, and <a class="reference internal" href="../SymbolicExpression/"><span class="doc std std-doc">SymbolicExpression</span></a>.</p></li>
+</ul>
+<p>A type separates what a value <em>is</em> from how it is <em>represented</em>. An
+<a class="reference internal" href="../Array/"><span class="doc std std-doc">Array</span></a> carries an <code class="docutils literal notranslate"><span class="pre">array_physical_type</span></code> and a
+<a class="reference internal" href="../String/"><span class="doc std std-doc">String</span></a> a <code class="docutils literal notranslate"><span class="pre">string_physical_type</span></code>, and two values with the same
+logical type may differ in it; the physical casts,
+<a class="reference internal" href="../../expression_nodes/ArrayPhysicalCast/"><span class="doc std std-doc">ArrayPhysicalCast</span></a> and
+<a class="reference internal" href="../../expression_nodes/StringPhysicalCast/"><span class="doc std std-doc">StringPhysicalCast</span></a>, convert
+between representations without changing the value, while
+<a class="reference internal" href="../../expression_nodes/Cast/"><span class="doc std std-doc">Cast</span></a> changes the value itself.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permalink naar deze titel">¶</a></h2>
+<p><a class="reference internal" href="../../kinds_nodes/kinds/"><span class="doc std std-doc">kinds</span></a>, <a class="reference internal" href="../../expression_nodes/Cast/"><span class="doc std std-doc">Cast</span></a>,
+<a class="reference internal" href="../../symbol_nodes/symbol/"><span class="doc std std-doc">symbol</span></a></p>
+</section>
+<section id="type-nodes">
+<h2 id="type-nodes">Type Nodes<a class="headerlink" href="#type-nodes" title="Permalink naar deze titel">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Allocatable/">Allocatable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Array/">Array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Complex/">Complex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CPtr/">CPtr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Dict/">Dict</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnumType/">EnumType</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FunctionType/">FunctionType</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Integer/">Integer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../List/">List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Logical/">Logical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Pointer/">Pointer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Real/">Real</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Set/">Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../String/">String</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StringPhysicalType/">string_physical_type</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../StructType/">StructType</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SymbolicExpression/">SymbolicExpression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Tuple/">Tuple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TypeParameter/">TypeParameter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UnionType/">UnionType</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UnsignedInteger/">UnsignedInteger</a></li>
+</ul>
+</div>
 </section>
 </section>
 
@@ -912,7 +696,7 @@ symbol with a symbol table.
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../../symbol_nodes/symbol/" title="symbol"
+            <a href="../../expression_nodes/Var/" title="Var"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -921,17 +705,17 @@ symbol with a symbol table.
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> symbol </span>
+                      class="md-footer-nav__direction"> Previous </span> Var </span>
               </div>
             </a>
           
           
-            <a href="../../omp_nodes/omp_nodes/" title="ASR OpenMp Nodes"
+            <a href="../Allocatable/" title="Allocatable"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> ASR OpenMp Nodes </span>
+                class="md-footer-nav__direction"> Next </span> Allocatable </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

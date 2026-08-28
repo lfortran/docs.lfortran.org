@@ -63,8 +63,8 @@
     <link rel="shortcut icon" href="../../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="Index" href="../../../../genindex/" />
     <link rel="search" title="Search" href="../../../../search/" />
-    <link rel="next" title="ASR Statement Nodes" href="../../statement_nodes/statement_nodes/" />
-    <link rel="prev" title="Var" href="../../expression_nodes/Var/" />
+    <link rel="next" title="ASR OpenMP Nodes" href="../../omp_nodes/omp_nodes/" />
+    <link rel="prev" title="cast_kind" href="../../cast_kind_nodes/cast_kind/" />
   
    
 
@@ -412,7 +412,21 @@
     <li class="md-nav__item">
     
     
-      <a href="../../cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
+      <a href="../../unit_nodes/unit_nodes/" class="md-nav__link">ASR Unit Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../symbol_nodes/symbol_nodes/" class="md-nav__link">ASR Symbol Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
       
     
     </li>
@@ -420,6 +434,34 @@
     
     
       <a href="../../expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../type_nodes/ttype/" class="md-nav__link">ttype</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../helper_nodes/helper_nodes/" class="md-nav__link">ASR Helper Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../enum_nodes/enum_nodes/" class="md-nav__link">ASR Enumerations</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
       
     
     </li>
@@ -449,8 +491,6 @@
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
-        </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
@@ -477,13 +517,6 @@
     <li class="md-nav__item">
     
     
-      <a href="#types" class="md-nav__link">Types</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="#examples" class="md-nav__link">Examples</a>
       
     
@@ -500,28 +533,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../symbol_nodes/symbol_nodes/" class="md-nav__link">ASR Symbol Nodes</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../type_nodes/ttype/" class="md-nav__link">ttype</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMp Nodes</a>
+      <a href="../../omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMP Nodes</a>
       
     
     </li>
@@ -553,8 +565,6 @@
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
         </li>
-        <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
-        </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
@@ -572,209 +582,321 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="kinds">
 <h1 id="asr-asr-nodes-kinds-nodes-kinds--page-root">kinds<a class="headerlink" href="#asr-asr-nodes-kinds-nodes-kinds--page-root" title="Permalink to this headline">¶</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">kind</span></code> member selects the kind of a given type.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">kind</span></code> member of an intrinsic type.</p>
 <section id="declaration">
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Permalink to this headline">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">Integer</span>
-<span class="kt">Real</span>
-<span class="kt">Complex</span>
-<span class="kt">Character</span>
-<span class="kt">Logical</span>
-<span class="nb">kind</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Integer(int kind)
+UnsignedInteger(int kind)
+Real(int kind)
+Complex(int kind)
+Logical(int kind)
 </pre></div>
 </div>
 </section>
 <section id="arguments">
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h3>
-<p>None.</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">kind</span></code></p></td>
+<td><p>the kind of the type, as a number of bytes.</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="return-values">
 <h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Permalink to this headline">¶</a></h3>
-<p>None.</p>
+<p>None. A type is not evaluated.</p>
 </section>
 </section>
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p><strong>kind</strong> denotes the kind of a given type. LFortran supports the following:</p>
-<ol class="arabic simple">
-<li><p>Integer kinds: 1 (i8), 2 (i16), 4 (i32), 8 (i64)</p></li>
-<li><p>Real kinds: 4 (f32), 8 (f64)</p></li>
-<li><p>Complex kinds: 4 (c32), 8 (c64)</p></li>
-<li><p>Character kinds: 1 (utf8 string)</p></li>
-<li><p>Logical kinds: 1, 2, 4: (boolean represented by 1, 2, 4 bytes; the default
-kind is 4, just like the default integer kind, consistent with Python and Fortran:
-in Python “Booleans in Python are implemented as a subclass of integers”, in
-Fortran the “default logical kind has the same storage size as the default integer”;
-we currently use kind=4 as default integer, so we also use kind=4 for the
-default logical.)</p></li>
-</ol>
-</section>
-<section id="types">
-<h2 id="types">Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
-<p>LFortan supports the following types:</p>
-<ol class="arabic simple">
-<li><p>Integer kinds</p></li>
-<li><p>Real kinds</p></li>
-<li><p>Complex kinds</p></li>
-<li><p>Character kinds</p></li>
-<li><p>Logical kinds</p></li>
-</ol>
+<p>The kind is part of the type, so every value in ASR has a width that is known
+where it appears: there is no integer whose size is implied by context, and an
+operation between two kinds is an explicit
+<a class="reference internal" href="../../expression_nodes/Cast/"><span class="doc std std-doc">Cast</span></a> rather than a promotion a backend performs.</p>
+<p>LFortran supports these kinds:</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Kinds</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../../type_nodes/Integer/"><span class="doc std std-doc">Integer</span></a></p></td>
+<td><p>1 (i8), 2 (i16), 4 (i32), 8 (i64)</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../type_nodes/UnsignedInteger/"><span class="doc std std-doc">UnsignedInteger</span></a></p></td>
+<td><p>1, 2, 4, 8</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../type_nodes/Real/"><span class="doc std std-doc">Real</span></a></p></td>
+<td><p>4 (f32), 8 (f64)</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../type_nodes/Complex/"><span class="doc std std-doc">Complex</span></a></p></td>
+<td><p>4 (c32), 8 (c64)</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../../type_nodes/String/"><span class="doc std std-doc">String</span></a></p></td>
+<td><p>1 (a byte)</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../type_nodes/Logical/"><span class="doc std std-doc">Logical</span></a></p></td>
+<td><p>1, 2, 4</p></td>
+<td><p>4</p></td>
+</tr>
+</tbody>
+</table>
+<p>A <a class="reference internal" href="../../type_nodes/Complex/"><span class="doc std std-doc">Complex</span></a> of kind 8 holds two <code class="docutils literal notranslate"><span class="pre">real(8)</span></code> values: the
+kind is the kind of each part, not the size of the pair.</p>
+<p>The default logical kind is 4, the same as the default integer kind. That
+follows both languages LFortran serves: in Fortran the “default logical kind
+has the same storage size as the default integer”, and in Python “Booleans are
+implemented as a subclass of integers”.</p>
+<p>A kind is written in Fortran as a literal suffix, <code class="docutils literal notranslate"><span class="pre">1.0_dp</span></code>, or as a type
+parameter, <code class="docutils literal notranslate"><span class="pre">real(kind=dp)</span></code>. Either way the frontend resolves it to a number
+before ASR is built, so a kind in ASR is always a plain integer and never an
+expression.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">const_kind_01</span>
-<span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">sp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
-<span class="kt">real</span><span class="p">(</span><span class="n">sp</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0_sp</span>
-<span class="kt">real</span><span class="p">(</span><span class="n">dp</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0_dp</span>
-<span class="kt">real</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">r3</span>
-<span class="n">r3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0_sp</span>
-<span class="n">r3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0_dp</span>
-<span class="k">print</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">sp</span><span class="p">,</span><span class="w"> </span><span class="n">dp</span><span class="p">,</span><span class="w"> </span><span class="n">r1</span><span class="p">,</span><span class="w"> </span><span class="n">r2</span><span class="p">,</span><span class="w"> </span><span class="n">r3</span>
-<span class="k">end program</span>
+<p>A <code class="docutils literal notranslate"><span class="pre">real(8)</span></code> variable and a <code class="docutils literal notranslate"><span class="pre">real(8)</span></code> constant:</p>
+<div class="highlight-clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">RealConstant</span>
+<span class="w">  </span><span class="ss">:r</span><span class="w"> </span><span class="mf">2.5</span>
+<span class="w">  </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Real</span>
+<span class="w">    </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<p>ASR:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>(TranslationUnit
-    (SymbolTable
-        1
-        {
-            const_kind_01:
-                (Program
-                    (SymbolTable
-                        2
-                        {
-                            dp:
-                                (Variable
-                                    2
-                                    dp
-                                    Local
-                                    (IntegerConstant 8 (Integer 4 []))
-                                    (IntegerConstant 8 (Integer 4 []))
-                                    Parameter
-                                    (Integer 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                ),
-                            r1:
-                                (Variable
-                                    2
-                                    r1
-                                    Local
-                                    (RealConstant
-                                        1.000000
-                                        (Real 4 [])
-                                    )
-                                    (RealConstant
-                                        1.000000
-                                        (Real 4 [])
-                                    )
-                                    Parameter
-                                    (Real 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                ),
-                            r2:
-                                (Variable
-                                    2
-                                    r2
-                                    Local
-                                    (RealConstant
-                                        1.000000
-                                        (Real 8 [])
-                                    )
-                                    (RealConstant
-                                        1.000000
-                                        (Real 8 [])
-                                    )
-                                    Parameter
-                                    (Real 8 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                ),
-                            r3:
-                                (Variable
-                                    2
-                                    r3
-                                    Local
-                                    ()
-                                    ()
-                                    Default
-                                    (Real 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                ),
-                            sp:
-                                (Variable
-                                    2
-                                    sp
-                                    Local
-                                    (IntegerConstant 4 (Integer 4 []))
-                                    (IntegerConstant 4 (Integer 4 []))
-                                    Parameter
-                                    (Integer 4 [])
-                                    Source
-                                    Public
-                                    Required
-                                    .false.
-                                )
-
-                        })
-                    const_kind_01
-                    []
-                    [(=
-                        (Var 2 r3)
-                        (RealConstant
-                            1.000000
-                            (Real 4 [])
-                        )
-                        ()
-                    )
-                    (=
-                        (Var 2 r3)
-                        (Cast
-                            (RealConstant
-                                1.000000
-                                (Real 8 [])
-                            )
-                            RealToReal
-                            (Real 4 [])
-                            (RealConstant
-                                1.000000
-                                (Real 4 [])
-                            )
-                        )
-                        ()
-                    )
-                    (Print
-                        ()
-                        [(Var 2 sp)
-                        (Var 2 dp)
-                        (Var 2 r1)
-                        (Var 2 r2)
-                        (Var 2 r3)]
-                        ()
-                        ()
-                    )]
-                )
-
-        })
-    []
-)
+<p>The complete translation unit:</p>
+<div class="highlight-clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">TranslationUnit</span>
+<span class="w">  </span><span class="ss">:symtab</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolTable</span>
+<span class="w">    </span><span class="ss">:id</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="ss">:symbols</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s">"main"</span><span class="w"> </span><span class="p">(</span><span class="nf">Program</span>
+<span class="w">        </span><span class="ss">:symtab</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolTable</span>
+<span class="w">          </span><span class="ss">:id</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">          </span><span class="ss">:symbols</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="s">"b"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
+<span class="w">              </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="ss">:name</span><span class="w"> </span><span class="s">"b"</span>
+<span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:intent</span><span class="w"> </span><span class="ss">:Local</span>
+<span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Logical</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
+<span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:presence</span><span class="w"> </span><span class="ss">:Required</span>
+<span class="w">              </span><span class="ss">:value_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:target_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:contiguous_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:bindc_name</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:is_volatile</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:is_protected</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
+<span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="s">"x"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
+<span class="w">              </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="ss">:name</span><span class="w"> </span><span class="s">"x"</span>
+<span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:intent</span><span class="w"> </span><span class="ss">:Local</span>
+<span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Real</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
+<span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:presence</span><span class="w"> </span><span class="ss">:Required</span>
+<span class="w">              </span><span class="ss">:value_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:target_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:contiguous_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:bindc_name</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:is_volatile</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:is_protected</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
+<span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="s">"y"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
+<span class="w">              </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="ss">:name</span><span class="w"> </span><span class="s">"y"</span>
+<span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:intent</span><span class="w"> </span><span class="ss">:Local</span>
+<span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Real</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
+<span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:presence</span><span class="w"> </span><span class="ss">:Required</span>
+<span class="w">              </span><span class="ss">:value_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:target_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:contiguous_attr</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:bindc_name</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:is_volatile</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:is_protected</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
+<span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="ss">:name</span><span class="w"> </span><span class="s">"main"</span>
+<span class="w">        </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">        </span><span class="ss">:body</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"x"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">RealConstant</span>
+<span class="w">              </span><span class="ss">:r</span><span class="w"> </span><span class="mf">2.5</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Real</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"y"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">RealBinOp</span>
+<span class="w">              </span><span class="ss">:left</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"x"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:op</span><span class="w"> </span><span class="ss">:Div</span>
+<span class="w">              </span><span class="ss">:right</span><span class="w"> </span><span class="p">(</span><span class="nf">RealConstant</span>
+<span class="w">                </span><span class="ss">:r</span><span class="w"> </span><span class="mf">2.0</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Real</span>
+<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Real</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"y"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">RealUnaryMinus</span>
+<span class="w">              </span><span class="ss">:arg</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"x"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Real</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"y"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">RealSqrt</span>
+<span class="w">              </span><span class="ss">:arg</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"x"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Real</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"y"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">RealCopySign</span>
+<span class="w">              </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"x"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:source</span><span class="w"> </span><span class="p">(</span><span class="nf">RealConstant</span>
+<span class="w">                </span><span class="ss">:r</span><span class="w"> </span><span class="mf">-1.0</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Real</span>
+<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Real</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
+<span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">              </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"b"</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:value</span><span class="w"> </span><span class="p">(</span><span class="nf">RealCompare</span>
+<span class="w">              </span><span class="ss">:left</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"x"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:op</span><span class="w"> </span><span class="ss">:GtE</span>
+<span class="w">              </span><span class="ss">:right</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"y"</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Logical</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="w">  </span><span class="ss">:items</span><span class="w"> </span><span class="p">[]</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../../type_nodes/ttype/"><span class="doc std std-doc">ttype</span></a>, <a class="reference internal" href="../../type_nodes/Integer/"><span class="doc std std-doc">Integer</span></a>,
+<a class="reference internal" href="../../type_nodes/Real/"><span class="doc std std-doc">Real</span></a>, <a class="reference internal" href="../../expression_nodes/Cast/"><span class="doc std std-doc">Cast</span></a>,
+<a class="reference internal" href="../../expression_nodes/TypeInquiry/"><span class="doc std std-doc">TypeInquiry</span></a></p>
 </section>
 </section>
 
@@ -788,7 +910,7 @@ default logical.)</p></li>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../../expression_nodes/Var/" title="Var"
+            <a href="../../cast_kind_nodes/cast_kind/" title="cast_kind"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -797,17 +919,17 @@ default logical.)</p></li>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Var </span>
+                      class="md-footer-nav__direction"> Previous </span> cast_kind </span>
               </div>
             </a>
           
           
-            <a href="../../statement_nodes/statement_nodes/" title="ASR Statement Nodes"
+            <a href="../../omp_nodes/omp_nodes/" title="ASR OpenMP Nodes"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> ASR Statement Nodes </span>
+                class="md-footer-nav__direction"> Next </span> ASR OpenMP Nodes </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

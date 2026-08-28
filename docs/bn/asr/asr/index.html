@@ -61,8 +61,6 @@
     <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/translations.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../../_static/lfortran-logo.svg"/>
     <link rel="index" title="ইনডেক্স" href="../../genindex/" />
     <link rel="search" title="অনুসন্ধান" href="../../search/" />
@@ -412,6 +410,8 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#asr-asr--page-root" class="md-nav__link">Abstract Semantic Representation (ASR)</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#the-node-reference" class="md-nav__link">The node reference</a>
+        </li>
         <li class="md-nav__item"><a href="#abstract-syntax-description-language-asdl" class="md-nav__link">Abstract Syntax Description Language (ASDL)</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
@@ -445,6 +445,13 @@
   </ul>
 </nav>
       <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#the-node-reference" class="md-nav__link">The node reference</a>
+      
+    
+    </li>
     <li class="md-nav__item">
     
     
@@ -485,28 +492,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../asr_nodes/cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../asr_nodes/expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../asr_nodes/kinds_nodes/kinds/" class="md-nav__link">kinds</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../asr_nodes/statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
+      <a href="../asr_nodes/unit_nodes/unit_nodes/" class="md-nav__link">ASR Unit Nodes</a>
       
     
     </li>
@@ -520,6 +506,20 @@
     <li class="md-nav__item">
     
     
+      <a href="../asr_nodes/statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr_nodes/expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../asr_nodes/type_nodes/ttype/" class="md-nav__link">ttype</a>
       
     
@@ -527,7 +527,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../asr_nodes/omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMp Nodes</a>
+      <a href="../asr_nodes/helper_nodes/helper_nodes/" class="md-nav__link">ASR Helper Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr_nodes/enum_nodes/enum_nodes/" class="md-nav__link">ASR Enumerations</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr_nodes/cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr_nodes/kinds_nodes/kinds/" class="md-nav__link">kinds</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr_nodes/omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMP Nodes</a>
       
     
     </li>
@@ -547,6 +575,8 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#asr-asr--page-root" class="md-nav__link">Abstract Semantic Representation (ASR)</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#the-node-reference" class="md-nav__link">The node reference</a>
+        </li>
         <li class="md-nav__item"><a href="#abstract-syntax-description-language-asdl" class="md-nav__link">Abstract Syntax Description Language (ASDL)</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#types" class="md-nav__link">Types</a>
@@ -601,6 +631,33 @@ equivalent to the original code.</p>
 <p>ASR can be used to do Fortran-level transformations (such as optimizations).</p>
 <p>For the lossless direct representation used by compiler tests and tools, see
 the <a class="reference internal" href="../asr_text/"><span class="doc std std-doc">ASR text format</span></a>.</p>
+<section id="the-node-reference">
+<h2 id="the-node-reference">The node reference<a class="headerlink" href="#the-node-reference" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
+<p>Every constructor of <a class="reference external" href="https://github.com/lfortran/lfortran/blob/main/src/libasr/ASR.asdl">ASR.asdl</a>
+has a page of its own, grouped by the type it belongs to:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../asr_nodes/unit_nodes/unit_nodes/"><span class="doc std std-doc">unit</span></a> — the root of the graph;</p></li>
+<li><p><a class="reference internal" href="../asr_nodes/symbol_nodes/symbol_nodes/"><span class="doc std std-doc">symbol</span></a> — what a symbol table maps
+a name to;</p></li>
+<li><p><a class="reference internal" href="../asr_nodes/statement_nodes/statement_nodes/"><span class="doc std std-doc">stmt</span></a> — executed for effect;</p></li>
+<li><p><a class="reference internal" href="../asr_nodes/expression_nodes/expression_nodes/"><span class="doc std std-doc">expr</span></a> — has a type and
+produces a value;</p></li>
+<li><p><a class="reference internal" href="../asr_nodes/type_nodes/ttype/"><span class="doc std std-doc">ttype</span></a> — what a value is;</p></li>
+<li><p><a class="reference internal" href="../asr_nodes/helper_nodes/helper_nodes/"><span class="doc std std-doc">helper nodes</span></a> — the products and
+small sum types that appear inside the nodes;</p></li>
+<li><p><a class="reference internal" href="../asr_nodes/enum_nodes/enum_nodes/"><span class="doc std std-doc">enumerations</span></a>,
+<a class="reference internal" href="../asr_nodes/cast_kind_nodes/cast_kind/"><span class="doc std std-doc">cast_kind</span></a> and
+<a class="reference internal" href="../asr_nodes/kinds_nodes/kinds/"><span class="doc std std-doc">kinds</span></a>;</p></li>
+<li><p><a class="reference internal" href="../asr_nodes/omp_nodes/omp_nodes/"><span class="doc std std-doc">OpenMP nodes</span></a>.</p></li>
+</ul>
+<p>Each page shows the declaration exactly as <code class="docutils literal notranslate"><span class="pre">ASR.asdl</span></code> spells it, describes
+every member, and includes a complete ASR text example under
+<code class="docutils literal notranslate"><span class="pre">doc/src/asr/examples/</span></code>. <code class="docutils literal notranslate"><span class="pre">tests/asr/check_docs.py</span></code> checks that every example
+round-trips through the ASR text reader, that every excerpt is a verbatim part
+of the example it is taken from, and that every declaration on a page still
+matches <code class="docutils literal notranslate"><span class="pre">ASR.asdl</span></code>, so a change to the ASR that the documentation does not
+follow fails a test rather than going unnoticed.</p>
+</section>
 <section id="abstract-syntax-description-language-asdl">
 <h2 id="abstract-syntax-description-language-asdl">Abstract Syntax Description Language (ASDL)<a class="headerlink" href="#abstract-syntax-description-language-asdl" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
 <p>Abstract Syntax Description Language describes the abstract syntax of the compiler
@@ -610,10 +667,7 @@ definitions for a target language, pickling functions, and other codes.</p>
 <p>ASDL consists of three fundamental constructs: <em><strong>types, constructors</strong></em>, and
 <em><strong>productions</strong></em>.</p>
 <p>Let's take an example of a node from <a class="reference external" href="https://github.com/lfortran/lfortran/blob/main/src/libasr/ASR.asdl">ASR.asdl</a>:</p>
-<div class="highlight-asdl notranslate"><div class="highlight"><pre><span></span>symbol
-    = Program(symbol_table symtab, identifier name, identifier* dependencies, stmt* body)
-    | Module(symbol_table symtab, identifier name, identifier* dependencies, bool loaded_from_mod, bool intrinsic)
-    | Function(symbol_table symtab, identifier name, ttype function_signature, identifier* dependencies, expr* args, stmt* body, expr? return_var, access access, bool deterministic, bool side_effect_free, string? module_file)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Program(symbol_table symtab, identifier name, identifier* dependencies, stmt* body, location start_name, location end_name)
 </pre></div>
 </div>
 <section id="types">
@@ -631,18 +685,22 @@ types are:</p>
 <li><p>float (floating point number of infinite precision)</p></li>
 <li><p>symbol_table (scoped Symbol Table implementation)</p></li>
 <li><p>node (any ASR node)</p></li>
+<li><p>location (a span of the original source, used for diagnostics; location
+members are not printed in the ASR text format)</p></li>
 </ul>
 <blockquote>
 <div><p><em><strong>Note</strong></em>: symbol_table contains <code class="docutils literal notranslate"><span class="pre">identifier</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">symbol</span></code> mappings</p>
 </div></blockquote>
-<p>In the above example, <code class="docutils literal notranslate"><span class="pre">symbol_table</span></code>, <code class="docutils literal notranslate"><span class="pre">identifier</span></code>, <code class="docutils literal notranslate"><span class="pre">stmt</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>, etc are types.</p>
+<p>In the above example, <code class="docutils literal notranslate"><span class="pre">symbol_table</span></code>, <code class="docutils literal notranslate"><span class="pre">identifier</span></code>, <code class="docutils literal notranslate"><span class="pre">stmt</span></code>, and <code class="docutils literal notranslate"><span class="pre">location</span></code> are
+types.</p>
 </section>
 <section id="constructors">
 <h3 id="constructors">Constructors<a class="headerlink" href="#constructors" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
-<p>The <strong>constructors</strong> names must begin with an upper case.
-In above example has three constructors, <code class="docutils literal notranslate"><span class="pre">Program</span></code>, <code class="docutils literal notranslate"><span class="pre">Module</span></code>, and <code class="docutils literal notranslate"><span class="pre">Function</span></code>,
-where the Program constructor has four fields whose values are of type <code class="docutils literal notranslate"><span class="pre">symbol_table</span></code>,
-<code class="docutils literal notranslate"><span class="pre">identifier</span></code>, <code class="docutils literal notranslate"><span class="pre">identifier*</span></code>, and <code class="docutils literal notranslate"><span class="pre">stmt*</span></code>. These are, basically, subtrees.</p>
+<p>The <strong>constructors</strong> names must begin with an upper case. The <code class="docutils literal notranslate"><span class="pre">symbol</span></code> type has
+<code class="docutils literal notranslate"><span class="pre">Program</span></code>, <code class="docutils literal notranslate"><span class="pre">Module</span></code>, <code class="docutils literal notranslate"><span class="pre">Function</span></code> and the other constructors listed on the
+<a class="reference internal" href="../asr_nodes/symbol_nodes/symbol/"><span class="doc std std-doc">symbol</span></a> page, where the <code class="docutils literal notranslate"><span class="pre">Program</span></code>
+constructor has the four members above plus the two source locations. These
+are, basically, subtrees.</p>
 </section>
 </section>
 <section id="symbol-type">
@@ -700,17 +758,50 @@ table is the previous cell. That allows function/declaration shadowing.</p>
 </section>
 <section id="abi-type">
 <h2 id="abi-type">ABI Type<a class="headerlink" href="#abi-type" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
-<div class="highlight-asdl notranslate"><div class="highlight"><pre><span></span>abi                   -- External     ABI
-    = Source          --   No         Unspecified
-    | LFortranModule  --   Yes        LFortran
-    | GFortranModule  --   Yes        GFortran
-    | BindC           --   Yes        C
-    | BindPython      --   Yes        Python
-    | BindJS          --   Yes        Javascript
-    | Interactive     --   Yes        Unspecified
-    | Intrinsic       --   Yes        Unspecified
-</pre></div>
-</div>
+<p>The <a class="reference internal" href="../asr_nodes/enum_nodes/abi/"><span class="doc std std-doc">abi</span></a> member of a symbol says where its
+implementation lives and which calling convention reaches it:</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>External</p></th>
+<th class="head"><p>ABI</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Source</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Unspecified</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LFortranModule</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>LFortran</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GFortranModule</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>GFortran</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BindC</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>C</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BindPython</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Python</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BindJS</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>JavaScript</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ExternalUndefined</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Unspecified</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Intrinsic</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Unspecified</p></td>
+</tr>
+</tbody>
+</table>
 <ul class="simple">
 <li><p><strong>External Yes</strong>: the symbol's implementation is not part of ASR; the
 symbol is just an interface (e.g., subroutine/function interface, or variable
@@ -733,11 +824,8 @@ and also converts the return values from such symbols.</p></li>
 <li><p><strong>abi=BindJS</strong>: the symbol's implementation is
 available with Javascript.
 This abi type is to be mainly used with the WASM Backend.</p></li>
-<li><p><strong>abi=Interactive</strong>: the symbol's implementation has been provided by the
-previous REPL execution (e.g., if LLVM backend is used for the interactive
-mode, the previous execution generated machine code for this symbol's
-implementation that was loaded into memory). Note: this option might be
-converted/eliminated to just use LFortran ABI in the future.</p></li>
+<li><p><strong>abi=ExternalUndefined</strong>: the symbol is external and no calling convention
+has been recorded for it yet.</p></li>
 <li><p><strong>abi=Intrinsic</strong>: the symbol's implementation is implicitly provided by the
 language itself as an intrinsic function. That means the backend is free to
 implement it in any way it wants. The function does not have a body, it is
@@ -762,13 +850,12 @@ the <code class="docutils literal notranslate"><span class="pre">id</span></code
 <h3 id="expr-nodes">Expr nodes<a class="headerlink" href="#expr-nodes" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
 <ol class="arabic">
 <li><p><strong>Cast</strong>: It changes the value (the bits) of the <code class="docutils literal notranslate"><span class="pre">arg</span></code>.</p></li>
-<li><p><strong>ArrayPhysicalCast</strong>: This ArrayPhysicalCast we only change the physical type,
-the logical type does not change</p>
+<li><p><strong>ArrayPhysicalCast</strong>: only the physical type changes; the logical type
+does not.</p>
 <blockquote>
 <div><p>Note: the "new" physical type here will also be part of the "type" member</p>
 </div></blockquote>
-<p>This allows to represent any combination, but we'll only support a few; at least we need:
-Maybe it's easier to add an enumeration here:</p>
+<p>This allows to represent any combination, but we'll only support a few; at least we need:</p>
 <ul class="simple">
 <li><p>Descriptor -&gt; Pointer</p></li>
 <li><p>Pointer -&gt; Descriptor</p></li>
@@ -780,45 +867,27 @@ Maybe it's easier to add an enumeration here:</p>
 <li><p>Descriptor -&gt; ISODescriptor</p></li>
 </ul>
 </li>
+<li><p><strong>StringPhysicalCast</strong>: the same idea for strings, between a descriptor and
+a bare <code class="docutils literal notranslate"><span class="pre">char*</span></code>.</p></li>
 </ol>
 </section>
 <section id="ttype-nodes">
 <h3 id="ttype-nodes">Ttype nodes<a class="headerlink" href="#ttype-nodes" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
-<div class="highlight-asdl notranslate"><div class="highlight"><pre><span></span>ttype = Integer(int kind) | UnsignedInteger(int kind) | Real(int kind) | ...
-</pre></div>
-</div>
-<p><strong><code class="docutils literal notranslate"><span class="pre">len</span></code></strong> in Character:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(&gt;=0\)</span> ... the length of the string, known at compile time</p></li>
-<li><p><span class="math notranslate nohighlight">\(-1\)</span> ... character( * ), i.e., inferred at runtime</p></li>
-<li><p><span class="math notranslate nohighlight">\(-2\)</span> ... character(:), allocatable (possibly we might use -1 for that also)</p></li>
-<li><p><span class="math notranslate nohighlight">\(-3\)</span> ... character(n+3), i.e., a runtime expression stored in <code class="docutils literal notranslate"><span class="pre">len_expr</span></code></p></li>
-</ul>
-<p><strong><code class="docutils literal notranslate"><span class="pre">kind</span></code></strong>: The <code class="docutils literal notranslate"><span class="pre">kind</span></code> member selects the kind of a given type. We currently
-support the following:</p>
-<ul class="simple">
-<li><p>Integer kinds: 1 (i8), 2 (i16), 4 (i32), 8 (i64)</p></li>
-<li><p>Real kinds: 4 (f32), 8 (f64)</p></li>
-<li><p>Complex kinds: 4 (c32), 8 (c64)</p></li>
-<li><p>Character kinds: 1 (utf8 string)</p></li>
-<li><p>Logical kinds: 1, 2, 4: (boolean represented by 1, 2, 4 bytes; the default
-kind is 4, just like the default integer kind, consistent with Python
-and Fortran: in Python, "Booleans in Python are implemented as a subclass
-of integers"; in Fortran the "default logical kind has the same storage
-size as the default integer"; we currently use kind=4 as default
-integer, so we also use kind=4 for the default logical.)</p></li>
-</ul>
+<p>See <a class="reference internal" href="../asr_nodes/type_nodes/ttype/"><span class="doc std std-doc">ttype</span></a> for the whole type language, and
+<a class="reference internal" href="../asr_nodes/kinds_nodes/kinds/"><span class="doc std std-doc">kinds</span></a> for the kinds each intrinsic type
+supports.</p>
+<p>The length of a <a class="reference internal" href="../asr_nodes/type_nodes/String/"><span class="doc std std-doc">String</span></a> is described by two
+members together: <code class="docutils literal notranslate"><span class="pre">len_kind</span></code> says how the length is determined and <code class="docutils literal notranslate"><span class="pre">len</span></code>
+carries the expression when there is one. A <code class="docutils literal notranslate"><span class="pre">character(*)</span></code> dummy argument is
+<code class="docutils literal notranslate"><span class="pre">AssumedLength</span></code> with no <code class="docutils literal notranslate"><span class="pre">len</span></code>, a <code class="docutils literal notranslate"><span class="pre">character(:),</span> <span class="pre">allocatable</span></code> is
+<code class="docutils literal notranslate"><span class="pre">DeferredLength</span></code>, and <code class="docutils literal notranslate"><span class="pre">character(n+3)</span></code> is <code class="docutils literal notranslate"><span class="pre">ExpressionLength</span></code> with the
+expression in <code class="docutils literal notranslate"><span class="pre">len</span></code>.</p>
 </section>
 <section id="string-format-kind">
 <h3 id="string-format-kind">String format kind<a class="headerlink" href="#string-format-kind" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
-<div class="highlight-asdl notranslate"><div class="highlight"><pre><span></span>string_format_kind
-    = FormatFortran        -- "(f8.3,i4.2)", a, b
-    | FormatC              -- "%f: %d", a, b
-    | FormatPythonPercent  -- "%f: %d" % (a, b)
-    | FormatPythonFString  -- f"{a}: {b}"
-    | FormatPythonFormat   -- "{}: {}".format(a, b)
-</pre></div>
-</div>
+<p>See <a class="reference internal" href="../asr_nodes/enum_nodes/string_format_kind/"><span class="doc std std-doc">string_format_kind</span></a> for the
+formatting languages a <a class="reference internal" href="../asr_nodes/expression_nodes/StringFormat/"><span class="doc std std-doc">StringFormat</span></a>
+can use.</p>
 </section>
 </section>
 </section>
