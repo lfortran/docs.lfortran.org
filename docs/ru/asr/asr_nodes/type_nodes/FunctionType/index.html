@@ -585,7 +585,7 @@
 <td><p>the ABI of the procedure; see the <a class="reference internal" href="../../../asr/"><span class="doc std std-doc">ABI section</span></a> of the ASR overview.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">deftype</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Implementation</span></code> when the body is present, <code class="docutils literal notranslate"><span class="pre">Interface</span></code> when only the signature is; see <a class="reference internal" href="../../enum_nodes/deftype/"><span class="doc std std-doc">deftype</span></a>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Implementation</span></code> when the body is present, <code class="docutils literal notranslate"><span class="pre">Interface</span></code> when only the signature is, <code class="docutils literal notranslate"><span class="pre">ImplicitInterface</span></code> when neither is known; see <a class="reference internal" href="../../enum_nodes/deftype/"><span class="doc std std-doc">deftype</span></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bindc_name</span></code></p></td>
 <td><p>the linker name given by <code class="docutils literal notranslate"><span class="pre">bind(c,</span> <span class="pre">name=...)</span></code>.</p></td>
@@ -626,7 +626,9 @@ so a call site can be checked against the signature without looking at the
 procedure’s symbol table.</p>
 <p>A subroutine is a signature with no <code class="docutils literal notranslate"><span class="pre">return_var_type</span></code>. <code class="docutils literal notranslate"><span class="pre">deftype</span></code> says whether
 there is a body: an interface, and a procedure loaded from a module file as
-interface ASR, are <code class="docutils literal notranslate"><span class="pre">Interface</span></code>.</p>
+interface ASR, are <code class="docutils literal notranslate"><span class="pre">Interface</span></code>. An empty <code class="docutils literal notranslate"><span class="pre">arg_types</span></code> means the procedure takes
+no arguments, except under <code class="docutils literal notranslate"><span class="pre">deftype</span> <span class="pre">=</span> <span class="pre">ImplicitInterface</span></code>, where it means the
+arguments are not known here.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Ссылка на этот заголовок">¶</a></h2>

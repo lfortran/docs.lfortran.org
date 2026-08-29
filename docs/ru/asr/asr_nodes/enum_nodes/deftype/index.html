@@ -540,6 +540,22 @@
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">Описание</a>
         </li>
+        <li class="md-nav__item"><a href="#implicitinterface" class="md-nav__link">ImplicitInterface</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#when-it-may-be-created" class="md-nav__link">When it may be created</a>
+        </li>
+        <li class="md-nav__item"><a href="#invariants" class="md-nav__link">Invariants</a>
+        </li>
+        <li class="md-nav__item"><a href="#how-lowering-uses-it-the-interface-is-built-at-the-reference" class="md-nav__link">How lowering uses it: the interface is built at the reference</a>
+        </li>
+        <li class="md-nav__item"><a href="#why-the-value-is-needed-at-all" class="md-nav__link">Why the value is needed at all</a>
+        </li>
+        <li class="md-nav__item"><a href="#once-the-signature-becomes-known" class="md-nav__link">Once the signature becomes known</a>
+        </li>
+        <li class="md-nav__item"><a href="#limitation" class="md-nav__link">Limitation</a>
+        </li></ul>
+            </nav>
+        </li>
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
         </li></ul>
             </nav>
@@ -670,6 +686,22 @@
         </li>
         <li class="md-nav__item"><a href="#description" class="md-nav__link">Описание</a>
         </li>
+        <li class="md-nav__item"><a href="#implicitinterface" class="md-nav__link">ImplicitInterface</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#when-it-may-be-created" class="md-nav__link">When it may be created</a>
+        </li>
+        <li class="md-nav__item"><a href="#invariants" class="md-nav__link">Invariants</a>
+        </li>
+        <li class="md-nav__item"><a href="#how-lowering-uses-it-the-interface-is-built-at-the-reference" class="md-nav__link">How lowering uses it: the interface is built at the reference</a>
+        </li>
+        <li class="md-nav__item"><a href="#why-the-value-is-needed-at-all" class="md-nav__link">Why the value is needed at all</a>
+        </li>
+        <li class="md-nav__item"><a href="#once-the-signature-becomes-known" class="md-nav__link">Once the signature becomes known</a>
+        </li>
+        <li class="md-nav__item"><a href="#limitation" class="md-nav__link">Limitation</a>
+        </li></ul>
+            </nav>
+        </li>
         <li class="md-nav__item"><a href="#see-also" class="md-nav__link">See Also</a>
         </li></ul>
             </nav>
@@ -685,12 +717,12 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="deftype">
 <h1 id="asr-asr-nodes-enum-nodes-deftype--page-root">deftype<a class="headerlink" href="#asr-asr-nodes-enum-nodes-deftype--page-root" title="Ссылка на этот заголовок">¶</a></h1>
-<p>Whether a procedure has a body here.</p>
+<p>Whether a procedure has a body here, and whether its signature is known.</p>
 <section id="declaration">
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Ссылка на этот заголовок">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Ссылка на этот заголовок">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>deftype = Implementation | Interface
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>deftype = Implementation | Interface | ImplicitInterface
 </pre></div>
 </div>
 </section>
@@ -707,7 +739,10 @@
 <td><p>the body is present in this ASR.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Interface</span></code></p></td>
-<td><p>only the signature is present.</p></td>
+<td><p>only the signature is present, and the signature is complete.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ImplicitInterface</span></code></p></td>
+<td><p>neither a body nor a signature. The procedure was declared <code class="docutils literal notranslate"><span class="pre">external</span></code> with no interface, so only its result type is known; the dummy arguments are unknown.</p></td>
 </tr>
 </tbody>
 </table>
@@ -719,9 +754,136 @@
 </section>
 <section id="description">
 <h2 id="description">Описание<a class="headerlink" href="#description" title="Ссылка на этот заголовок">¶</a></h2>
-<p>An interface block, an external procedure and a procedure read from a module
-file as interface ASR are all <code class="docutils literal notranslate"><span class="pre">Interface</span></code>. The distinction is not the same as
-the <a class="reference internal" href="../abi/"><span class="doc std std-doc">abi</span></a>: a procedure may have a body and still use a foreign ABI.</p>
+<p>An interface block, an external procedure with an explicit interface and a
+procedure read from a module file as interface ASR are all <code class="docutils literal notranslate"><span class="pre">Interface</span></code>. The
+distinction is not the same as the <a class="reference internal" href="../abi/"><span class="doc std std-doc">abi</span></a>: a procedure may have a body
+and still use a foreign ABI.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ImplicitInterface</span></code> is not a third kind of declaration but the absence of one.
+It records that this ASR does not know what the procedure takes. An empty
+<code class="docutils literal notranslate"><span class="pre">arg_types</span></code> on a <code class="docutils literal notranslate"><span class="pre">FunctionType</span></code> otherwise means «takes no arguments», and that
+is a different statement about the program; <code class="docutils literal notranslate"><span class="pre">ImplicitInterface</span></code> exists so the
+two are never confused.</p>
+</section>
+<section id="implicitinterface">
+<h2 id="implicitinterface">ImplicitInterface<a class="headerlink" href="#implicitinterface" title="Ссылка на этот заголовок">¶</a></h2>
+<section id="when-it-may-be-created">
+<h3 id="when-it-may-be-created">When it may be created<a class="headerlink" href="#when-it-may-be-created" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Exactly one construct produces it: a procedure declared <code class="docutils literal notranslate"><span class="pre">external</span></code> with no
+interface and no accessible definition, such as</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">external</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">f</span>
+</pre></div>
+</div>
+<p>or a bare <code class="docutils literal notranslate"><span class="pre">external</span> <span class="pre">f</span></code> with the type supplied by an <code class="docutils literal notranslate"><span class="pre">implicit</span></code> rule. It is
+created only when <code class="docutils literal notranslate"><span class="pre">--implicit-interface</span></code> is passed. Without that flag the same
+declaration is a semantic error (<em>function interface must be specified
+explicitly</em>), so an ASR produced under the default options never contains one.</p>
+<p>The only place that creates it is <code class="docutils literal notranslate"><span class="pre">create_external_function</span></code> in the Fortran
+frontend (<code class="docutils literal notranslate"><span class="pre">src/lfortran/semantics/ast_common_visitor.h</span></code>). No ASR pass and no
+part of <code class="docutils literal notranslate"><span class="pre">libasr</span></code> may introduce one, and no pass may turn an <code class="docutils literal notranslate"><span class="pre">Interface</span></code> back
+into an <code class="docutils literal notranslate"><span class="pre">ImplicitInterface</span></code>.</p>
+<p>This is Fortran’s own implicit interface (F2018 15.4.2.2, 15.4.3.5). The
+declaration supplies the result type and nothing else: the number, types,
+kinds, ranks, intents and attributes of the dummy arguments are all unknown.
+F2018 15.5.2 states the rules a conforming <em>program</em> must satisfy at such a
+reference, but a compiler that cannot see the definition cannot check them, so
+the reference is not argument-checked against this symbol. It is not checked
+against nothing, though — see the lowering rule below.</p>
+</section>
+<section id="invariants">
+<h3 id="invariants">Invariants<a class="headerlink" href="#invariants" title="Ссылка на этот заголовок">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">Function</span></code> with <code class="docutils literal notranslate"><span class="pre">deftype</span> <span class="pre">=</span> <span class="pre">ImplicitInterface</span></code>:</p>
+<ul class="simple">
+<li><p>has an empty <code class="docutils literal notranslate"><span class="pre">arg_types</span></code> and <code class="docutils literal notranslate"><span class="pre">n_args</span> <span class="pre">==</span> <span class="pre">0</span></code>, which must be read as <em>unknown</em>,
+never as <em>none</em>;</p></li>
+<li><p>has <code class="docutils literal notranslate"><span class="pre">abi</span> <span class="pre">=</span> <span class="pre">BindC</span></code>, so that every reference to the name reaches one link-time
+symbol;</p></li>
+<li><p>has no body, and <code class="docutils literal notranslate"><span class="pre">n_body</span> <span class="pre">==</span> <span class="pre">0</span></code>;</p></li>
+<li><p>is <strong>never the target of a call</strong>. <code class="docutils literal notranslate"><span class="pre">asr_verify.cpp</span></code> rejects a <code class="docutils literal notranslate"><span class="pre">FunctionCall</span></code>
+or <code class="docutils literal notranslate"><span class="pre">SubroutineCall</span></code> whose <code class="docutils literal notranslate"><span class="pre">name</span></code> resolves to one;</p></li>
+<li><p>is <strong>never code-generated</strong>. Every backend (LLVM, C/C++, MLIR, WASM) returns
+from <code class="docutils literal notranslate"><span class="pre">visit_Function</span></code> immediately, and <code class="docutils literal notranslate"><span class="pre">subroutine_from_function</span></code> skips it.
+It may still be given a link name in LLVM so that its address can be taken
+when it is passed as an actual argument, but a competing signature is never
+invented for it.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">ASRUtils::is_bare_implicit_interface</span></code> is the single predicate for this; do not
+compare the deftype by hand.</p>
+</section>
+<section id="how-lowering-uses-it-the-interface-is-built-at-the-reference">
+<h3 id="how-lowering-uses-it-the-interface-is-built-at-the-reference">How lowering uses it: the interface is built at the reference<a class="headerlink" href="#how-lowering-uses-it-the-interface-is-built-at-the-reference" title="Ссылка на этот заголовок">¶</a></h3>
+<p>An <code class="docutils literal notranslate"><span class="pre">ImplicitInterface</span></code> symbol is a placeholder for a result type, not a
+callable procedure. Every reference synthesizes its own complete <code class="docutils literal notranslate"><span class="pre">Interface</span></code>
+<code class="docutils literal notranslate"><span class="pre">Function</span></code> from the actual arguments at that reference, and calls <em>that</em>. So</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>produces a <code class="docutils literal notranslate"><span class="pre">Function</span> <span class="pre">f</span></code> with <code class="docutils literal notranslate"><span class="pre">deftype</span> <span class="pre">=</span> <span class="pre">Interface</span></code> and two <code class="docutils literal notranslate"><span class="pre">integer(4)</span></code> dummies
+in the referencing scope, and the <code class="docutils literal notranslate"><span class="pre">FunctionCall</span></code> names it. The call therefore
+agrees with its callee, exactly as any other call in ASR does, and the ordinary
+argument checks apply to it. Both symbols carry the same <code class="docutils literal notranslate"><span class="pre">bindc_name</span></code>, so they
+resolve to the same procedure at link time.</p>
+<p>Within a single scope this means the placeholder does not survive: the first
+reference overwrites it with the inferred <code class="docutils literal notranslate"><span class="pre">Interface</span></code>. A final ASR for</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">p</span>
+<span class="w">  </span><span class="k">implicit none</span>
+<span class="k">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">external</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">f</span>
+<span class="w">  </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">r</span>
+<span class="w">  </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="k">end program </span><span class="n">p</span>
+</pre></div>
+</div>
+<p>contains one symbol <code class="docutils literal notranslate"><span class="pre">f</span></code>, with <code class="docutils literal notranslate"><span class="pre">deftype</span> <span class="pre">=</span> <span class="pre">Interface</span></code> and two arguments. There is
+no <code class="docutils literal notranslate"><span class="pre">ImplicitInterface</span></code> left in it.</p>
+</section>
+<section id="why-the-value-is-needed-at-all">
+<h3 id="why-the-value-is-needed-at-all">Why the value is needed at all<a class="headerlink" href="#why-the-value-is-needed-at-all" title="Ссылка на этот заголовок">¶</a></h3>
+<p>The placeholder survives only where this translation unit has no reference to
+infer from — chiefly a module that declares an external for the benefit of its
+users:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">module </span><span class="n">m</span>
+<span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">external</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">f</span>
+<span class="k">end module </span><span class="n">m</span>
+</pre></div>
+</div>
+<p>Nothing in <code class="docutils literal notranslate"><span class="pre">m</span></code> calls <code class="docutils literal notranslate"><span class="pre">f</span></code>, so nothing can supply a signature. <code class="docutils literal notranslate"><span class="pre">m.mod</span></code> must still
+record <code class="docutils literal notranslate"><span class="pre">f</span></code>, because a program that uses the module needs its result type
+(consider <code class="docutils literal notranslate"><span class="pre">character(len=80),</span> <span class="pre">external</span> <span class="pre">::</span> <span class="pre">get_libvers</span></code>, where an implicit rule
+would give the wrong type). What is recorded has to be distinguishable from a
+genuine zero-argument interface, or</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">program </span><span class="n">p</span>
+<span class="w">  </span><span class="k">use </span><span class="n">m</span>
+<span class="w">  </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">r</span>
+<span class="w">  </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="k">end program </span><span class="n">p</span>
+</pre></div>
+</div>
+<p>is rejected as <em>More actual than formal arguments in procedure call</em>, while
+accepting it by treating every empty argument list as unknown would stop
+checking real zero-argument interfaces. <code class="docutils literal notranslate"><span class="pre">ImplicitInterface</span></code> is the third state
+that makes the module file able to say which one it holds, and the caller then
+applies the lowering rule above.</p>
+<p>Because it must survive a module-file round trip,
+<code class="docutils literal notranslate"><span class="pre">SymbolTable::mark_all_variables_external</span></code> leaves the deftype alone rather than
+rewriting it to <code class="docutils literal notranslate"><span class="pre">Interface</span></code> as it does for other procedures.</p>
+</section>
+<section id="once-the-signature-becomes-known">
+<h3 id="once-the-signature-becomes-known">Once the signature becomes known<a class="headerlink" href="#once-the-signature-becomes-known" title="Ссылка на этот заголовок">¶</a></h3>
+<p>A reference is not the only thing that can supply a signature. When the
+procedure is passed as an actual argument to a procedure that does call it, the
+signature propagates back from the dummy. At that point the arguments are
+filled in and the deftype becomes <code class="docutils literal notranslate"><span class="pre">Interface</span></code>; the symbol stops being a
+placeholder and the invariants above no longer apply to it.</p>
+</section>
+<section id="limitation">
+<h3 id="limitation">Limitation<a class="headerlink" href="#limitation" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Two references in the same scope that pass different actual types cannot both
+be satisfied: the first fixes the inferred <code class="docutils literal notranslate"><span class="pre">Interface</span></code>, and the second is
+reported as a type mismatch. Such a program is not standard-conforming (F2018
+15.5.2.5 requires the actual arguments to agree with the definition’s dummies,
+so the two references cannot both agree), and gfortran needs
+<code class="docutils literal notranslate"><span class="pre">-fallow-argument-mismatch</span></code> to accept it. Supporting that shape is
+<a class="reference external" href="https://github.com/lfortran/lfortran/pull/12621">lfortran/lfortran#12621</a>.</p>
+</section>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Ссылка на этот заголовок">¶</a></h2>
