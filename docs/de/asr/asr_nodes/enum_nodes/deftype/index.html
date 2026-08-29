@@ -552,7 +552,7 @@
         </li>
         <li class="md-nav__item"><a href="#once-the-signature-becomes-known" class="md-nav__link">Once the signature becomes known</a>
         </li>
-        <li class="md-nav__item"><a href="#limitation" class="md-nav__link">Limitation</a>
+        <li class="md-nav__item"><a href="#references-that-disagree" class="md-nav__link">References that disagree</a>
         </li></ul>
             </nav>
         </li>
@@ -698,7 +698,7 @@
         </li>
         <li class="md-nav__item"><a href="#once-the-signature-becomes-known" class="md-nav__link">Once the signature becomes known</a>
         </li>
-        <li class="md-nav__item"><a href="#limitation" class="md-nav__link">Limitation</a>
+        <li class="md-nav__item"><a href="#references-that-disagree" class="md-nav__link">References that disagree</a>
         </li></ul>
             </nav>
         </li>
@@ -874,20 +874,21 @@ signature propagates back from the dummy. At that point the arguments are
 filled in and the deftype becomes <code class="docutils literal notranslate"><span class="pre">Interface</span></code>; the symbol stops being a
 placeholder and the invariants above no longer apply to it.</p>
 </section>
-<section id="limitation">
-<h3 id="limitation">Limitation<a class="headerlink" href="#limitation" title="Link zu dieser Überschrift">¶</a></h3>
-<p>Two references in the same scope that pass different actual types cannot both
-be satisfied: the first fixes the inferred <code class="docutils literal notranslate"><span class="pre">Interface</span></code>, and the second is
-reported as a type mismatch. Such a program is not standard-conforming (F2018
-15.5.2.5 requires the actual arguments to agree with the definition’s dummies,
-so the two references cannot both agree), and gfortran needs
-<code class="docutils literal notranslate"><span class="pre">-fallow-argument-mismatch</span></code> to accept it. Supporting that shape is
-<a class="reference external" href="https://github.com/lfortran/lfortran/pull/12621">lfortran/lfortran#12621</a>.</p>
+<section id="references-that-disagree">
+<h3 id="references-that-disagree">References that disagree<a class="headerlink" href="#references-that-disagree" title="Link zu dieser Überschrift">¶</a></h3>
+<p>Two references in the same scope may pass different actual types. One inferred
+<code class="docutils literal notranslate"><span class="pre">Interface</span></code> cannot serve both, so the first-inferred signature stays the
+canonical procedure under the user-visible name and each later reference that
+disagrees gets its own <code class="docutils literal notranslate"><span class="pre">Interface</span></code> symbol, reached through a
+<a class="reference internal" href="../../expression_nodes/FunctionPointerCast/"><span class="doc std std-doc">FunctionPointerCast</span></a>. Such a
+program is not standard-conforming (F2018 15.5.2.5 requires the actual
+arguments to agree with the definition’s dummies, so the two references cannot
+both agree), and gfortran needs <code class="docutils literal notranslate"><span class="pre">-fallow-argument-mismatch</span></code> to accept it.</p>
 </section>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Link zu dieser Überschrift">¶</a></h2>
-<p><a class="reference internal" href="../../type_nodes/FunctionType/"><span class="doc std std-doc">FunctionType</span></a>, <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>, <a class="reference internal" href="../abi/"><span class="doc std std-doc">abi</span></a></p>
+<p><a class="reference internal" href="../../type_nodes/FunctionType/"><span class="doc std std-doc">FunctionType</span></a>, <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>, <a class="reference internal" href="../abi/"><span class="doc std std-doc">abi</span></a>, <a class="reference internal" href="../../expression_nodes/FunctionPointerCast/"><span class="doc std std-doc">FunctionPointerCast</span></a></p>
 </section>
 </section>
 
