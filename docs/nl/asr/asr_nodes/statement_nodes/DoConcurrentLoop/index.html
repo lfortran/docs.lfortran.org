@@ -1040,6 +1040,18 @@ and the data environment; it does not check it.</p>
 <p>The locality lists say what each iteration sees. A variable in <code class="docutils literal notranslate"><span class="pre">local</span></code> is
 private to an iteration, a variable in <code class="docutils literal notranslate"><span class="pre">shared</span></code> is not, and a variable in
 <code class="docutils literal notranslate"><span class="pre">reduction</span></code> is combined across iterations with the named operator.</p>
+<p>Every parallel loop is said one way before anything decides how to lower it,
+and that way is an <strong>OMPRegion</strong>: the <code class="docutils literal notranslate"><span class="pre">parallel_canonicalize</span></code> pass rewrites a
+<code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> loop, an <code class="docutils literal notranslate"><span class="pre">!$omp</span> <span class="pre">target</span></code> region and, when the compiler is asked
+to offload them, an <code class="docutils literal notranslate"><span class="pre">!$omp</span> <span class="pre">parallel</span> <span class="pre">do</span></code> into one canonical region carrying
+<a class="reference internal" href="../../omp_nodes/OMPIndependent/"><span class="doc std std-doc">OMPIndependent</span></a> – the assertion this loop
+makes. <code class="docutils literal notranslate"><span class="pre">exec_target</span></code> on that region then carries the lowering decision for
+that one loop, so a program may mix serial, host-threaded and device loops.</p>
+<p>Only the outermost loop of a nest becomes a region, so a concurrent loop left
+in the body keeps this node and runs its iterations in order inside the thread
+that reached it. Passes that run after the parallel pipeline, such as <code class="docutils literal notranslate"><span class="pre">forall</span></code>
+and <code class="docutils literal notranslate"><span class="pre">array_struct_temporary</span></code>, also build this node; <code class="docutils literal notranslate"><span class="pre">do_loops</span></code> lowers all of
+them into an ordinary loop nest.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink naar deze titel">¶</a></h2>
@@ -1083,6 +1095,7 @@ private to an iteration, a variable in <code class="docutils literal notranslate
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -1241,7 +1254,7 @@ private to an iteration, a variable in <code class="docutils literal notranslate
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permalink naar deze titel">¶</a></h2>
-<p><a class="reference internal" href="../DoLoop/"><span class="doc std std-doc">DoLoop</span></a>, <a class="reference internal" href="../OMPRegion/"><span class="doc std std-doc">OMPRegion</span></a>, <a class="reference internal" href="../../helper_nodes/do_loop_head/"><span class="doc std std-doc">do_loop_head</span></a>, <a class="reference internal" href="../../helper_nodes/reduction_expr/"><span class="doc std std-doc">reduction_expr</span></a></p>
+<p><a class="reference internal" href="../DoLoop/"><span class="doc std std-doc">DoLoop</span></a>, <a class="reference internal" href="../OMPRegion/"><span class="doc std std-doc">OMPRegion</span></a>, <a class="reference internal" href="../../helper_nodes/do_loop_head/"><span class="doc std std-doc">do_loop_head</span></a>, <a class="reference internal" href="../../helper_nodes/reduction_expr/"><span class="doc std std-doc">reduction_expr</span></a>, <a class="reference internal" href="../../enum_nodes/exec_target/"><span class="doc std std-doc">exec_target</span></a></p>
 </section>
 </section>
 

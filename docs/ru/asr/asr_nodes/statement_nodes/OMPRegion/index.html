@@ -995,7 +995,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Ссылка на этот заголовок">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Ссылка на этот заголовок">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>OMPRegion(omp_region_type region, omp_clause* clauses, stmt* body)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>OMPRegion(omp_region_type region, omp_clause* clauses, stmt* body, exec_target exec_target)
 </pre></div>
 </div>
 </section>
@@ -1017,6 +1017,9 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">body</span></code></p></td>
 <td><p>the statements the directive applies to.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">exec_target</span></code></p></td>
+<td><p>which lowering runs the region; see <a class="reference internal" href="../../enum_nodes/exec_target/"><span class="doc std std-doc">exec_target</span></a>.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -1034,6 +1037,17 @@ block it applies to. Regions nest exactly as the directives do, so
 whose body holds an <strong>OMPRegion</strong> of type <code class="docutils literal notranslate"><span class="pre">Do</span></code>.</p>
 <p>A directive that applies to no block, such as <code class="docutils literal notranslate"><span class="pre">barrier</span></code> or <code class="docutils literal notranslate"><span class="pre">taskwait</span></code>, is an
 <strong>OMPRegion</strong> with an empty <code class="docutils literal notranslate"><span class="pre">body</span></code>.</p>
+<p>One shape of this node is a contract the lowerings of a parallel loop read:
+the canonical parallel loop the <code class="docutils literal notranslate"><span class="pre">parallel_canonicalize</span></code> pass produces. It is a
+single region of type <code class="docutils literal notranslate"><span class="pre">ParallelDo</span></code>, carrying
+<a class="reference internal" href="../../omp_nodes/OMPIndependent/"><span class="doc std std-doc">OMPIndependent</span></a>, whose clauses are the data
+environment of the whole construct and whose body is one perfectly nested
+<strong>DoLoop</strong> nest, as deep as <code class="docutils literal notranslate"><span class="pre">collapse</span></code> says. No <code class="docutils literal notranslate"><span class="pre">target</span></code>, <code class="docutils literal notranslate"><span class="pre">teams</span></code> or
+<code class="docutils literal notranslate"><span class="pre">distribute</span></code> wrapper survives it; a region that was one carries
+<a class="reference internal" href="../../omp_nodes/OMPTargetRequested/"><span class="doc std std-doc">OMPTargetRequested</span></a> instead. Every
+parallel loop reaches the offload pass and the OpenMP pass in this one shape,
+whether it was written as <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code>, as an <code class="docutils literal notranslate"><span class="pre">!$omp</span> <span class="pre">target</span></code> region or as
+an <code class="docutils literal notranslate"><span class="pre">!$omp</span> <span class="pre">parallel</span> <span class="pre">do</span></code>.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Ссылка на этот заголовок">¶</a></h2>
@@ -1077,6 +1091,7 @@ whose body holds an <strong>OMPRegion</strong> of type <code class="docutils lit
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -1331,8 +1346,10 @@ whose body holds an <strong>OMPRegion</strong> of type <code class="docutils lit
 <span class="w">                    </span><span class="ss">:orelse</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">OMPRegion</span>
 <span class="w">            </span><span class="ss">:region</span><span class="w"> </span><span class="ss">:Target</span>
@@ -1395,8 +1412,10 @@ whose body holds an <strong>OMPRegion</strong> of type <code class="docutils lit
 <span class="w">                    </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">      </span><span class="p">)</span>

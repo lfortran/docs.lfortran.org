@@ -64,7 +64,7 @@
     <link rel="shortcut icon" href="../../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="Алфавитный указатель" href="../../../../genindex/" />
     <link rel="search" title="Поиск" href="../../../../search/" />
-    <link rel="next" title="OMPThreadLimit" href="../OMPThreadLimit/" />
+    <link rel="next" title="OMPTargetRequested" href="../OMPTargetRequested/" />
     <link rel="prev" title="OMPSchedule" href="../OMPSchedule/" />
   
    
@@ -531,6 +531,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../OMPIndependent/" class="md-nav__link">OMPIndependent</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../OMPLastPrivate/" class="md-nav__link">OMPLastPrivate</a>
       
     
@@ -618,6 +625,13 @@
         </li>
   </ul>
 </nav>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../OMPTargetRequested/" class="md-nav__link">OMPTargetRequested</a>
       
     
     </li>
@@ -767,6 +781,7 @@ race is the program’s to avoid.</p>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -1021,8 +1036,10 @@ race is the program’s to avoid.</p>
 <span class="w">                    </span><span class="ss">:orelse</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">OMPRegion</span>
 <span class="w">            </span><span class="ss">:region</span><span class="w"> </span><span class="ss">:Target</span>
@@ -1085,8 +1102,10 @@ race is the program’s to avoid.</p>
 <span class="w">                    </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">      </span><span class="p">)</span>
@@ -1127,12 +1146,12 @@ race is the program’s to avoid.</p>
             </a>
           
           
-            <a href="../OMPThreadLimit/" title="OMPThreadLimit"
+            <a href="../OMPTargetRequested/" title="OMPTargetRequested"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> OMPThreadLimit </span>
+                class="md-footer-nav__direction"> Next </span> OMPTargetRequested </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

@@ -1010,7 +1010,7 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">kernel</span></code></p></td>
-<td><p>the <a class="reference internal" href="../../symbol_nodes/GpuKernelFunction/"><span class="doc std std-doc">GpuKernelFunction</span></a> to run.</p></td>
+<td><p>the <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a> to run. Its signature has <code class="docutils literal notranslate"><span class="pre">exec_space</span> <span class="pre">=</span> <span class="pre">Kernel</span></code>; see <a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">grid_size</span></code></p></td>
 <td><p>the number of blocks to launch.</p></td>
@@ -1036,6 +1036,9 @@ the backend says otherwise, returns without waiting for them.
 <a class="reference internal" href="../GpuSync/"><span class="doc std std-doc">GpuSync</span></a> is what waits.</p>
 <p>The execution configuration is part of the node rather than of the kernel,
 because the same kernel is normally launched with different sizes.</p>
+<p>The kernel is an ordinary <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>; what makes
+it launchable is that its signature has <code class="docutils literal notranslate"><span class="pre">exec_space</span> <span class="pre">=</span> <span class="pre">Kernel</span></code>, and a kernel
+has no result. See <a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a>.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Ссылка на этот заголовок">¶</a></h2>
@@ -1109,6 +1112,7 @@ because the same kernel is normally launched with different sizes.</p>
 <span class="w">                        </span><span class="p">)</span>
 <span class="w">                      </span><span class="p">]</span>
 <span class="w">                      </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                      </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">                    </span><span class="p">)</span>
 <span class="w">                    </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">                    </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -1152,6 +1156,7 @@ because the same kernel is normally launched with different sizes.</p>
 <span class="w">                      </span><span class="p">)</span>
 <span class="w">                    </span><span class="p">]</span>
 <span class="w">                    </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                    </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:return_var_type</span><span class="w"> </span><span class="nv">nil</span>
@@ -1165,6 +1170,7 @@ because the same kernel is normally launched with different sizes.</p>
 <span class="w">                </span><span class="ss">:static</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                </span><span class="ss">:restrictions</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                </span><span class="ss">:is_restriction</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">                </span><span class="ss">:exec_space</span><span class="w"> </span><span class="ss">:Host</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">              </span><span class="ss">:args</span><span class="w"> </span><span class="p">[</span>
@@ -1205,7 +1211,7 @@ because the same kernel is normally launched with different sizes.</p>
 <span class="w">              </span><span class="ss">:side_effect_free</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">              </span><span class="ss">:module_file</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="p">)</span>
-<span class="w">            </span><span class="s">"zero"</span><span class="w"> </span><span class="p">(</span><span class="nf">GpuKernelFunction</span>
+<span class="w">            </span><span class="s">"zero"</span><span class="w"> </span><span class="p">(</span><span class="nf">Function</span>
 <span class="w">              </span><span class="ss">:symtab</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolTable</span>
 <span class="w">                </span><span class="ss">:id</span><span class="w"> </span><span class="mi">3</span>
 <span class="w">                </span><span class="ss">:symbols</span><span class="w"> </span><span class="p">{</span>
@@ -1240,6 +1246,7 @@ because the same kernel is normally launched with different sizes.</p>
 <span class="w">                        </span><span class="p">)</span>
 <span class="w">                      </span><span class="p">]</span>
 <span class="w">                      </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                      </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">                    </span><span class="p">)</span>
 <span class="w">                    </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">                    </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -1283,6 +1290,7 @@ because the same kernel is normally launched with different sizes.</p>
 <span class="w">                      </span><span class="p">)</span>
 <span class="w">                    </span><span class="p">]</span>
 <span class="w">                    </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                    </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:return_var_type</span><span class="w"> </span><span class="nv">nil</span>
@@ -1296,6 +1304,7 @@ because the same kernel is normally launched with different sizes.</p>
 <span class="w">                </span><span class="ss">:static</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                </span><span class="ss">:restrictions</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                </span><span class="ss">:is_restriction</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">                </span><span class="ss">:exec_space</span><span class="w"> </span><span class="ss">:Kernel</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">              </span><span class="ss">:args</span><span class="w"> </span><span class="p">[</span>
@@ -1304,7 +1313,11 @@ because the same kernel is normally launched with different sizes.</p>
 <span class="w">                </span><span class="p">)</span>
 <span class="w">              </span><span class="p">]</span>
 <span class="w">              </span><span class="ss">:body</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:return_var</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:deterministic</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:side_effect_free</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:module_file</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="p">)</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">)</span>
@@ -1333,7 +1346,7 @@ because the same kernel is normally launched with different sizes.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Ссылка на этот заголовок">¶</a></h2>
-<p><a class="reference internal" href="../../symbol_nodes/GpuKernelFunction/"><span class="doc std std-doc">GpuKernelFunction</span></a>, <a class="reference internal" href="../GpuSync/"><span class="doc std std-doc">GpuSync</span></a>, <a class="reference internal" href="../../expression_nodes/GpuThreadIndex/"><span class="doc std std-doc">GpuThreadIndex</span></a></p>
+<p><a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>, <a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a>, <a class="reference internal" href="../GpuSync/"><span class="doc std std-doc">GpuSync</span></a>, <a class="reference internal" href="../../expression_nodes/GpuThreadIndex/"><span class="doc std std-doc">GpuThreadIndex</span></a></p>
 </section>
 </section>
 

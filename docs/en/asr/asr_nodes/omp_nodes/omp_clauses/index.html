@@ -560,6 +560,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../OMPIndependent/" class="md-nav__link">OMPIndependent</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../OMPLastPrivate/" class="md-nav__link">OMPLastPrivate</a>
       
     
@@ -617,6 +624,13 @@
     
     
       <a href="../OMPShared/" class="md-nav__link">OMPShared</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../OMPTargetRequested/" class="md-nav__link">OMPTargetRequested</a>
       
     
     </li>
@@ -701,6 +715,8 @@
   | OMPThreadLimit(expr thread_limit)
   | OMPDevice(expr device)
   | OMPMap(map_type type, expr* vars)
+  | OMPIndependent()
+  | OMPTargetRequested()
 </pre></div>
 </div>
 </section>
@@ -725,7 +741,11 @@ what each thread sees. The rest control how the region runs
 (<a class="reference internal" href="../OMPNumThreads/"><span class="doc std std-doc">OMPNumThreads</span></a>, <a class="reference internal" href="../OMPSchedule/"><span class="doc std std-doc">OMPSchedule</span></a>,
 <a class="reference internal" href="../OMPCollapse/"><span class="doc std std-doc">OMPCollapse</span></a>, <a class="reference internal" href="../OMPIf/"><span class="doc std std-doc">OMPIf</span></a>, <a class="reference internal" href="../OMPNowait/"><span class="doc std std-doc">OMPNowait</span></a>)
 or where (<a class="reference internal" href="../OMPDevice/"><span class="doc std std-doc">OMPDevice</span></a>, <a class="reference internal" href="../OMPMap/"><span class="doc std std-doc">OMPMap</span></a>,
-<a class="reference internal" href="../OMPNumTeams/"><span class="doc std std-doc">OMPNumTeams</span></a>, <a class="reference internal" href="../OMPThreadLimit/"><span class="doc std std-doc">OMPThreadLimit</span></a>).</p>
+<a class="reference internal" href="../OMPNumTeams/"><span class="doc std std-doc">OMPNumTeams</span></a>, <a class="reference internal" href="../OMPThreadLimit/"><span class="doc std std-doc">OMPThreadLimit</span></a>).
+Two record what the source asserted rather than what it asked to be done:
+<a class="reference internal" href="../OMPIndependent/"><span class="doc std std-doc">OMPIndependent</span></a> says the iterations do not depend on
+one another, and <a class="reference internal" href="../OMPTargetRequested/"><span class="doc std std-doc">OMPTargetRequested</span></a> says a device
+was asked for.</p>
 <p>A clause that is not written is simply absent from the list; there is no
 default clause node.</p>
 </section>
@@ -771,6 +791,7 @@ default clause node.</p>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -1025,8 +1046,10 @@ default clause node.</p>
 <span class="w">                    </span><span class="ss">:orelse</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">OMPRegion</span>
 <span class="w">            </span><span class="ss">:region</span><span class="w"> </span><span class="ss">:Target</span>
@@ -1089,8 +1112,10 @@ default clause node.</p>
 <span class="w">                    </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">      </span><span class="p">)</span>

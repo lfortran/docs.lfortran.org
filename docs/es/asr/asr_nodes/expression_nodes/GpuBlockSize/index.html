@@ -1457,7 +1457,7 @@ configurations.</p>
 <span class="w">        </span><span class="ss">:symtab</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolTable</span>
 <span class="w">          </span><span class="ss">:id</span><span class="w"> </span><span class="mi">1</span>
 <span class="w">          </span><span class="ss">:symbols</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="s">"scale"</span><span class="w"> </span><span class="p">(</span><span class="nf">GpuKernelFunction</span>
+<span class="w">            </span><span class="s">"scale"</span><span class="w"> </span><span class="p">(</span><span class="nf">Function</span>
 <span class="w">              </span><span class="ss">:symtab</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolTable</span>
 <span class="w">                </span><span class="ss">:id</span><span class="w"> </span><span class="mi">2</span>
 <span class="w">                </span><span class="ss">:symbols</span><span class="w"> </span><span class="p">{</span>
@@ -1492,6 +1492,7 @@ configurations.</p>
 <span class="w">                        </span><span class="p">)</span>
 <span class="w">                      </span><span class="p">]</span>
 <span class="w">                      </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                      </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">                    </span><span class="p">)</span>
 <span class="w">                    </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">                    </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -1560,6 +1561,7 @@ configurations.</p>
 <span class="w">                      </span><span class="p">)</span>
 <span class="w">                    </span><span class="p">]</span>
 <span class="w">                    </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                    </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:return_var_type</span><span class="w"> </span><span class="nv">nil</span>
@@ -1573,6 +1575,7 @@ configurations.</p>
 <span class="w">                </span><span class="ss">:static</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                </span><span class="ss">:restrictions</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                </span><span class="ss">:is_restriction</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">                </span><span class="ss">:exec_space</span><span class="w"> </span><span class="ss">:Kernel</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">              </span><span class="ss">:args</span><span class="w"> </span><span class="p">[</span>
@@ -1670,7 +1673,11 @@ configurations.</p>
 <span class="w">                  </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                </span><span class="p">)</span>
 <span class="w">              </span><span class="p">]</span>
+<span class="w">              </span><span class="ss">:return_var</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
+<span class="w">              </span><span class="ss">:deterministic</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:side_effect_free</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">              </span><span class="ss">:module_file</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="p">)</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">)</span>
@@ -1699,7 +1706,7 @@ configurations.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">Ver también<a class="headerlink" href="#see-also" title="Enlazar permanentemente con este título">¶</a></h2>
-<p><a class="reference internal" href="../../symbol_nodes/GpuKernelFunction/"><span class="doc std std-doc">GpuKernelFunction</span></a>, <a class="reference internal" href="../../statement_nodes/GpuKernelLaunch/"><span class="doc std std-doc">GpuKernelLaunch</span></a>, <a class="reference internal" href="../GpuThreadIndex/"><span class="doc std std-doc">GpuThreadIndex</span></a>, <a class="reference internal" href="../GpuBlockIndex/"><span class="doc std std-doc">GpuBlockIndex</span></a>, <a class="reference internal" href="#"><span class="doc std std-doc">GpuBlockSize</span></a></p>
+<p><a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a>, <a class="reference internal" href="../../statement_nodes/GpuKernelLaunch/"><span class="doc std std-doc">GpuKernelLaunch</span></a>, <a class="reference internal" href="../GpuThreadIndex/"><span class="doc std std-doc">GpuThreadIndex</span></a>, <a class="reference internal" href="../GpuBlockIndex/"><span class="doc std std-doc">GpuBlockIndex</span></a>, <a class="reference internal" href="#"><span class="doc std std-doc">GpuBlockSize</span></a></p>
 </section>
 </section>
 

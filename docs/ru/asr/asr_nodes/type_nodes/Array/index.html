@@ -559,7 +559,8 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Ссылка на этот заголовок">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Ссылка на этот заголовок">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Array(ttype type, dimension* dims, array_physical_type physical_type)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Array(ttype type, dimension* dims, array_physical_type physical_type,
+    memory_space memory_space)
 </pre></div>
 </div>
 </section>
@@ -581,6 +582,9 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">physical_type</span></code></p></td>
 <td><p>how the array is represented; see <a class="reference internal" href="../../enum_nodes/array_physical_type/"><span class="doc std std-doc">array_physical_type</span></a>.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">memory_space</span></code></p></td>
+<td><p>which memory the storage lives in; see <a class="reference internal" href="../../enum_nodes/memory_space/"><span class="doc std std-doc">memory_space</span></a>.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -598,6 +602,10 @@ argument passed to it may have the same element type and rank but different
 <p>An assumed-rank array has no dimensions at all: its <code class="docutils literal notranslate"><span class="pre">dims</span></code> is empty and its
 physical type is <code class="docutils literal notranslate"><span class="pre">AssumedRankArray</span></code>. Its rank is only known at the call, and
 <a class="reference internal" href="../../statement_nodes/SelectRank/"><span class="doc std std-doc">SelectRank</span></a> is what recovers it.</p>
+<p><code class="docutils literal notranslate"><span class="pre">memory_space</span></code> says which memory the elements live in. Everything on the host
+is <code class="docutils literal notranslate"><span class="pre">Global</span></code>, and so is a buffer a kernel is given; the other spaces appear
+only inside GPU code, where a variable may instead be private to a thread or
+shared by a threadgroup. See <a class="reference internal" href="../../enum_nodes/memory_space/"><span class="doc std std-doc">memory_space</span></a>.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Ссылка на этот заголовок">¶</a></h2>
@@ -624,6 +632,7 @@ physical type is <code class="docutils literal notranslate"><span class="pre">As
 <span class="w">    </span><span class="p">)</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="w">  </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">  </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -667,6 +676,7 @@ physical type is <code class="docutils literal notranslate"><span class="pre">As
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -713,6 +723,7 @@ physical type is <code class="docutils literal notranslate"><span class="pre">As
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -813,6 +824,7 @@ physical type is <code class="docutils literal notranslate"><span class="pre">As
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:storage_format</span><span class="w"> </span><span class="ss">:ColMajor</span>
 <span class="w">            </span><span class="p">)</span>
@@ -907,6 +919,7 @@ physical type is <code class="docutils literal notranslate"><span class="pre">As
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:DescriptorArray</span>
+<span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="p">)</span>
@@ -1008,7 +1021,7 @@ physical type is <code class="docutils literal notranslate"><span class="pre">As
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Ссылка на этот заголовок">¶</a></h2>
-<p><a class="reference internal" href="../../helper_nodes/dimension/"><span class="doc std std-doc">dimension</span></a>, <a class="reference internal" href="../../enum_nodes/array_physical_type/"><span class="doc std std-doc">array_physical_type</span></a>, <a class="reference internal" href="../../expression_nodes/ArrayItem/"><span class="doc std std-doc">ArrayItem</span></a>, <a class="reference internal" href="../../expression_nodes/ArrayPhysicalCast/"><span class="doc std std-doc">ArrayPhysicalCast</span></a>, <a class="reference internal" href="../../expression_nodes/ArrayConstant/"><span class="doc std std-doc">ArrayConstant</span></a></p>
+<p><a class="reference internal" href="../../helper_nodes/dimension/"><span class="doc std std-doc">dimension</span></a>, <a class="reference internal" href="../../enum_nodes/array_physical_type/"><span class="doc std std-doc">array_physical_type</span></a>, <a class="reference internal" href="../../enum_nodes/memory_space/"><span class="doc std std-doc">memory_space</span></a>, <a class="reference internal" href="../../expression_nodes/ArrayItem/"><span class="doc std std-doc">ArrayItem</span></a>, <a class="reference internal" href="../../expression_nodes/ArrayPhysicalCast/"><span class="doc std std-doc">ArrayPhysicalCast</span></a>, <a class="reference internal" href="../../expression_nodes/ArrayConstant/"><span class="doc std std-doc">ArrayConstant</span></a></p>
 </section>
 </section>
 

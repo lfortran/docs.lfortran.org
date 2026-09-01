@@ -65,7 +65,7 @@
     <link rel="index" title="Index" href="../../../../genindex/" />
     <link rel="search" title="Zoeken" href="../../../../search/" />
     <link rel="next" title="schedule_type" href="../schedule_type/" />
-    <link rel="prev" title="OMPShared" href="../OMPShared/" />
+    <link rel="prev" title="OMPTargetRequested" href="../OMPTargetRequested/" />
   
    
 
@@ -531,6 +531,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../OMPIndependent/" class="md-nav__link">OMPIndependent</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../OMPLastPrivate/" class="md-nav__link">OMPLastPrivate</a>
       
     
@@ -588,6 +595,13 @@
     
     
       <a href="../OMPShared/" class="md-nav__link">OMPShared</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../OMPTargetRequested/" class="md-nav__link">OMPTargetRequested</a>
       
     
     </li>
@@ -769,6 +783,7 @@ device whose resources per team are limited.</p>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -1023,8 +1038,10 @@ device whose resources per team are limited.</p>
 <span class="w">                    </span><span class="ss">:orelse</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">OMPRegion</span>
 <span class="w">            </span><span class="ss">:region</span><span class="w"> </span><span class="ss">:Target</span>
@@ -1087,8 +1104,10 @@ device whose resources per team are limited.</p>
 <span class="w">                    </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">      </span><span class="p">)</span>
@@ -1115,7 +1134,7 @@ device whose resources per team are limited.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../OMPShared/" title="OMPShared"
+            <a href="../OMPTargetRequested/" title="OMPTargetRequested"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -1124,7 +1143,7 @@ device whose resources per team are limited.</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> OMPShared </span>
+                      class="md-footer-nav__direction"> Previous </span> OMPTargetRequested </span>
               </div>
             </a>
           

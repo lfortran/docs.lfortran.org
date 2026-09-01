@@ -475,13 +475,6 @@
     <li class="md-nav__item">
     
     
-      <a href="../GpuKernelFunction/" class="md-nav__link">GpuKernelFunction</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="../Module/" class="md-nav__link">Module</a>
       
     
@@ -704,7 +697,6 @@
     | Requirement(symbol_table symtab, identifier name, identifier* args, require_instantiation* requires)
     | Template(symbol_table symtab, identifier name, identifier* args, require_instantiation* requires)
     | Namelist(symbol_table parent_symtab, identifier group_name, symbol* var_list)
-    | GpuKernelFunction(symbol_table symtab, identifier name, ttype function_signature, identifier* dependencies, expr* args, stmt* body, access access, location start_name, location end_name)
 </pre></div>
 </div>
 </section>
@@ -725,8 +717,8 @@ owns or the <code class="docutils literal notranslate"><span class="pre">parent_
 because the parent is reachable from a symbol table it owns.</p>
 <p>The symbols divide into:</p>
 <ul class="simple">
-<li><p>program units: <a class="reference internal" href="../Program/"><span class="doc std std-doc">Program</span></a>, <a class="reference internal" href="../Module/"><span class="doc std std-doc">Module</span></a>,
-<a class="reference internal" href="../Function/"><span class="doc std std-doc">Function</span></a> and <a class="reference internal" href="../GpuKernelFunction/"><span class="doc std std-doc">GpuKernelFunction</span></a>;</p></li>
+<li><p>program units: <a class="reference internal" href="../Program/"><span class="doc std std-doc">Program</span></a>, <a class="reference internal" href="../Module/"><span class="doc std std-doc">Module</span></a> and
+<a class="reference internal" href="../Function/"><span class="doc std std-doc">Function</span></a>;</p></li>
 <li><p>type definitions: <a class="reference internal" href="../Struct/"><span class="doc std std-doc">Struct</span></a>, <a class="reference internal" href="../Enum/"><span class="doc std std-doc">Enum</span></a> and <a class="reference internal" href="../Union/"><span class="doc std std-doc">Union</span></a>,
 with <a class="reference internal" href="../StructMethodDeclaration/"><span class="doc std std-doc">StructMethodDeclaration</span></a> for a type-bound
 procedure;</p></li>

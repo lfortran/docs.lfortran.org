@@ -562,7 +562,7 @@
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FunctionType(ttype* arg_types, ttype? return_var_type, abi abi,
     deftype deftype, string? bindc_name, bool elemental, bool pure,
     bool module, bool inline, bool static, symbol* restrictions,
-    bool is_restriction)
+    bool is_restriction, exec_space exec_space)
 </pre></div>
 </div>
 </section>
@@ -611,6 +611,9 @@
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_restriction</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when this signature is itself one of those required operations rather than a procedure with an implementation.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">exec_space</span></code></p></td>
+<td><p>where the procedure runs; see <a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a>.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -624,6 +627,14 @@
 <p>Everything about a procedure other than its body and its symbols lives here,
 so a call site can be checked against the signature without looking at the
 procedure’s symbol table.</p>
+<p><code class="docutils literal notranslate"><span class="pre">exec_space</span></code> mirrors the execution space qualifiers of CUDA. <code class="docutils literal notranslate"><span class="pre">Host</span></code> is the
+default and runs on the CPU. <code class="docutils literal notranslate"><span class="pre">Device</span></code> runs on the GPU only, and <code class="docutils literal notranslate"><span class="pre">HostDevice</span></code>
+is compiled for both, which is what a routine reachable from the host and from
+a kernel alike becomes. <code class="docutils literal notranslate"><span class="pre">Kernel</span></code> is the entry point of a GPU kernel, the
+counterpart of <code class="docutils literal notranslate"><span class="pre">__global__</span></code>: it runs on the device and the host launches it
+with a <a class="reference internal" href="../../statement_nodes/GpuKernelLaunch/"><span class="doc std std-doc">GpuKernelLaunch</span></a>. The
+<code class="docutils literal notranslate"><span class="pre">device_partition</span></code> pass takes the closure of the call graph from the kernels
+and gives every routine it reaches the space it belongs in.</p>
 <p>A subroutine is a signature with no <code class="docutils literal notranslate"><span class="pre">return_var_type</span></code>. <code class="docutils literal notranslate"><span class="pre">deftype</span></code> says whether
 there is a body: an interface, and a procedure loaded from a module file as
 interface ASR, are <code class="docutils literal notranslate"><span class="pre">Interface</span></code>. An empty <code class="docutils literal notranslate"><span class="pre">arg_types</span></code> means the procedure takes
@@ -654,6 +665,7 @@ arguments are not known here.</p>
 <span class="w">  </span><span class="ss">:static</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">  </span><span class="ss">:restrictions</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">  </span><span class="ss">:is_restriction</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">  </span><span class="ss">:exec_space</span><span class="w"> </span><span class="ss">:Host</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -770,6 +782,7 @@ arguments are not known here.</p>
 <span class="w">                </span><span class="ss">:static</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                </span><span class="ss">:restrictions</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                </span><span class="ss">:is_restriction</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">                </span><span class="ss">:exec_space</span><span class="w"> </span><span class="ss">:Host</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">              </span><span class="ss">:args</span><span class="w"> </span><span class="p">[</span>
@@ -838,7 +851,7 @@ arguments are not known here.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">Veja Também<a class="headerlink" href="#see-also" title="Link permanente para este título">¶</a></h2>
-<p><a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>, <a class="reference internal" href="../../expression_nodes/FunctionCall/"><span class="doc std std-doc">FunctionCall</span></a>, <a class="reference internal" href="../../enum_nodes/deftype/"><span class="doc std std-doc">deftype</span></a>, <a class="reference internal" href="../../enum_nodes/abi/"><span class="doc std std-doc">abi</span></a>, <a class="reference internal" href="../../expression_nodes/FunctionParam/"><span class="doc std std-doc">FunctionParam</span></a></p>
+<p><a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>, <a class="reference internal" href="../../expression_nodes/FunctionCall/"><span class="doc std std-doc">FunctionCall</span></a>, <a class="reference internal" href="../../enum_nodes/deftype/"><span class="doc std std-doc">deftype</span></a>, <a class="reference internal" href="../../enum_nodes/abi/"><span class="doc std std-doc">abi</span></a>, <a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a>, <a class="reference internal" href="../../expression_nodes/FunctionParam/"><span class="doc std std-doc">FunctionParam</span></a></p>
 </section>
 </section>
 

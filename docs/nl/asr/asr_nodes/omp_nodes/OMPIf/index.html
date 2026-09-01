@@ -64,7 +64,7 @@
     <link rel="shortcut icon" href="../../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="Index" href="../../../../genindex/" />
     <link rel="search" title="Zoeken" href="../../../../search/" />
-    <link rel="next" title="OMPLastPrivate" href="../OMPLastPrivate/" />
+    <link rel="next" title="OMPIndependent" href="../OMPIndependent/" />
     <link rel="prev" title="OMPFirstPrivate" href="../OMPFirstPrivate/" />
   
    
@@ -561,6 +561,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../OMPIndependent/" class="md-nav__link">OMPIndependent</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../OMPLastPrivate/" class="md-nav__link">OMPLastPrivate</a>
       
     
@@ -618,6 +625,13 @@
     
     
       <a href="../OMPShared/" class="md-nav__link">OMPShared</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../OMPTargetRequested/" class="md-nav__link">OMPTargetRequested</a>
       
     
     </li>
@@ -766,6 +780,7 @@ avoids the cost of starting threads.</p>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
+<span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -1020,8 +1035,10 @@ avoids the cost of starting threads.</p>
 <span class="w">                    </span><span class="ss">:orelse</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">OMPRegion</span>
 <span class="w">            </span><span class="ss">:region</span><span class="w"> </span><span class="ss">:Target</span>
@@ -1084,8 +1101,10 @@ avoids the cost of starting threads.</p>
 <span class="w">                    </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
+<span class="w">                </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:exec_target</span><span class="w"> </span><span class="ss">:ExecAuto</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">      </span><span class="p">)</span>
@@ -1126,12 +1145,12 @@ avoids the cost of starting threads.</p>
             </a>
           
           
-            <a href="../OMPLastPrivate/" title="OMPLastPrivate"
+            <a href="../OMPIndependent/" title="OMPIndependent"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> OMPLastPrivate </span>
+                class="md-footer-nav__direction"> Next </span> OMPIndependent </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
