@@ -1440,11 +1440,30 @@
 <section id="description">
 <h2 id="description">Descripción<a class="headerlink" href="#description" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>The two branches have the same type, and the type of the whole expression is
-theirs. Fortran has no conditional expression before Fortran 2023;
-<strong>IfExp</strong> is LPython’s <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">if</span> <span class="pre">c</span> <span class="pre">else</span> <span class="pre">b</span></code> and Fortran 2023’s <code class="docutils literal notranslate"><span class="pre">merge</span></code>-like
-conditional expression, and it is also convenient for compiler-generated code.</p>
+theirs. <strong>IfExp</strong> is LPython’s <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">if</span> <span class="pre">c</span> <span class="pre">else</span> <span class="pre">b</span></code> and the Fortran 2023 conditional
+expression <code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">test</span> <span class="pre">?</span> <span class="pre">body</span> <span class="pre">:</span> <span class="pre">orelse</span> <span class="pre">)</span></code> (10.1.2.3 R1002), and it is also
+convenient for compiler-generated code.</p>
 <p>Unlike the <a class="reference internal" href="../../statement_nodes/If/"><span class="doc std std-doc">If</span></a> statement, both branches must
 produce a value.</p>
+<p>The Fortran front end only produces <strong>IfExp</strong> from an executable expression.
+10.1.11 and 10.1.12 enumerate the primaries a specification expression and a
+constant expression may contain, and a conditional expression is in neither
+list, so it is rejected in a kind type parameter, a character length, an array
+bound and an initialization expression. <strong>IfExp</strong> therefore never carries a
+compile time value from the Fortran front end.</p>
+<p>Only the chosen branch is evaluated. Fortran 2023 requires this
+(10.1.4 NOTE 3): a function call in the branch that is not taken must not run,
+so <strong>IfExp</strong> must never be rewritten into <code class="docutils literal notranslate"><span class="pre">merge</span></code>, which evaluates both of its
+arguments. The multi-arm form of R1002,
+<code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">c1</span> <span class="pre">?</span> <span class="pre">a</span> <span class="pre">:</span> <span class="pre">c2</span> <span class="pre">?</span> <span class="pre">b</span> <span class="pre">:</span> <span class="pre">d</span> <span class="pre">)</span></code>, is represented by nesting <strong>IfExp</strong> in the <code class="docutils literal notranslate"><span class="pre">orelse</span></code>
+position.</p>
+<p>A result that is an array, a derived type or polymorphic takes its shape,
+length type parameters and dynamic type from the branch that is chosen
+(10.1.4 p22-23), so there is no single descriptor a backend could write into
+before the branch is known. The <code class="docutils literal notranslate"><span class="pre">conditional_expr</span></code> pass lowers those results
+into an allocatable temporary and an <a class="reference internal" href="../../statement_nodes/If/"><span class="doc std std-doc">If</span></a> statement.
+Scalars of intrinsic type, including character, reach the backends as
+<strong>IfExp</strong> and are lowered there with a real branch.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Ejemplos<a class="headerlink" href="#examples" title="Enlazar permanentemente con este título">¶</a></h2>
