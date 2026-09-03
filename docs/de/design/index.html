@@ -317,6 +317,8 @@
         </li>
         <li class="md-nav__item"><a href="#notes" class="md-nav__link">Anmerkungen:</a>
         </li>
+        <li class="md-nav__item"><a href="#conditional-expressions-and-conditional-arguments" class="md-nav__link">Conditional Expressions and Conditional Arguments</a>
+        </li>
         <li class="md-nav__item"><a href="#fortran-2008" class="md-nav__link">Fortran 2008</a>
         </li>
         <li class="md-nav__item"><a href="#lfortran-extension" class="md-nav__link">LFortran-Erweiterung</a><nav class="md-nav">
@@ -363,6 +365,13 @@
     
     
       <a href="#notes" class="md-nav__link">Anmerkungen:</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#conditional-expressions-and-conditional-arguments" class="md-nav__link">Conditional Expressions and Conditional Arguments</a>
       
     
     </li>
@@ -591,6 +600,8 @@
         </li>
         <li class="md-nav__item"><a href="#notes" class="md-nav__link">Anmerkungen:</a>
         </li>
+        <li class="md-nav__item"><a href="#conditional-expressions-and-conditional-arguments" class="md-nav__link">Conditional Expressions and Conditional Arguments</a>
+        </li>
         <li class="md-nav__item"><a href="#fortran-2008" class="md-nav__link">Fortran 2008</a>
         </li>
         <li class="md-nav__item"><a href="#lfortran-extension" class="md-nav__link">LFortran-Erweiterung</a><nav class="md-nav">
@@ -677,6 +688,25 @@ is usually the default mode used by most other Fortran compilers. We create obje
 <p>ASR ist der einfachste Weg, Fortran-Code zu erzeugen, da man sich nicht um die detaillierte Syntax (wie in AST) kümmern muss, wie und wo Dinge deklariert werden. Man spezifiziert die Symboltabelle für ein Modul, dann gibt man für jedes Symbol (Funktionen, globale Variablen, Typen, …) die lokalen Variablen an, und wenn es sich um ein Interface handelt, muss man angeben, wo man eine Implementierung finden kann, andernfalls wird ein Body mit Statements bereitgestellt, diese Knoten sind fast die gleichen wie in AST, außer dass jede Variable nur ein Verweis auf ein Symbol in der Symboltabelle ist (also kann man konstruktionsbedingt keine undefinierten Variablen haben). Die Symboltabelle für jeden Knoten, wie z. B. Funktion oder Modul, verweist auch auf seine Eltern (z. B. verweist eine Funktion auf ein Modul, ein Modul auf den globalen Bereich).</p>
 <p>Der ASR kann direkt in einen AST umgewandelt werden, ohne dass weitere Informationen erfasst werden müssen. Und der AST direkt in Fortran-Quellcode.</p>
 <p>Die ASR stellt immer einen semantisch gültigen Fortran-Code dar.  Dies wird durch Überprüfungen in den ASR-C++-Konstruktoren (im Debug-Build) erzwungen. Wenn eine ASR eingesetzt wird, kann man davon ausgehen, dass sie gültig ist.</p>
+</section>
+<section id="conditional-expressions-and-conditional-arguments">
+<h2 id="conditional-expressions-and-conditional-arguments">Conditional Expressions and Conditional Arguments<a class="headerlink" href="#conditional-expressions-and-conditional-arguments" title="Link zu dieser Überschrift">¶</a></h2>
+<p>A conditional expression (F2023 10.1.2.3), <code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">cond</span> <span class="pre">?</span> <span class="pre">a</span> <span class="pre">:</span> <span class="pre">b</span> <span class="pre">)</span></code>, is an ordinary
+expression and becomes the <code class="docutils literal notranslate"><span class="pre">ConditionalExpr</span></code> AST node. A conditional argument
+(15.5.1) has the same syntax but appears in an actual argument position, where
+it selects the actual argument itself rather than a value: a consequent that is
+a variable stays definable, and a consequent of <code class="docutils literal notranslate"><span class="pre">.NIL.</span></code> (6.2.1) means the dummy
+argument is not present.</p>
+<p>Only the context tells the two apart (C1535), so the parser does not. <code class="docutils literal notranslate"><span class="pre">.NIL.</span></code> is
+a token of its own (6.2.1) rather than a named constant or a defined operator,
+matched ahead of the defined-operator rule in the tokenizer, and a single
+<code class="docutils literal notranslate"><span class="pre">cond_consequent</span></code> production — an expression, a variable or <code class="docutils literal notranslate"><span class="pre">.NIL.</span></code> — is shared
+by both places a conditional expression is parsed. <code class="docutils literal notranslate"><span class="pre">.NIL.</span></code> therefore reaches the
+AST as the <code class="docutils literal notranslate"><span class="pre">Nil</span></code> expression node from any consequent position.</p>
+<p>The semantic layer then rejects <code class="docutils literal notranslate"><span class="pre">Nil</span></code> wherever a value is required, and expands a
+conditional argument by duplicating the procedure reference into the arms of a
+selection, one copy per consequent, so that every copy is an ordinary reference
+that the existing argument checks apply to.</p>
 </section>
 <section id="fortran-2008">
 <h2 id="fortran-2008">Fortran 2008<a class="headerlink" href="#fortran-2008" title="Link zu dieser Überschrift">¶</a></h2>
