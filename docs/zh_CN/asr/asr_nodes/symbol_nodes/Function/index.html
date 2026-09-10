@@ -683,8 +683,8 @@
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Function(symbol_table symtab, identifier name,
     ttype function_signature, identifier* dependencies, expr* args,
     stmt* body, expr? return_var, access access, bool deterministic,
-    bool side_effect_free, string? module_file, location start_name,
-    location end_name)
+    bool side_effect_free, string? module_file, gpu_kernel_layout? gpu,
+    location start_name, location end_name)
 </pre></div>
 </div>
 </section>
@@ -730,10 +730,13 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">module_file</span></code></p></td>
 <td><p>the module file the procedure was loaded from, when it was; <code class="docutils literal notranslate"><span class="pre">nil</span></code> otherwise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">start_name</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gpu</span></code></p></td>
+<td><p>the finalized GPU kernel layout, or <code class="docutils literal notranslate"><span class="pre">nil</span></code>. Records buffer and scalar bindings, workspace extents and parameters, and the device call graph.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_name</span></code></p></td>
 <td><p>the source span of the name in the <code class="docutils literal notranslate"><span class="pre">function</span></code> or <code class="docutils literal notranslate"><span class="pre">subroutine</span></code> statement.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">end_name</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">end_name</span></code></p></td>
 <td><p>the source span of the name in the matching <code class="docutils literal notranslate"><span class="pre">end</span></code> statement.</p></td>
 </tr>
 </tbody>
@@ -758,6 +761,16 @@ result variable of a function is likewise owned by <code class="docutils literal
 <p><code class="docutils literal notranslate"><span class="pre">deterministic</span></code> and <code class="docutils literal notranslate"><span class="pre">side_effect_free</span></code> are declarations about the procedure,
 not consequences of its body. A frontend that cannot prove them must leave
 them <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<p>Only a kernel may own <code class="docutils literal notranslate"><span class="pre">gpu</span></code> metadata. It is produced after shared array and
+procedure lowering, before host launch expansion. Runtime workspace extents
+are expressions over the original kernel arguments; the host evaluates each
+once and passes the result in an additional scalar argument. The device uses
+that same scalar for its workspace slice. Buffer order and device-procedure
+identity are explicit rather than inferred from generated names.</p>
+<p>ASR verification checks binding identities, ranks, workspace slots, extent
+dependencies and the ordered device-call closure. Absent optional aggregate
+metadata is omitted from readable ASR, so ordinary procedures retain their
+existing text representation.</p>
 </section>
 <section id="examples">
 <h2 id="examples">示例<a class="headerlink" href="#examples" title="永久链接至标题">¶</a></h2>

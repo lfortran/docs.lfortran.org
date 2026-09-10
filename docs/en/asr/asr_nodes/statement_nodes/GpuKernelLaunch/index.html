@@ -1038,6 +1038,13 @@ because the same kernel is normally launched with different sizes.</p>
 <p>The kernel is an ordinary <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>; what makes
 it launchable is that its signature has <code class="docutils literal notranslate"><span class="pre">exec_space</span> <span class="pre">=</span> <span class="pre">Kernel</span></code>, and a kernel
 has no result. See <a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a>.</p>
+<p>During extraction a launch belongs to a <a class="reference internal" href="../GpuOffload/"><span class="doc std std-doc">GpuOffload</span></a> candidate
+alongside the original CPU alternative. <code class="docutils literal notranslate"><span class="pre">gpu_kernel_finalize</span></code> makes the
+definitive decision after shared lowering and records the accepted kernel’s
+<code class="docutils literal notranslate"><span class="pre">Function.gpu</span></code> layout. <code class="docutils literal notranslate"><span class="pre">device_launch_expand</span></code> and both device emitters consume
+that layout. Workspace sizes are evaluated once on the host and passed as
+explicit scalar arguments, so host allocation and device indexing use the
+same values.</p>
 <p>Before creating a launch, GPU offload checks the allocation of allocatable
 array results in callees that remain out of line. Nested or multiple allocation
 sites must agree with a buffer shape established by an unconditional fixed
@@ -1045,6 +1052,12 @@ allocation. Otherwise the loop is rejected while the original loop is still
 available; <code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code> instead runs that loop on the CPU.
 Reallocation and conditional assignments remain eligible when they preserve
 every extent, not just the total element count.</p>
+<p>Every declined offload is a compile-time error unless
+<code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code> is explicitly enabled, including native backend
+limitations. With that flag, a decline warns and selects the CPU alternative.
+<code class="docutils literal notranslate"><span class="pre">--gpu-decline-stats</span></code> reports the <code class="docutils literal notranslate"><span class="pre">not-implemented</span></code> or <code class="docutils literal notranslate"><span class="pre">backend-cannot</span></code>
+category without changing this policy. A manually constructed launch without
+a CPU alternative cannot use fallback even with the flag.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
