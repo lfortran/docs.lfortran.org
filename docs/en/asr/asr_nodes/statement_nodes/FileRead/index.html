@@ -997,7 +997,7 @@
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FileRead(int label, expr? unit, expr? fmt, expr? iomsg, expr? iostat,
     expr? advance, expr? size, expr? id, expr? pos, expr* values,
     stmt? overloaded, bool is_formatted, symbol? nml, expr? rec,
-    expr? pad)
+    expr? pad, expr? decimal)
 </pre></div>
 </div>
 </section>
@@ -1055,6 +1055,9 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pad</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">yes</span></code> or <code class="docutils literal notranslate"><span class="pre">no</span></code>: whether a short record is padded with blanks.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">decimal</span></code></p></td>
+<td><p>the decimal edit mode of the transfer: <code class="docutils literal notranslate"><span class="pre">comma</span></code> reads a comma as the decimal symbol and a semicolon as the list-directed value separator, <code class="docutils literal notranslate"><span class="pre">point</span></code> reads a point. It overrides the mode the unit was connected with, and is unset when the statement names none.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -1098,6 +1101,7 @@ group, matching them by name in the file.</p>
 <span class="w">  </span><span class="ss">:nml</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">  </span><span class="ss">:rec</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">  </span><span class="ss">:pad</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">  </span><span class="ss">:decimal</span><span class="w"> </span><span class="nv">nil</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1292,6 +1296,7 @@ group, matching them by name in the file.</p>
 <span class="w">            </span><span class="ss">:nml</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="ss">:rec</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="ss">:pad</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:decimal</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">FileWrite</span>
 <span class="w">            </span><span class="ss">:label</span><span class="w"> </span><span class="mi">-1</span>
@@ -1314,6 +1319,7 @@ group, matching them by name in the file.</p>
 <span class="w">            </span><span class="ss">:rec</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="ss">:pos</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="ss">:asynchronous</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:decimal</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">FileBackspace</span>
 <span class="w">            </span><span class="ss">:label</span><span class="w"> </span><span class="mi">-1</span>
