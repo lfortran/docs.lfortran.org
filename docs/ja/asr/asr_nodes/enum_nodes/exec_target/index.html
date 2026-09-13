@@ -306,6 +306,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../gpu_offloading/" class="md-nav__link">GPU Offloading</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../developer_tutorial/" class="md-nav__link">Developer Tutorial</a>
       
     
@@ -753,9 +760,12 @@ and an <code class="docutils literal notranslate"><span class="pre">!$omp</span>
 anything lowers them, and each region carries the answer to "who runs these
 iterations".</p>
 <p>The frontend never picks a target: it writes <code class="docutils literal notranslate"><span class="pre">ExecAuto</span></code> and leaves the
-decision to the <code class="docutils literal notranslate"><span class="pre">parallel_dispatch</span></code> pass, which reads the command line. Every
-lowering below that pass claims only the loops assigned to it, so a loop the
-GPU declines can be handed back to the host threads instead of being lost.</p>
+decision to the <code class="docutils literal notranslate"><span class="pre">parallel_dispatch</span></code> pass, which reads the command line. With a
+GPU backend it assigns a loop to the device unless the loop uses a construct
+on the device's unsupported list (see <a class="reference internal" href="../../../../gpu_offloading/"><span class="doc std std-doc">GPU offloading</span></a>):
+such a loop is a compile error, or, with <code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code>, is
+assigned to the host with a warning. Every lowering below that pass claims
+only the loops assigned to it.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="このヘッドラインへのパーマリンク">¶</a></h2>

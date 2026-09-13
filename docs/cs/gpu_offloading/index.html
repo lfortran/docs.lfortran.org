@@ -1,0 +1,908 @@
+
+<!DOCTYPE html>
+
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="../_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="../_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="../_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="../_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#3f51b5">
+  <script src="../_static/javascripts/modernizr.js"></script>
+  
+  
+  
+    <title>GPU Offloading &#8212; LFortran</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/material.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansi.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../_static/lfortran-logo.svg"/>
+    <link rel="index" title="Rejstřík" href="../genindex/" />
+    <link rel="search" title="Vyhledávání" href="../search/" />
+    <link rel="next" title="Developer Tutorial" href="../developer_tutorial/" />
+    <link rel="prev" title="LFortran Design" href="../design/" />
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=amber data-md-color-accent=orange>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#gpu_offloading" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../" title="LFortran"
+           class="md-header-nav__button md-logo">
+          
+              <img src="../_static/lfortran-logo.svg" height="26"
+                   alt="LFortran logo">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">LFortran Documentation</span>
+          <span class="md-header-nav__topic"> GPU Offloading </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="../search/" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+  
+  <div class="md-flex__cell md-flex__cell--shrink dropdown">
+    <button class="dropdownbutton">Versions</button>
+    <div class="dropdown-content md-hero">
+          <a title="English" href="/../en/">English</a>
+      
+          <a title="Bengali" href="/../bn/">Bengali</a>
+      
+          <a title="Czech" href="/../cs/">Czech</a>
+      
+          <a title="German" href="/../de/">German</a>
+      
+          <a title="Spanish" href="/../es/">Spanish</a>
+      
+          <a title="French" href="/../fr/">French</a>
+      
+          <a title="Japanese" href="/../ja/">Japanese</a>
+      
+          <a title="Dutch" href="/../nl/">Dutch</a>
+      
+          <a title="Polish" href="/../pl/">Polish</a>
+      
+          <a title="Portuguese" href="/../pt/">Portuguese</a>
+      
+          <a title="Russian" href="/../ru/">Russian</a>
+      
+          <a title="Chinese" href="/../zh_CN/">Chinese</a>
+      
+    </div>
+  </div>
+  
+
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+          <li class="md-tabs__item"><a href="../" class="md-tabs__link">LFortran</a></li>
+            
+            <li class="md-tabs__item"><a href="../installation/" class="md-tabs__link">Getting started</a></li>
+            
+            <li class="md-tabs__item"><a href="../progress/" class="md-tabs__link">LFortran Development Status</a></li>
+            
+            <li class="md-tabs__item"><a href="../design/" class="md-tabs__link">Developers's Guide</a></li>
+            
+            <li class="md-tabs__item"><a href="../intrinsics/array/" class="md-tabs__link">Intrinsics</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../" title="LFortran" class="md-nav__button md-logo">
+      
+        <img src="../_static/lfortran-logo.svg" alt=" logo" width="48" height="48">
+      
+    </a>
+    <a href="../"
+       title="LFortran">LFortran Documentation</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/lfortran/lfortran" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    LFortran
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Začínáme</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../installation/" class="md-nav__link">Installation</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../language/" class="md-nav__link">Fortran Language</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../usage/" class="md-nav__link">LFortran User Guide</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran Development Status</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../progress/" class="md-nav__link">LFortran Development Status</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../progress/#topics" class="md-nav__link">Topics</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Developer's Guide</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../design/" class="md-nav__link">LFortran Design</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> GPU Offloading </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">GPU Offloading</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#gpu-offloading--page-root" class="md-nav__link">GPU Offloading</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#goals" class="md-nav__link">Goals</a>
+        </li>
+        <li class="md-nav__item"><a href="#outcomes" class="md-nav__link">Outcomes</a>
+        </li>
+        <li class="md-nav__item"><a href="#the-unsupported-list" class="md-nav__link">The unsupported list</a>
+        </li>
+        <li class="md-nav__item"><a href="#the-unsupported-construct-check" class="md-nav__link">The unsupported-construct check</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#what-the-check-has-to-look-at" class="md-nav__link">What the check has to look at</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#the-offloading-pipeline" class="md-nav__link">The offloading pipeline</a>
+        </li>
+        <li class="md-nav__item"><a href="#testing" class="md-nav__link">Testing</a>
+        </li>
+        <li class="md-nav__item"><a href="#open-questions" class="md-nav__link">Open questions</a>
+        </li>
+        <li class="md-nav__item"><a href="#differences-from-the-current-implementation" class="md-nav__link">Differences from the current implementation</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#goals" class="md-nav__link">Goals</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#outcomes" class="md-nav__link">Outcomes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#the-unsupported-list" class="md-nav__link">The unsupported list</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#the-unsupported-construct-check" class="md-nav__link">The unsupported-construct check</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#the-offloading-pipeline" class="md-nav__link">The offloading pipeline</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#testing" class="md-nav__link">Testing</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#open-questions" class="md-nav__link">Open questions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#differences-from-the-current-implementation" class="md-nav__link">Differences from the current implementation</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../developer_tutorial/" class="md-nav__link">Developer Tutorial</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../ast_and_asr/" class="md-nav__link">Rozdíly mezi AST a ASR</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../interactive_cells/" class="md-nav__link">Interactive evaluation: one TranslationUnit per cell</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../jupyterlite/" class="md-nav__link">LFortran in the Browser (JupyterLite)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../contributing/" class="md-nav__link">Contributing</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran Intrinsics</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/array/" class="md-nav__link">Array Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/bit/" class="md-nav__link">Bit Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/character/" class="md-nav__link">Character Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/kind-type/" class="md-nav__link">Kind Type Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/mathematical/" class="md-nav__link">Mathematical Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/numeric/" class="md-nav__link">Numeric Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../intrinsics/misc/" class="md-nav__link">Miscellaneous Intrinsic Functions</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">LFortran ASR Nodes</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr/" class="md-nav__link">Abstract Semantic Representation (ASR)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_text/" class="md-nav__link">ASR text format</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/unit_nodes/unit_nodes/" class="md-nav__link">ASR Unit Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/symbol_nodes/symbol_nodes/" class="md-nav__link">ASR Symbol Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/statement_nodes/statement_nodes/" class="md-nav__link">ASR Statement Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/expression_nodes/expression_nodes/" class="md-nav__link">ASR Expression Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/type_nodes/ttype/" class="md-nav__link">ttype</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/helper_nodes/helper_nodes/" class="md-nav__link">ASR Helper Nodes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/enum_nodes/enum_nodes/" class="md-nav__link">ASR Enumerations</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/cast_kind_nodes/cast_kind/" class="md-nav__link">cast_kind</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/kinds_nodes/kinds/" class="md-nav__link">kinds</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../asr/asr_nodes/omp_nodes/omp_nodes/" class="md-nav__link">ASR OpenMP Nodes</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#gpu-offloading--page-root" class="md-nav__link">GPU Offloading</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#goals" class="md-nav__link">Goals</a>
+        </li>
+        <li class="md-nav__item"><a href="#outcomes" class="md-nav__link">Outcomes</a>
+        </li>
+        <li class="md-nav__item"><a href="#the-unsupported-list" class="md-nav__link">The unsupported list</a>
+        </li>
+        <li class="md-nav__item"><a href="#the-unsupported-construct-check" class="md-nav__link">The unsupported-construct check</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#what-the-check-has-to-look-at" class="md-nav__link">What the check has to look at</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#the-offloading-pipeline" class="md-nav__link">The offloading pipeline</a>
+        </li>
+        <li class="md-nav__item"><a href="#testing" class="md-nav__link">Testing</a>
+        </li>
+        <li class="md-nav__item"><a href="#open-questions" class="md-nav__link">Open questions</a>
+        </li>
+        <li class="md-nav__item"><a href="#differences-from-the-current-implementation" class="md-nav__link">Differences from the current implementation</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="gpu-offloading">
+<h1 id="gpu-offloading--page-root">GPU Offloading<a class="headerlink" href="#gpu-offloading--page-root" title="Trvalý odkaz na tento nadpis">¶</a></h1>
+<p>This document describes how LFortran decides where a parallel loop runs when a
+GPU backend is selected with <code class="docutils literal notranslate"><span class="pre">--gpu=metal</span></code>, <code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code> or <code class="docutils literal notranslate"><span class="pre">--gpu=cuda_cpu</span></code>.
+It is a design document: where the current implementation differs, the
+differences are listed at the end.</p>
+<section id="goals">
+<h2 id="goals">Goals<a class="headerlink" href="#goals" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Correctness first.</strong> An offloaded loop computes exactly what the same loop
+computes on the CPU.</p></li>
+<li><p><strong>Everything is offloaded.</strong> Every <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> loop runs on the device,
+no matter how slow the lowering is. A loop that the compiler cannot offload
+yet is a compiler bug to fix, never a reason to quietly use the CPU.</p></li>
+<li><p><strong>No silent CPU execution.</strong> A loop runs on the CPU only for a short,
+explicitly documented list of constructs, and only when the user asks for
+it.</p></li>
+<li><p><strong>Performance decisions come later.</strong> Choosing the CPU because it is faster
+for a given loop is a separate, later feature, built on top of being able to
+offload everything correctly.</p></li>
+</ol>
+</section>
+<section id="outcomes">
+<h2 id="outcomes">Outcomes<a class="headerlink" href="#outcomes" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<p>Every parallel loop compiled with a GPU backend ends in exactly one of these
+outcomes:</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Situation</p></th>
+<th class="head"><p>Without <code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code></p></th>
+<th class="head"><p>With <code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>The loop uses nothing from the unsupported list</p></td>
+<td><p>offloaded</p></td>
+<td><p>offloaded</p></td>
+</tr>
+<tr class="row-odd"><td><p>The loop uses something from the unsupported list</p></td>
+<td><p>error, reported by the unsupported-construct check</p></td>
+<td><p>the loop runs on the CPU, with a warning</p></td>
+</tr>
+<tr class="row-even"><td><p>The offloading pipeline fails on the loop</p></td>
+<td><p>error (a compiler bug)</p></td>
+<td><p>error (a compiler bug)</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code> therefore softens only the unsupported list. It
+never hides a failure of the offloading pipeline.</p>
+</section>
+<section id="the-unsupported-list">
+<h2 id="the-unsupported-list">The unsupported list<a class="headerlink" href="#the-unsupported-list" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<p>The unsupported list names the constructs that LFortran does not offload on a
+given device, either not yet or never. It is intentionally short, and every
+entry states why it is there. Current proposal:</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Construct</p></th>
+<th class="head"><p>Devices</p></th>
+<th class="head"><p>Why</p></th>
+<th class="head"><p>Plan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">real(8)</span></code></p></td>
+<td><p>Metal</p></td>
+<td><p>the Metal Shading Language has no 64-bit float</p></td>
+<td><p>emulate later</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">real(10)</span></code>, <code class="docutils literal notranslate"><span class="pre">real(16)</span></code></p></td>
+<td><p>all</p></td>
+<td><p>no device has these widths</p></td>
+<td><p>emulate, or never</p></td>
+</tr>
+<tr class="row-even"><td><p>input/output statements, including internal-file I/O</p></td>
+<td><p>all</p></td>
+<td><p>no Fortran units or formats on a device</p></td>
+<td><p>never, or a host-side buffer later</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span></code>, <code class="docutils literal notranslate"><span class="pre">stop</span></code></p></td>
+<td><p>Metal</p></td>
+<td><p>a Metal shader has no way to halt the program</p></td>
+<td><p>a host-side status buffer later</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">stop</span></code> is on the list for now. The standard and gfortran treat <code class="docutils literal notranslate"><span class="pre">stop</span></code> in a
+<code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> body as invalid (it is an image control statement), so it will
+become a semantic error instead.</p>
+<p>Everything else is not on the list, even when it is not implemented yet. For
+example <code class="docutils literal notranslate"><span class="pre">integer(8)</span></code> on Metal (the Metal Shading Language has 64-bit integers),
+<code class="docutils literal notranslate"><span class="pre">complex</span></code>, <code class="docutils literal notranslate"><span class="pre">character</span></code>, run-time sized locals or derived types with allocatable
+components are all offloaded, or are an error until the pipeline supports them.</p>
+<p>Adding an entry to the list is a design decision, not a way to make a failing
+loop compile.</p>
+</section>
+<section id="the-unsupported-construct-check">
+<h2 id="the-unsupported-construct-check">The unsupported-construct check<a class="headerlink" href="#the-unsupported-construct-check" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<p>The check decides from the program as written, before any lowering, whether a
+loop uses something on the unsupported list. It does not try to lower the loop
+and it does not depend on how far lowering would get.</p>
+<p>It runs once per parallel loop, when the execution target is chosen (the
+<code class="docutils literal notranslate"><span class="pre">parallel_dispatch</span></code> pass, see <a class="reference internal" href="../asr/asr_nodes/enum_nodes/exec_target/"><span class="doc std std-doc">exec_target</span></a>):</p>
+<ul class="simple">
+<li><p>If the loop passes, it is assigned to the device. From then on the offloading
+pipeline is committed to it.</p></li>
+<li><p>If the loop fails, it is an error at the offending construct (the I/O
+statement, the <code class="docutils literal notranslate"><span class="pre">real(8)</span></code> variable), or, with <code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code>, the
+loop is assigned to the host with a warning naming that construct.</p></li>
+</ul>
+<section id="what-the-check-has-to-look-at">
+<h3 id="what-the-check-has-to-look-at">What the check has to look at<a class="headerlink" href="#what-the-check-has-to-look-at" title="Trvalý odkaz na tento nadpis">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> loop is constrained by the Fortran standard, which keeps the
+check small:</p>
+<ul class="simple">
+<li><p>A procedure referenced in a <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> construct must be pure. A pure
+procedure cannot do external input/output or <code class="docutils literal notranslate"><span class="pre">stop</span></code>. So external I/O and
+<code class="docutils literal notranslate"><span class="pre">stop</span></code> can only appear directly in the loop body.</p></li>
+<li><p>A pure procedure can still do internal-file I/O (<code class="docutils literal notranslate"><span class="pre">write</span></code> to a character
+variable) and <code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span></code>, so those have to be looked for in the called
+procedures too.</p></li>
+<li><p>gfortran (<code class="docutils literal notranslate"><span class="pre">-std=f2018</span></code>) rejects <code class="docutils literal notranslate"><span class="pre">stop</span></code> in a <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> body as an image
+control statement, while <code class="docutils literal notranslate"><span class="pre">print</span></code> in the body and <code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span></code> in a pure
+procedure are accepted. (To be confirmed against the standard text.)</p></li>
+</ul>
+<p>Types, on the other hand, can come from anywhere the loop reaches: the loop
+body, the called procedures, their locals and the data passed to the device.</p>
+<p>For an <code class="docutils literal notranslate"><span class="pre">!$omp</span> <span class="pre">parallel</span> <span class="pre">do</span></code> loop offloaded with <code class="docutils literal notranslate"><span class="pre">--gpu-offload-omp-loops</span></code> the
+standard gives no such guarantee: the body and its callees can do anything, so
+the check has to walk every procedure the loop reaches.</p>
+<p>Since purity is not enforced yet (see the open questions), the check does not
+rely on it: for every loop it walks the loop body and every procedure the loop
+reaches transitively, looking at their statements, the declared types of their
+dummy arguments, results and locals, and the type of every expression they
+evaluate. A compile-time constant is not evaluated on the device, so what is
+below it is not looked at.</p>
+<p>For derived types the check uses this rule:</p>
+<ul class="simple">
+<li><p>A component reference <code class="docutils literal notranslate"><span class="pre">s%m</span></code> is judged by the type of <code class="docutils literal notranslate"><span class="pre">m</span></code> alone: only that
+component reaches the device. A loop that reads only <code class="docutils literal notranslate"><span class="pre">real(4)</span></code> components of
+a type that also has a <code class="docutils literal notranslate"><span class="pre">real(8)</span></code> component is not rejected for it.</p></li>
+<li><p>A derived-type value used as a whole (passed to a procedure, assigned,
+copied), and a derived-type variable declared in a procedure the loop
+reaches or in a <code class="docutils literal notranslate"><span class="pre">block</span></code> of the loop, is judged by all of its components,
+recursively: its whole layout reaches the device.</p></li>
+</ul>
+<p>The check lives in <code class="docutils literal notranslate"><span class="pre">src/libasr/pass/gpu_unsupported_check.cpp</span></code>, and each
+failing loop is reported once, at the first construct found, with the loop
+also pointed at when the construct is in a called procedure. Every failing
+loop of a file is reported before the compilation stops.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--show-gpu-kernel-source</span></code> assigns a failing loop to the host, as
+<code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code> does, so that the kernels of the other loops are
+still shown. A failure of the offloading pipeline is an error there too.</p>
+</section>
+</section>
+<section id="the-offloading-pipeline">
+<h2 id="the-offloading-pipeline">The offloading pipeline<a class="headerlink" href="#the-offloading-pipeline" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<p>Once a loop is assigned to the device, the offloading pipeline extracts the
+kernel, lowers it through the shared ASR passes, lays out its arguments and
+generates the device source. It never falls back to the CPU:</p>
+<ul class="simple">
+<li><p>There is no CPU alternative kept alongside the kernel, and nothing to undo.</p></li>
+<li><p>A construct the pipeline cannot lower yet is a compiler error at the loop
+(„not yet implemented“). It is fixed like any other compiler bug: reduce it to
+a minimal reproducer, fix the pipeline, add an integration test.</p></li>
+<li><p>The pipeline does not repeat the unsupported-construct check. Where it needs
+a fact the check guarantees (for example that no <code class="docutils literal notranslate"><span class="pre">real(8)</span></code> reaches a Metal
+kernel), it asserts it.</p></li>
+</ul>
+</section>
+<section id="testing">
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<ul class="simple">
+<li><p>Every entry of the unsupported list has a test for the error, and a test that
+the same program runs correctly on the CPU with <code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code>.</p></li>
+<li><p>Every pipeline fix comes with an integration test that runs on the GPU
+backends (<code class="docutils literal notranslate"><span class="pre">metal</span></code>, <code class="docutils literal notranslate"><span class="pre">cuda_cpu</span></code> labels) and checks the results.</p></li>
+<li><p>Compiling is not enough: an offloaded loop can compile and still compute the
+wrong values. Integration tests therefore check their results in the program,
+and third-party codes whose test suites check values (Formal, Fiats) are run
+with <code class="docutils literal notranslate"><span class="pre">--gpu=metal</span></code> in CI.</p></li>
+</ul>
+</section>
+<section id="open-questions">
+<h2 id="open-questions">Open questions<a class="headerlink" href="#open-questions" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Purity is not enforced yet.</strong> LFortran currently accepts an impure procedure
+(for example one that prints) called from a <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> loop, and <code class="docutils literal notranslate"><span class="pre">stop</span></code>
+in its body. The check relies on the standard’s constraints, so these need to
+become semantic errors first.</p></li>
+<li><p><strong>What counts as using a type.</strong> The check uses the rule above. The
+pipeline does not always follow it yet: a derived type whose components are
+read only through allocatable array components is handed to the kernel one
+component at a time, but one with other components read is handed over
+whole, so an unused <code class="docutils literal notranslate"><span class="pre">real(8)</span></code> component there is still an error on Metal
+(reported by the pipeline, not the check).</p></li>
+<li><p><strong>Procedures without a visible body.</strong> A <code class="docutils literal notranslate"><span class="pre">bind(c)</span></code> interface is how a kernel
+calls a function the device provides (for example <code class="docutils literal notranslate"><span class="pre">sqrt</span></code>), but a host-only C
+routine looks the same. Either keep an allowlist of device-provided
+functions, or put every other call to a procedure with no body on the list.</p></li>
+<li><p><strong>Separate compilation.</strong> A called procedure can live in another file or
+submodule. The facts the check needs about it (does internal I/O, which types
+it uses) have to be available without its body, for example recorded in the
+module file.</p></li>
+</ul>
+</section>
+<section id="differences-from-the-current-implementation">
+<h2 id="differences-from-the-current-implementation">Differences from the current implementation<a class="headerlink" href="#differences-from-the-current-implementation" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<ul class="simple">
+<li><p>The pipeline still has its own checks for device limits (the width of the
+data that reaches a kernel, input/output and <code class="docutils literal notranslate"><span class="pre">stop</span></code> statements), spread over
+several passes and the device code generator. They report a compile error
+rather than assert, because the check does not guarantee everything they
+look at: symbols a rewrite introduces, the bodies of procedures only the
+pipeline loads (separate compilation), widths that are not on the list
+(<code class="docutils literal notranslate"><span class="pre">integer(8)</span></code> on Metal), and a derived type with an unused <code class="docutils literal notranslate"><span class="pre">real(8)</span></code>
+component that is handed to the kernel whole (see the open questions).</p></li>
+<li><p>Purity of procedures called from <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> is not enforced.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="../design/" title="LFortran Design"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> LFortran Design </span>
+              </div>
+            </a>
+          
+          
+            <a href="../developer_tutorial/" title="Developer Tutorial"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> Developer Tutorial </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2022 LFortran contributors.
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>
