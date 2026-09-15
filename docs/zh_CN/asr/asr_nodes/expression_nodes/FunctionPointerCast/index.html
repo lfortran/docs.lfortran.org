@@ -1399,12 +1399,12 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="functionpointercast">
 <h1 id="asr-asr-nodes-expression-nodes-functionpointercast--page-root">FunctionPointerCast<a class="headerlink" href="#asr-asr-nodes-expression-nodes-functionpointercast--page-root" title="永久链接至标题">¶</a></h1>
-<p>Views a procedure through a different signature.</p>
+<p>Views a procedure through a different procedure type.</p>
 <section id="declaration">
 <h2 id="declaration">声明<a class="headerlink" href="#declaration" title="永久链接至标题">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">语法<a class="headerlink" href="#syntax" title="永久链接至标题">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FunctionPointerCast(expr arg, symbol to, ttype type, expr? value)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FunctionPointerCast(expr arg, symbol? to, ttype type, expr? value)
 </pre></div>
 </div>
 </section>
@@ -1418,13 +1418,13 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">arg</span></code></p></td>
-<td><p>the procedure being viewed.</p></td>
+<td><p>the procedure being viewed: a procedure, a dummy procedure or a procedure pointer.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">to</span></code></p></td>
-<td><p>the <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a> whose signature this view has. It is an <code class="docutils literal notranslate"><span class="pre">Interface</span></code>; its body, if any, is not what is called through the cast.</p></td>
+<td><p>the <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a> whose signature this view has. It is an explicit interface; its body, if any, is not what is called through the cast. <code class="docutils literal notranslate"><span class="pre">nil</span></code> for a cast to the opaque procedure type.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
-<td><p>the type of the result: the <a class="reference internal" href="../../type_nodes/FunctionType/"><span class="doc std std-doc">FunctionType</span></a> of <code class="docutils literal notranslate"><span class="pre">to</span></code>.</p></td>
+<td><p>the type of the result: the <a class="reference internal" href="../../type_nodes/FunctionType/"><span class="doc std std-doc">FunctionType</span></a> of <code class="docutils literal notranslate"><span class="pre">to</span></code>, or, without <code class="docutils literal notranslate"><span class="pre">to</span></code>, the opaque procedure type (deftype <code class="docutils literal notranslate"><span class="pre">ImplicitInterface</span></code>, see <a class="reference internal" href="../../enum_nodes/deftype/"><span class="doc std std-doc">deftype</span></a>).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
 <td><p>the compile time value of the expression, when the frontend could fold it; <code class="docutils literal notranslate"><span class="pre">nil</span></code> otherwise.</p></td>
@@ -1434,34 +1434,47 @@
 </section>
 <section id="return-values">
 <h3 id="return-values">返回值<a class="headerlink" href="#return-values" title="永久链接至标题">¶</a></h3>
-<p>The procedure, typed as <code class="docutils literal notranslate"><span class="pre">to</span></code>.</p>
+<p>The procedure, typed as <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p>
 </section>
 </section>
 <section id="description">
 <h2 id="description">描述<a class="headerlink" href="#description" title="永久链接至标题">¶</a></h2>
 <p>Nothing is converted. The procedure’s address is unchanged; only the signature
-the call site uses to reach it differs. It is the procedure-valued counterpart
-of <a class="reference internal" href="../BitCast/"><span class="doc std std-doc">BitCast</span></a>, and the same warning applies: whether the call is
+used to reach it differs. It is the procedure-valued counterpart of
+<a class="reference internal" href="../BitCast/"><span class="doc std std-doc">BitCast</span></a>, and the same warning applies: whether the call is
 correct is not decided here.</p>
-<p>It exists for one situation. Under <code class="docutils literal notranslate"><span class="pre">--implicit-interface</span></code>, a procedure declared
-<code class="docutils literal notranslate"><span class="pre">external</span></code> with no interface (see
-<a class="reference internal" href="../../enum_nodes/deftype/"><span class="doc std std-doc">deftype</span></a>) gets its signature from the actual
-arguments at each reference. When two references in the same scope disagree,
-one inferred <code class="docutils literal notranslate"><span class="pre">Interface</span></code> cannot serve both. The first-inferred signature stays
-the canonical procedure under the user-visible name; each later reference that
-disagrees gets its own <code class="docutils literal notranslate"><span class="pre">Interface</span></code> symbol, and reaches the procedure through a
-<code class="docutils literal notranslate"><span class="pre">FunctionPointerCast</span></code> to it. The call is then a call of a procedure pointer
-associated with the cast, so the call agrees with its callee, which is the
-invariant every call in ASR has to satisfy.</p>
-<p>Such a program is not standard-conforming: F2018 15.5.2.5 requires the actual
-arguments at every reference to agree with the dummies of the definition, so
-two references that disagree with each other cannot both agree with it.
-gfortran accepts it with <code class="docutils literal notranslate"><span class="pre">-fallow-argument-mismatch</span></code>. This node is the model
-LFortran uses for it, and is the model separate compilation gives anyway when
-the definition is not in this translation unit.</p>
+<p>It exists for procedures with an implicit interface (see
+<a class="reference internal" href="../../enum_nodes/deftype/"><span class="doc std std-doc">deftype</span></a>), whose type says nothing about their
+arguments:</p>
+<ul class="simple">
+<li><p><strong>Calls.</strong> Each reference to a procedure with an implicit interface builds an
+<code class="docutils literal notranslate"><span class="pre">Interface</span></code> from its own actual arguments (and result type), filed in the
+calling procedure as <code class="docutils literal notranslate"><span class="pre">name~fpcast</span></code> and shared by references with the same
+signature. The procedure is associated with a procedure-pointer temporary
+through a <code class="docutils literal notranslate"><span class="pre">FunctionPointerCast</span></code> to that interface right before the statement
+(before each evaluation of a DO WHILE condition), and the call is a call of
+that temporary, so the call agrees with its callee. The temporary belongs to
+the scope of the statements it is associated in (e.g. a statement function
+has its own). A procedure with an implicit interface is not a specification
+function, so it is never referenced in a specification expression.</p></li>
+<li><p><strong>Procedure actuals and pointer targets.</strong> A procedure passed to a dummy
+procedure, or associated with a procedure pointer, whose type differs from
+its own is cast to the type of the dummy or pointer: to the opaque type,
+without <code class="docutils literal notranslate"><span class="pre">to</span></code>, for a dummy with an implicit interface, and to the dummy’s
+interface (or a copy of it in the caller) for a procedure with an implicit
+interface passed to a dummy with an explicit one.</p></li>
+</ul>
+<p>A cast to a type other than the opaque one needs <code class="docutils literal notranslate"><span class="pre">to</span></code>: the interface carries
+the argument declarations (derived types, character and array physical types)
+the lowering of the signature depends on.</p>
+<p>Two references with different argument lists are not standard-conforming
+(F2018 15.5.2.5 requires the actual arguments at every reference to agree with
+the dummies of the definition). gfortran accepts such a program with
+<code class="docutils literal notranslate"><span class="pre">-fallow-argument-mismatch</span></code>; this node is the model LFortran uses for it, and
+the model separate compilation gives anyway.</p>
 <p>Do not produce this node for anything else. A conversion between data types is
 <a class="reference internal" href="../Cast/"><span class="doc std std-doc">Cast</span></a>; reinterpreting the bits of a value is <a class="reference internal" href="../BitCast/"><span class="doc std std-doc">BitCast</span></a>;
-a procedure with a known interface needs no cast at all.</p>
+a procedure passed where its own explicit interface is expected needs no cast.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">也可以看看<a class="headerlink" href="#see-also" title="永久链接至标题">¶</a></h2>
