@@ -792,6 +792,86 @@ a minimal reproducer, fix the pipeline, add an integration test.</p></li>
 <li><p>The pipeline does not repeat the unsupported-construct check. Where it needs
 a fact the check guarantees (for example that no <code class="docutils literal notranslate"><span class="pre">real(8)</span></code> reaches a Metal
 kernel), it asserts it.</p></li>
+<li><p>A kernel cannot allocate. When a loop writes an allocatable array component
+of an element of an array of derived type, the storage the kernel writes
+into has to exist before the launch. The write may be <code class="docutils literal notranslate"><span class="pre">t(i)</span> <span class="pre">=</span> <span class="pre">f(...)</span></code>,
+where <code class="docutils literal notranslate"><span class="pre">f</span></code> gives the component of its result a size, <code class="docutils literal notranslate"><span class="pre">t(i)</span> <span class="pre">=</span> <span class="pre">tt(...)</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">t(i)%v</span> <span class="pre">=</span> <span class="pre">...</span></code>. That follows the rule every assignment follows: an
+allocatable scalar is always allocated or reallocated automatically, but an
+allocatable array, including an allocatable array component such as
+<code class="docutils literal notranslate"><span class="pre">t(i)%v</span></code>, only with <code class="docutils literal notranslate"><span class="pre">--realloc-lhs-arrays</span></code>.</p>
+<ul>
+<li><p>With the option, the host allocates <code class="docutils literal notranslate"><span class="pre">t(i)%v</span></code> before the launch, or
+reallocates it when it is allocated with another size.</p></li>
+<li><p>Without it, nothing is allocated, and the component has to be allocated
+with the right size already. With bounds checking on (the default,
+without <code class="docutils literal notranslate"><span class="pre">--fast</span></code>), the launch checks this with the same run-time check an
+assignment gets (“Array ‘t(i)%v’ is not allocated”, “Array shape mismatch
+in assignment”), pointing at the write. Allocation status and size are
+known only at run time, so the check cannot be made at compile time.
+Without bounds checking the kernel writes storage that does not exist.</p></li>
+<li><p>Only the elements the loop writes are allocated or checked. The offload
+pass builds this host code from the loop as the source wrote it, before
+it turns the loop into a kernel. The host code runs the loop’s
+iterations again, but only what decides the writes: the <code class="docutils literal notranslate"><span class="pre">if</span></code> and
+<code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">case</span></code> tests around a write, the <code class="docutils literal notranslate"><span class="pre">block</span></code> and <code class="docutils literal notranslate"><span class="pre">associate</span></code>
+constructs it is in, and the scalar assignments at the top of the body
+that the tests, subscripts and sizes read. At each write, also when the
+loop writes the component in more than one place (in both branches of an
+<code class="docutils literal notranslate"><span class="pre">if</span></code>, in several cases of a <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">case</span></code>, or twice in an iteration), it
+allocates or checks the element the write picks, with the size the write
+gives it: the extents of the array assigned to the component, or those
+of the <code class="docutils literal notranslate"><span class="pre">allocate</span></code> or array assignment in <code class="docutils literal notranslate"><span class="pre">f</span></code>, in terms of the actual
+arguments of the call. An element the loop does not write is left as it is. The
+limits of the loops are evaluated once, before this host code runs, and
+the launch reads the same values.</p></li>
+<li><p>The host does not guess what it cannot work out before the loop runs:</p>
+<ul>
+<li><p>The size. It may come from a call, from a value the loop itself writes
+(<code class="docutils literal notranslate"><span class="pre">s(i)</span> <span class="pre">=</span> <span class="pre">...</span></code> earlier in the iteration, so the value before the loop
+would be a wrong size), from a bound or an element of a dummy array
+of <code class="docutils literal notranslate"><span class="pre">f</span></code>, or from a dummy argument <code class="docutils literal notranslate"><span class="pre">f</span></code> changes (<code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">n</span> <span class="pre">+</span> <span class="pre">1</span></code> before
+<code class="docutils literal notranslate"><span class="pre">allocate(r%v(n))</span></code>, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is a <code class="docutils literal notranslate"><span class="pre">value</span></code> dummy, also through an
+associate name: <code class="docutils literal notranslate"><span class="pre">associate</span> <span class="pre">(m</span> <span class="pre">=&gt;</span> <span class="pre">n);</span> <span class="pre">m</span> <span class="pre">=</span> <span class="pre">m</span> <span class="pre">+</span> <span class="pre">1;</span> <span class="pre">end</span> <span class="pre">associate</span></code>),
+whose value the actual argument does not tell. Or <code class="docutils literal notranslate"><span class="pre">f</span></code> may give the
+component one of several different sizes
+(<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(k</span> <span class="pre">&gt;</span> <span class="pre">1)</span> <span class="pre">then;</span> <span class="pre">allocate(r%v(5));</span> <span class="pre">else;</span> <span class="pre">allocate(r%v(1));</span> <span class="pre">end</span> <span class="pre">if</span></code>;
+when every way through <code class="docutils literal notranslate"><span class="pre">f</span></code> gives it the same size, that size is used).
+Or two writes that can both run in an iteration give it different
+sizes (<code class="docutils literal notranslate"><span class="pre">t(i)</span> <span class="pre">=</span> <span class="pre">f(2);</span> <span class="pre">t(i)</span> <span class="pre">=</span> <span class="pre">f(3)</span></code>), since a kernel cannot reallocate
+between them; writes in different branches of one <code class="docutils literal notranslate"><span class="pre">if</span></code> or
+<code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">case</span></code> each give their own size.
+In all these cases even with the option the component is not
+allocated. With bounds
+checking on, the launch stops if the component is not allocated.
+Without the option the message is the usual “Array … is not
+allocated”. With the option the message says that the size of
+<code class="docutils literal notranslate"><span class="pre">t(i)%v</span></code> cannot be determined before the loop runs, and that the
+component has to be allocated before the loop. That is a limitation:
+the program is valid with the option, and allocating the component
+before the loop makes it run. A wrong preallocated size is not
+detected. Without bounds checking nothing is checked, and the kernel
+writes storage that does not exist.</p></li>
+<li><p>Which elements the loop writes. The element may be picked by a call
+(<code class="docutils literal notranslate"><span class="pre">t(g(i))</span></code>) or by a value the loop writes. A test may call a procedure
+or read a value the loop writes. The write may be inside another
+construct (a loop, a <code class="docutils literal notranslate"><span class="pre">where</span></code>), or in a loop with a <code class="docutils literal notranslate"><span class="pre">cycle</span></code>, <code class="docutils literal notranslate"><span class="pre">exit</span></code> or
+<code class="docutils literal notranslate"><span class="pre">return</span></code> that can end an iteration early, or a pointer association.
+Then no allocated component is changed and nothing is checked, for any
+write of that component. With the option, when every write of the
+component gives it the same extents, and the host can evaluate them
+before the loop runs and they do not depend on the element, every
+element whose component is not allocated is allocated with them, so an
+element the loop does not write can end up allocated. Without the
+option, a written component that is not allocated stays unallocated,
+even with bounds checking on.</p></li>
+</ul>
+</li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> mask (<code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span> <span class="pre">(i</span> <span class="pre">=</span> <span class="pre">1:n,</span> <span class="pre">mask(i))</span></code>) is currently
+ignored on every backend (#12778), and so is a <code class="docutils literal notranslate"><span class="pre">cycle</span></code> in an offloaded
+loop (#12856), so such a loop writes elements it should not.</p></li>
+</ul>
+</li>
 </ul>
 </section>
 <section id="testing">
