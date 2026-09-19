@@ -548,7 +548,7 @@
 </div>
 <p>As we can see here, we need to define the functions associated with the deferred type <code class="docutils literal notranslate"><span class="pre">T</span></code>. To do so in LFortran, we use <em>requirements</em> to define both deferred types and their associated functions.</p>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">requirement</span><span class="w"> </span><span class="n">number_type</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">add_element</span><span class="p">,</span><span class="w"> </span><span class="n">set_to_zero</span><span class="p">)</span>
-<span class="w">  </span><span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="k">deferred</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">T</span>
+<span class="w">  </span><span class="k">deferred type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">T</span>
 <span class="w">  </span><span class="k">function </span><span class="n">add_element</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 <span class="w">    </span><span class="k">type</span><span class="p">(</span><span class="n">T</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>
 <span class="w">    </span><span class="k">type</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">z</span>
@@ -754,7 +754,7 @@ sum = array_sum{integer, add_element_integer, set_to_zero_integer}(arr)
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">template</span><span class="w"> </span><span class="n">derived_type_t</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
 <span class="w">    </span><span class="c">! for brevity we have the deferred type</span>
 <span class="w">    </span><span class="c">! declared directly inside the template</span>
-<span class="w">    </span><span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="k">deferred</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">T</span>
+<span class="w">    </span><span class="k">deferred type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">T</span>
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">tuple</span>
 
 <span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">tuple</span>
@@ -766,7 +766,7 @@ sum = array_sum{integer, add_element_integer, set_to_zero_integer}(arr)
 </div>
 <p>We can also define generic functions accessing this generic tuple as:</p>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">template</span><span class="w"> </span><span class="n">derived_type_t</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
-<span class="w">    </span><span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="k">deferred</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">T</span>
+<span class="w">    </span><span class="k">deferred type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">T</span>
 <span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">tuple</span>
 
 <span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">tuple</span>
