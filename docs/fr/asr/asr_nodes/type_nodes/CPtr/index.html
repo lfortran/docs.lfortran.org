@@ -566,13 +566,13 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Lien permanent vers ce titre">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Lien permanent vers ce titre">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CPtr()
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CPtr(cptr_kind kind)
 </pre></div>
 </div>
 </section>
 <section id="arguments">
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Lien permanent vers ce titre">¶</a></h3>
-<p>None.</p>
+<p><code class="docutils literal notranslate"><span class="pre">kind</span></code> is <code class="docutils literal notranslate"><span class="pre">CPointer</span></code>, <code class="docutils literal notranslate"><span class="pre">CFunPointer</span></code>, or <code class="docutils literal notranslate"><span class="pre">CPtrUnspecified</span></code>, distinguishing <code class="docutils literal notranslate"><span class="pre">c_ptr</span></code> from <code class="docutils literal notranslate"><span class="pre">c_funptr</span></code> once semantics has resolved the intrinsic symbols.</p>
 </section>
 <section id="return-values">
 <h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Lien permanent vers ce titre">¶</a></h3>
@@ -581,14 +581,16 @@
 </section>
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Lien permanent vers ce titre">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">type(c_ptr)</span></code> from <code class="docutils literal notranslate"><span class="pre">iso_c_binding</span></code>. It carries an address and nothing else, so
+<p><code class="docutils literal notranslate"><span class="pre">type(c_ptr)</span></code> or <code class="docutils literal notranslate"><span class="pre">type(c_funptr)</span></code> from <code class="docutils literal notranslate"><span class="pre">iso_c_binding</span></code>. It carries an address and optional identity for which C pointer type it is, but no pointee type or shape, so
 nothing can be read through it until
 <a class="reference internal" href="../../statement_nodes/CPtrToPointer/"><span class="doc std std-doc">CPtrToPointer</span></a> supplies the type and the
 shape.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Lien permanent vers ce titre">¶</a></h2>
-<div class="highlight-clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">CPtr</span><span class="p">)</span>
+<div class="highlight-clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">CPtr</span>
+<span class="w">  </span><span class="ss">:kind</span><span class="w"> </span><span class="ss">:CPtrUnspecified</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>It comes from this complete ASR text document:</p>
@@ -633,7 +635,9 @@ shape.</p>
 <span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
-<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">CPtr</span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">CPtr</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="ss">:CPtrUnspecified</span>
+<span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
 <span class="w">              </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
@@ -738,7 +742,9 @@ shape.</p>
 <span class="w">              </span><span class="ss">:arg</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
 <span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"target"</span><span class="p">)</span>
 <span class="w">              </span><span class="p">)</span>
-<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">CPtr</span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">CPtr</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="ss">:CPtrUnspecified</span>
+<span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="p">)</span>
 <span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
@@ -753,7 +759,9 @@ shape.</p>
 <span class="w">              </span><span class="ss">:arg</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
 <span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"p"</span><span class="p">)</span>
 <span class="w">              </span><span class="p">)</span>
-<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">CPtr</span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">CPtr</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="ss">:CPtrUnspecified</span>
+<span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="p">)</span>
 <span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
