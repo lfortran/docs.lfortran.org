@@ -643,8 +643,8 @@ end template
 </div>
 <p><strong>Using a generic function</strong></p>
 <p>To use a generic function we first need to instantiate (replace) the generic symbols inside a template with symbols with concrete types. The instantiation is done through the <code class="docutils literal notranslate"><span class="pre">instantiate</span></code> statement. For example, if we want to instantiate „array_sum“ with integer types, the instantiation would be as follows:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">instantiate</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="n">add_element_integer</span><span class="p">,</span><span class="w"> </span><span class="n">set_to_zero_integer</span><span class="p">),</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">  </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">array_sum_integer</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">array_sum</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>instantiate array_t {integer, add_element_integer, set_to_zero_integer}, &amp;
+  only: array_sum_integer =&gt; array_sum
 </pre></div>
 </div>
 <p>First we pass the concrete symbols to the template in the form of a template call <code class="docutils literal notranslate"><span class="pre">array_t(integer,</span> <span class="pre">add_element_integer,</span> <span class="pre">set_to_zero_integer)</span></code>. We are replacing the deferred type <code class="docutils literal notranslate"><span class="pre">T</span></code> with a concrete type <code class="docutils literal notranslate"><span class="pre">integer</span></code>, <code class="docutils literal notranslate"><span class="pre">add_element</span></code> with a function that computes addition between two integers <code class="docutils literal notranslate"><span class="pre">add_element_integer</span></code>, and <code class="docutils literal notranslate"><span class="pre">set_to_zero</span></code> with a function that returns a zero integer value <code class="docutils literal notranslate"><span class="pre">set_to_zero_integer</span></code>. These functions would have to be defined prior to the instantiation for them to be passed as symbol arguments to a template:</p>
@@ -667,21 +667,21 @@ end template
 </pre></div>
 </div>
 <p>The main benefit of generics is reuse. We can have different instantiations for different types using the same template. For example we can instantiate both integer and real <code class="docutils literal notranslate"><span class="pre">array_sum</span></code>:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="c">! instantiation with integer type</span>
-<span class="n">instantiate</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="n">add_element_integer</span><span class="p">,</span><span class="w"> </span><span class="n">set_to_zero_integer</span><span class="p">),</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">  </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">array_sum_integer</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">array_sum</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>! instantiation with integer type
+instantiate array_t {integer, add_element_integer, set_to_zero_integer}, &amp;
+  only: array_sum_integer =&gt; array_sum
 
-<span class="c">! instantiation with real type</span>
-<span class="n">instantiate</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="kt">real</span><span class="p">,</span><span class="w"> </span><span class="n">add_element_real</span><span class="p">,</span><span class="w"> </span><span class="n">set_to_zero_real</span><span class="p">),</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">  </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">array_sum_real</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">array_sum</span>
+! instantiation with real type
+instantiate array_t {real, add_element_real, set_to_zero_real}, &amp;
+  only: array_sum_real =&gt; array_sum
 </pre></div>
 </div>
 <p>Also, because a template may contain multiple generic functions, a single instantiation can be used to instantiate multiple functions:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">instantiate</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="n">add_element_integer</span><span class="p">,</span><span class="w"> </span><span class="n">set_to_zero_integer</span><span class="p">),</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">  </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">array_sum_integer</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">array_sum</span><span class="p">,</span><span class="w"> </span><span class="n">array_avg_integer</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">array_avg</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>instantiate array_t {integer, add_element_integer, set_to_zero_integer}, &amp;
+  only: array_sum_integer =&gt; array_sum, array_avg_integer =&gt; array_avg
 
-<span class="n">instantiate</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="kt">real</span><span class="p">,</span><span class="w"> </span><span class="n">add_element_real</span><span class="p">,</span><span class="w"> </span><span class="n">set_to_zero_real</span><span class="p">),</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">  </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">array_sum_real</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">array_sum</span><span class="p">,</span><span class="w"> </span><span class="n">array_avg_real</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">array_avg</span>
+instantiate array_t {real, add_element_real, set_to_zero_real}, &amp;
+  only: array_sum_real =&gt; array_sum, array_avg_real =&gt; array_avg
 </pre></div>
 </div>
 </section>
@@ -736,13 +736,13 @@ sum = array_sum{integer, add_element_integer, set_to_zero_integer}(arr)
 <h3 id="further-simplifying-instantiations">Further Simplifying Instantiations<a class="headerlink" href="#further-simplifying-instantiations" title="Ссылка на этот заголовок">¶</a></h3>
 <p><strong>Passing operator instead of functions</strong></p>
 <p>So far to replace the generic addition <code class="docutils literal notranslate"><span class="pre">add_element</span></code> we have used a concrete function <code class="docutils literal notranslate"><span class="pre">add_element_integer</span></code>. To simplify this, it is possible to just pass <code class="docutils literal notranslate"><span class="pre">operator(+)</span></code> without having to define a function separately:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">instantiate</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="n">operator</span><span class="p">(</span><span class="o">+</span><span class="p">),</span><span class="w"> </span><span class="n">set_to_zero_integer</span><span class="p">),</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">  </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">array_sum_integer</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">array_sum</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>instantiate array_t {integer, operator(+), set_to_zero_integer}, &amp;
+  only: array_sum_integer =&gt; array_sum
 </pre></div>
 </div>
 <p><strong>Skipping function instantiation names</strong></p>
 <p>Generic functions can also be instantiated without having to rename each function one-by-one. Suppose we want to instantiate every generic functions inside the template <code class="docutils literal notranslate"><span class="pre">array_t</span></code>, we can shorten the instantiation into:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">instantiate</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="n">operator</span><span class="p">(</span><span class="o">+</span><span class="p">),</span><span class="w"> </span><span class="n">set_to_zero_integer</span><span class="p">)</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>instantiate array_t {integer, operator(+), set_to_zero_integer}
 </pre></div>
 </div>
 <p>Doing so would generate the function <code class="docutils literal notranslate"><span class="pre">array_sum</span></code> and <code class="docutils literal notranslate"><span class="pre">array_avg</span></code> without any renaming.</p>
@@ -789,8 +789,8 @@ sum = array_sum{integer, add_element_integer, set_to_zero_integer}(arr)
 </pre></div>
 </div>
 <p>The instantiation for derived types are also similar to generic functions. If we want an integer tuple type and its functions, then we can instantiate <code class="docutils literal notranslate"><span class="pre">derived_type_t</span></code> as:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">instantiate</span><span class="w"> </span><span class="n">derived_type_t</span><span class="p">(</span><span class="kt">integer</span><span class="p">),</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">  </span><span class="n">tuple_int</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">tuple</span><span class="p">,</span><span class="w"> </span><span class="n">get_fst_int</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">get_fst</span><span class="p">,</span><span class="w"> </span><span class="n">get_snd_int</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">get_snd</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>instantiate derived_type_t {integer}, only: &amp;
+  tuple_int =&gt; tuple, get_fst_int =&gt; get_fst, get_snd_int =&gt; get_snd
 </pre></div>
 </div>
 </section>

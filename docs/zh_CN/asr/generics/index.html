@@ -599,37 +599,37 @@ end module
 <h2 id="instantiations">Instantiations<a class="headerlink" href="#instantiations" title="永久链接至标题">¶</a></h2>
 <p>Generic functions need to be instantiated with concrete types and functions to be used in run-time. The process of instantiation replaces the generic types in the function definition with concrete types (such as <code class="docutils literal notranslate"><span class="pre">integer</span></code>, <code class="docutils literal notranslate"><span class="pre">real</span></code>) and replace the abstract functions with implemented functions.</p>
 <p>The generic function described in the previous section can be instantiated as a function that computes array sum by the following instantiation:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">module </span><span class="n">functions</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">add_integer</span><span class="p">,</span><span class="w"> </span><span class="n">empty_integer</span>
-<span class="k">contains</span>
-<span class="k">  function </span><span class="n">add_integer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
-<span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>
-<span class="w">    </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">add_integer</span>
-<span class="w">    </span><span class="n">add_integer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span>
-<span class="w">  </span><span class="k">end function</span>
-<span class="k">  function </span><span class="n">empty_integer</span><span class="p">()</span>
-<span class="w">    </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">empty_integer</span>
-<span class="w">    </span><span class="n">empty_integer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">  </span><span class="k">end function</span>
-<span class="k">end module</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>module functions
+  public :: add_integer, empty_integer
+contains
+  function add_integer(x, y)
+    integer, intent(in) :: x, y
+    integer :: add_integer
+    add_integer = x + y
+  end function
+  function empty_integer()
+    integer :: empty_integer
+    empty_integer = 0
+  end function
+end module
 
-<span class="k">program </span><span class="n">instantiate_template</span>
-<span class="k">use </span><span class="n">functions</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">add_integer</span><span class="p">,</span><span class="w"> </span><span class="n">empty_integer</span>
+program instantiate_template
+use functions, only: add_integer, empty_integer
 
-<span class="n">instantiate</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="n">add_integer</span><span class="p">,</span><span class="w"> </span><span class="n">empty_integer</span><span class="p">),</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">  </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">array_sum_integer</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">array_sum</span>
+instantiate array_t {integer, add_integer, empty_integer}, &amp;
+  only: array_sum_integer =&gt; array_sum
 
-<span class="c">! function argument for basic arithmetic operations can be replaced with an operator</span>
-<span class="n">instantiate</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="n">operator</span><span class="p">(</span><span class="o">+</span><span class="p">),</span><span class="w"> </span><span class="n">empty_integer</span><span class="p">),</span><span class="w"> </span><span class="p">&amp;</span>
-<span class="w">  </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">array_sum_integer</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">array_sum</span>
+! function argument for basic arithmetic operations can be replaced with an operator
+instantiate array_t {integer, operator(+), empty_integer}, &amp;
+  only: array_sum_integer =&gt; array_sum
 
-<span class="c">! eliding function renaming would instantiating all generic functions with the same name</span>
-<span class="n">instantiate</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="n">operator</span><span class="p">(</span><span class="o">+</span><span class="p">),</span><span class="w"> </span><span class="n">empty_integer</span><span class="p">)</span>
-<span class="k">end program</span>
+! eliding function renaming would instantiating all generic functions with the same name
+instantiate array_t {integer, operator(+), empty_integer}
+end program
 </pre></div>
 </div>
 <p>This instantiation statement</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">instantiate</span> <span class="n">array_t</span><span class="p">(</span><span class="n">integer</span><span class="p">,</span> <span class="n">add_integer</span><span class="p">,</span> <span class="n">empty_integer</span><span class="p">),</span> <span class="n">only</span><span class="p">:</span> <span class="n">array_sum_integer</span> <span class="o">=&gt;</span> <span class="n">array_sum</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">instantiate</span> <span class="n">array_t</span> <span class="p">{</span><span class="n">integer</span><span class="p">,</span> <span class="n">add_integer</span><span class="p">,</span> <span class="n">empty_integer</span><span class="p">},</span> <span class="n">only</span><span class="p">:</span> <span class="n">array_sum_integer</span> <span class="o">=&gt;</span> <span class="n">array_sum</span>
 </pre></div>
 </div>
 <p>passes the type <code class="docutils literal notranslate"><span class="pre">integer</span></code>, an integer addition function <code class="docutils literal notranslate"><span class="pre">add_integer</span></code>, and a function describing empty integer value <code class="docutils literal notranslate"><span class="pre">empty_integer</span></code> as arguments to template <code class="docutils literal notranslate"><span class="pre">array_t</span></code>, then instantiates the function <code class="docutils literal notranslate"><span class="pre">array_sum</span></code> as a new function named <code class="docutils literal notranslate"><span class="pre">array_sum_integer</span></code>. This instantiation wants to replace <code class="docutils literal notranslate"><span class="pre">S</span></code> in <code class="docutils literal notranslate"><span class="pre">array_t</span></code> with the type <code class="docutils literal notranslate"><span class="pre">integer</span></code>, <code class="docutils literal notranslate"><span class="pre">op_temp</span></code> function calls with <code class="docutils literal notranslate"><span class="pre">add_integer</span></code> function calls, and <code class="docutils literal notranslate"><span class="pre">empty_temp</span></code> function calls with <code class="docutils literal notranslate"><span class="pre">empty_integer</span></code> function calls.</p>
@@ -638,7 +638,7 @@ end module
 <p>Before a function is generated on ASR level by an instantiation, the compiler checks the consistency of its type substitution based on the given symbol arguments. Currently there is no notion of subtyping in LFortran, so checking is limited to exact type checks. This is done by tracking the type substitutions made by the symbol arguments and rejecting any contradicting type subsitutition. Checking is done during symbol table visit in <code class="docutils literal notranslate"><span class="pre">visit_Instantiate</span></code>.</p>
 <p>We will explain this in detail through the instantiation example above. The first argument <code class="docutils literal notranslate"><span class="pre">integer</span></code> substitutes the type parameter <code class="docutils literal notranslate"><span class="pre">S</span></code> in template <code class="docutils literal notranslate"><span class="pre">array_t</span></code> (maps <code class="docutils literal notranslate"><span class="pre">S</span></code> to <code class="docutils literal notranslate"><span class="pre">integer</span></code>). The second argument <code class="docutils literal notranslate"><span class="pre">add_integer</span></code> substitutes the type <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">*</span> <span class="pre">S</span> <span class="pre">-&gt;</span> <span class="pre">S</span></code> of <code class="docutils literal notranslate"><span class="pre">op_temp</span></code> with <code class="docutils literal notranslate"><span class="pre">integer</span> <span class="pre">*</span> <span class="pre">integer</span> <span class="pre">-&gt;</span> <span class="pre">integer</span></code> (checks <code class="docutils literal notranslate"><span class="pre">S</span></code> substitution). This is allowed because the function argument gives a consistent substitution with the previous argument. If it passes the type checks, the instantiated function would be generated as a function on ASR level. Successfully checked symbol arguments are put inside the variable <code class="docutils literal notranslate"><span class="pre">type_subs</span></code> for type substitution (<code class="docutils literal notranslate"><span class="pre">S</span></code> to <code class="docutils literal notranslate"><span class="pre">integer</span></code>) and <code class="docutils literal notranslate"><span class="pre">symbol_subs</span></code> for function substitution (<code class="docutils literal notranslate"><span class="pre">op_temp</span></code> to <code class="docutils literal notranslate"><span class="pre">add_integer</span></code>).</p>
 <p>Now, suppose that we have the following instantiation where instead of <code class="docutils literal notranslate"><span class="pre">integer</span></code>, we pass <code class="docutils literal notranslate"><span class="pre">real</span></code> as an argument:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">instantiate</span> <span class="n">array_t</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">add_integer</span><span class="p">,</span> <span class="n">empty_integer</span><span class="p">),</span> <span class="n">only</span><span class="p">:</span> <span class="n">array_sum_integer</span> <span class="o">=&gt;</span> <span class="n">array_sum</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">instantiate</span> <span class="n">array_t</span> <span class="p">{</span><span class="n">real</span><span class="p">,</span> <span class="n">add_integer</span><span class="p">,</span> <span class="n">empty_integer</span><span class="p">},</span> <span class="n">only</span><span class="p">:</span> <span class="n">array_sum_integer</span> <span class="o">=&gt;</span> <span class="n">array_sum</span>
 </pre></div>
 </div>
 <p>Here, the first type argument maps <code class="docutils literal notranslate"><span class="pre">S</span></code> to <code class="docutils literal notranslate"><span class="pre">real</span></code> but the second function argument maps <code class="docutils literal notranslate"><span class="pre">S</span></code> to <code class="docutils literal notranslate"><span class="pre">integer</span></code>, resulting in a contradiction. Hence ending in a type error.</p>
