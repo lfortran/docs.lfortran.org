@@ -537,18 +537,18 @@
 <section id="requirements">
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Stały odnośnik do tego nagłówka">¶</a></h2>
 <p>Requirements declare deferred types (generic types) and its associated functions, similar to <em>typeclasses</em> in Haskell and <em>traits</em> in Rust. For example, the signature for a generic monoid of any type can be represented by the following requirement:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">requirement</span><span class="w"> </span><span class="n">monoid</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">op</span><span class="p">)</span>
-<span class="w">  </span><span class="c">! declaring a deferred type (generic type)</span>
-<span class="w">  </span><span class="k">deferred type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">T</span>
-<span class="w">  </span><span class="c">! declaring a function associated with the deferred type</span>
-<span class="w">  </span><span class="k">function </span><span class="n">op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
-<span class="w">    </span><span class="k">type</span><span class="p">(</span><span class="n">T</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>
-<span class="w">    </span><span class="k">type</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">z</span>
-<span class="w">  </span><span class="k">end function</span>
-<span class="k">  function </span><span class="n">empty</span><span class="p">()</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
-<span class="w">    </span><span class="k">type</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">z</span>
-<span class="w">  </span><span class="k">end function</span>
-<span class="k">end </span><span class="n">requirement</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>requirement monoid {T, op}
+  ! declaring a deferred type (generic type)
+  deferred type :: T
+  ! declaring a function associated with the deferred type
+  function op(x, y) result(z)
+    type(T), intent(in) :: x, y
+    type(T) :: z
+  end function
+  function empty() result(z)
+    type(T) :: z
+  end function
+end requirement
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">monoid</span></code> requirement declares a deferred type <code class="docutils literal notranslate"><span class="pre">T</span></code> and two functions,<code class="docutils literal notranslate"><span class="pre">op</span></code> that takes arguments of type <code class="docutils literal notranslate"><span class="pre">T</span></code> and return a value with the same type <code class="docutils literal notranslate"><span class="pre">T</span></code> and <code class="docutils literal notranslate"><span class="pre">empty</span></code> that returns a value of type <code class="docutils literal notranslate"><span class="pre">T</span></code>. The deferred type <code class="docutils literal notranslate"><span class="pre">T</span></code> is internally interpreted as a variable <code class="docutils literal notranslate"><span class="pre">T</span></code> typed as <code class="docutils literal notranslate"><span class="pre">TypeParameter</span> <span class="pre">T</span></code> (for brevity we will write it just as <code class="docutils literal notranslate"><span class="pre">T</span></code>). Functions declared in requirements are abstract (without function body).</p>
@@ -560,36 +560,36 @@
 <h2 id="templates">Templates<a class="headerlink" href="#templates" title="Stały odnośnik do tego nagłówka">¶</a></h2>
 <p>Templates take the role of a scope for generic functions. A template uses generic types and its associated type signatures obtained from requirements to check generic operations.</p>
 <p>As a running example, we will consider a generic function for n-times multiplication for argument of any type. This function can be represented as:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">module </span><span class="n">generics_example</span>
-<span class="w">  </span><span class="c">! same requirement as before</span>
-<span class="w">  </span><span class="n">requirement</span><span class="w"> </span><span class="n">monoid</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">op</span><span class="p">,</span><span class="w"> </span><span class="n">empty</span><span class="p">)</span>
-<span class="w">    </span><span class="p">...</span>
-<span class="w">  </span><span class="k">end </span><span class="n">requirement</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>module generics_example
+  ! same requirement as before
+  requirement monoid {T, op, empty}
+    ...
+  end requirement
 
-<span class="w">  </span><span class="c">! the template starts from here</span>
-<span class="w">  </span><span class="n">template</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">op_temp</span><span class="p">,</span><span class="w"> </span><span class="n">empty_temp</span><span class="p">)</span>
-<span class="w">    </span><span class="n">require</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">monoid</span><span class="p">(</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">op_temp</span><span class="p">,</span><span class="w"> </span><span class="n">empty_temp</span><span class="p">)</span>
-<span class="w">  </span><span class="k">contains</span>
-<span class="w">    </span><span class="c">! below is the generic function</span>
-<span class="w">    </span><span class="k">function </span><span class="n">array_sum</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-<span class="w">      </span><span class="k">type</span><span class="p">(</span><span class="n">S</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">arr</span><span class="p">(:)</span>
-<span class="w">      </span><span class="k">type</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">r</span>
-<span class="w">      </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">i</span>
-<span class="w">      </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
-<span class="w">      </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">empty_temp</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
-<span class="k">        </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arr</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="w">        </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">n</span>
-<span class="w">          </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">op_temp</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">arr</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-<span class="w">        </span><span class="k">end do</span>
-<span class="k">      end if</span>
-<span class="k">    end function</span>
-<span class="k">  end </span><span class="n">template</span>
-<span class="k">end module</span>
+  ! the template starts from here
+  template array_t(S, op_temp, empty_temp)
+    require :: monoid {S, op_temp, empty_temp}
+  contains
+    ! below is the generic function
+    function array_sum(arr) result(r)
+      type(S), intent(in) :: arr(:)
+      type(S) :: r
+      integer :: n, i
+      n = size(arr)
+      r = empty_temp(0)
+      if (n &gt; 0) then
+        r = arr(1)
+        do i = 2, n
+          res = op_temp(r, arr(i))
+        end do
+      end if
+    end function
+  end template
+end module
 </pre></div>
 </div>
 <p>The template <code class="docutils literal notranslate"><span class="pre">array_t</span></code> contains the generic function <code class="docutils literal notranslate"><span class="pre">array_sum</span></code> that takes an array <code class="docutils literal notranslate"><span class="pre">arr</span></code> of type <code class="docutils literal notranslate"><span class="pre">S</span></code>. The template later on will be added to the parent symbol table as a <code class="docutils literal notranslate"><span class="pre">Template</span></code> symbol with the name <code class="docutils literal notranslate"><span class="pre">array_t</span></code>.</p>
-<p>Typing context has to be obtained to type the parameter <code class="docutils literal notranslate"><span class="pre">arr</span></code> and the addition operation <code class="docutils literal notranslate"><span class="pre">op_temp(r,</span> <span class="pre">arr(i))</span></code>. Such typing context can be made available within the scope of the template by using a requirement. Here, the <code class="docutils literal notranslate"><span class="pre">Require</span></code> statement <code class="docutils literal notranslate"><span class="pre">require</span> <span class="pre">::</span> <span class="pre">monoid(S,</span> <span class="pre">op_temp,</span> <span class="pre">empty_temp)</span></code> builds the types of the template’s parameters <code class="docutils literal notranslate"><span class="pre">S</span></code>, <code class="docutils literal notranslate"><span class="pre">op_temp</span></code>, and <code class="docutils literal notranslate"><span class="pre">empty_temp</span></code> based on the types of the symbols in <code class="docutils literal notranslate"><span class="pre">monoid</span></code>.</p>
+<p>Typing context has to be obtained to type the parameter <code class="docutils literal notranslate"><span class="pre">arr</span></code> and the addition operation <code class="docutils literal notranslate"><span class="pre">op_temp(r,</span> <span class="pre">arr(i))</span></code>. Such typing context can be made available within the scope of the template by using a requirement. Here, the <code class="docutils literal notranslate"><span class="pre">Require</span></code> statement <code class="docutils literal notranslate"><span class="pre">require</span> <span class="pre">::</span> <span class="pre">monoid</span> <span class="pre">{S,</span> <span class="pre">op_temp,</span> <span class="pre">empty_temp}</span></code> builds the types of the template’s parameters <code class="docutils literal notranslate"><span class="pre">S</span></code>, <code class="docutils literal notranslate"><span class="pre">op_temp</span></code>, and <code class="docutils literal notranslate"><span class="pre">empty_temp</span></code> based on the types of the symbols in <code class="docutils literal notranslate"><span class="pre">monoid</span></code>.</p>
 <p>This corresponds to the <code class="docutils literal notranslate"><span class="pre">visit_UnitRequire</span></code> that can be found in <code class="docutils literal notranslate"><span class="pre">visit_Template</span></code> during symbol table visit. Calling a require statement copies the symbols from the requiremement and replaces their names with the argument names given by the require statement. In this case, the symbol <code class="docutils literal notranslate"><span class="pre">T</span></code>, <code class="docutils literal notranslate"><span class="pre">op</span></code>, and <code class="docutils literal notranslate"><span class="pre">empty</span></code> from the requirement <code class="docutils literal notranslate"><span class="pre">monoid</span></code> are replaced by <code class="docutils literal notranslate"><span class="pre">S</span></code>, <code class="docutils literal notranslate"><span class="pre">op_temp</span></code>, and <code class="docutils literal notranslate"><span class="pre">empty_temp</span></code> that are passed as arguments. This replacement is done by the function <code class="docutils literal notranslate"><span class="pre">rename_symbol</span></code>.</p>
 <p>Eventually the require statement adds into <code class="docutils literal notranslate"><span class="pre">array_t</span></code>’s symbol table two symbols,  <code class="docutils literal notranslate"><span class="pre">S</span></code> as a variable with type <code class="docutils literal notranslate"><span class="pre">S</span></code>, <code class="docutils literal notranslate"><span class="pre">op_temp</span></code> and <code class="docutils literal notranslate"><span class="pre">empty_temp</span></code> as functions with types <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">*</span> <span class="pre">S</span> <span class="pre">-&gt;</span> <span class="pre">S</span></code> and <code class="docutils literal notranslate"><span class="pre">()</span> <span class="pre">-&gt;</span> <span class="pre">S</span></code> based on <code class="docutils literal notranslate"><span class="pre">monoid</span></code>’s symbol table.</p>
 <p>Symbol table visit checks the variable declarations in <code class="docutils literal notranslate"><span class="pre">array_sum</span></code>. Since <code class="docutils literal notranslate"><span class="pre">S</span></code> is available in the symbol table now, both variables <code class="docutils literal notranslate"><span class="pre">arr</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> can be typed. Later during body visit, with type <code class="docutils literal notranslate"><span class="pre">S</span></code>, <code class="docutils literal notranslate"><span class="pre">op_temp</span></code>, and <code class="docutils literal notranslate"><span class="pre">empty_temp</span></code> in the symbol table, the function call <code class="docutils literal notranslate"><span class="pre">op_temp(r,</span> <span class="pre">arr(i))</span></code> in <code class="docutils literal notranslate"><span class="pre">array_sum</span></code> would be checked in the same way as non-generic functions.</p>
