@@ -549,13 +549,15 @@
 <p>As we can see here, we need to define the functions associated with the deferred type <code class="docutils literal notranslate"><span class="pre">T</span></code>. To do so in LFortran, we use <em>requirements</em> to define both deferred types and their associated functions.</p>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>requirement number_type {T, add_element, set_to_zero}
   deferred type :: T
-  function add_element(x, y) result(z)
-    type(T), intent(in) :: x, y
-    type(T) :: z
-  end function
-  function set_to_zero() result(z)
-    type(T) :: z
-  end function
+  deferred interface
+    function add_element(x, y) result(z)
+      type(T), intent(in) :: x, y
+      type(T) :: z
+    end function
+    function set_to_zero() result(z)
+      type(T) :: z
+    end function
+  end interface
 end requirement
 </pre></div>
 </div>
