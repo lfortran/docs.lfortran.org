@@ -566,7 +566,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Link permanente para este título">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Sintaxe<a class="headerlink" href="#syntax" title="Link permanente para este título">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TypeParameter(identifier param)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TypeParameter(identifier param, deferred_type_attr deferred_attr, bool is_class)
 </pre></div>
 </div>
 </section>
@@ -582,6 +582,12 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">param</span></code></p></td>
 <td><p>the name of the parameter.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">deferred_attr</span></code></p></td>
+<td><p>whether the parameter’s declaration specified <code class="docutils literal notranslate"><span class="pre">ABSTRACT</span></code>, <code class="docutils literal notranslate"><span class="pre">EXTENSIBLE</span></code>, or neither. See <a class="reference internal" href="../../enum_nodes/deferred_type_attr/"><span class="doc std std-doc">deferred_type_attr</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_class</span></code></p></td>
+<td><p>whether the entity was declared <code class="docutils literal notranslate"><span class="pre">CLASS(t)</span></code> rather than <code class="docutils literal notranslate"><span class="pre">TYPE(t)</span></code>. Instantiation gives such an entity a polymorphic type.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -596,11 +602,24 @@
 <a class="reference internal" href="../../symbol_nodes/Template/"><span class="doc std std-doc">Template</span></a> the concrete types are not known yet,
 and a <strong>TypeParameter</strong> stands in for one. Instantiation substitutes real
 types for the parameters, so nothing outside a template ever holds this type.</p>
+<p><code class="docutils literal notranslate"><span class="pre">deferred_attr</span></code> records what the <code class="docutils literal notranslate"><span class="pre">DEFERRED</span> <span class="pre">TYPE</span></code> statement declared about the
+parameter, and it constrains both ends of the substitution: which types may be
+passed as an instantiation argument for the parameter, and how the parameter
+may be used inside the template. A non-extensible parameter can only be named
+by <code class="docutils literal notranslate"><span class="pre">TYPE(t)</span></code>; an abstract one only by <code class="docutils literal notranslate"><span class="pre">CLASS(t)</span></code>; an extensible one by either.</p>
+<p><code class="docutils literal notranslate"><span class="pre">is_class</span></code> is a property of the entity’s declaration rather than of the
+parameter, and it is what makes <code class="docutils literal notranslate"><span class="pre">CLASS(t)</span></code> work once <code class="docutils literal notranslate"><span class="pre">t</span></code> is substituted.
+Without it the entity would become a non-polymorphic variable of what may be
+an abstract type, which the verifier rejects; the instantiation pass reads the
+flag and makes the substituted <a class="reference internal" href="../StructType/"><span class="doc std std-doc">StructType</span></a> polymorphic exactly
+when it is set.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Exemplos<a class="headerlink" href="#examples" title="Link permanente para este título">¶</a></h2>
 <div class="highlight-clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">TypeParameter</span>
 <span class="w">  </span><span class="ss">:param</span><span class="w"> </span><span class="s">"t"</span>
+<span class="w">  </span><span class="ss">:deferred_attr</span><span class="w"> </span><span class="ss">:NonExtensible</span>
+<span class="w">  </span><span class="ss">:is_class</span><span class="w"> </span><span class="nv">false</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -631,6 +650,8 @@ types for the parameters, so nothing outside a template ever holds this type.</p
 <span class="w">                          </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
 <span class="w">                          </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">TypeParameter</span>
 <span class="w">                            </span><span class="ss">:param</span><span class="w"> </span><span class="s">"t"</span>
+<span class="w">                            </span><span class="ss">:deferred_attr</span><span class="w"> </span><span class="ss">:NonExtensible</span>
+<span class="w">                            </span><span class="ss">:is_class</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                          </span><span class="p">)</span>
 <span class="w">                          </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">                          </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -656,6 +677,8 @@ types for the parameters, so nothing outside a template ever holds this type.</p
 <span class="w">                          </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
 <span class="w">                          </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">TypeParameter</span>
 <span class="w">                            </span><span class="ss">:param</span><span class="w"> </span><span class="s">"t"</span>
+<span class="w">                            </span><span class="ss">:deferred_attr</span><span class="w"> </span><span class="ss">:NonExtensible</span>
+<span class="w">                            </span><span class="ss">:is_class</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                          </span><span class="p">)</span>
 <span class="w">                          </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">                          </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -678,10 +701,14 @@ types for the parameters, so nothing outside a template ever holds this type.</p
 <span class="w">                      </span><span class="ss">:arg_types</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                        </span><span class="p">(</span><span class="nf">TypeParameter</span>
 <span class="w">                          </span><span class="ss">:param</span><span class="w"> </span><span class="s">"t"</span>
+<span class="w">                          </span><span class="ss">:deferred_attr</span><span class="w"> </span><span class="ss">:NonExtensible</span>
+<span class="w">                          </span><span class="ss">:is_class</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                        </span><span class="p">)</span>
 <span class="w">                      </span><span class="p">]</span>
 <span class="w">                      </span><span class="ss">:return_var_type</span><span class="w"> </span><span class="p">(</span><span class="nf">TypeParameter</span>
 <span class="w">                        </span><span class="ss">:param</span><span class="w"> </span><span class="s">"t"</span>
+<span class="w">                        </span><span class="ss">:deferred_attr</span><span class="w"> </span><span class="ss">:NonExtensible</span>
+<span class="w">                        </span><span class="ss">:is_class</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                      </span><span class="p">)</span>
 <span class="w">                      </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
 <span class="w">                      </span><span class="ss">:deftype</span><span class="w"> </span><span class="ss">:Implementation</span>
@@ -720,6 +747,8 @@ types for the parameters, so nothing outside a template ever holds this type.</p
 <span class="w">                    </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
 <span class="w">                    </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">TypeParameter</span>
 <span class="w">                      </span><span class="ss">:param</span><span class="w"> </span><span class="s">"t"</span>
+<span class="w">                      </span><span class="ss">:deferred_attr</span><span class="w"> </span><span class="ss">:NonExtensible</span>
+<span class="w">                      </span><span class="ss">:is_class</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                    </span><span class="p">)</span>
 <span class="w">                    </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">                    </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -774,7 +803,7 @@ types for the parameters, so nothing outside a template ever holds this type.</p
 </section>
 <section id="see-also">
 <h2 id="see-also">Veja Também<a class="headerlink" href="#see-also" title="Link permanente para este título">¶</a></h2>
-<p><a class="reference internal" href="../../symbol_nodes/Template/"><span class="doc std std-doc">Template</span></a>, <a class="reference internal" href="../../symbol_nodes/Requirement/"><span class="doc std std-doc">Requirement</span></a>, <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a></p>
+<p><a class="reference internal" href="../../symbol_nodes/Template/"><span class="doc std std-doc">Template</span></a>, <a class="reference internal" href="../../symbol_nodes/Requirement/"><span class="doc std std-doc">Requirement</span></a>, <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>, <a class="reference internal" href="../../enum_nodes/deferred_type_attr/"><span class="doc std std-doc">deferred_type_attr</span></a></p>
 </section>
 </section>
 
