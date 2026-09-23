@@ -517,7 +517,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#startup-initializers" class="md-nav__link">Startup initializers</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -663,7 +667,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#startup-initializers" class="md-nav__link">Startup initializers</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -688,7 +696,8 @@
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Trvalý odkaz na tento nadpis">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Program(symbol_table symtab, identifier name, identifier* dependencies,
-    stmt* body, location start_name, location end_name)
+    stmt* body, identifier? global_init, location start_name,
+    location end_name)
 </pre></div>
 </div>
 </section>
@@ -713,10 +722,13 @@
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">body</span></code></p></td>
 <td><p>the statements of the program, in order.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_name</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">global_init</span></code></p></td>
+<td><p>the name of this program’s startup initializer in <code class="docutils literal notranslate"><span class="pre">symtab</span></code>, or <code class="docutils literal notranslate"><span class="pre">nil</span></code>. See the description below.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">start_name</span></code></p></td>
 <td><p>the source span of the name in <code class="docutils literal notranslate"><span class="pre">program</span> <span class="pre">name</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">end_name</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">end_name</span></code></p></td>
 <td><p>the source span of the name in <code class="docutils literal notranslate"><span class="pre">end</span> <span class="pre">program</span> <span class="pre">name</span></code>, or an empty span when the end statement does not repeat it.</p></td>
 </tr>
 </tbody>
@@ -738,6 +750,89 @@ from ASR.</p>
 unit, first appear in <code class="docutils literal notranslate"><span class="pre">TranslationUnit.items</span></code>. The <code class="docutils literal notranslate"><span class="pre">global_stmts</span></code> ASR pass
 wraps them in a <strong>Program</strong> so that the rest of the compiler only has to deal
 with program units.</p>
+<section id="startup-initializers">
+<h3 id="startup-initializers">Startup initializers<a class="headerlink" href="#startup-initializers" title="Trvalý odkaz na tento nadpis">¶</a></h3>
+<p>A declaration initializer that no target can lay out as static data — a
+derived-type array broadcast such as <code class="docutils literal notranslate"><span class="pre">type(t)</span> <span class="pre">::</span> <span class="pre">a(3)</span> <span class="pre">=</span> <span class="pre">t(7)</span></code>, a pointer
+association such as <code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">pointer</span> <span class="pre">::</span> <span class="pre">p</span> <span class="pre">=&gt;</span> <span class="pre">tgt</span></code>, the allocation of a saved
+coarray — has to run as executable statements before any code can observe the
+variable. The <code class="docutils literal notranslate"><span class="pre">global_init</span></code> ASR pass moves such an initializer out of the
+declaration and into a <strong>startup initializer</strong>: an argument-less procedure in
+the owner’s own symbol table, named by the owner’s <code class="docutils literal notranslate"><span class="pre">global_init</span></code>. A
+<a class="reference internal" href="../Module/"><span class="doc std std-doc">Module</span></a> and a <strong>Program</strong> each name at most one, which is why the
+link lives on the owner rather than on the procedure.</p>
+<p>A procedure or a block needs no initializer procedure of its own: nothing
+outside it can observe its variables, so there is nobody to call one. The same
+pass puts their initialization straight into a guarded block at the top of
+their own body, which is what the save attribute Fortran gives every
+initialized local means.</p>
+<p>Where an initializer lives is not a choice between two equally good forms. A
+declaration initializer a target <em>can</em> lay out as static data — an integer or
+character constant, <code class="docutils literal notranslate"><span class="pre">=&gt;</span> <span class="pre">null()</span></code>, anything on a <code class="docutils literal notranslate"><span class="pre">parameter</span></code> — stays on the
+declaration and is never moved. Only the ones it cannot are moved, and moving
+one means taking it off the declaration: after the pass, a variable carries
+its initializer in exactly one of the two places, never in both. Both places
+being filled is the compiler contradicting itself about who initializes the
+variable, and a backend that then leaves the setup to an initializer it does
+not emit produces a program that reads uninitialized memory.</p>
+<p>The two forms do both occur before the pass runs: what semantics produces has
+every initializer on its declaration, which is the state <code class="docutils literal notranslate"><span class="pre">global_init</span></code>
+consumes. The rule above is that pass’s postcondition, not something
+<code class="docutils literal notranslate"><span class="pre">asr_verify</span></code> can check on its own, since it cannot know
+which passes have already run.</p>
+<p>The body of an initializer is one guarded block, so calling it again does
+nothing:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>if (.not. already_run) then
+    already_run = .true.
+    &lt;the initialization statements&gt;
+end if
+</pre></div>
+</div>
+<p>Nothing calls one of them twice — see the ordering below — so under <code class="docutils literal notranslate"><span class="pre">--fast</span></code>
+the guard is dropped and the body is the initialization statements
+themselves. The guard at the top of a procedure or block body is kept in
+every mode: that one is the save attribute of an initialized local, so it
+decides what the program does rather than repeating a call that cannot
+happen.</p>
+<p>Ordering is therefore expressed in ASR, not left to a target: a program’s own
+initializer calls every module initializer it can observe, once each and in
+module dependency order, before the program’s first statement — which is the
+single call the program body gains. That list is complete rather than a list
+of the program’s direct dependencies: a module the program reaches only
+through another module is in it too, so no module initializer needs to call
+any other. Neither link order nor a constructor priority can
+change the order Fortran requires, and an initializer defined in another
+object file is called through an <a class="reference internal" href="../ExternalSymbol/"><span class="doc std std-doc">ExternalSymbol</span></a> like any
+other module procedure. A backend therefore needs no support at all for module
+and program initializers — only for
+<a class="reference internal" href="../../unit_nodes/TranslationUnit/"><span class="doc std std-doc">TranslationUnit</span></a><code class="docutils literal notranslate"><span class="pre">.global_init</span></code>, which no
+ASR statement calls.</p>
+<p>Putting those calls in is a second pass, <code class="docutils literal notranslate"><span class="pre">global_init_wire</span></code>, because a pass
+that runs later than <code class="docutils literal notranslate"><span class="pre">global_init</span></code> can create an initializer too — <code class="docutils literal notranslate"><span class="pre">coarray</span></code>
+does, for saved coarrays — and an initializer nothing calls would never run.</p>
+<p>Which unit’s initializer a saved coarray goes into is not decided by where it
+is declared but by which program unit encloses that declaration, because
+allocating a coarray is collective and so cannot wait until control first
+reaches the procedure that declares it. The <code class="docutils literal notranslate"><span class="pre">coarray</span></code> pass walks outwards from
+the declaration to the first enclosing <strong>Program</strong> or <a class="reference internal" href="../Module/"><span class="doc std std-doc">Module</span></a> and
+uses that unit’s initializer, so a saved coarray of a module procedure is
+allocated by the module’s and one of an internal procedure by the program’s,
+exactly as if it had been declared in that unit directly. Only a saved coarray
+of an <em>external</em> procedure, which no program unit encloses, is left on the
+<a class="reference internal" href="../../unit_nodes/TranslationUnit/"><span class="doc std std-doc">TranslationUnit</span></a> — which is why that one
+case still needs the target’s startup hook.</p>
+<p>Under separate compilation a saved coarray follows the same rule as an
+ordinary declaration initializer. A module read from a <code class="docutils literal notranslate"><span class="pre">.mod</span></code> file was
+compiled into an object file of its own, and that object file allocates the
+module’s saved coarrays and binds each one to its companions. A translation
+unit that only <em>uses</em> such a module therefore names that initializer without
+defining a second one — defining one would clash at link time with the
+definition already there — and leaves the coarrays themselves alone. Binding
+them again here would point the module’s coarrays at companions this unit
+allocated rather than at the storage every image agreed on, which is why the
+two go together: skipping the definition without skipping the binding would
+replace a good association with a private one.</p>
+</section>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Trvalý odkaz na tento nadpis">¶</a></h2>
@@ -816,10 +911,12 @@ with program units.</p>
 <span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">        </span><span class="p">]</span>
+<span class="w">        </span><span class="ss">:global_init</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">      </span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">)</span>
 <span class="w">  </span><span class="ss">:items</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="ss">:global_init</span><span class="w"> </span><span class="nv">nil</span>
 <span class="p">)</span>
 </pre></div>
 </div>

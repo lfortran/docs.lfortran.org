@@ -674,7 +674,7 @@ definitions for a target language, pickling functions, and other codes.</p>
 <p>ASDL consists of three fundamental constructs: <em><strong>types, constructors</strong></em>, and
 <em><strong>productions</strong></em>.</p>
 <p>Let’s take an example of a node from <a class="reference external" href="https://github.com/lfortran/lfortran/blob/main/src/libasr/ASR.asdl">ASR.asdl</a>:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Program(symbol_table symtab, identifier name, identifier* dependencies, stmt* body, location start_name, location end_name)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Program(symbol_table symtab, identifier name, identifier* dependencies, stmt* body, identifier? global_init, location start_name, location end_name)
 </pre></div>
 </div>
 <section id="types">
