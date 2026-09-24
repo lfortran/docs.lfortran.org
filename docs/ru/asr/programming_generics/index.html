@@ -573,28 +573,28 @@ end requirement
 <h3 id="with-template">With Template<a class="headerlink" href="#with-template" title="Ссылка на этот заголовок">¶</a></h3>
 <p><strong>Defining a generic function</strong></p>
 <p>A template works as a closure for a generic function. A template takes as parameters symbols that would replace the generic symbols inside a generic function.</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">template</span><span class="w"> </span><span class="n">array_t</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">add_element</span><span class="p">,</span><span class="w"> </span><span class="n">set_to_zero</span><span class="p">)</span>
-<span class="w">  </span><span class="p">...</span>
-<span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">array_sum</span>
-<span class="k">contains</span>
-<span class="k">  function </span><span class="n">array_sum</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-<span class="w">    </span><span class="k">type</span><span class="p">(</span><span class="n">T</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">arr</span><span class="p">(:)</span>
-<span class="w">    </span><span class="k">type</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">r</span>
-<span class="w">    </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">i</span>
-<span class="w">    </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
-<span class="w">    </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set_to_zero</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
-<span class="k">      </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arr</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="w">      </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">n</span>
-<span class="w">        </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add_element</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">arr</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-<span class="w">      </span><span class="k">end do</span>
-<span class="k">    end if</span>
-<span class="k">  end function</span>
-<span class="k">end </span><span class="n">template</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>template array_t {T, add_element, set_to_zero}
+  ...
+  public :: array_sum
+contains
+  function array_sum(arr) result(r)
+    type(T), intent(in) :: arr(:)
+    type(T) :: r
+    integer :: n, i
+    n = size(arr)
+    r = set_to_zero(0)
+    if (n &gt; 0) then
+      r = arr(1)
+      do i = 2, n
+        res = add_element(r, arr(i))
+      end do
+    end if
+  end function
+end template
 </pre></div>
 </div>
 <p>Then to connect the parameters with the functions defined in the requirement, we use a <code class="docutils literal notranslate"><span class="pre">require</span></code> statement.</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>template array_t(T, add_element, set_to_zero)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>template array_t {T, add_element, set_to_zero}
   require :: number_type {T, add_element, set_to_zero}
   public :: array_sum
 contains
@@ -616,7 +616,7 @@ end template
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">require</span> <span class="pre">::</span> <span class="pre">number_type</span> <span class="pre">{T,</span> <span class="pre">add_element,</span> <span class="pre">set_to_zero}</span></code> sets the type signature for the parameters within the scope of the template. This makes it possible for the LFortran compiler to type check the computations associated with the deferred type <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p>
 <p>A template can also contains multiple functions that may depend on each other.</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>template array_t(T, add_element, set_to_zero)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>template array_t {T, add_element, set_to_zero}
   require :: number_type {T, add_element, set_to_zero}
   public :: array_sum
 contains
@@ -690,7 +690,7 @@ instantiate array_t {real, add_element_real, set_to_zero_real}, &amp;
 <section id="without-template">
 <h3 id="without-template">Without Template<a class="headerlink" href="#without-template" title="Ссылка на этот заголовок">¶</a></h3>
 <p>The template notation can be cumbersome for defining a single generic function. To alleviate this, LFortran also supports a simpler syntax for declaring generic functions without having to declare an enclosing template. For example, our running <code class="docutils literal notranslate"><span class="pre">array_sum</span></code> example can be written as follows in the simpler syntax:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>function generic_sum {T, add_element, set_to_zero} (arr) result(r)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>template function generic_sum {T, add_element, set_to_zero} (arr) result(r)
   require :: number_type {T, add_element, set_to_zero}
   type(T), intent(in) :: arr(:)
   type(T) :: r
@@ -708,7 +708,7 @@ end function
 </div>
 <p>The first difference is that the template parameters are now included as the function’s generic symbol parameters enclosed by braces <code class="docutils literal notranslate"><span class="pre">{T,</span> <span class="pre">add_element,</span> <span class="pre">set_to_zero}</span></code>. Since we still need to identify these generic symbols a requirement, the require statement is moved into the generic function itself. The rest of the function is the same as the generic function inside the template.</p>
 <p>This is merely a syntax sugar for the original templated function. Inside the compiler this generic function is treated as the following template:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>template generic_sum(T, add_element, set_to_zero)
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>template generic_sum {T, add_element, set_to_zero}
   require :: number_type {T, add_element, set_to_zero}
   public :: generic_sum
 contains
@@ -753,41 +753,41 @@ sum = array_sum{integer, add_element_integer, set_to_zero_integer}(arr)
 <section id="generic-derived-types">
 <h2 id="generic-derived-types">Generic Derived Types<a class="headerlink" href="#generic-derived-types" title="Ссылка на этот заголовок">¶</a></h2>
 <p>LFortran also supports generic derived types. Let’s say we want a generic tuple. We can define a derived type for tuples as usual inside a template:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">template</span><span class="w"> </span><span class="n">derived_type_t</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
-<span class="w">    </span><span class="c">! for brevity we have the deferred type</span>
-<span class="w">    </span><span class="c">! declared directly inside the template</span>
-<span class="w">    </span><span class="k">deferred type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">T</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">tuple</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>template derived_type_t {T}
+    ! for brevity we have the deferred type
+    ! declared directly inside the template
+    deferred type :: T
+    public :: tuple
 
-<span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">tuple</span>
-<span class="w">      </span><span class="k">type</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">fst</span>
-<span class="w">      </span><span class="k">type</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">snd</span>
-<span class="w">    </span><span class="k">end type</span>
-<span class="k">end </span><span class="n">template</span>
+    type :: tuple
+      type(T) :: fst
+      type(T) :: snd
+    end type
+end template
 </pre></div>
 </div>
 <p>We can also define generic functions accessing this generic tuple as:</p>
-<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">template</span><span class="w"> </span><span class="n">derived_type_t</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
-<span class="w">    </span><span class="k">deferred type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">T</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">tuple</span>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>template derived_type_t {T}
+    deferred type :: T
+    public :: tuple
 
-<span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">tuple</span>
-<span class="w">      </span><span class="k">type</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">fst</span>
-<span class="w">      </span><span class="k">type</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">snd</span>
-<span class="w">    </span><span class="k">end type</span>
-<span class="k">contains</span>
-<span class="k">    function </span><span class="n">get_fst</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-<span class="w">      </span><span class="k">type</span><span class="p">(</span><span class="n">tuple</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">p</span>
-<span class="w">      </span><span class="k">type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">r</span>
-<span class="w">      </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">%</span><span class="n">fst</span>
-<span class="w">    </span><span class="k">end function</span>
+    type :: tuple
+      type(T) :: fst
+      type(T) :: snd
+    end type
+contains
+    function get_fst(p) result(r)
+      type(tuple), intent(in) :: p
+      type(t) :: r
+      r = p%fst
+    end function
 
-<span class="k">    function </span><span class="n">get_snd</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-<span class="w">      </span><span class="k">type</span><span class="p">(</span><span class="n">tuple</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">p</span>
-<span class="w">      </span><span class="k">type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">r</span>
-<span class="w">      </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">%</span><span class="n">snd</span>
-<span class="w">    </span><span class="k">end function</span>
-<span class="k">end </span><span class="n">template</span>
+    function get_snd(p) result(r)
+      type(tuple), intent(in) :: p
+      type(t) :: r
+      r = p%snd
+    end function
+end template
 </pre></div>
 </div>
 <p>The instantiation for derived types are also similar to generic functions. If we want an integer tuple type and its functions, then we can instantiate <code class="docutils literal notranslate"><span class="pre">derived_type_t</span></code> as:</p>
