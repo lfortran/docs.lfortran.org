@@ -663,6 +663,10 @@ end template
 </pre></div>
 </div>
 <p>After <code class="docutils literal notranslate"><span class="pre">only:</span> </code> we decide which function inside in the template we want to instantiate, in this case <code class="docutils literal notranslate"><span class="pre">array_sum</span></code>, and give the new instantiated function a new name <code class="docutils literal notranslate"><span class="pre">array_sum_integer</span></code>.</p>
+<p>Renaming a function in an instantiation does not rename its local result
+variable. Without a <code class="docutils literal notranslate"><span class="pre">result(...)</span></code> clause, assignments to the original function
+name inside its body still set the result of the instantiated function.
+An explicit result variable also keeps its declared name.</p>
 <p>After instantiation, we can then use the instantiated function similar to ordinary functions:</p>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">arr</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="w"> </span><span class="nb">sum</span>
 <span class="nb">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">array_sum_integer</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
