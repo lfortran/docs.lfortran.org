@@ -685,6 +685,15 @@ end function
 <span class="k">end function</span>
 </pre></div>
 </div>
+<p>A module’s specification part must also visit its <code class="docutils literal notranslate"><span class="pre">instantiate</span></code> declarations
+during body construction, whether the template is defined locally or imported
+with <code class="docutils literal notranslate"><span class="pre">use</span></code>. Instantiation is a declaration, not an executable statement, so
+executable-statement traversal alone leaves the instantiated procedures without
+bodies.</p>
+<p>The symbol-table visitor records substitutions only after the entire
+instantiation succeeds. During error recovery (<code class="docutils literal notranslate"><span class="pre">--continue-compilation</span></code>),
+the body visitor skips declarations without this record, even if an earlier
+item in an erroneous <code class="docutils literal notranslate"><span class="pre">only:</span></code> list already created a procedure signature.</p>
 </section>
 </section>
 <section id="see-also">
