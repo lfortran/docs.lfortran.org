@@ -710,6 +710,13 @@ end function
 </pre></div>
 </div>
 <p>The first difference is that the template parameters are now included as the function’s generic symbol parameters enclosed by braces <code class="docutils literal notranslate"><span class="pre">{T,</span> <span class="pre">add_element,</span> <span class="pre">set_to_zero}</span></code>. Since we still need to identify these generic symbols a requirement, the require statement is moved into the generic function itself. The rest of the function is the same as the generic function inside the template.</p>
+<p>For both <code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">function</span></code> and <code class="docutils literal notranslate"><span class="pre">template</span> <span class="pre">subroutine</span></code>, every name in braces
+must have a deferred declaration in the subprogram’s specification, directly
+or through <code class="docutils literal notranslate"><span class="pre">require</span></code>. A deferred integer constant is declared with
+<code class="docutils literal notranslate"><span class="pre">deferred</span> <span class="pre">integer,</span> <span class="pre">parameter</span> <span class="pre">::</span> <span class="pre">n</span></code>. A host-associated constant does not
+declare a deferred argument. A type declaration such as <code class="docutils literal notranslate"><span class="pre">integer</span> <span class="pre">::</span> <span class="pre">n</span></code> or
+<code class="docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">parameter</span> <span class="pre">::</span> <span class="pre">n</span> <span class="pre">=</span> <span class="pre">7</span></code> does not either: it is reported as an error that
+names the deferred spelling, as in a <code class="docutils literal notranslate"><span class="pre">template</span></code> construct.</p>
 <p>This is merely a syntax sugar for the original templated function. Inside the compiler this generic function is treated as the following template:</p>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span>template generic_sum {T, add_element, set_to_zero}
   require :: number_type {T, add_element, set_to_zero}
