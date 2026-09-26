@@ -596,6 +596,11 @@ end module
 <p>Eventually the require statement adds into <code class="docutils literal notranslate"><span class="pre">array_t</span></code>'s symbol table two symbols,  <code class="docutils literal notranslate"><span class="pre">S</span></code> as a variable with type <code class="docutils literal notranslate"><span class="pre">S</span></code>, <code class="docutils literal notranslate"><span class="pre">op_temp</span></code> and <code class="docutils literal notranslate"><span class="pre">empty_temp</span></code> as functions with types <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">*</span> <span class="pre">S</span> <span class="pre">-&gt;</span> <span class="pre">S</span></code> and <code class="docutils literal notranslate"><span class="pre">()</span> <span class="pre">-&gt;</span> <span class="pre">S</span></code> based on <code class="docutils literal notranslate"><span class="pre">monoid</span></code>'s symbol table.</p>
 <p>Symbol table visit checks the variable declarations in <code class="docutils literal notranslate"><span class="pre">array_sum</span></code>. Since <code class="docutils literal notranslate"><span class="pre">S</span></code> is available in the symbol table now, both variables <code class="docutils literal notranslate"><span class="pre">arr</span></code> and <code class="docutils literal notranslate"><span class="pre">r</span></code> can be typed. Later during body visit, with type <code class="docutils literal notranslate"><span class="pre">S</span></code>, <code class="docutils literal notranslate"><span class="pre">op_temp</span></code>, and <code class="docutils literal notranslate"><span class="pre">empty_temp</span></code> in the symbol table, the function call <code class="docutils literal notranslate"><span class="pre">op_temp(r,</span> <span class="pre">arr(i))</span></code> in <code class="docutils literal notranslate"><span class="pre">array_sum</span></code> would be checked in the same way as non-generic functions.</p>
 <p>ASR representation of templates are also not compiled into the target language.</p>
+<p>Array-operation and intrinsic-function lowering leave these generic definitions
+intact and process their concrete specializations instead. Scalarizing an array
+expression or generating an intrinsic implementation requires the substituted
+element type; an unused template must not create runtime helpers with deferred
+types.</p>
 </section>
 <section id="instantiations">
 <h2 id="instantiations">Instantiations<a class="headerlink" href="#instantiations" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -694,6 +699,15 @@ bodies.</p>
 instantiation succeeds. During error recovery (<code class="docutils literal notranslate"><span class="pre">--continue-compilation</span></code>),
 the body visitor skips declarations without this record, even if an earlier
 item in an erroneous <code class="docutils literal notranslate"><span class="pre">only:</span></code> list already created a procedure signature.</p>
+<p>Body instantiation also substitutes deferred types in expression results, not
+just in variable declarations and procedure signatures. The generated ASR
+duplicator recursively copies type wrappers, while <code class="docutils literal notranslate"><span class="pre">BodyInstantiator</span></code> replaces
+each <code class="docutils literal notranslate"><span class="pre">TypeParameter</span></code> leaf using <code class="docutils literal notranslate"><span class="pre">type_subs</span></code>. Thus array constructors and
+<code class="docutils literal notranslate"><span class="pre">reshape</span></code> results acquire the concrete element type and kind for each
+instantiation without changing the original template. Array wrappers are
+normalized after substituting their element types: for example, a fixed-size
+array of a deferred type becomes a pointer array when specialized for
+<code class="docutils literal notranslate"><span class="pre">character</span></code>. The duplicated dimensions and memory space are preserved.</p>
 </section>
 </section>
 <section id="see-also">
