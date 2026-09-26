@@ -649,7 +649,7 @@ end template
   only: array_sum_integer =&gt; array_sum
 </pre></div>
 </div>
-<p>First we pass the concrete symbols to the template in the form of a template call <code class="docutils literal notranslate"><span class="pre">array_t(integer,</span> <span class="pre">add_element_integer,</span> <span class="pre">set_to_zero_integer)</span></code>. We are replacing the deferred type <code class="docutils literal notranslate"><span class="pre">T</span></code> with a concrete type <code class="docutils literal notranslate"><span class="pre">integer</span></code>, <code class="docutils literal notranslate"><span class="pre">add_element</span></code> with a function that computes addition between two integers <code class="docutils literal notranslate"><span class="pre">add_element_integer</span></code>, and <code class="docutils literal notranslate"><span class="pre">set_to_zero</span></code> with a function that returns a zero integer value <code class="docutils literal notranslate"><span class="pre">set_to_zero_integer</span></code>. These functions would have to be defined prior to the instantiation for them to be passed as symbol arguments to a template:</p>
+<p>First we pass the concrete symbols to the template in the form of a template call <code class="docutils literal notranslate"><span class="pre">array_t(integer,</span> <span class="pre">add_element_integer,</span> <span class="pre">set_to_zero_integer)</span></code>. We are replacing the deferred type <code class="docutils literal notranslate"><span class="pre">T</span></code> with a concrete type <code class="docutils literal notranslate"><span class="pre">integer</span></code>, <code class="docutils literal notranslate"><span class="pre">add_element</span></code> with a function that computes addition between two integers <code class="docutils literal notranslate"><span class="pre">add_element_integer</span></code>, and <code class="docutils literal notranslate"><span class="pre">set_to_zero</span></code> with a function that returns a zero integer value <code class="docutils literal notranslate"><span class="pre">set_to_zero_integer</span></code>. These functions must be accessible in the instantiating scope. They may be defined later in that scope's <code class="docutils literal notranslate"><span class="pre">contains</span></code> section; their completed interfaces are checked against the template's requirements before lowering. A contained procedure also takes precedence over a host-associated procedure or intrinsic of the same name:</p>
 <div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">function </span><span class="n">add_element_integer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">result</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 <span class="w">  </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>
 <span class="w">  </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">z</span>
@@ -662,6 +662,19 @@ end template
 <span class="k">end function</span>
 </pre></div>
 </div>
+<p>The actual procedure's declarations use its complete host specification part,
+including declarations after the <code class="docutils literal notranslate"><span class="pre">instantiate</span></code> statement. Instantiation does
+not change host association in an ordinary call to that procedure. Types
+introduced by the instantiation remain available to subsequent declarations
+and to the contained procedure's local variables.
+The contained specific procedure may share its name with a generic interface;
+completing that declaration preserves the procedure selected by instantiation.
+A bare templated function or subroutine is not a concrete procedure actual.
+A nearer templated declaration is diagnosed at the actual argument rather
+than bypassed in favor of a host procedure or intrinsic of the same name.
+With <code class="docutils literal notranslate"><span class="pre">--continue-compilation</span></code>, a failed requirement is diagnosed without
+constructing the rejected instantiation's procedure bodies; independent code
+is still checked.</p>
 <p>After <code class="docutils literal notranslate"><span class="pre">only:</span> </code> we decide which function inside in the template we want to instantiate, in this case <code class="docutils literal notranslate"><span class="pre">array_sum</span></code>, and give the new instantiated function a new name <code class="docutils literal notranslate"><span class="pre">array_sum_integer</span></code>.</p>
 <p>Renaming a function in an instantiation does not rename its local result
 variable. Without a <code class="docutils literal notranslate"><span class="pre">result(...)</span></code> clause, assignments to the original function
