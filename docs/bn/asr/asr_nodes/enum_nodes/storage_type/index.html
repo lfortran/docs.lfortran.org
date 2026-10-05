@@ -732,7 +732,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>storage_type = Default | Save | Parameter
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>storage_type = Default | Save | Parameter | Threadprivate
 </pre></div>
 </div>
 </section>
@@ -754,6 +754,9 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Parameter</span></code></p></td>
 <td><p>a named constant. Its <code class="docutils literal notranslate"><span class="pre">value</span></code> is required and is substituted wherever the name is used, so it needs no storage at all.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Threadprivate</span></code></p></td>
+<td><p>a module variable with a separate persistent instance for each thread.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -764,9 +767,14 @@
 </section>
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
-<p>A <code class="docutils literal notranslate"><span class="pre">Parameter</span></code> is the only value that constrains the rest of the symbol: the
-<a class="reference internal" href="../../symbol_nodes/Variable/"><span class="doc std std-doc">Variable</span></a> must have a folded <code class="docutils literal notranslate"><span class="pre">value</span></code>, since a
-named constant with no value could not be used in a constant expression.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Parameter</span></code> requires the <a class="reference internal" href="../../symbol_nodes/Variable/"><span class="doc std std-doc">Variable</span></a> to have a
+folded <code class="docutils literal notranslate"><span class="pre">value</span></code>: a named constant with no value could not be used in a constant
+expression.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Threadprivate</span></code> represents an OpenMP <code class="docutils literal notranslate"><span class="pre">threadprivate</span></code> directive processed with
+<code class="docutils literal notranslate"><span class="pre">--openmp</span></code>. Currently, only module variables are supported. It replaces the <code class="docutils literal notranslate"><span class="pre">Save</span></code> marker while
+retaining the module variable's lifetime and declaration initializer, and
+is preserved in module files. LLVM emits thread-local globals, including
+imported declarations. The C and C++ backends report this storage as unsupported.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
