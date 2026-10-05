@@ -734,6 +734,7 @@
 <h3 id="syntax">语法<a class="headerlink" href="#syntax" title="永久链接至标题">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>string_format_kind
     = FormatFortran
+    | FormatFortranLeadingBlank
     | FormatC
     | FormatPythonPercent
     | FormatPythonFString
@@ -753,16 +754,19 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FormatFortran</span></code></p></td>
 <td><p>Fortran edit descriptors, <code class="docutils literal notranslate"><span class="pre">"(f8.3,i4)"</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FormatC</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FormatFortranLeadingBlank</span></code></p></td>
+<td><p>Fortran list-directed formatting (<code class="docutils literal notranslate"><span class="pre">fmt</span></code> is <code class="docutils literal notranslate"><span class="pre">nil</span></code>) that starts with a blank when at least one value is written; with <code class="docutils literal notranslate"><span class="pre">FormatFortran</span></code> it starts with the first value.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FormatC</span></code></p></td>
 <td><p>C <code class="docutils literal notranslate"><span class="pre">printf</span></code> conversions, <code class="docutils literal notranslate"><span class="pre">"%f:</span> <span class="pre">%d"</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FormatPythonPercent</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FormatPythonPercent</span></code></p></td>
 <td><p>Python’s <code class="docutils literal notranslate"><span class="pre">%</span></code> operator, <code class="docutils literal notranslate"><span class="pre">"%f:</span> <span class="pre">%d"</span> <span class="pre">%</span> <span class="pre">(a,</span> <span class="pre">b)</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FormatPythonFString</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FormatPythonFString</span></code></p></td>
 <td><p>an f-string, <code class="docutils literal notranslate"><span class="pre">f"{a}:</span> <span class="pre">{b}"</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FormatPythonFormat</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FormatPythonFormat</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">str.format</span></code>, <code class="docutils literal notranslate"><span class="pre">"{}:</span> <span class="pre">{}".format(a,</span> <span class="pre">b)</span></code>.</p></td>
 </tr>
 </tbody>
