@@ -311,6 +311,12 @@
         <li class="md-nav__item"><a href="#run-integration-tests" class="md-nav__link">Run integration tests</a>
         </li>
         <li class="md-nav__item"><a href="#speed-up-integration-tests-on-macos" class="md-nav__link">Speed up integration tests on macOS</a>
+        </li>
+        <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#required-check-rollout" class="md-nav__link">Required-check rollout</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li></ul>
@@ -691,6 +697,12 @@
         <li class="md-nav__item"><a href="#run-integration-tests" class="md-nav__link">Run integration tests</a>
         </li>
         <li class="md-nav__item"><a href="#speed-up-integration-tests-on-macos" class="md-nav__link">Speed up integration tests on macOS</a>
+        </li>
+        <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#required-check-rollout" class="md-nav__link">Required-check rollout</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li></ul>
@@ -1083,6 +1095,182 @@ The <code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</
 <p>Integration tests run slowly because Apple checks the hash of each executable online before running.</p>
 <p>You can turn off that feature in the Privacy tab of the Security and Privacy item of System Preferences &gt; Developer Tools &gt; Terminal.app &gt; «allow the apps below to run software locally that does not meet the system’s security
 policy.»</p>
+</section>
+<section id="ci-coverage">
+<h3 id="ci-coverage">CI coverage<a class="headerlink" href="#ci-coverage" title="Link permanente para este título">¶</a></h3>
+<p>Pull requests normally run only <strong>Quick checks</strong>. Quick runs exactly the same
+builds, test suites and selections on PRs, main pushes, release tags and manual
+runs. Publishing steps remain push-only. Main runs Quick plus Exhaustive.
+Exhaustive adds configurations and broader suites, never another invocation
+of Quick, and runs identically on main, on labeled PRs and on manual dispatch.</p>
+<p>The shared native compiler workflow has two explicit coverage roles:</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Role</p></th>
+<th class="head"><p>Caller</p></th>
+<th class="head"><p>Native LLVM matrix</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">quick</span></code></p></td>
+<td><p>Quick on every event</p></td>
+<td><p>Linux 7/11/23</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">exhaustive</span></code></p></td>
+<td><p>Exhaustive on every event</p></td>
+<td><p>Linux 7/8/10/11/15/17/18/19/21/22/23 and macOS 22</p></td>
+</tr>
+</tbody>
+</table>
+<p>Full LLVM-WASM, no-LLVM and MLIR suites belong directly to Quick on every event.
+They are not declared in Exhaustive or its shared compiler workflow, so there
+are no duplicate or skipped Exhaustive copies of these jobs.</p>
+<p>Quick distributes the full CPU modes over two existing builds rather than
+serializing them in one long job:</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Compiler</p></th>
+<th class="head"><p>Complete regression modes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Linux/LLVM 11 Debug</p></td>
+<td><p>Normal, <code class="docutils literal notranslate"><span class="pre">--fast</span></code>, Fortran 2023 normal/fast, full references, small LLVM variants, submodules and single invocation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Linux/LLVM 21 Debug</p></td>
+<td><p>Separate compilation, submodules with separate compilation, and leak detection</p></td>
+</tr>
+</tbody>
+</table>
+<p>Every registered LLVM test runs in each of these modes on its designated
+compiler. Both are Debug builds, so every full Quick suite runs with
+assertions and per-pass ASR verification. Splitting the modes across two
+jobs reduces the critical path without sampling those suites or adding
+another dependent job/queue.</p>
+<p>The Linux/LLVM 11 platform build retains full reference coverage, platform smoke tests,
+and the full GFortran, C/C++, Fortran, direct-WASM, OpenMP and CUDA-on-CPU
+backend suites. Linux/LLVM 21 Debug also runs normal/fast smoke coverage, and
+Linux/LLVM 7/23 Release provide additional smoke coverage. macOS/LLVM 11 keeps
+platform smoke coverage and
+the full Metal and CUDA-on-CPU suites. Windows keeps its native Release
+build and supported compile/link/run checks. Caffeine/coarrays run on the
+LLVM 11 Debug compatibility compiler. The standalone compiler-to-WASM build is also retained.</p>
+<p>Exhaustive runs the full compatibility suites on every LLVM version except
+11 and 19, which run the application catalog instead, as does macOS LLVM 22;
+every compatibility job runs Caffeine/coarrays. Three supplemental platform builds also run full normal/fast suites on Linux
+LLVM 11/21 Debug and full normal/reference suites on macOS LLVM 11 Debug.
+These retain the full platform coverage that used to run only in main’s Quick.
+Quick and Exhaustive share <code class="docutils literal notranslate"><span class="pre">.github/actions/build-platform</span></code> so these compiler
+configurations cannot drift. The supplemental jobs do not rerun Quick’s GPU,
+alternate-backend or descriptor-mode suites; Linux references stay in Quick.</p>
+<p>The distinct Kokkos/out-of-source and custom-install configurations run
+full suites. Standalone C++ builds, documentation/kernel tests, the
+Docker build/tests, JupyterLite and source packaging remain additional checks.</p>
+<p>Ordinary PRs run only the small gate of the standalone Exhaustive workflow;
+its compiler jobs require an explicit request.</p>
+<section id="required-check-rollout">
+<h4 id="required-check-rollout">Required-check rollout<a class="headerlink" href="#required-check-rollout" title="Link permanente para este título">¶</a></h4>
+<p>By default, the existing protected <code class="docutils literal notranslate"><span class="pre">Build</span> <span class="pre">LFortran</span> <span class="pre">to</span> <span class="pre">WASM</span> <span class="pre">and</span> <span class="pre">Upload</span></code> status
+still aggregates every Quick job. This is safe with the existing branch
+protection, but its tiny final job can wait for a runner after all real work
+has finished. Changing its runner size cannot bypass account-wide concurrency
+limits.</p>
+<p>To eliminate that final runner job, first deploy this workflow version with
+the legacy gate still enabled. A repository administrator can then migrate
+to direct required checks. <strong>Do not enable the variable before updating
+protection.</strong> Keep all existing required checks, keep their expected GitHub
+Actions app binding, and add these seven Quick check contexts:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Build LFortran to WASM
+Compiler compatibility / Test LLVM 7 (ubuntu-latest)
+Compiler compatibility / Test LLVM 11 (ubuntu-latest)
+Compiler compatibility / Test LLVM 23 (ubuntu-latest)
+Compiler compatibility / Test LLVM 19 WASM (ubuntu-latest)
+Compiler compatibility / Test without LLVM Backend
+Compiler compatibility / Test MLIR backend
+</pre></div>
+</div>
+<p>Then set the repository Actions variable <code class="docutils literal notranslate"><span class="pre">LFORTRAN_DIRECT_REQUIRED_CHECKS</span></code>
+to <code class="docutils literal notranslate"><span class="pre">true</span></code>. Job names stay stable: the real WASM build and every compatibility
+job are required directly, and the legacy summary is skipped without a runner.
+The old summary requirement may remain, but it is no longer what enforces
+the underlying results. Exhaustive uses the
+distinct <code class="docutils literal notranslate"><span class="pre">Extended</span> <span class="pre">compiler</span> <span class="pre">checks</span></code> prefix, so an optional Exhaustive result
+cannot substitute for a required Quick result. Verify all required contexts
+on a fresh PR run before considering migration complete. Existing PRs may
+need their checks refreshed after a protection change.</p>
+<p>For rollback, clear the variable <strong>but keep all direct requirements in place</strong>.
+Changing a variable does not replace completed checks: an old direct-mode
+summary is still skipped, even if a compatibility job failed.
+Drain outstanding direct-mode runs, then rerun Quick for every active PR’s
+current revision. Verify that the protected status comes from an executed,
+successful <code class="docutils literal notranslate"><span class="pre">quick_status</span></code> aggregate, not an old skipped result, before
+optionally removing any direct requirements. Leaving the direct requirements
+in place is safe and adds no runner work.</p>
+<p>Without this explicit migration, the workflow retains its safe aggregate
+default; code alone cannot remove its queue while preserving the old settings.</p>
+<p><strong>Third-party applications generate bugs for the integration suite; they are
+not part of ordinary PR checks.</strong> The application catalog runs on every push
+to <code class="docutils literal notranslate"><span class="pre">main</span></code>, where it both finds coverage gaps and demonstrates compatibility
+with real applications, and in every explicitly requested Exhaustive run.
+There is no automatic exception for changes to serialization, finalization,
+I/O or GPU lowering.</p>
+<p>Caffeine is different: it supplies the coarray runtime backend. Building it
+and running the coarray capability checks remains part of Quick, just as
+Metal and CUDA-on-CPU integration tests validate particular backends and
+platforms. Toolchain/runtime dependencies are not the application catalog.</p>
+<p>When an application finds a compiler bug, reduce the failure to a registered
+integration regression in the relevant modes, fix the compiler, and verify
+the original application failure. Promptly fix or revert a regression on main.
+The lasting protection for future PRs is the integration test, not adding the
+whole application to Quick. Finding such a gap on main is an accepted trade-off,
+not a reason to silently ignore the failing application check.</p>
+<p>Every main push keeps the full LLVM matrix, full platform suites, application,
+documentation, packaging and JupyterLite checks. Main runs are not automatically
+cancelled or rotated. Maintainers may cancel older runs manually when runners
+are saturated, keeping the latest run.</p>
+<p><strong>Releases require green main, including application validation.</strong> The commit
+selected for release must have passed the full main CI. A green Quick PR or
+extended compiler run is not a substitute. Release-tag workflows still run
+compiler, documentation and packaging checks; they do not repeat the application
+catalog already validated on main.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">Tests::Run-Exhaustive</span></code> only for rare, explicitly requested extended compiler
+coverage, for example a particular major refactor. It is not a normal condition
+for marking a PR ready, and automation must not apply it based on the subsystem
+being changed. Add it with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gh<span class="w"> </span>pr<span class="w"> </span>edit<span class="w"> </span>&lt;PR&gt;<span class="w"> </span>--repo<span class="w"> </span>lfortran/lfortran<span class="w"> </span>--add-label<span class="w"> </span>Tests::Run-Exhaustive
+</pre></div>
+</div>
+<p>The label controller reruns the current PR revision’s Exhaustive workflow,
+whose gate reads the live labels. Subsequent pushes run extended checks while
+the label remains present. Unrelated label changes do not replace the result.
+GitHub cannot rerun workflows older than 30 days; push a new commit or close
+and reopen an older PR before requesting these checks.</p>
+<p>Alternatively, explicitly dispatch checks on your fork. Run Quick as well if
+the same revision does not already have a successful Quick result:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>Quick-Checks-CI.yml<span class="w"> </span>--repo<span class="w"> </span>&lt;fork-owner&gt;/lfortran<span class="w"> </span>--ref<span class="w"> </span>&lt;branch&gt;
+gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>Exhaustive-Checks-CI.yml<span class="w"> </span>--repo<span class="w"> </span>&lt;fork-owner&gt;/lfortran<span class="w"> </span>--ref<span class="w"> </span>&lt;branch&gt;
+gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>--repo<span class="w"> </span>&lt;fork-owner&gt;/lfortran<span class="w"> </span>--branch<span class="w"> </span>&lt;branch&gt;<span class="w"> </span>--event<span class="w"> </span>workflow_dispatch
+gh<span class="w"> </span>run<span class="w"> </span>watch<span class="w"> </span>&lt;run-id&gt;<span class="w"> </span>--repo<span class="w"> </span>&lt;fork-owner&gt;/lfortran
+</pre></div>
+</div>
+<p>Check both workflows” results and head SHAs. Labeled and manually dispatched
+Exhaustive runs are purely supplemental: neither invokes Quick. A green
+Exhaustive result alone does not imply a green Quick result. Manual runs do
+not publish or deploy. Manual fork runs need not
+appear among the upstream PR’s checks.</p>
+<p>To run the representative integration subset locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>integration_tests
+./run_tests.py<span class="w"> </span>-b<span class="w"> </span>llvm<span class="w"> </span>--smoke<span class="w"> </span>&gt;<span class="w"> </span>smoke.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+./run_tests.py<span class="w"> </span>-b<span class="w"> </span>llvm<span class="w"> </span>--smoke<span class="w"> </span>-f<span class="w"> </span>&gt;<span class="w"> </span>smoke-fast.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>The explicit list lives in <code class="docutils literal notranslate"><span class="pre">integration_tests/smoke_tests.cmake</span></code>. Selection
+happens before targets and configure-time compiler commands are created,
+including WASM and implicit-interface tests. Backend support labels and
+normal/fast/standard flags still apply. An empty selected backend is an error.
+Use the full suite for primary regression coverage; add representative tests
+to the list when introducing a new feature or platform-sensitive path.</p>
+</section>
 </section>
 </section>
 </section>
