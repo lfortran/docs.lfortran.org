@@ -835,8 +835,12 @@ against nothing, though — see the lowering rule below.</p>
 <ul class="simple">
 <li><p>has an empty <code class="docutils literal notranslate"><span class="pre">arg_types</span></code> and <code class="docutils literal notranslate"><span class="pre">n_args</span> <span class="pre">==</span> <span class="pre">0</span></code>, which must be read as <em>unknown</em>,
 never as <em>none</em>;</p></li>
-<li><p>has <code class="docutils literal notranslate"><span class="pre">abi</span> <span class="pre">=</span> <span class="pre">BindC</span></code>, so that every reference to the name reaches one link-time
-symbol;</p></li>
+<li><p>has <code class="docutils literal notranslate"><span class="pre">abi</span> <span class="pre">=</span> <span class="pre">Source</span></code>, like the interface of an external procedure declared in
+an interface block: it is a Fortran procedure, reached with Fortran’s
+calling convention, never with <code class="docutils literal notranslate"><span class="pre">bind(c)</span></code>’s (a procedure with a binding label
+must have an explicit interface, F2018 15.4.2.2). Once read from a module
+file it is <code class="docutils literal notranslate"><span class="pre">ExternalUndefined</span></code>. The interface built at each reference (see
+below) has <code class="docutils literal notranslate"><span class="pre">abi</span> <span class="pre">=</span> <span class="pre">Source</span></code> too;</p></li>
 <li><p>has no body, and <code class="docutils literal notranslate"><span class="pre">n_body</span> <span class="pre">==</span> <span class="pre">0</span></code>;</p></li>
 <li><p>is <strong>never the target of a call</strong>. <code class="docutils literal notranslate"><span class="pre">asr_verify.cpp</span></code> rejects a <code class="docutils literal notranslate"><span class="pre">FunctionCall</span></code>
 or <code class="docutils literal notranslate"><span class="pre">SubroutineCall</span></code> whose <code class="docutils literal notranslate"><span class="pre">name</span></code> resolves to one;</p></li>
@@ -876,7 +880,10 @@ different ones gets its own interface.</p>
 when an ASR pass turns the result into an argument of <code class="docutils literal notranslate"><span class="pre">f~fpcast</span></code>, the casts to
 <code class="docutils literal notranslate"><span class="pre">f~fpcast</span></code> take its new signature. A character result whose length is an
 expression of the caller (<code class="docutils literal notranslate"><span class="pre">character(len=n),</span> <span class="pre">external</span> <span class="pre">::</span> <span class="pre">f</span></code>) is assumed length
-in <code class="docutils literal notranslate"><span class="pre">f~fpcast</span></code>; the <code class="docutils literal notranslate"><span class="pre">FunctionCall</span></code> keeps the declared length.</p>
+in <code class="docutils literal notranslate"><span class="pre">f~fpcast</span></code>; the <code class="docutils literal notranslate"><span class="pre">FunctionCall</span></code> keeps the declared length. A character
+dummy of <code class="docutils literal notranslate"><span class="pre">f~fpcast</span></code> is assumed length, <code class="docutils literal notranslate"><span class="pre">character(len=*)</span></code>, whatever the
+length of the actual: the procedure receives the length of each actual, also
+when references with actuals of different lengths share <code class="docutils literal notranslate"><span class="pre">f~fpcast</span></code>.</p>
 <p>A reference in a DO WHILE condition associates the temporary before each
 evaluation of the condition: the loop becomes <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">while</span> <span class="pre">(.true.)</span></code> starting with
 the association and <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(.not.</span> <span class="pre">condition)</span> <span class="pre">exit</span></code>.</p>
