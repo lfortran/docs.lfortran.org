@@ -764,6 +764,17 @@ subroutine is a <strong>Function</strong> whose <code class="docutils literal no
 <a class="reference internal" href="../Variable/"><span class="doc std std-doc">Variable</span></a> symbols, and in <code class="docutils literal notranslate"><span class="pre">args</span></code>, which fixes their order. The
 result variable of a function is likewise owned by <code class="docutils literal notranslate"><span class="pre">symtab</span></code>, with
 <code class="docutils literal notranslate"><span class="pre">intent=ReturnVar</span></code>, and referenced by <code class="docutils literal notranslate"><span class="pre">return_var</span></code>.</p>
+<p>A nonallocatable, nonpointer character dummy (a scalar, or an explicit-shape
+or assumed-size array) of a procedure without BIND(C) is passed as a pointer
+to its data, with the length of the actual (the element length of an array)
+passed by value in a hidden argument, as gfortran does. The
+<code class="docutils literal notranslate"><span class="pre">string_length_arguments</span></code> pass makes this explicit: it gives each such dummy an
+<code class="docutils literal notranslate"><span class="pre">integer(8),</span> <span class="pre">value,</span> <span class="pre">intent(in)</span></code> dummy after all the other dummies, in the order
+of the character dummies, makes it the <code class="docutils literal notranslate"><span class="pre">len</span></code> of an assumed-length dummy, and
+appends the lengths of the actuals to every call. Afterwards ASR verification
+requires every such dummy to have its hidden dummy and every call to pass it.
+<code class="docutils literal notranslate"><span class="pre">ASRUtils::is_string_dummy_with_hidden_length()</span></code> says which dummies these are;
+a code generator passes them as their data pointer alone.</p>
 <p><code class="docutils literal notranslate"><span class="pre">deterministic</span></code> and <code class="docutils literal notranslate"><span class="pre">side_effect_free</span></code> are declarations about the procedure,
 not consequences of its body. A frontend that cannot prove them must leave
 them <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>

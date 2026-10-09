@@ -773,6 +773,10 @@
 <h2 id="description">Описание<a class="headerlink" href="#description" title="Ссылка на этот заголовок">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">len</span></code> and <code class="docutils literal notranslate"><span class="pre">len_kind</span></code> go together: <code class="docutils literal notranslate"><span class="pre">ExpressionLength</span></code> requires a <code class="docutils literal notranslate"><span class="pre">len</span></code>, and the
 other three leave it <code class="docutils literal notranslate"><span class="pre">nil</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">string_length_arguments</span></code> pass turns an <code class="docutils literal notranslate"><span class="pre">AssumedLength</span></code> dummy of a
+procedure without BIND(C) into an <code class="docutils literal notranslate"><span class="pre">ExpressionLength</span></code> one whose <code class="docutils literal notranslate"><span class="pre">len</span></code> is the
+hidden length argument the actual’s length is passed in (see
+<a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>).</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Ссылка на этот заголовок">¶</a></h2>
