@@ -314,6 +314,8 @@
         </li>
         <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#job-timeouts" class="md-nav__link">Job timeouts</a>
+        </li>
         <li class="md-nav__item"><a href="#compiler-caches" class="md-nav__link">Compiler caches</a>
         </li>
         <li class="md-nav__item"><a href="#required-checks" class="md-nav__link">Required checks</a>
@@ -704,6 +706,8 @@
         </li>
         <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#job-timeouts" class="md-nav__link">Job timeouts</a>
+        </li>
         <li class="md-nav__item"><a href="#compiler-caches" class="md-nav__link">Compiler caches</a>
         </li>
         <li class="md-nav__item"><a href="#required-checks" class="md-nav__link">Required checks</a>
@@ -1196,11 +1200,22 @@ full suites. Standalone C++ builds, documentation/kernel tests, the
 Docker build/tests, JupyterLite and source packaging remain additional checks.</p>
 <p>PRs do not run the Exhaustive workflow at all. For a rare, explicitly
 requested extended check of a PR, dispatch it in a fork (see below).</p>
+<section id="job-timeouts">
+<h4 id="job-timeouts">Job timeouts<a class="headerlink" href="#job-timeouts" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Every job sets <code class="docutils literal notranslate"><span class="pre">timeout-minutes</span></code>, about twice its slowest normal run (for
+example 60 minutes for the Windows platform build, 150 for macOS). Without
+it, a hung job holds a runner for GitHub's 6-hour default; under the
+organization's 20 concurrent-job limit, one hang in a test that runs on every
+PR can block CI for hours. When a job's normal duration grows, raise its
+timeout in the same change.</p>
+</section>
 <section id="compiler-caches">
 <h4 id="compiler-caches">Compiler caches<a class="headerlink" href="#compiler-caches" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>Every C/C++ build runs through ccache or sccache
-(<code class="docutils literal notranslate"><span class="pre">hendrikmuhs/ccache-action</span></code>), including both halves of the WASM build: the
-Emscripten build sets <code class="docutils literal notranslate"><span class="pre">EM_COMPILER_WRAPPER=sccache</span></code>. Caches are <strong>saved only on
+(<code class="docutils literal notranslate"><span class="pre">hendrikmuhs/ccache-action</span></code>), including both halves of the WASM build, which
+use ccache as the CMake compiler launcher for the native compiler and for
+<code class="docutils literal notranslate"><span class="pre">em++</span></code>. The action keeps the cache in the workspace (<code class="docutils literal notranslate"><span class="pre">.ccache</span></code> or
+<code class="docutils literal notranslate"><span class="pre">.sccache</span></code>), so a build that runs <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clean</span></code> must exclude it. Caches are <strong>saved only on
 <code class="docutils literal notranslate"><span class="pre">main</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">save:</span> <span class="pre">${{</span> <span class="pre">github.ref</span> <span class="pre">==</span> <span class="pre">'refs/heads/main'</span> <span class="pre">}}</span></code>) and restored
 everywhere. A cache saved for a PR or tag can only be restored by that same
 ref, and the repository's 10 GB cache limit evicts the least recently used
