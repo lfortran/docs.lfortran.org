@@ -314,7 +314,11 @@
         </li>
         <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#compiler-caches" class="md-nav__link">Compiler caches</a>
+        </li>
         <li class="md-nav__item"><a href="#required-checks" class="md-nav__link">Required checks</a>
+        </li>
+        <li class="md-nav__item"><a href="#running-exhaustive-for-a-pr" class="md-nav__link">Running Exhaustive for a PR</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -700,7 +704,11 @@
         </li>
         <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#compiler-caches" class="md-nav__link">Compiler caches</a>
+        </li>
         <li class="md-nav__item"><a href="#required-checks" class="md-nav__link">Required checks</a>
+        </li>
+        <li class="md-nav__item"><a href="#running-exhaustive-for-a-pr" class="md-nav__link">Running Exhaustive for a PR</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -1102,8 +1110,8 @@ policy."</p>
 builds, test suites and selection rules on PRs, main pushes, release tags and
 manual runs. Publishing steps remain push-only. Main runs Quick plus
 Exhaustive. Exhaustive adds configurations and broader suites, never another
-invocation of Quick, and runs identically on main, on labeled PRs and on
-manual dispatch.</p>
+invocation of Quick, and runs identically on main and on manual dispatch.
+Exhaustive never runs on PRs.</p>
 <p>The shared native compiler workflow has two explicit coverage roles:</p>
 <table>
 <thead>
@@ -1186,8 +1194,27 @@ success with the former disabled-runtime flags is not evidence for this change.<
 <p>The distinct Kokkos/out-of-source and custom-install configurations run
 full suites. Standalone C++ builds, documentation/kernel tests, the
 Docker build/tests, JupyterLite and source packaging remain additional checks.</p>
-<p>Ordinary PRs run only the small gate of the standalone Exhaustive workflow;
-its compiler jobs require an explicit request.</p>
+<p>PRs do not run the Exhaustive workflow at all. For a rare, explicitly
+requested extended check of a PR, dispatch it in a fork (see below).</p>
+<section id="compiler-caches">
+<h4 id="compiler-caches">Compiler caches<a class="headerlink" href="#compiler-caches" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h4>
+<p>Every C/C++ build runs through ccache or sccache
+(<code class="docutils literal notranslate"><span class="pre">hendrikmuhs/ccache-action</span></code>), including both halves of the WASM build: the
+Emscripten build sets <code class="docutils literal notranslate"><span class="pre">EM_COMPILER_WRAPPER=sccache</span></code>. Caches are <strong>saved only on
+<code class="docutils literal notranslate"><span class="pre">main</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">save:</span> <span class="pre">${{</span> <span class="pre">github.ref</span> <span class="pre">==</span> <span class="pre">'refs/heads/main'</span> <span class="pre">}}</span></code>) and restored
+everywhere. A cache saved for a PR or tag can only be restored by that same
+ref, and the repository's 10 GB cache limit evicts the least recently used
+caches first, so PR caches would push out the <code class="docutils literal notranslate"><span class="pre">main</span></code> caches that every run
+starts from. The <code class="docutils literal notranslate"><span class="pre">Cleanup</span> <span class="pre">caches</span> <span class="pre">by</span> <span class="pre">a</span> <span class="pre">branch</span></code> workflow also deletes a PR's
+caches when it closes.</p>
+<p>The action appends a timestamp to every saved key, so each save on <code class="docutils literal notranslate"><span class="pre">main</span></code> adds
+a new copy. After every Quick or Exhaustive run on <code class="docutils literal notranslate"><span class="pre">main</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Prune-Main-Caches-CI.yml</span></code> (<code class="docutils literal notranslate"><span class="pre">ci/prune_main_caches.py</span></code>) deletes all but the
+newest copy of each key, keeping the total under the limit. This leaves room
+for a 1.5 GB ccache per platform build (<code class="docutils literal notranslate"><span class="pre">max-size:</span> <span class="pre">1500M</span></code> in
+<code class="docutils literal notranslate"><span class="pre">.github/actions/build-platform</span></code>); the action's 500 MB default is smaller than
+one Debug build, so ccache evicted objects it still needed.</p>
+</section>
 <section id="required-checks">
 <h4 id="required-checks">Required checks<a class="headerlink" href="#required-checks" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> ruleset requires these eleven Quick checks directly, bound to the
@@ -1297,31 +1324,40 @@ main; re-run them if that commit was skipped by coalescing. A green Quick PR or
 extended compiler run is not a substitute. Release-tag workflows still run
 compiler, documentation and packaging checks; they do not repeat the application
 catalog already validated on main.</p>
-<p>Use <code class="docutils literal notranslate"><span class="pre">Tests::Run-Exhaustive</span></code> only for rare, explicitly requested extended compiler
-coverage, for example a particular major refactor. It is not a normal condition
-for marking a PR ready, and automation must not apply it based on the subsystem
-being changed. Add it with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gh<span class="w"> </span>pr<span class="w"> </span>edit<span class="w"> </span>&lt;PR&gt;<span class="w"> </span>--repo<span class="w"> </span>lfortran/lfortran<span class="w"> </span>--add-label<span class="w"> </span>Tests::Run-Exhaustive
-</pre></div>
-</div>
-<p>The label controller reruns the current PR revision's Exhaustive workflow,
-whose gate reads the live labels. Subsequent pushes run extended checks while
-the label remains present. Unrelated label changes do not replace the result.
-GitHub cannot rerun workflows older than 30 days; push a new commit or close
-and reopen an older PR before requesting these checks.</p>
-<p>Alternatively, explicitly dispatch checks on your fork. Run Quick as well if
-the same revision does not already have a successful Quick result:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>Quick-Checks-CI.yml<span class="w"> </span>--repo<span class="w"> </span>&lt;fork-owner&gt;/lfortran<span class="w"> </span>--ref<span class="w"> </span>&lt;branch&gt;
-gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>Exhaustive-Checks-CI.yml<span class="w"> </span>--repo<span class="w"> </span>&lt;fork-owner&gt;/lfortran<span class="w"> </span>--ref<span class="w"> </span>&lt;branch&gt;
-gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>--repo<span class="w"> </span>&lt;fork-owner&gt;/lfortran<span class="w"> </span>--branch<span class="w"> </span>&lt;branch&gt;<span class="w"> </span>--event<span class="w"> </span>workflow_dispatch
+</section>
+<section id="running-exhaustive-for-a-pr">
+<h4 id="running-exhaustive-for-a-pr">Running Exhaustive for a PR<a class="headerlink" href="#running-exhaustive-for-a-pr" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h4>
+<p>Exhaustive does not run on PRs. Run it only for rare, explicitly requested
+extended coverage, for example a particular major refactor. It is not a normal
+condition for marking a PR ready, and automation must not request it based on
+the subsystem being changed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code> accepts only a branch or tag, and PR branches live in
+forks, so dispatch the workflow in the fork that holds the branch:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>Exhaustive-Checks-CI.yml<span class="w"> </span>--repo<span class="w"> </span>&lt;fork-owner&gt;/lfortran<span class="w"> </span>--ref<span class="w"> </span>&lt;branch&gt;
+gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>--repo<span class="w"> </span>&lt;fork-owner&gt;/lfortran<span class="w"> </span>--workflow<span class="w"> </span>Exhaustive-Checks-CI.yml<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--branch<span class="w"> </span>&lt;branch&gt;<span class="w"> </span>--event<span class="w"> </span>workflow_dispatch<span class="w"> </span>--limit<span class="w"> </span><span class="m">1</span>
 gh<span class="w"> </span>run<span class="w"> </span>watch<span class="w"> </span>&lt;run-id&gt;<span class="w"> </span>--repo<span class="w"> </span>&lt;fork-owner&gt;/lfortran
 </pre></div>
 </div>
-<p>Check both workflows' results and head SHAs. Labeled and manually dispatched
-Exhaustive runs are purely supplemental: neither invokes Quick. A green
-Exhaustive result alone does not imply a green Quick result. Manual runs do
-not publish or deploy. Manual fork runs need not
-appear among the upstream PR's checks.</p>
+<p>For someone else's PR, push its head to a branch in your own fork first:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gh<span class="w"> </span>pr<span class="w"> </span>checkout<span class="w"> </span>&lt;PR&gt;<span class="w"> </span>--repo<span class="w"> </span>lfortran/lfortran
+git<span class="w"> </span>push<span class="w"> </span>&lt;your-fork-remote&gt;<span class="w"> </span>HEAD:exhaustive-pr-&lt;PR&gt;
+gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>Exhaustive-Checks-CI.yml<span class="w"> </span>--repo<span class="w"> </span>&lt;your-login&gt;/lfortran<span class="w"> </span>--ref<span class="w"> </span>exhaustive-pr-&lt;PR&gt;
+</pre></div>
+</div>
+<p>Notes:</p>
+<ul class="simple">
+<li><p>Forks have GitHub Actions workflows disabled until enabled once in the
+fork's <strong>Actions</strong> tab.</p></li>
+<li><p>The run uses the fork owner's runners, so it does not compete with
+<code class="docutils literal notranslate"><span class="pre">lfortran/lfortran</span></code> CI.</p></li>
+<li><p>The result does not appear among the upstream PR's checks. Post the run URL
+and the tested head SHA in the PR, and rerun after new pushes if needed.</p></li>
+<li><p>Exhaustive never invokes Quick, and a green Exhaustive result does not imply
+a green Quick result. If the PR's current revision has no successful Quick
+run, dispatch <code class="docutils literal notranslate"><span class="pre">Quick-Checks-CI.yml</span></code> the same way.</p></li>
+<li><p>Manual runs do not publish or deploy.</p></li>
+</ul>
 <p>To run the representative integration subset locally:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>integration_tests
 ./run_tests.py<span class="w"> </span>-b<span class="w"> </span>llvm<span class="w"> </span>--smoke<span class="w"> </span>&gt;<span class="w"> </span>smoke.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>

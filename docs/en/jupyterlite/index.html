@@ -654,7 +654,7 @@ turn such a bug into a test. The short version, on Linux or macOS:</p>
 <p>The site is built and deployed by the <code class="docutils literal notranslate"><span class="pre">build_xlfortran_jupyterlite</span></code> and
 <code class="docutils literal notranslate"><span class="pre">deploy_jupyterlite</span></code> jobs in <code class="docutils literal notranslate"><span class="pre">.github/workflows/Exhaustive-Checks-CI.yml</span></code>.
 The build runs on every push to <code class="docutils literal notranslate"><span class="pre">main</span></code>, release tags, and explicitly requested
-Exhaustive checks (the rare <code class="docutils literal notranslate"><span class="pre">Tests::Run-Exhaustive</span></code> PR label or a manual dispatch).
+Exhaustive checks (a manual dispatch, for example on a PR branch in a fork).
 Deployment runs only on pushes to <code class="docutils literal notranslate"><span class="pre">main</span></code>. Ordinary PRs
 run Quick checks instead; they still build and test the standalone WASM compiler.
 The full jobs run the same scripts the pixi tasks below wrap:</p>
