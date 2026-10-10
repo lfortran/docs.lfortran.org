@@ -313,7 +313,7 @@
         </li>
         <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#required-check-rollout" class="md-nav__link">Required-check rollout</a>
+        <li class="md-nav__item"><a href="#required-checks" class="md-nav__link">Required checks</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -699,7 +699,7 @@
         </li>
         <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#required-check-rollout" class="md-nav__link">Required-check rollout</a>
+        <li class="md-nav__item"><a href="#required-checks" class="md-nav__link">Required checks</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -1187,20 +1187,10 @@ full suites. Standalone C++ builds, documentation/kernel tests, the
 Docker build/tests, JupyterLite and source packaging remain additional checks.</p>
 <p>Ordinary PRs run only the small gate of the standalone Exhaustive workflow;
 its compiler jobs require an explicit request.</p>
-<section id="required-check-rollout">
-<h4 id="required-check-rollout">Required-check rollout<a class="headerlink" href="#required-check-rollout" title="Permalink to this headline">¶</a></h4>
-<p>By default, the existing protected <code class="docutils literal notranslate"><span class="pre">Build</span> <span class="pre">LFortran</span> <span class="pre">to</span> <span class="pre">WASM</span> <span class="pre">and</span> <span class="pre">Upload</span></code> status
-still aggregates every Quick job. This is safe with the existing branch
-protection, but its tiny final job can wait for a runner after all real work
-has finished. Changing its runner size cannot bypass account-wide concurrency
-limits.</p>
-<p>To eliminate that final runner job, first deploy this workflow version with
-the legacy gate still enabled. A repository administrator can then migrate
-to direct required checks. <strong>Do not enable the variable before updating
-protection.</strong> Keep the four existing platform requirements and add the seven
-compatibility/backend requirements below, retaining the expected GitHub Actions
-app binding (currently app ID <code class="docutils literal notranslate"><span class="pre">15368</span></code>). All eleven real-work contexts must
-remain required, in addition to the legacy aggregate during the transition:</p>
+<section id="required-checks">
+<h4 id="required-checks">Required checks<a class="headerlink" href="#required-checks" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> ruleset requires these eleven Quick checks directly, bound to the
+GitHub Actions app (app ID <code class="docutils literal notranslate"><span class="pre">15368</span></code>). There is no aggregate status job.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>LFortran CI (OS=macos-latest, LLVM=11)
 LFortran CI (OS=ubuntu-latest, LLVM=11)
 LFortran CI (OS=ubuntu-latest, LLVM=21)
@@ -1214,38 +1204,16 @@ Compiler compatibility / Test without LLVM Backend
 Compiler compatibility / Test MLIR backend
 </pre></div>
 </div>
-<p>Verify those requirements and their app binding on a fresh PR run <strong>before</strong>
-setting the repository Actions variable <code class="docutils literal notranslate"><span class="pre">LFORTRAN_DIRECT_REQUIRED_CHECKS</span></code>
-to <code class="docutils literal notranslate"><span class="pre">true</span></code>. Then verify another fresh PR run with all eleven contexts still
-required. Job names stay stable; the legacy summary is skipped without a runner.
-Only after verifying direct protection may an administrator remove the old
-<code class="docutils literal notranslate"><span class="pre">Build</span> <span class="pre">LFortran</span> <span class="pre">to</span> <span class="pre">WASM</span> <span class="pre">and</span> <span class="pre">Upload</span></code> requirement. Do not remove any of the four
-platform requirements: they own backend, GPU, reference and full descriptor-mode
-coverage that the compatibility jobs do not replace. Exhaustive uses the
-distinct <code class="docutils literal notranslate"><span class="pre">Extended</span> <span class="pre">compiler</span> <span class="pre">checks</span></code> prefix, so an optional Exhaustive result
-cannot substitute for a required Quick result. Existing PRs may need their
-checks refreshed after a protection change; a manual-dispatch run alone is
-not evidence that a PR’s required checks are satisfied.</p>
-<p>A <a class="reference external" href="https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-jobs-with-conditions">conditionally skipped job reports success and does not block merging even
-when required</a>.
-Thus the old aggregate requirement may remain while its job is skipped, but
-then it provides <strong>no protection</strong> for failed dependencies. This differs from a
-missing check or a <a class="reference external" href="https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/troubleshooting-required-status-checks">whole workflow skipped by branch/path/commit filtering,
-whose required checks remain pending</a>.
-Do not rely on a skipped summary to validate the migration.</p>
-<p>For rollback, clear the variable <strong>but keep all direct requirements in place</strong>.
-Restore the legacy aggregate requirement, with its GitHub Actions app binding,
-if it was removed.
-Changing a variable does not replace completed checks: an old direct-mode
-summary is still skipped, even if a compatibility job failed.
-Drain outstanding direct-mode runs, then rerun Quick for every active PR’s
-current revision. Verify that the protected status comes from an executed,
-successful <code class="docutils literal notranslate"><span class="pre">quick_status</span></code> aggregate, not an old skipped result, before
-optionally removing the seven newly added direct requirements. Keep the four
-platform requirements throughout rollback as well. Leaving all eleven direct
-requirements in place is safe and adds no runner work.</p>
-<p>Without this explicit migration, the workflow retains its safe aggregate
-default; code alone cannot remove its queue while preserving the old settings.</p>
+<p>Keep these job names stable. When a required Quick job is renamed or added,
+update the ruleset in the same rollout; a required check that is never
+reported leaves PRs blocked. A <a class="reference external" href="https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-jobs-with-conditions">conditionally skipped job reports success and
+does not block merging even when
+required</a>,
+so required jobs must not be skipped by conditions. Repository variables
+(<code class="docutils literal notranslate"><span class="pre">vars</span></code>) are not passed to workflows triggered by PRs from forks, so required
+jobs must not depend on them either. Exhaustive uses the distinct
+<code class="docutils literal notranslate"><span class="pre">Extended</span> <span class="pre">compiler</span> <span class="pre">checks</span></code> prefix, so an optional Exhaustive result cannot
+substitute for a required Quick result.</p>
 <p><strong>Third-party applications generate bugs for the integration suite; they are
 not part of ordinary PR checks.</strong> The application catalog runs in every
 Exhaustive run on <code class="docutils literal notranslate"><span class="pre">main</span></code> (coalesced, so always on the latest main), where it
@@ -1318,11 +1286,13 @@ most one main run is in progress and one is pending. A running main run is
 never cancelled; a newer push replaces the pending run. The latest main is
 therefore always tested, but when several pushes land while a run is in
 progress, the intermediate commits are not tested individually. Their changes
-are covered by the next run. To locate a regression, dispatch Quick or
-Exhaustive manually on the skipped commits; manual runs are never coalesced.</p>
+are covered by the next run. To test a skipped commit, re-run its cancelled
+run (<code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">run</span> <span class="pre">rerun</span> <span class="pre">&lt;run-id&gt;</span></code>), which tests exactly that commit; it rejoins the
+main concurrency group and waits behind the run in progress.
+<code class="docutils literal notranslate"><span class="pre">workflow_dispatch</span></code> accepts only a branch or tag, not a commit.</p>
 <p><strong>Releases require green main, including application validation.</strong> The commit
 selected for release must have its own green Quick and Exhaustive runs on
-main; dispatch them if that commit was skipped by coalescing. A green Quick PR or
+main; re-run them if that commit was skipped by coalescing. A green Quick PR or
 extended compiler run is not a substitute. Release-tag workflows still run
 compiler, documentation and packaging checks; they do not repeat the application
 catalog already validated on main.</p>
