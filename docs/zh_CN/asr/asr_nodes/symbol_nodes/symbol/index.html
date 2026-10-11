@@ -447,6 +447,20 @@
     <li class="md-nav__item">
     
     
+      <a href="../BlockData/" class="md-nav__link">BlockData</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../CommonBlock/" class="md-nav__link">CommonBlock</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../CustomOperator/" class="md-nav__link">CustomOperator</a>
       
     
@@ -697,13 +711,15 @@
     | Struct(symbol_table symtab, identifier name, ttype struct_signature, identifier* dependencies, identifier* members, identifier* member_functions, abi abi, access access, bool is_packed, bool is_abstract, bool is_sequence, call_arg* initializers, expr? alignment, symbol? parent, identifier* kind_params)
     | Enum(symbol_table symtab, identifier name, identifier* dependencies, identifier* members, abi abi, access access, enumtype enum_value_type, ttype type, symbol? parent)
     | Union(symbol_table symtab, identifier name, identifier* dependencies, identifier* members, abi abi, access access, call_arg* initializers, symbol? parent)
-    | Variable(symbol_table parent_symtab, identifier name, identifier* dependencies, intent intent, expr? symbolic_value, expr? value, storage_type storage, ttype type, symbol? type_declaration, abi abi, access access, presence presence, bool value_attr, bool target_attr, bool contiguous_attr, string? bindc_name, bool is_volatile, bool is_protected, pass_attr pass_attr, identifier? self_argument, codimension* codims)
+    | Variable(symbol_table parent_symtab, identifier name, identifier* dependencies, intent intent, expr? symbolic_value, expr? value, storage_type storage, ttype type, symbol? type_declaration, abi abi, access access, presence presence, bool value_attr, bool target_attr, bool contiguous_attr, string? bindc_name, bool is_volatile, bool is_protected, pass_attr pass_attr, identifier? self_argument, codimension* codims, symbol? common_block)
     | StructMethodDeclaration(symbol_table parent_symtab, identifier name, identifier? self_argument, identifier proc_name, symbol proc, abi abi, bool is_deferred, bool is_nopass)
     | AssociateBlock(symbol_table symtab, identifier name, stmt* body)
     | Block(symbol_table symtab, identifier name, stmt* body)
     | Requirement(symbol_table symtab, identifier name, identifier* args, require_instantiation* requires)
     | Template(symbol_table symtab, identifier name, identifier* args, require_instantiation* requires)
     | Namelist(symbol_table parent_symtab, identifier group_name, symbol* var_list)
+    | BlockData(symbol_table symtab, identifier name, identifier? block_data_name, identifier* dependencies, location start_name, location end_name)
+    | CommonBlock(symbol_table parent_symtab, identifier name, identifier? block_name, identifier link_name, symbol* members, common_association* associations, abi abi, storage_type storage, common_block_role role)
 </pre></div>
 </div>
 </section>
@@ -724,12 +740,14 @@ owns or the <code class="docutils literal notranslate"><span class="pre">parent_
 because the parent is reachable from a symbol table it owns.</p>
 <p>The symbols divide into:</p>
 <ul class="simple">
-<li><p>program units: <a class="reference internal" href="../Program/"><span class="doc std std-doc">Program</span></a>, <a class="reference internal" href="../Module/"><span class="doc std std-doc">Module</span></a> and
-<a class="reference internal" href="../Function/"><span class="doc std std-doc">Function</span></a>;</p></li>
+<li><p>program units: <a class="reference internal" href="../Program/"><span class="doc std std-doc">Program</span></a>, <a class="reference internal" href="../Module/"><span class="doc std std-doc">Module</span></a>,
+<a class="reference internal" href="../Function/"><span class="doc std std-doc">Function</span></a> and <a class="reference internal" href="../BlockData/"><span class="doc std std-doc">BlockData</span></a>;</p></li>
 <li><p>type definitions: <a class="reference internal" href="../Struct/"><span class="doc std std-doc">Struct</span></a>, <a class="reference internal" href="../Enum/"><span class="doc std std-doc">Enum</span></a> and <a class="reference internal" href="../Union/"><span class="doc std std-doc">Union</span></a>,
 with <a class="reference internal" href="../StructMethodDeclaration/"><span class="doc std std-doc">StructMethodDeclaration</span></a> for a type-bound
 procedure;</p></li>
-<li><p>data: <a class="reference internal" href="../Variable/"><span class="doc std std-doc">Variable</span></a> and <a class="reference internal" href="../Namelist/"><span class="doc std std-doc">Namelist</span></a>;</p></li>
+<li><p>data: <a class="reference internal" href="../Variable/"><span class="doc std std-doc">Variable</span></a>, <a class="reference internal" href="../Namelist/"><span class="doc std std-doc">Namelist</span></a>, and
+<a class="reference internal" href="../CommonBlock/"><span class="doc std std-doc">CommonBlock</span></a> for the view of a COMMON block that a
+scoping unit declares;</p></li>
 <li><p>names for other symbols:
 <a class="reference internal" href="../GenericProcedure/"><span class="doc std std-doc">GenericProcedure</span></a>, <a class="reference internal" href="../CustomOperator/"><span class="doc std std-doc">CustomOperator</span></a>
 and <a class="reference internal" href="../ExternalSymbol/"><span class="doc std std-doc">ExternalSymbol</span></a>;</p></li>

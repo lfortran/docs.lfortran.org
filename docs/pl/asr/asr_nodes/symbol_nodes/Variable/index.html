@@ -447,6 +447,20 @@
     <li class="md-nav__item">
     
     
+      <a href="../BlockData/" class="md-nav__link">BlockData</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../CommonBlock/" class="md-nav__link">CommonBlock</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../CustomOperator/" class="md-nav__link">CustomOperator</a>
       
     
@@ -694,7 +708,7 @@
     presence presence, bool value_attr, bool target_attr,
     bool contiguous_attr, string? bindc_name, bool is_volatile,
     bool is_protected, pass_attr pass_attr, identifier? self_argument,
-    codimension* codims)
+    codimension* codims, symbol? common_block)
 </pre></div>
 </div>
 </section>
@@ -735,7 +749,7 @@
 <td><p>for a variable of a derived type, an enumeration or a union, the symbol that defines it; <code class="docutils literal notranslate"><span class="pre">nil</span></code> otherwise.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">abi</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">Source</span></code> when this ASR allocates the variable, otherwise the ABI of the definition it is shared with.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Source</span></code> when this ASR allocates the variable, otherwise the ABI of the definition it is shared with. A variable with a <code class="docutils literal notranslate"><span class="pre">common_block</span></code> has the <code class="docutils literal notranslate"><span class="pre">Source</span></code> ABI but no allocation of its own: its storage is that of the block, and the <a class="reference internal" href="../CommonBlock/"><span class="doc std std-doc">CommonBlock</span></a> view gives the ABI and the role of the block’s definition.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">access</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Public</span></code> or <code class="docutils literal notranslate"><span class="pre">Private</span></code>.</p></td>
@@ -770,6 +784,9 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">codims</span></code></p></td>
 <td><p>the codimensions of a coarray; empty for anything else.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">common_block</span></code></p></td>
+<td><p>the <a class="reference internal" href="../CommonBlock/"><span class="doc std std-doc">CommonBlock</span></a> of the same symbol table whose storage the variable lives in, as one of its <code class="docutils literal notranslate"><span class="pre">members</span></code> or as the <code class="docutils literal notranslate"><span class="pre">variable</span></code> of one of its <code class="docutils literal notranslate"><span class="pre">associations</span></code>; <code class="docutils literal notranslate"><span class="pre">nil</span></code> for a variable with storage of its own.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -782,7 +799,9 @@
 <h2 id="description">Description<a class="headerlink" href="#description" title="Stały odnośnik do tego nagłówka">¶</a></h2>
 <p>Everything a Fortran declaration says about a variable is stored here, so that
 a backend never has to look at anything but the <strong>Variable</strong> and its <code class="docutils literal notranslate"><span class="pre">type</span></code> to
-allocate it.</p>
+allocate it. The exception is a variable with a <code class="docutils literal notranslate"><span class="pre">common_block</span></code>: it is not
+allocated on its own, and a backend follows <code class="docutils literal notranslate"><span class="pre">common_block</span></code> to the storage of
+the block and to the variable’s position in it.</p>
 <p>A variable is referenced from an expression by <a class="reference internal" href="../../expression_nodes/Var/"><span class="doc std std-doc">Var</span></a>,
 which holds nothing but a reference to this symbol; every property is read from
 the symbol itself.</p>
@@ -790,6 +809,13 @@ the symbol itself.</p>
 initializer as the user wrote it, and <code class="docutils literal notranslate"><span class="pre">value</span></code> is what it folds to.
 <code class="docutils literal notranslate"><span class="pre">storage=Parameter</span></code> requires <code class="docutils literal notranslate"><span class="pre">value</span></code>, since a named constant is substituted
 wherever it is used.</p>
+<p>A variable in a COMMON block has no storage of its own. Its <code class="docutils literal notranslate"><span class="pre">common_block</span></code>
+names the view of the block that its own scoping unit declares, and its
+address is the block’s storage at the position that view gives it. Nothing
+else changes: a <a class="reference internal" href="../../expression_nodes/Var/"><span class="doc std std-doc">Var</span></a> still refers to the
+variable, and a module variable in a COMMON block is used from other scoping
+units like any other module variable, through an
+<a class="reference internal" href="../ExternalSymbol/"><span class="doc std std-doc">ExternalSymbol</span></a>.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Stały odnośnik do tego nagłówka">¶</a></h2>
@@ -829,6 +855,7 @@ wherever it is used.</p>
 <span class="w">  </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
 <span class="w">  </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">  </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="ss">:common_block</span><span class="w"> </span><span class="nv">nil</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -877,6 +904,7 @@ wherever it is used.</p>
 <span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
 <span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:common_block</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="p">)</span>
 <span class="w">            </span><span class="s">"x"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
 <span class="w">              </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">1</span>
@@ -902,6 +930,7 @@ wherever it is used.</p>
 <span class="w">              </span><span class="ss">:pass_attr</span><span class="w"> </span><span class="ss">:NotMethod</span>
 <span class="w">              </span><span class="ss">:self_argument</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:codims</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:common_block</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="p">)</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">)</span>
@@ -945,7 +974,7 @@ wherever it is used.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p><a class="reference internal" href="../../expression_nodes/Var/"><span class="doc std std-doc">Var</span></a>, <a class="reference internal" href="../Program/"><span class="doc std std-doc">Program</span></a>, <a class="reference internal" href="../Function/"><span class="doc std std-doc">Function</span></a>, ttype</p>
+<p><a class="reference internal" href="../../expression_nodes/Var/"><span class="doc std std-doc">Var</span></a>, <a class="reference internal" href="../Program/"><span class="doc std std-doc">Program</span></a>, <a class="reference internal" href="../Function/"><span class="doc std std-doc">Function</span></a>, <a class="reference internal" href="../CommonBlock/"><span class="doc std std-doc">CommonBlock</span></a>, ttype</p>
 </section>
 </section>
 

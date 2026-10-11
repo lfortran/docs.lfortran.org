@@ -315,6 +315,8 @@
         </li>
         <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
         </li>
+        <li class="md-nav__item"><a href="#common-blocks" class="md-nav__link">COMMON Blocks</a>
+        </li>
         <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notes:</a>
         </li>
         <li class="md-nav__item"><a href="#conditional-expressions-and-conditional-arguments" class="md-nav__link">Conditional Expressions and Conditional Arguments</a>
@@ -358,6 +360,13 @@
     
     
       <a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#common-blocks" class="md-nav__link">COMMON Blocks</a>
       
     
     </li>
@@ -605,6 +614,8 @@
         </li>
         <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
         </li>
+        <li class="md-nav__item"><a href="#common-blocks" class="md-nav__link">COMMON Blocks</a>
+        </li>
         <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notes:</a>
         </li>
         <li class="md-nav__item"><a href="#conditional-expressions-and-conditional-arguments" class="md-nav__link">Conditional Expressions and Conditional Arguments</a>
@@ -725,6 +736,41 @@ In this mode, LFortran produces empty object files (<code class="docutils litera
 is usually the default mode used by most other Fortran compilers. We create object code, and we still create <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files for modules and they contain everything just like for direct mode but when any <code class="docutils literal notranslate"><span class="pre">.mod</span></code> file is loaded, we change all symbols to <code class="docutils literal notranslate"><span class="pre">ExternalUndefined</span></code> ABI. We don't change the ABI for <code class="docutils literal notranslate"><span class="pre">bind(c)</span></code> (since those are undefined already in object code, the user is responsible to provide an implementation at link time).</p></li>
 </ol>
 <p>Note: <strong><em>If you enable separate compilation mode, you have to enable it for all the files.</em></strong></p>
+</section>
+<section id="common-blocks">
+<h2 id="common-blocks">COMMON Blocks<a class="headerlink" href="#common-blocks" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
+<p>A COMMON block is storage that every scoping unit declaring it shares, while
+each unit gives it a layout of its own. The ASR keeps that layout with the
+unit: a scoping unit that declares a block owns a <code class="docutils literal notranslate"><span class="pre">CommonBlock</span></code> symbol, its
+view of the block, which lists the unit's own variables in order (<code class="docutils literal notranslate"><span class="pre">members</span></code>)
+and places the variables that EQUIVALENCE connects to the block
+(<code class="docutils literal notranslate"><span class="pre">associations</span></code>). In interactive use, a block declared at the top level has
+its view in the global scope. Each of those variables points back to the view through
+<code class="docutils literal notranslate"><span class="pre">Variable.common_block</span></code>, and a <code class="docutils literal notranslate"><span class="pre">Var</span></code> refers to it like to any other variable.
+A module variable in a COMMON block is an ordinary module variable for the
+units that use the module: it is imported through an <code class="docutils literal notranslate"><span class="pre">ExternalSymbol</span></code>, and its
+view is stored in the module file together with it.</p>
+<p>Views are connected only through <code class="docutils literal notranslate"><span class="pre">link_name</span></code>, the global symbol of the
+storage, which is the same in every view of a block. Nothing matches the
+variables of two views by name. The views in the ASR are the only persistent
+record of a block: the frontend makes up no module, derived type or module file
+for it, and keeps no side table of layouts across scoping units. A backend
+derives the layout of each <code class="docutils literal notranslate"><span class="pre">link_name</span></code> locally while it emits a translation
+unit: it combines the views of one <code class="docutils literal notranslate"><span class="pre">link_name</span></code> into a single definition and
+addresses every variable at the position its own view gives it. On targets with
+common symbols, the linker combines the definitions of different object files.
+The LLVM WebAssembly target has no common symbols and no way to size a block
+at run time, so it supports a program lowered as one translation unit:
+definitions of one block in separate objects conflict at link time.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">role</span></code> of a view says what its definition is. A view whose variables have
+initializers is <code class="docutils literal notranslate"><span class="pre">Initialized</span></code>, even if every value is zero. These are the views
+of a <code class="docutils literal notranslate"><span class="pre">BlockData</span></code> unit: the unit has no statements, and its DATA values are the
+initializers of its own variables, so its object file defines the storage with
+those values, in both compilation modes. A view without initial values is
+<code class="docutils literal notranslate"><span class="pre">Tentative</span></code>, or <code class="docutils literal notranslate"><span class="pre">External</span></code> when the storage is defined elsewhere: by the
+object file of a module read from its module file, or by an earlier
+interactive cell, after which the block cannot grow or be given initial
+values. See <a class="reference internal" href="../asr/asr_nodes/symbol_nodes/CommonBlock/"><span class="doc std std-doc">CommonBlock</span></a>.</p>
 </section>
 <section id="notes">
 <h2 id="notes">Notes:<a class="headerlink" href="#notes" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
