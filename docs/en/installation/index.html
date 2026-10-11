@@ -1221,6 +1221,10 @@ ref, and the repository’s 10 GB cache limit evicts the least recently used
 caches first, so PR caches would push out the <code class="docutils literal notranslate"><span class="pre">main</span></code> caches that every run
 starts from. The <code class="docutils literal notranslate"><span class="pre">Cleanup</span> <span class="pre">caches</span> <span class="pre">by</span> <span class="pre">a</span> <span class="pre">branch</span></code> workflow also deletes a PR’s
 caches when it closes.</p>
+<p>Keep compiler inputs identical between commits. The version comes from
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">describe</span></code> and changes with every commit, so it must not appear in build
+paths: <code class="docutils literal notranslate"><span class="pre">ci/build.sh</span></code> unpacks the versioned source tarball into the fixed
+<code class="docutils literal notranslate"><span class="pre">lfortran-src/</span></code> directory before building.</p>
 <p>The action appends a timestamp to every saved key, so each save on <code class="docutils literal notranslate"><span class="pre">main</span></code> adds
 a new copy. After every Quick or Exhaustive run on <code class="docutils literal notranslate"><span class="pre">main</span></code>,
 <code class="docutils literal notranslate"><span class="pre">Prune-Main-Caches-CI.yml</span></code> (<code class="docutils literal notranslate"><span class="pre">ci/prune_main_caches.py</span></code>) deletes all but the
