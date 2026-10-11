@@ -1138,6 +1138,15 @@ Exhaustive never runs on PRs.</p>
 <p>Full LLVM-WASM, no-LLVM and MLIR suites belong directly to Quick on every event.
 They are not declared in Exhaustive or its shared compiler workflow, so there
 are no duplicate or skipped Exhaustive copies of these jobs.</p>
+<p>The full LLVM-WASM suite runs in two parallel jobs that build the same
+compiler: <code class="docutils literal notranslate"><span class="pre">Test</span> <span class="pre">LLVM</span> <span class="pre">19</span> <span class="pre">WASM</span></code> runs the WASI backend (<code class="docutils literal notranslate"><span class="pre">llvm_wasm</span></code>, wasmtime)
+and the unit tests, and <code class="docutils literal notranslate"><span class="pre">Test</span> <span class="pre">LLVM</span> <span class="pre">19</span> <span class="pre">WASM</span> <span class="pre">Emscripten</span></code> runs the Emscripten
+backend (<code class="docutils literal notranslate"><span class="pre">llvm_wasm_emcc</span></code>, Node). The Emscripten pass alone takes about as
+long as building the compiler plus the WASI pass, because every <code class="docutils literal notranslate"><span class="pre">emcc</span></code> link
+runs Emscripten’s JavaScript compiler (about 0.3 s per test). Only the WASI
+job saves the shared compiler cache. Like Quick’s LLVM 11 compiler, this
+compiler is a Debug build compiled with <code class="docutils literal notranslate"><span class="pre">-O2</span></code>, which halves the time each
+test spends in LFortran.</p>
 <p>Quick distributes the full CPU modes over two existing builds rather than
 serializing them in one long job:</p>
 <table>
@@ -1240,7 +1249,7 @@ one Debug build, so ccache evicted objects it still needed.</p>
 </section>
 <section id="required-checks">
 <h4 id="required-checks">Required checks<a class="headerlink" href="#required-checks" title="Link permanente para este título">¶</a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> ruleset requires these eleven Quick checks directly, bound to the
+<p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> ruleset requires these twelve Quick checks directly, bound to the
 GitHub Actions app (app ID <code class="docutils literal notranslate"><span class="pre">15368</span></code>). There is no aggregate status job.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>LFortran CI (OS=macos-latest, LLVM=11)
 LFortran CI (OS=ubuntu-latest, LLVM=11)
@@ -1251,6 +1260,7 @@ Compiler compatibility / Test LLVM 7 (ubuntu-latest)
 Compiler compatibility / Test LLVM 11 (ubuntu-latest)
 Compiler compatibility / Test LLVM 23 (ubuntu-latest)
 Compiler compatibility / Test LLVM 19 WASM (ubuntu-latest)
+Compiler compatibility / Test LLVM 19 WASM Emscripten (ubuntu-latest)
 Compiler compatibility / Test without LLVM Backend
 Compiler compatibility / Test MLIR backend
 </pre></div>
