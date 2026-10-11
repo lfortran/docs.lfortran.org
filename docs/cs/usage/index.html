@@ -985,23 +985,24 @@ the Fortran source file with the <code class="docutils literal notranslate"><spa
 </section>
 <section id="selecting-the-c-compiler">
 <h2 id="selecting-the-c-compiler">Selecting the C Compiler<a class="headerlink" href="#selecting-the-c-compiler" title="Trvalý odkaz na tento nadpis">¶</a></h2>
-<p>By default LFortran uses the <code class="docutils literal notranslate"><span class="pre">clang</span></code> compiler.  On some systems
-the compiler has a version number or spelling difference.  The compiler
-can be changed with the <code class="docutils literal notranslate"><span class="pre">LFORTRAN_CC</span></code> symbol:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>unset LFORTRAN_CC
-lfortran hw.f90
-Hello World!
-
-export LFORTRAN_CC=gcc
-lfortran hw.f90
-Hello World!
-
-export LFORTRAN_CC=clang-14
-lfortran hw.f90
-sh: clang-14: not found
-...(further error messages)...
+<p>The C backend (<code class="docutils literal notranslate"><span class="pre">--backend=c</span></code>) uses the same C compiler for compiling generated
+C and linking the executable. It selects <code class="docutils literal notranslate"><span class="pre">LFORTRAN_CC</span></code> when set, otherwise
+<code class="docutils literal notranslate"><span class="pre">CC</span></code>, otherwise <code class="docutils literal notranslate"><span class="pre">gcc</span></code>. This honors the compiler selected by a build environment
+such as Pixi. Use <code class="docutils literal notranslate"><span class="pre">LFORTRAN_CC</span></code> to override that selection for LFortran alone:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CC</span><span class="o">=</span>clang<span class="w"> </span>lfortran<span class="w"> </span>--backend<span class="o">=</span>c<span class="w"> </span>hw.f90<span class="w"> </span>-o<span class="w"> </span>hw
+<span class="nv">LFORTRAN_CC</span><span class="o">=</span>gcc<span class="w"> </span>lfortran<span class="w"> </span>--backend<span class="o">=</span>c<span class="w"> </span>hw.f90<span class="w"> </span>-o<span class="w"> </span>hw
 </pre></div>
 </div>
+<p>The C and C++ backends also use this selection when compiling empty C objects
+for module-only source files, retaining <code class="docutils literal notranslate"><span class="pre">cc</span></code> as the default when neither
+variable is set. This does not change the C++ compiler used for generated C++.</p>
+<p>The LLVM backend’s native linker selection is separate: it defaults to <code class="docutils literal notranslate"><span class="pre">clang</span></code>
+and can be changed with <code class="docutils literal notranslate"><span class="pre">--linker</span></code> / <code class="docutils literal notranslate"><span class="pre">--linker-path</span></code> or the
+<code class="docutils literal notranslate"><span class="pre">LFORTRAN_LINKER</span></code> / <code class="docutils literal notranslate"><span class="pre">LFORTRAN_LINKER_PATH</span></code> environment variables.</p>
+<p>Native LLVM OpenMP programs use Clang with LLVM’s <code class="docutils literal notranslate"><span class="pre">libomp</span></code>. Pass <code class="docutils literal notranslate"><span class="pre">--openmp</span></code>
+during both compilation and linking, and <code class="docutils literal notranslate"><span class="pre">--openmp-lib-dir=/path/to/lib</span></code>
+when linking. The Pixi <code class="docutils literal notranslate"><span class="pre">llvm_omp</span></code> integration backend uses the selected
+environment’s <code class="docutils literal notranslate"><span class="pre">lib</span></code> directory.</p>
 </section>
 <section id="differences-from-other-compilers">
 <h2 id="differences-from-other-compilers">Differences from other compilers<a class="headerlink" href="#differences-from-other-compilers" title="Trvalý odkaz na tento nadpis">¶</a></h2>

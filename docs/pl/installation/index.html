@@ -264,6 +264,34 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#installation--page-root" class="md-nav__link">Installation</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#pixi-recommended" class="md-nav__link">Pixi (recommended)</a>
+        </li>
+        <li class="md-nav__item"><a href="#tests" class="md-nav__link">Tests</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#run-unit-and-reference-tests" class="md-nav__link">Run unit and reference tests</a>
+        </li>
+        <li class="md-nav__item"><a href="#update-test-references" class="md-nav__link">Update test references</a>
+        </li>
+        <li class="md-nav__item"><a href="#run-integration-tests" class="md-nav__link">Run integration tests</a>
+        </li>
+        <li class="md-nav__item"><a href="#speed-up-integration-tests-on-macos" class="md-nav__link">Speed up integration tests on macOS</a>
+        </li>
+        <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#job-timeouts" class="md-nav__link">Job timeouts</a>
+        </li>
+        <li class="md-nav__item"><a href="#compiler-caches" class="md-nav__link">Compiler caches</a>
+        </li>
+        <li class="md-nav__item"><a href="#required-checks" class="md-nav__link">Required checks</a>
+        </li>
+        <li class="md-nav__item"><a href="#running-exhaustive-for-a-pr" class="md-nav__link">Running Exhaustive for a PR</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#optional-installation-alternatives" class="md-nav__link">Optional installation alternatives</a><nav class="md-nav">
+              <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#binaries" class="md-nav__link">Binaries</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#note-about-conda-installation" class="md-nav__link">Note about Conda Installation</a>
@@ -301,28 +329,6 @@
         <li class="md-nav__item"><a href="#macos" class="md-nav__link">macOS</a>
         </li></ul>
             </nav>
-        </li>
-        <li class="md-nav__item"><a href="#tests" class="md-nav__link">Tests</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#run-tests" class="md-nav__link">Run tests:</a>
-        </li>
-        <li class="md-nav__item"><a href="#update-test-references" class="md-nav__link">Update test references:</a>
-        </li>
-        <li class="md-nav__item"><a href="#run-integration-tests" class="md-nav__link">Run integration tests</a>
-        </li>
-        <li class="md-nav__item"><a href="#speed-up-integration-tests-on-macos" class="md-nav__link">Speed up integration tests on macOS</a>
-        </li>
-        <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#job-timeouts" class="md-nav__link">Job timeouts</a>
-        </li>
-        <li class="md-nav__item"><a href="#compiler-caches" class="md-nav__link">Compiler caches</a>
-        </li>
-        <li class="md-nav__item"><a href="#required-checks" class="md-nav__link">Required checks</a>
-        </li>
-        <li class="md-nav__item"><a href="#running-exhaustive-for-a-pr" class="md-nav__link">Running Exhaustive for a PR</a>
-        </li></ul>
-            </nav>
         </li></ul>
             </nav>
         </li></ul>
@@ -334,70 +340,7 @@
     <li class="md-nav__item">
     
     
-      <a href="#binaries" class="md-nav__link">Binaries</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#build-from-a-source-tarball" class="md-nav__link">Build From a Source Tarball</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#build-from-git" class="md-nav__link">Build From Git</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#build-from-git-on-windows-with-visual-studio" class="md-nav__link">Build from Git on Windows with Visual Studio</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#build-from-git-on-windows-with-wsl" class="md-nav__link">Build from Git on Windows with WSL</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#enabling-the-jupyter-kernel" class="md-nav__link">Enabling the Jupyter Kernel</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#build-from-git-with-nix" class="md-nav__link">Build From Git with Nix</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#note-about-dependencies" class="md-nav__link">Note About Dependencies</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#note-for-users-who-do-not-use-conda" class="md-nav__link">Note for users who do not use Conda</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#stacktraces" class="md-nav__link">Stacktraces</a>
+      <a href="#pixi-recommended" class="md-nav__link">Pixi (recommended)</a>
       
     
     </li>
@@ -405,6 +348,13 @@
     
     
       <a href="#tests" class="md-nav__link">Tests</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#optional-installation-alternatives" class="md-nav__link">Optional installation alternatives</a>
       
     
     </li></ul>
@@ -656,6 +606,34 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#installation--page-root" class="md-nav__link">Installation</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#pixi-recommended" class="md-nav__link">Pixi (recommended)</a>
+        </li>
+        <li class="md-nav__item"><a href="#tests" class="md-nav__link">Tests</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#run-unit-and-reference-tests" class="md-nav__link">Run unit and reference tests</a>
+        </li>
+        <li class="md-nav__item"><a href="#update-test-references" class="md-nav__link">Update test references</a>
+        </li>
+        <li class="md-nav__item"><a href="#run-integration-tests" class="md-nav__link">Run integration tests</a>
+        </li>
+        <li class="md-nav__item"><a href="#speed-up-integration-tests-on-macos" class="md-nav__link">Speed up integration tests on macOS</a>
+        </li>
+        <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#job-timeouts" class="md-nav__link">Job timeouts</a>
+        </li>
+        <li class="md-nav__item"><a href="#compiler-caches" class="md-nav__link">Compiler caches</a>
+        </li>
+        <li class="md-nav__item"><a href="#required-checks" class="md-nav__link">Required checks</a>
+        </li>
+        <li class="md-nav__item"><a href="#running-exhaustive-for-a-pr" class="md-nav__link">Running Exhaustive for a PR</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#optional-installation-alternatives" class="md-nav__link">Optional installation alternatives</a><nav class="md-nav">
+              <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#binaries" class="md-nav__link">Binaries</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#note-about-conda-installation" class="md-nav__link">Note about Conda Installation</a>
@@ -693,28 +671,6 @@
         <li class="md-nav__item"><a href="#macos" class="md-nav__link">macOS</a>
         </li></ul>
             </nav>
-        </li>
-        <li class="md-nav__item"><a href="#tests" class="md-nav__link">Tests</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#run-tests" class="md-nav__link">Run tests:</a>
-        </li>
-        <li class="md-nav__item"><a href="#update-test-references" class="md-nav__link">Update test references:</a>
-        </li>
-        <li class="md-nav__item"><a href="#run-integration-tests" class="md-nav__link">Run integration tests</a>
-        </li>
-        <li class="md-nav__item"><a href="#speed-up-integration-tests-on-macos" class="md-nav__link">Speed up integration tests on macOS</a>
-        </li>
-        <li class="md-nav__item"><a href="#ci-coverage" class="md-nav__link">CI coverage</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#job-timeouts" class="md-nav__link">Job timeouts</a>
-        </li>
-        <li class="md-nav__item"><a href="#compiler-caches" class="md-nav__link">Compiler caches</a>
-        </li>
-        <li class="md-nav__item"><a href="#required-checks" class="md-nav__link">Required checks</a>
-        </li>
-        <li class="md-nav__item"><a href="#running-exhaustive-for-a-pr" class="md-nav__link">Running Exhaustive for a PR</a>
-        </li></ul>
-            </nav>
         </li></ul>
             </nav>
         </li></ul>
@@ -731,376 +687,110 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="installation">
 <h1 id="installation--page-root">Installation<a class="headerlink" href="#installation--page-root" title="Stały odnośnik do tego nagłówka">¶</a></h1>
-<p>All the instructions below work on Linux, macOS and Windows.</p>
-<section id="binaries">
-<h2 id="binaries">Binaries<a class="headerlink" href="#binaries" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>The recommended way to install LFortran is using Conda.
-Install Conda for example by installing the
-<a class="reference external" href="https://conda.io/en/latest/miniconda.html">Miniconda</a> installation by following instructions there for your platform.
-Then create a new environment (you can choose any name, here we chose <code class="docutils literal notranslate"><span class="pre">lf</span></code>) and
-activate it:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf
-conda<span class="w"> </span>activate<span class="w"> </span>lf
-</pre></div>
-</div>
-<p>Then install LFortran by:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>lfortran<span class="w"> </span>-c<span class="w"> </span>conda-forge
-</pre></div>
-</div>
-<p>Now the <code class="docutils literal notranslate"><span class="pre">lf</span></code> environment has the <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> compiler available, you can start the
-interactive prompt by executing <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>, or see the command line options using
-<code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">-h</span></code>.</p>
-<section id="note-about-conda-installation">
-<h3 id="note-about-conda-installation">Note about Conda Installation<a class="headerlink" href="#note-about-conda-installation" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>When installing LFortran using Conda, multiple copies of the <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>
-executable may be present in different locations (for example, in the package
-cache). Only the executable inside the active Conda environment should be used.</p>
-<p>After activating a conda environment, the correct executable is typically located at:
-<code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX/bin/lfortran</span></code></p>
-<p>To verify which executable is being used, activate a conda environment and run:
-<code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">lfortran</span></code></p>
-<p>Other copies located in package directories may not run correctly and can be ignored.</p>
-<p>The Jupyter kernel is automatically installed by the above command, so after installing Jupyter itself:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>-c<span class="w"> </span>conda-forge
-</pre></div>
-</div>
-<p>You can create a Fortran based Jupyter notebook by executing:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>notebook
-</pre></div>
-</div>
-<p>and selecting <code class="docutils literal notranslate"><span class="pre">New-&gt;Fortran</span></code>.</p>
-</section>
-</section>
-<section id="build-from-a-source-tarball">
-<h2 id="build-from-a-source-tarball">Build From a Source Tarball<a class="headerlink" href="#build-from-a-source-tarball" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>This method is the recommended method if you just want to install LFortran, either yourself or in a package manager (Spack, Conda, Debian, etc.). The source tarball has all the generated files included and has minimal dependencies.</p>
-<p>The source tarball of LFortran depends on:</p>
-<ul class="simple">
-<li><p>Python</p></li>
-<li><p>cmake</p></li>
-<li><p>LLVM 10-19</p></li>
-<li><p>zstd-static</p></li>
-<li><p>zlib</p></li>
-</ul>
-<p>First we have to install dependencies, for example using Conda:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>llvmdev<span class="w"> </span>zstd-static<span class="w"> </span>zlib
-conda<span class="w"> </span>activate<span class="w"> </span>lf
-</pre></div>
-</div>
-<p>On a Linux system, we additionally need to install <code class="docutils literal notranslate"><span class="pre">libunwind</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>libunwind
-</pre></div>
-</div>
-<p>Then download a tarball from
-<a class="reference external" href="https://lfortran.org/download/">https://lfortran.org/download/</a>,
-e.g.:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/lfortran/lfortran/releases/download/v0.42.0/lfortran-0.42.0.tar.gz
-tar<span class="w"> </span>xzf<span class="w"> </span>lfortran-0.42.0.tar.gz
-<span class="nb">cd</span><span class="w"> </span>lfortran-0.42.0
-</pre></div>
-</div>
-<p>And build:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DWITH_LLVM<span class="o">=</span>yes<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/inst<span class="w"> </span>.
-make<span class="w"> </span>-j8
-make<span class="w"> </span>install
-</pre></div>
-</div>
-<p>This will install <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> into <code class="docutils literal notranslate"><span class="pre">inst/bin</span></code>.  It assumes that c++ and cc are available, which on Linux
-are typically the GNU C++/C compilers.</p>
-</section>
-<section id="build-from-git">
-<h2 id="build-from-git">Build From Git<a class="headerlink" href="#build-from-git" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>We assume you have C++ compilers installed, as well as <code class="docutils literal notranslate"><span class="pre">git</span></code> and <code class="docutils literal notranslate"><span class="pre">wget</span></code>.
-In Ubuntu, you can also install <code class="docutils literal notranslate"><span class="pre">binutils-dev</span></code> for stacktraces.</p>
-<p>If you do not have Conda installed, you can do so on Linux (and similarly on
-other platforms):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>--no-check-certificate<span class="w"> </span>https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh<span class="w"> </span>-O<span class="w"> </span>miniconda.sh
-bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/conda_root
-<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
-</pre></div>
-</div>
-<p>Clone the LFortran git repository:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">lfortran</span><span class="o">/</span><span class="n">lfortran</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">lfortran</span>
-</pre></div>
-</div>
-<p>Then prepare the environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment_linux.yml
-conda<span class="w"> </span>activate<span class="w"> </span>lf
-</pre></div>
-</div>
-<p>Generate files that are needed for the build (this step depends on <code class="docutils literal notranslate"><span class="pre">re2c</span></code>, <code class="docutils literal notranslate"><span class="pre">bison</span></code> and <code class="docutils literal notranslate"><span class="pre">python</span></code>):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build0.sh
-</pre></div>
-</div>
-<p>Now you can use our script <code class="docutils literal notranslate"><span class="pre">./build1.sh</span></code> to build in Debug mode:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build1.sh
-</pre></div>
-</div>
-<p>and can use <code class="docutils literal notranslate"><span class="pre">ninja</span></code> to rebuild.</p>
-<p>To do a clean rebuild, you can use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># NOTE: the below git command deletes all untracked files</span>
-git<span class="w"> </span>clean<span class="w"> </span>-dfx<span class="w">  </span><span class="c1"># reset repository to a clean state by removing artifacts generated during the build process</span>
-./build0.sh
-./build1.sh
-</pre></div>
-</div>
-<p>Run an interactive prompt:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran
-</pre></div>
-</div>
-<p>See <span class="xref myst">how to run tests</span> to make sure all tests pass</p>
-</section>
-<section id="build-from-git-on-windows-with-visual-studio">
-<h2 id="build-from-git-on-windows-with-visual-studio">Build from Git on Windows with Visual Studio<a class="headerlink" href="#build-from-git-on-windows-with-visual-studio" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>Install Visual Studio (MSVC), for example the version 2022, you can download the
-Community version for free from: https://visualstudio.microsoft.com/downloads/.</p>
-<p>Install miniforge using the Windows installer from https://github.com/conda-forge/miniforge.</p>
-<p>Launch the Miniforge Prompt from the Desktop.</p>
-<p>In the shell, initialize the MSVC compiler using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">call</span> <span class="s2">"C:\Program Files\Microsoft Visual Studio</span><span class="se">\202</span><span class="s2">2\Community\Common7\Tools\VsDevCmd"</span> <span class="o">-</span><span class="n">arch</span><span class="o">=</span><span class="n">x64</span>
-</pre></div>
-</div>
-<p>You can optionally test that MSVC works by:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cl /?
-link /?
-</pre></div>
-</div>
-<p>Both commands must print help (several pages).</p>
-<p>Now you can download and build LFortran:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">lfortran</span><span class="o">/</span><span class="n">lfortran</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">lfortran</span>
-<span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment_win</span><span class="o">.</span><span class="n">yml</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">lf</span>
-<span class="n">build0</span><span class="o">.</span><span class="n">bat</span>
-<span class="n">build1</span><span class="o">.</span><span class="n">bat</span>
-</pre></div>
-</div>
-<p>If everything compiled, then you can use LFortran as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inst</span>\<span class="nb">bin</span>\<span class="n">lfortran</span> <span class="n">examples</span><span class="o">/</span><span class="n">expr2</span><span class="o">.</span><span class="n">f90</span>
-<span class="n">expr2</span><span class="o">.</span><span class="n">exe</span>
-<span class="n">inst</span>\<span class="nb">bin</span>\<span class="n">lfortran</span>
-</pre></div>
-</div>
-<p>And so on.</p>
-<p>Note: LFortran currently uses the MSVC’s linker program (<code class="docutils literal notranslate"><span class="pre">link</span></code>), which is only
-available when the MSVC bat script above is ran. If you forget to activate it,
-LFortran’s linking will fail.</p>
-<p>Note: the miniforge shell seems to be running some version of <code class="docutils literal notranslate"><span class="pre">git-bash</span></code>
-(although it is <code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>), which has some unix-like filesystem mounted in
-<code class="docutils literal notranslate"><span class="pre">/usr</span></code> and several commands available such as <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">which</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span></code>, <code class="docutils literal notranslate"><span class="pre">vim</span></code>.  For
-this reason the Conda build <code class="docutils literal notranslate"><span class="pre">environment_win.yml</span></code> contains everything needed,
-including <code class="docutils literal notranslate"><span class="pre">git</span></code>.</p>
-</section>
-<section id="build-from-git-on-windows-with-wsl">
-<h2 id="build-from-git-on-windows-with-wsl">Build from Git on Windows with WSL<a class="headerlink" href="#build-from-git-on-windows-with-wsl" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<ul>
-<li><p>In windows search „turn windows features on or off”.</p></li>
-<li><p>Tick Windows subsystem for Linux.</p></li>
-<li><p>Press OK and restart computer.</p></li>
-<li><p>Go to Microsoft store and download Ubuntu (20.04 or 22.04 or 24.04), and launch it.</p></li>
-<li><p>Now setup LFortran by running the following commands.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w">  </span>https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh<span class="w"> </span>-O<span class="w"> </span>miniconda.sh
-bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/conda_root
-<span class="nb">echo</span><span class="w"> </span><span class="s2">"export PATH=</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
-</pre></div>
-</div>
-</li>
-<li><p>After that restart the Ubuntu terminal.</p></li>
-<li><p>Now clone the LFortran git repository (you should clone it inside a linux owned directory like <code class="docutils literal notranslate"><span class="pre">~</span></code> or  any of its sub-directories).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lfortran/lfortran.git
+<p>Use Pixi for development on Linux, macOS and Windows.</p>
+<section id="pixi-recommended">
+<h2 id="pixi-recommended">Pixi (recommended)<a class="headerlink" href="#pixi-recommended" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Use <a class="reference external" href="https://pixi.sh/">Pixi</a> to install the repository’s build dependencies and
+build LFortran. Install Pixi following its platform instructions, and install
+Git. On macOS, install Xcode Command Line Tools (<code class="docutils literal notranslate"><span class="pre">xcode-select</span> <span class="pre">--install</span></code>).
+On Windows, install Visual Studio’s C++ build tools and Git Bash, and run Pixi
+from an initialized MSVC developer environment (the x64 Native Tools Command
+Prompt). Use Pixi inside WSL for the Unix-only integration runner.
+Pixi supplies the Linux C/C++ compilers, Clang for native LLVM executable
+linking, and LLVM’s OpenMP runtime (<code class="docutils literal notranslate"><span class="pre">libomp</span></code>), so host Clang is not required.
+On macOS, the environment selects the Xcode C/C++ compilers; the C backend
+honors this selection for both compilation and linking (see
+<span class="xref myst">Selecting the C Compiler</span>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lfortran/lfortran.git
 <span class="nb">cd</span><span class="w"> </span>lfortran
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>build<span class="w"> </span>&gt;<span class="w"> </span>build.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>start<span class="w"> </span>--version
 </pre></div>
 </div>
-</li>
-<li><p>Run the following</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment_linux.yml
-conda<span class="w"> </span>init<span class="w"> </span>bash
+<p>There is no separate dependency-install or source-generation step:
+<code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">build</span></code> installs the environment and invokes the repository’s build
+scripts. The default native environment is <code class="docutils literal notranslate"><span class="pre">llvm11</span></code>, which matches the reference
+test suite. Its executable is <code class="docutils literal notranslate"><span class="pre">build/llvm11/src/bin/lfortran</span></code>; run it through
+<code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">start</span></code>, or use <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">shell</span> <span class="pre">-e</span> <span class="pre">llvm11</span></code> to put it on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.
+On Windows the executable has the <code class="docutils literal notranslate"><span class="pre">.exe</span></code> extension. The native Windows task
+uses Release mode with compiler and runtime stacktraces disabled.</p>
+<p>Select another environment explicitly to keep multiple configurations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm22<span class="w"> </span>build
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm22<span class="w"> </span>start<span class="w"> </span>--version
 </pre></div>
 </div>
-</li>
-<li><p>Restart Ubuntu terminal again</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lf
-sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>zlib1g-dev<span class="w"> </span>libzstd-dev
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>clang
+<p>Dependencies live in <code class="docutils literal notranslate"><span class="pre">.pixi/envs/&lt;environment&gt;</span></code> and CMake builds in
+<code class="docutils literal notranslate"><span class="pre">build/&lt;environment&gt;</span></code>. Configuration names, not just LLVM versions, determine
+the directory, so feature combinations using the same LLVM can coexist too.
+Build configurations one at a time within a checkout because source generation
+is shared; use separate Git worktrees for parallel development.</p>
+<p>Run tests from the repository root and inspect the saved logs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>ctest<span class="w"> </span>-j8<span class="w"> </span>&gt;<span class="w"> </span>unit.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>tests<span class="w"> </span>-j8<span class="w"> </span>&gt;<span class="w"> </span>reference.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>integration_tests<span class="w"> </span>-j8<span class="w"> </span>&gt;<span class="w"> </span>integration.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>integration_tests<span class="w"> </span>-b<span class="w"> </span>gfortran<span class="w"> </span>-j8<span class="w"> </span>&gt;<span class="w"> </span>gfortran.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </pre></div>
 </div>
-</li>
-<li><p>Run the following commands</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lf
-./build0.sh
-cmake<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span>-DWITH_LLVM<span class="o">=</span>yes<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/inst<span class="w"> </span>.
-make<span class="w"> </span>-j8
-</pre></div>
-</div>
-</li>
-<li><p>If everything compiles, you can use LFortran as follows</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran<span class="w"> </span>./examples/expr2.f90
-./expr2.out
-</pre></div>
-</div>
-</li>
-<li><p>Run an interactive prompt</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran
-</pre></div>
-</div>
-</li>
-</ul>
-<p>See <span class="xref myst">how to run tests</span> to make sure all tests pass</p>
-</section>
-<section id="enabling-the-jupyter-kernel">
-<h2 id="enabling-the-jupyter-kernel">Enabling the Jupyter Kernel<a class="headerlink" href="#enabling-the-jupyter-kernel" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>To install the Jupyter kernel, install the following Conda packages also:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">xeus</span><span class="o">=</span><span class="mf">6.0.0</span> <span class="n">xeus</span><span class="o">-</span><span class="n">zmq</span><span class="o">=</span><span class="mf">4.0.0</span> <span class="n">nlohmann_json</span>
-</pre></div>
-</div>
-<p>and enable the kernel by <code class="docutils literal notranslate"><span class="pre">-DWITH_XEUS=yes</span></code> and install into <code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code>. For
-example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> \
-    <span class="o">-</span><span class="n">DCMAKE_BUILD_TYPE</span><span class="o">=</span><span class="n">Debug</span> \
-    <span class="o">-</span><span class="n">DWITH_LLVM</span><span class="o">=</span><span class="n">yes</span> \
-    <span class="o">-</span><span class="n">DWITH_XEUS</span><span class="o">=</span><span class="n">yes</span> \
-    <span class="o">-</span><span class="n">DCMAKE_PREFIX_PATH</span><span class="o">=</span><span class="s2">"$CONDA_PREFIX"</span> \
-    <span class="o">-</span><span class="n">DCMAKE_INSTALL_PREFIX</span><span class="o">=</span><span class="s2">"$CONDA_PREFIX"</span> \
-    <span class="o">.</span>
-<span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="o">.</span> <span class="o">-</span><span class="n">j4</span> <span class="o">--</span><span class="n">target</span> <span class="n">install</span>
-</pre></div>
-</div>
-<p>To use it, install Jupyter (<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">jupyter</span></code>) and test that the LFortran
-kernel was found:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">kernelspec</span> <span class="nb">list</span> <span class="o">--</span><span class="n">json</span>
-</pre></div>
-</div>
-<p>Then launch a Jupyter notebook as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">notebook</span>
-</pre></div>
-</div>
-<p>Click <code class="docutils literal notranslate"><span class="pre">New-&gt;Fortran</span></code>. To launch a terminal jupyter LFortran console:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">console</span> <span class="o">--</span><span class="n">kernel</span><span class="o">=</span><span class="n">fortran</span>
-</pre></div>
-</div>
-</section>
-<section id="build-from-git-with-nix">
-<h2 id="build-from-git-with-nix">Build From Git with Nix<a class="headerlink" href="#build-from-git-with-nix" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>There’s a provided Nix shell for making a consistent build environment with the exact same dependency versions across users.</p>
-<section id="using-the-environment">
-<h3 id="using-the-environment">Using the Environment<a class="headerlink" href="#using-the-environment" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>Enter the development environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix<span class="w"> </span>develop<span class="w"> </span>./ci/nix
-</pre></div>
-</div>
-<p>To change the compilation environment from <code class="docutils literal notranslate"><span class="pre">gcc</span></code> (default) to <code class="docutils literal notranslate"><span class="pre">clang</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix<span class="w"> </span>develop<span class="w"> </span>./ci/nix#clangOnly
-</pre></div>
-</div>
-<p>Depending on your system configuration, you might have to run <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code> with the following extra nix features explicitly enabled:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix<span class="w"> </span>--extra-experimental-features<span class="w"> </span><span class="s2">"flakes nix-command"</span><span class="w"> </span>develop<span class="w"> </span>./ci/nix
-</pre></div>
-</div>
-</section>
-<section id="building-the-code">
-<h3 id="building-the-code">Building the Code<a class="headerlink" href="#building-the-code" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>The build steps are the same as when building from git:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build0.sh
-./build1.sh
-</pre></div>
-</div>
-<p>As of 2025-11-10, the environment passes the CI tests, provided you tell it where to install the Jupyter kernel:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">LFORTRAN_CMAKE_GENERATOR</span><span class="o">=</span>Ninja<span class="w"> </span><span class="nv">CONDA_PREFIX</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="w"> </span><span class="nv">JUPYTER_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/share/jupyter<span class="w"> </span>bash<span class="w"> </span>ci/build.sh
-</pre></div>
-</div>
-<p>(take note that the Nix shell does not use conda)</p>
-<p>Give the same <code class="docutils literal notranslate"><span class="pre">JUPYTER_PATH</span></code> when running <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code> / <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code> to use the same jupyter kernel.</p>
-</section>
-</section>
-<section id="note-about-dependencies">
-<h2 id="note-about-dependencies">Note About Dependencies<a class="headerlink" href="#note-about-dependencies" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>End users (and distributions) are encouraged to use the tarball
-from <a class="reference external" href="https://lfortran.org/download/">https://lfortran.org/download/</a>,
-which only depends on LLVM, CMake and a C++ compiler.</p>
-<p>The tarball is generated automatically by our CI (continuous integration) and
-contains some autogenerated files: the parser, the AST and ASR nodes, which is generated by an ASDL
-translator (requires Python).</p>
-<p>The instructions from git are to be used when developing LFortran itself.</p>
-</section>
-<section id="note-for-users-who-do-not-use-conda">
-<h2 id="note-for-users-who-do-not-use-conda">Note for users who do not use Conda<a class="headerlink" href="#note-for-users-who-do-not-use-conda" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>Following are the dependencies necessary for installing this
-repository in development mode,</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://ftp.gnu.org/gnu/bison/bison-3.5.1.tar.xz">Bison - 3.5.1</a></p></li>
-<li><p><a class="reference external" href="https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.1/llvm-11.0.1.src.tar.xz">LLVM - 11.0.1</a></p></li>
-<li><p><a class="reference external" href="https://re2c.org/install/install.html">re2c - 2.0.3</a></p></li>
-<li><p><a class="reference external" href="ftp://sourceware.org/pub/binutils/snapshots/binutils-2.31.90.tar.xz">binutils - 2.31.90</a> - Make sure that you should enable the required options related to this dependency to build the dynamic libraries (the ones ending with <code class="docutils literal notranslate"><span class="pre">.so</span></code>).</p></li>
-</ul>
-</section>
-<section id="stacktraces">
-<h2 id="stacktraces">Stacktraces<a class="headerlink" href="#stacktraces" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>LFortran can print stacktraces when there is an unhandled exception, as well as
-on any compiler error with the <code class="docutils literal notranslate"><span class="pre">--show-stacktrace</span></code> option. This is very helpful
-for developing the compiler itself to see where in LFortran the problem is. The
-stacktrace support is turned off by default, to enable it,
-compile LFortran with the <code class="docutils literal notranslate"><span class="pre">-DWITH_STACKTRACE=yes</span></code> cmake option after installing
-the prerequisites on each platform per the instructions below.</p>
-<section id="llvm">
-<h3 id="llvm">LLVM<a class="headerlink" href="#llvm" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>In all platforms having LLVM, stacktraces can be shown with LLVM, so no
-additional prerequisites are required. If LLVM is not available, you can use
-the following instructions, depending on your platform.</p>
-</section>
-<section id="ubuntu">
-<h3 id="ubuntu">Ubuntu<a class="headerlink" href="#ubuntu" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>In Ubuntu, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">binutils-dev</span></code>.</p>
-</section>
-<section id="macos">
-<h3 id="macos">macOS<a class="headerlink" href="#macos" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>If you use the default Clang compiler on macOS, then the stacktraces should
-just work on both Intel and M1 based macOS (the CMake build system
-automatically invokes the <code class="docutils literal notranslate"><span class="pre">dsymtuil</span></code> tool and our Python scripts to store the
-debug information, see <code class="docutils literal notranslate"><span class="pre">src/bin/CMakeLists.txt</span></code> for more details). If it does
-not work, please report a bug.</p>
-<p>If you do not like the default way, an alternative is to use bintutils. For
-that, first install
-<a class="reference external" href="https://spack.io/">Spack</a>, then:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>spack<span class="w"> </span>install<span class="w"> </span>binutils
-spack<span class="w"> </span>find<span class="w"> </span>-p<span class="w"> </span>binutils
-</pre></div>
-</div>
-<p>The last command will show a full path to the installed <code class="docutils literal notranslate"><span class="pre">binutils</span></code> package. Add
-this path to your shell config file, e.g.:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CMAKE_PREFIX_PATH_LFORTRAN</span><span class="o">=</span>/Users/ondrej/repos/spack/opt/spack/darwin-catalina-broadwell/apple-clang-11.0.0/binutils-2.36.1-wy6osfm6bp2323g3jpv2sjuttthwx3gd
-</pre></div>
-</div>
-<p>and compile LFortran with the
-<code class="docutils literal notranslate"><span class="pre">-DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH_LFORTRAN;$CONDA_PREFIX"</span></code> cmake option.
-The <code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code> is there if you install some other dependencies (such as
-<code class="docutils literal notranslate"><span class="pre">llvm</span></code>) using Conda, otherwise you can remove it.</p>
-</section>
+<p>The <code class="docutils literal notranslate"><span class="pre">gfortran</span></code> backend honors <code class="docutils literal notranslate"><span class="pre">FC</span></code> when set, otherwise it uses <code class="docutils literal notranslate"><span class="pre">gfortran</span></code>.
+On macOS ARM, the <code class="docutils literal notranslate"><span class="pre">llvm11</span></code> environment sets <code class="docutils literal notranslate"><span class="pre">FC="gfortran</span> <span class="pre">-B/usr/bin/"</span></code> to
+select Xcode’s assembler and linker. Recent GFortran emits M1/LSE instructions
+that the LLVM 11 environment’s bundled Clang assembler rejects by default.
+This tool selection does not pass GFortran-specific flags to LFortran or
+change the LLVM version used for reference outputs.</p>
+<p>The integration task uses Make from the selected environment. The runner is
+currently intended for Unix-like shells; use WSL
+for that suite on Windows. CTest uses the selected native build. Append <code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">&lt;pattern&gt;</span></code> to <code class="docutils literal notranslate"><span class="pre">tests</span></code> or <code class="docutils literal notranslate"><span class="pre">integration_tests</span></code> for a focused run. Reference tests
+require a compiler built with LLVM 11, which the task checks before running or
+updating any test. They run in
+<code class="docutils literal notranslate"><span class="pre">build/&lt;environment&gt;/reference_tests</span></code>, which links to the test inputs in the
+source tree, so outputs, module files and executables stay in that build
+directory and several builds can be tested at once. The directory is emptied at
+the start of every run. They update the source
+<code class="docutils literal notranslate"><span class="pre">tests/reference</span></code> only when explicitly given <code class="docutils literal notranslate"><span class="pre">-u</span></code>. Review every reference
+update.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">-e</span> <span class="pre">&lt;environment&gt;</span> <span class="pre">clean</span></code> to clean that configuration’s CMake build
+targets without deleting other builds, local changes, or installed dependencies.
+Set <code class="docutils literal notranslate"><span class="pre">CMAKE_BUILD_PARALLEL_LEVEL</span></code> to limit build parallelism. Keep the same Pixi
+entry points as dependencies/build details evolve in <code class="docutils literal notranslate"><span class="pre">pixi.toml</span></code> and the scripts,
+rather than maintaining a separate list of packages or CMake flags.</p>
+<p>Use the Pixi workflow for builds and tests; it supplies the declared
+project dependencies without separate system/global package installation.
+AI contributors must follow the
+<a class="reference external" href="https://github.com/lfortran/lfortran/blob/main/AGENTS.md#required-agent-toolchain-pixi">required Pixi toolchain policy</a>.
+Optional alternatives for packaging or existing non-Pixi installations are
+collected <span class="xref myst">at the end of this guide</span>.</p>
 </section>
 <section id="tests">
 <h2 id="tests">Tests<a class="headerlink" href="#tests" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<section id="run-tests">
-<h3 id="run-tests">Run tests:<a class="headerlink" href="#run-tests" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ctest
-./run_tests.py
+<section id="run-unit-and-reference-tests">
+<h3 id="run-unit-and-reference-tests">Run unit and reference tests<a class="headerlink" href="#run-unit-and-reference-tests" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Run from the repository root after building, and inspect the saved logs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>ctest<span class="w"> </span>-j8<span class="w"> </span>&gt;<span class="w"> </span>unit.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>tests<span class="w"> </span>-j8<span class="w"> </span>&gt;<span class="w"> </span>reference.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </pre></div>
 </div>
+<p>Reference tests and updates require LLVM 11 (<code class="docutils literal notranslate"><span class="pre">llvmdev</span> <span class="pre">==11.1.0</span></code>). The Pixi
+<code class="docutils literal notranslate"><span class="pre">tests</span></code> task checks the selected compiler before running or updating references.</p>
 </section>
 <section id="update-test-references">
-<h3 id="update-test-references">Update test references:<a class="headerlink" href="#update-test-references" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_tests.py<span class="w"> </span>-u
+<h3 id="update-test-references">Update test references<a class="headerlink" href="#update-test-references" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Update only the tests whose outputs intentionally changed, using LLVM 11,
+and review the resulting diff:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>tests<span class="w"> </span>-t<span class="w"> </span>&lt;pattern&gt;<span class="w"> </span>-u<span class="w"> </span>-s<span class="w"> </span>&gt;<span class="w"> </span>reference-update.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+git<span class="w"> </span>diff<span class="w"> </span>--<span class="w"> </span>tests/reference
 </pre></div>
 </div>
 </section>
 <section id="run-integration-tests">
 <h3 id="run-integration-tests">Run integration tests<a class="headerlink" href="#run-integration-tests" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>integration_tests
-./run_tests.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>integration_tests<span class="w"> </span>-j8<span class="w"> </span>&gt;<span class="w"> </span>integration.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>integration_tests<span class="w"> </span>-t<span class="w"> </span>&lt;pattern&gt;<span class="w"> </span>-j8<span class="w"> </span>&gt;<span class="w"> </span>targeted.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>integration_tests<span class="w"> </span>-b<span class="w"> </span>gfortran<span class="w"> </span>-j8<span class="w"> </span>&gt;<span class="w"> </span>gfortran.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </pre></div>
 </div>
+<p>Additional backends and modes use the same Pixi task, for example <code class="docutils literal notranslate"><span class="pre">-b</span> <span class="pre">c</span></code>,
+<code class="docutils literal notranslate"><span class="pre">-b</span> <span class="pre">llvm_omp</span></code>, or <code class="docutils literal notranslate"><span class="pre">-f</span></code> for fast mode. Use <code class="docutils literal notranslate"><span class="pre">-e</span> <span class="pre">&lt;environment&gt;</span></code> consistently for
+another Pixi build; reference tests and updates always use <code class="docutils literal notranslate"><span class="pre">llvm11</span></code>.</p>
 </section>
 <section id="speed-up-integration-tests-on-macos">
 <h3 id="speed-up-integration-tests-on-macos">Speed up integration tests on macOS<a class="headerlink" href="#speed-up-integration-tests-on-macos" title="Stały odnośnik do tego nagłówka">¶</a></h3>
@@ -1245,7 +935,12 @@ a new copy. After every Quick or Exhaustive run on <code class="docutils literal
 newest copy of each key, keeping the total under the limit. This leaves room
 for a 1.5 GB ccache per platform build (<code class="docutils literal notranslate"><span class="pre">max-size:</span> <span class="pre">1500M</span></code> in
 <code class="docutils literal notranslate"><span class="pre">.github/actions/build-platform</span></code>); the action’s 500 MB default is smaller than
-one Debug build, so ccache evicted objects it still needed.</p>
+one Debug build, so ccache evicted objects it still needed. Quick’s <code class="docutils literal notranslate"><span class="pre">Build</span></code>
+and Exhaustive’s <code class="docutils literal notranslate"><span class="pre">platform</span></code> jobs build the same platform compilers with the
+same cache keys, so only Quick saves them (<code class="docutils literal notranslate"><span class="pre">save-cache:</span> <span class="pre">'false'</span></code> in
+Exhaustive). When both saved, each <code class="docutils literal notranslate"><span class="pre">main</span></code> push added a second copy of every
+platform cache before the prune ran, which pushed the total over 10 GB and
+evicted other jobs» caches.</p>
 </section>
 <section id="required-checks">
 <h4 id="required-checks">Required checks<a class="headerlink" href="#required-checks" title="Stały odnośnik do tego nagłówka">¶</a></h4>
@@ -1391,10 +1086,9 @@ a green Quick result. If the PR’s current revision has no successful Quick
 run, dispatch <code class="docutils literal notranslate"><span class="pre">Quick-Checks-CI.yml</span></code> the same way.</p></li>
 <li><p>Manual runs do not publish or deploy.</p></li>
 </ul>
-<p>To run the representative integration subset locally:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>integration_tests
-./run_tests.py<span class="w"> </span>-b<span class="w"> </span>llvm<span class="w"> </span>--smoke<span class="w"> </span>&gt;<span class="w"> </span>smoke.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-./run_tests.py<span class="w"> </span>-b<span class="w"> </span>llvm<span class="w"> </span>--smoke<span class="w"> </span>-f<span class="w"> </span>&gt;<span class="w"> </span>smoke-fast.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<p>To run the representative integration subset locally from the repository root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>integration_tests<span class="w"> </span>-b<span class="w"> </span>llvm<span class="w"> </span>--smoke<span class="w"> </span>&gt;<span class="w"> </span>smoke.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>integration_tests<span class="w"> </span>-b<span class="w"> </span>llvm<span class="w"> </span>--smoke<span class="w"> </span>-f<span class="w"> </span>&gt;<span class="w"> </span>smoke-fast.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </pre></div>
 </div>
 <p>The explicit list lives in <code class="docutils literal notranslate"><span class="pre">integration_tests/smoke_tests.cmake</span></code>. Selection
@@ -1403,6 +1097,363 @@ including WASM and implicit-interface tests. Backend support labels and
 normal/fast/standard flags still apply. An empty selected backend is an error.
 Use the full suite for primary regression coverage; add representative tests
 to the list when introducing a new feature or platform-sensitive path.</p>
+</section>
+</section>
+</section>
+<section id="optional-installation-alternatives">
+<h2 id="optional-installation-alternatives">Optional installation alternatives<a class="headerlink" href="#optional-installation-alternatives" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Pixi above is the recommended workflow for local development and testing.
+The following recipes are optional for packaging, prebuilt binaries, or
+maintaining an existing non-Pixi installation. AI agents must use the Pixi
+workflow and must not use these recipes to install project dependencies.</p>
+<section id="binaries">
+<h3 id="binaries">Binaries<a class="headerlink" href="#binaries" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Prebuilt LFortran binaries are also available using Conda.
+Install Conda for example by installing the
+<a class="reference external" href="https://conda.io/en/latest/miniconda.html">Miniconda</a> installation by following instructions there for your platform.
+Then create a new environment (you can choose any name, here we chose <code class="docutils literal notranslate"><span class="pre">lf</span></code>) and
+activate it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf
+conda<span class="w"> </span>activate<span class="w"> </span>lf
+</pre></div>
+</div>
+<p>Then install LFortran by:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>lfortran<span class="w"> </span>-c<span class="w"> </span>conda-forge
+</pre></div>
+</div>
+<p>Now the <code class="docutils literal notranslate"><span class="pre">lf</span></code> environment has the <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> compiler available, you can start the
+interactive prompt by executing <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>, or see the command line options using
+<code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">-h</span></code>.</p>
+<section id="note-about-conda-installation">
+<h4 id="note-about-conda-installation">Note about Conda Installation<a class="headerlink" href="#note-about-conda-installation" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>When installing LFortran using Conda, multiple copies of the <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>
+executable may be present in different locations (for example, in the package
+cache). Only the executable inside the active Conda environment should be used.</p>
+<p>After activating a conda environment, the correct executable is typically located at:
+<code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX/bin/lfortran</span></code></p>
+<p>To verify which executable is being used, activate a conda environment and run:
+<code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">lfortran</span></code></p>
+<p>Other copies located in package directories may not run correctly and can be ignored.</p>
+<p>The Jupyter kernel is automatically installed by the above command, so after installing Jupyter itself:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>-c<span class="w"> </span>conda-forge
+</pre></div>
+</div>
+<p>You can create a Fortran based Jupyter notebook by executing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>notebook
+</pre></div>
+</div>
+<p>and selecting <code class="docutils literal notranslate"><span class="pre">New-&gt;Fortran</span></code>.</p>
+</section>
+</section>
+<section id="build-from-a-source-tarball">
+<h3 id="build-from-a-source-tarball">Build From a Source Tarball<a class="headerlink" href="#build-from-a-source-tarball" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Source tarballs remain a supported alternative, especially for packaging
+(Spack, Conda, Debian, etc.) or builds with minimal dependencies. They include
+all generated sources.</p>
+<p>The source tarball of LFortran depends on:</p>
+<ul class="simple">
+<li><p>Python</p></li>
+<li><p>cmake</p></li>
+<li><p>LLVM 10-19</p></li>
+<li><p>zstd-static</p></li>
+<li><p>zlib</p></li>
+</ul>
+<p>First we have to install dependencies, for example using Conda:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>python<span class="w"> </span>cmake<span class="w"> </span>llvmdev<span class="w"> </span>zstd-static<span class="w"> </span>zlib
+conda<span class="w"> </span>activate<span class="w"> </span>lf
+</pre></div>
+</div>
+<p>On a Linux system, we additionally need to install <code class="docutils literal notranslate"><span class="pre">libunwind</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>libunwind
+</pre></div>
+</div>
+<p>Then download a tarball from
+<a class="reference external" href="https://lfortran.org/download/">https://lfortran.org/download/</a>,
+e.g.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://github.com/lfortran/lfortran/releases/download/v0.42.0/lfortran-0.42.0.tar.gz
+tar<span class="w"> </span>xzf<span class="w"> </span>lfortran-0.42.0.tar.gz
+<span class="nb">cd</span><span class="w"> </span>lfortran-0.42.0
+</pre></div>
+</div>
+<p>And build:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DWITH_LLVM<span class="o">=</span>yes<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/inst<span class="w"> </span>.
+make<span class="w"> </span>-j8
+make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>This will install <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> into <code class="docutils literal notranslate"><span class="pre">inst/bin</span></code>.  It assumes that c++ and cc are available, which on Linux
+are typically the GNU C++/C compilers.</p>
+</section>
+<section id="build-from-git">
+<h3 id="build-from-git">Build From Git<a class="headerlink" href="#build-from-git" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>We assume you have C++ compilers installed, as well as <code class="docutils literal notranslate"><span class="pre">git</span></code> and <code class="docutils literal notranslate"><span class="pre">wget</span></code>.
+In Ubuntu, you can also install <code class="docutils literal notranslate"><span class="pre">binutils-dev</span></code> for stacktraces.</p>
+<p>If you do not have Conda installed, you can do so on Linux (and similarly on
+other platforms):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>--no-check-certificate<span class="w"> </span>https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh<span class="w"> </span>-O<span class="w"> </span>miniconda.sh
+bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/conda_root
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+</pre></div>
+</div>
+<p>Clone the LFortran git repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">lfortran</span><span class="o">/</span><span class="n">lfortran</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">lfortran</span>
+</pre></div>
+</div>
+<p>Then prepare the environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment_linux.yml
+conda<span class="w"> </span>activate<span class="w"> </span>lf
+</pre></div>
+</div>
+<p>Generate files that are needed for the build (this step depends on <code class="docutils literal notranslate"><span class="pre">re2c</span></code>, <code class="docutils literal notranslate"><span class="pre">bison</span></code> and <code class="docutils literal notranslate"><span class="pre">python</span></code>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build0.sh
+</pre></div>
+</div>
+<p>Now you can use our script <code class="docutils literal notranslate"><span class="pre">./build1.sh</span></code> to build in Debug mode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build1.sh
+</pre></div>
+</div>
+<p>and can use <code class="docutils literal notranslate"><span class="pre">ninja</span></code> to rebuild.</p>
+<p>To do a clean rebuild, you can use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># NOTE: the below git command deletes all untracked files</span>
+git<span class="w"> </span>clean<span class="w"> </span>-dfx<span class="w">  </span><span class="c1"># reset repository to a clean state by removing artifacts generated during the build process</span>
+./build0.sh
+./build1.sh
+</pre></div>
+</div>
+<p>Run an interactive prompt:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran
+</pre></div>
+</div>
+<p>See <span class="xref myst">how to run tests</span> to make sure all tests pass</p>
+</section>
+<section id="build-from-git-on-windows-with-visual-studio">
+<h3 id="build-from-git-on-windows-with-visual-studio">Build from Git on Windows with Visual Studio<a class="headerlink" href="#build-from-git-on-windows-with-visual-studio" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Install Visual Studio (MSVC), for example the version 2022, you can download the
+Community version for free from: https://visualstudio.microsoft.com/downloads/.</p>
+<p>Install miniforge using the Windows installer from https://github.com/conda-forge/miniforge.</p>
+<p>Launch the Miniforge Prompt from the Desktop.</p>
+<p>In the shell, initialize the MSVC compiler using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">call</span> <span class="s2">"C:\Program Files\Microsoft Visual Studio</span><span class="se">\202</span><span class="s2">2\Community\Common7\Tools\VsDevCmd"</span> <span class="o">-</span><span class="n">arch</span><span class="o">=</span><span class="n">x64</span>
+</pre></div>
+</div>
+<p>You can optionally test that MSVC works by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cl /?
+link /?
+</pre></div>
+</div>
+<p>Both commands must print help (several pages).</p>
+<p>Now you can download and build LFortran:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">lfortran</span><span class="o">/</span><span class="n">lfortran</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">lfortran</span>
+<span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment_win</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">lf</span>
+<span class="n">build0</span><span class="o">.</span><span class="n">bat</span>
+<span class="n">build1</span><span class="o">.</span><span class="n">bat</span>
+</pre></div>
+</div>
+<p>If everything compiled, then you can use LFortran as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inst</span>\<span class="nb">bin</span>\<span class="n">lfortran</span> <span class="n">examples</span><span class="o">/</span><span class="n">expr2</span><span class="o">.</span><span class="n">f90</span>
+<span class="n">expr2</span><span class="o">.</span><span class="n">exe</span>
+<span class="n">inst</span>\<span class="nb">bin</span>\<span class="n">lfortran</span>
+</pre></div>
+</div>
+<p>And so on.</p>
+<p>Note: LFortran currently uses the MSVC’s linker program (<code class="docutils literal notranslate"><span class="pre">link</span></code>), which is only
+available when the MSVC bat script above is ran. If you forget to activate it,
+LFortran’s linking will fail.</p>
+<p>Note: the miniforge shell seems to be running some version of <code class="docutils literal notranslate"><span class="pre">git-bash</span></code>
+(although it is <code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>), which has some unix-like filesystem mounted in
+<code class="docutils literal notranslate"><span class="pre">/usr</span></code> and several commands available such as <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">which</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span></code>, <code class="docutils literal notranslate"><span class="pre">vim</span></code>.  For
+this reason the Conda build <code class="docutils literal notranslate"><span class="pre">environment_win.yml</span></code> contains everything needed,
+including <code class="docutils literal notranslate"><span class="pre">git</span></code>.</p>
+</section>
+<section id="build-from-git-on-windows-with-wsl">
+<h3 id="build-from-git-on-windows-with-wsl">Build from Git on Windows with WSL<a class="headerlink" href="#build-from-git-on-windows-with-wsl" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<ul>
+<li><p>In windows search „turn windows features on or off”.</p></li>
+<li><p>Tick Windows subsystem for Linux.</p></li>
+<li><p>Press OK and restart computer.</p></li>
+<li><p>Go to Microsoft store and download Ubuntu (20.04 or 22.04 or 24.04), and launch it.</p></li>
+<li><p>Now setup LFortran by running the following commands.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w">  </span>https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh<span class="w"> </span>-O<span class="w"> </span>miniconda.sh
+bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/conda_root
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"export PATH=</span><span class="nv">$HOME</span><span class="s2">/conda_root/bin:</span><span class="nv">$PATH</span><span class="s2">"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+</li>
+<li><p>After that restart the Ubuntu terminal.</p></li>
+<li><p>Now clone the LFortran git repository (you should clone it inside a linux owned directory like <code class="docutils literal notranslate"><span class="pre">~</span></code> or  any of its sub-directories).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lfortran/lfortran.git
+<span class="nb">cd</span><span class="w"> </span>lfortran
+</pre></div>
+</div>
+</li>
+<li><p>Run the following</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment_linux.yml
+conda<span class="w"> </span>init<span class="w"> </span>bash
+</pre></div>
+</div>
+</li>
+<li><p>Restart Ubuntu terminal again</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lf
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>build-essential
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>zlib1g-dev<span class="w"> </span>libzstd-dev
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>clang
+</pre></div>
+</div>
+</li>
+<li><p>Run the following commands</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lf
+./build0.sh
+cmake<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span>-DWITH_LLVM<span class="o">=</span>yes<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/inst<span class="w"> </span>.
+make<span class="w"> </span>-j8
+</pre></div>
+</div>
+</li>
+<li><p>If everything compiles, you can use LFortran as follows</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran<span class="w"> </span>./examples/expr2.f90
+./expr2.out
+</pre></div>
+</div>
+</li>
+<li><p>Run an interactive prompt</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./src/bin/lfortran
+</pre></div>
+</div>
+</li>
+</ul>
+<p>See <span class="xref myst">how to run tests</span> to make sure all tests pass</p>
+</section>
+<section id="enabling-the-jupyter-kernel">
+<h3 id="enabling-the-jupyter-kernel">Enabling the Jupyter Kernel<a class="headerlink" href="#enabling-the-jupyter-kernel" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>To install the Jupyter kernel, install the following Conda packages also:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">xeus</span><span class="o">=</span><span class="mf">6.0.0</span> <span class="n">xeus</span><span class="o">-</span><span class="n">zmq</span><span class="o">=</span><span class="mf">4.0.0</span> <span class="n">nlohmann_json</span>
+</pre></div>
+</div>
+<p>and enable the kernel by <code class="docutils literal notranslate"><span class="pre">-DWITH_XEUS=yes</span></code> and install into <code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code>. For
+example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> \
+    <span class="o">-</span><span class="n">DCMAKE_BUILD_TYPE</span><span class="o">=</span><span class="n">Debug</span> \
+    <span class="o">-</span><span class="n">DWITH_LLVM</span><span class="o">=</span><span class="n">yes</span> \
+    <span class="o">-</span><span class="n">DWITH_XEUS</span><span class="o">=</span><span class="n">yes</span> \
+    <span class="o">-</span><span class="n">DCMAKE_PREFIX_PATH</span><span class="o">=</span><span class="s2">"$CONDA_PREFIX"</span> \
+    <span class="o">-</span><span class="n">DCMAKE_INSTALL_PREFIX</span><span class="o">=</span><span class="s2">"$CONDA_PREFIX"</span> \
+    <span class="o">.</span>
+<span class="n">cmake</span> <span class="o">--</span><span class="n">build</span> <span class="o">.</span> <span class="o">-</span><span class="n">j4</span> <span class="o">--</span><span class="n">target</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>To use it, install Jupyter (<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">jupyter</span></code>) and test that the LFortran
+kernel was found:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">kernelspec</span> <span class="nb">list</span> <span class="o">--</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>Then launch a Jupyter notebook as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">notebook</span>
+</pre></div>
+</div>
+<p>Click <code class="docutils literal notranslate"><span class="pre">New-&gt;Fortran</span></code>. To launch a terminal jupyter LFortran console:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">console</span> <span class="o">--</span><span class="n">kernel</span><span class="o">=</span><span class="n">fortran</span>
+</pre></div>
+</div>
+</section>
+<section id="build-from-git-with-nix">
+<h3 id="build-from-git-with-nix">Build From Git with Nix<a class="headerlink" href="#build-from-git-with-nix" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>There’s a provided Nix shell for making a consistent build environment with the exact same dependency versions across users.</p>
+<section id="using-the-environment">
+<h4 id="using-the-environment">Using the Environment<a class="headerlink" href="#using-the-environment" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>Enter the development environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix<span class="w"> </span>develop<span class="w"> </span>./ci/nix
+</pre></div>
+</div>
+<p>To change the compilation environment from <code class="docutils literal notranslate"><span class="pre">gcc</span></code> (default) to <code class="docutils literal notranslate"><span class="pre">clang</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix<span class="w"> </span>develop<span class="w"> </span>./ci/nix#clangOnly
+</pre></div>
+</div>
+<p>Depending on your system configuration, you might have to run <code class="docutils literal notranslate"><span class="pre">nix</span> <span class="pre">develop</span></code> with the following extra nix features explicitly enabled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nix<span class="w"> </span>--extra-experimental-features<span class="w"> </span><span class="s2">"flakes nix-command"</span><span class="w"> </span>develop<span class="w"> </span>./ci/nix
+</pre></div>
+</div>
+</section>
+<section id="building-the-code">
+<h4 id="building-the-code">Building the Code<a class="headerlink" href="#building-the-code" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>The build steps are the same as when building from git:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build0.sh
+./build1.sh
+</pre></div>
+</div>
+<p>As of 2025-11-10, the environment passes the CI tests, provided you tell it where to install the Jupyter kernel:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">LFORTRAN_CMAKE_GENERATOR</span><span class="o">=</span>Ninja<span class="w"> </span><span class="nv">CONDA_PREFIX</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="w"> </span><span class="nv">JUPYTER_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/share/jupyter<span class="w"> </span>bash<span class="w"> </span>ci/build.sh
+</pre></div>
+</div>
+<p>(take note that the Nix shell does not use conda)</p>
+<p>Give the same <code class="docutils literal notranslate"><span class="pre">JUPYTER_PATH</span></code> when running <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code> / <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code> to use the same jupyter kernel.</p>
+</section>
+</section>
+<section id="note-about-dependencies">
+<h3 id="note-about-dependencies">Note About Dependencies<a class="headerlink" href="#note-about-dependencies" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>End users (and distributions) are encouraged to use the tarball
+from <a class="reference external" href="https://lfortran.org/download/">https://lfortran.org/download/</a>,
+which only depends on LLVM, CMake and a C++ compiler.</p>
+<p>The tarball is generated automatically by our CI (continuous integration) and
+contains some autogenerated files: the parser, the AST and ASR nodes, which is generated by an ASDL
+translator (requires Python).</p>
+<p>The instructions from git are to be used when developing LFortran itself.</p>
+</section>
+<section id="note-for-users-who-do-not-use-conda">
+<h3 id="note-for-users-who-do-not-use-conda">Note for users who do not use Conda<a class="headerlink" href="#note-for-users-who-do-not-use-conda" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>Following are the dependencies necessary for installing this
+repository in development mode,</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ftp.gnu.org/gnu/bison/bison-3.5.1.tar.xz">Bison - 3.5.1</a></p></li>
+<li><p><a class="reference external" href="https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.1/llvm-11.0.1.src.tar.xz">LLVM - 11.0.1</a></p></li>
+<li><p><a class="reference external" href="https://re2c.org/install/install.html">re2c - 2.0.3</a></p></li>
+<li><p><a class="reference external" href="ftp://sourceware.org/pub/binutils/snapshots/binutils-2.31.90.tar.xz">binutils - 2.31.90</a> - Make sure that you should enable the required options related to this dependency to build the dynamic libraries (the ones ending with <code class="docutils literal notranslate"><span class="pre">.so</span></code>).</p></li>
+</ul>
+</section>
+<section id="stacktraces">
+<h3 id="stacktraces">Stacktraces<a class="headerlink" href="#stacktraces" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>LFortran can print stacktraces when there is an unhandled exception, as well as
+on any compiler error with the <code class="docutils literal notranslate"><span class="pre">--show-stacktrace</span></code> option. This is very helpful
+for developing the compiler itself to see where in LFortran the problem is. The
+stacktrace support is turned off by default, to enable it,
+compile LFortran with the <code class="docutils literal notranslate"><span class="pre">-DWITH_STACKTRACE=yes</span></code> cmake option after installing
+the prerequisites on each platform per the instructions below.</p>
+<section id="llvm">
+<h4 id="llvm">LLVM<a class="headerlink" href="#llvm" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>In all platforms having LLVM, stacktraces can be shown with LLVM, so no
+additional prerequisites are required. If LLVM is not available, you can use
+the following instructions, depending on your platform.</p>
+</section>
+<section id="ubuntu">
+<h4 id="ubuntu">Ubuntu<a class="headerlink" href="#ubuntu" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>In Ubuntu, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">binutils-dev</span></code>.</p>
+</section>
+<section id="macos">
+<h4 id="macos">macOS<a class="headerlink" href="#macos" title="Stały odnośnik do tego nagłówka">¶</a></h4>
+<p>If you use the default Clang compiler on macOS, then the stacktraces should
+just work on both Intel and M1 based macOS (the CMake build system
+automatically invokes the <code class="docutils literal notranslate"><span class="pre">dsymtuil</span></code> tool and our Python scripts to store the
+debug information, see <code class="docutils literal notranslate"><span class="pre">src/bin/CMakeLists.txt</span></code> for more details). If it does
+not work, please report a bug.</p>
+<p>If you do not like the default way, an alternative is to use bintutils. For
+that, first install
+<a class="reference external" href="https://spack.io/">Spack</a>, then:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>spack<span class="w"> </span>install<span class="w"> </span>binutils
+spack<span class="w"> </span>find<span class="w"> </span>-p<span class="w"> </span>binutils
+</pre></div>
+</div>
+<p>The last command will show a full path to the installed <code class="docutils literal notranslate"><span class="pre">binutils</span></code> package. Add
+this path to your shell config file, e.g.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">CMAKE_PREFIX_PATH_LFORTRAN</span><span class="o">=</span>/Users/ondrej/repos/spack/opt/spack/darwin-catalina-broadwell/apple-clang-11.0.0/binutils-2.36.1-wy6osfm6bp2323g3jpv2sjuttthwx3gd
+</pre></div>
+</div>
+<p>and compile LFortran with the
+<code class="docutils literal notranslate"><span class="pre">-DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH_LFORTRAN;$CONDA_PREFIX"</span></code> cmake option.
+The <code class="docutils literal notranslate"><span class="pre">$CONDA_PREFIX</span></code> is there if you install some other dependencies (such as
+<code class="docutils literal notranslate"><span class="pre">llvm</span></code>) using Conda, otherwise you can remove it.</p>
 </section>
 </section>
 </section>
