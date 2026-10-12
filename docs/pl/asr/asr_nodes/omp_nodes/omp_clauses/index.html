@@ -547,6 +547,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../OMPCriticalName/" class="md-nav__link">OMPCriticalName</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../OMPDevice/" class="md-nav__link">OMPDevice</a>
       
     
@@ -725,6 +732,7 @@
   | OMPMap(map_type type, expr* vars)
   | OMPIndependent()
   | OMPTargetRequested()
+  | OMPCriticalName(identifier name)
 </pre></div>
 </div>
 </section>
@@ -753,7 +761,9 @@ or where (<a class="reference internal" href="../OMPDevice/"><span class="doc st
 Two record what the source asserted rather than what it asked to be done:
 <a class="reference internal" href="../OMPIndependent/"><span class="doc std std-doc">OMPIndependent</span></a> says the iterations do not depend on
 one another, and <a class="reference internal" href="../OMPTargetRequested/"><span class="doc std std-doc">OMPTargetRequested</span></a> says a device
-was asked for.</p>
+was asked for. <a class="reference internal" href="../OMPCriticalName/"><span class="doc std std-doc">OMPCriticalName</span></a> names a critical
+construct, which selects the lock it shares with the critical constructs of
+the same name.</p>
 <p>A clause that is not written is simply absent from the list; there is no
 default clause node.</p>
 </section>
