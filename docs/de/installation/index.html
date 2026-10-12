@@ -849,7 +849,7 @@ serializing them in one long job:</p>
 <tr class="row-even"><td><p>Linux/LLVM 11 Debug, compiled with <code class="docutils literal notranslate"><span class="pre">-O2</span></code></p></td>
 <td><p>Normal, <code class="docutils literal notranslate"><span class="pre">--fast</span></code>, Fortran 2023 normal/fast, full references, small LLVM variants, submodules and single invocation</p></td>
 </tr>
-<tr class="row-odd"><td><p>Linux/LLVM 21 Debug</p></td>
+<tr class="row-odd"><td><p>Linux/LLVM 21 Debug, compiled with <code class="docutils literal notranslate"><span class="pre">-O2</span></code></p></td>
 <td><p>Separate compilation, submodules with separate compilation, and leak detection</p></td>
 </tr>
 </tbody>
@@ -859,7 +859,12 @@ compiler. Both are Debug builds, so every full Quick suite runs with
 assertions and per-pass ASR verification. The LLVM 11 compiler runs four full
 passes, so it is compiled with <code class="docutils literal notranslate"><span class="pre">-O2</span></code> (<code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_FLAGS_DEBUG</span></code>); it stays a
 Debug build, so <code class="docutils literal notranslate"><span class="pre">WITH_LFORTRAN_ASSERT</span></code> stays on and nothing defines <code class="docutils literal notranslate"><span class="pre">NDEBUG</span></code>.
-This makes each pass about 1.6 times faster. The platform builds keep <code class="docutils literal notranslate"><span class="pre">-O0</span></code>.
+This makes each pass about 1.6 times faster. The Linux/LLVM 21 platform
+compiler is compiled with <code class="docutils literal notranslate"><span class="pre">-O2</span></code> the same way: <code class="docutils literal notranslate"><span class="pre">.github/actions/build-platform</span></code>
+adds <code class="docutils literal notranslate"><span class="pre">-O2</span></code> to <code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code>/<code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span></code> for that platform only, so Exhaustive’s
+Linux/LLVM 21 platform job builds the same compiler and restores the same
+cache (key suffix <code class="docutils literal notranslate"><span class="pre">-o2</span></code>). The macOS, Windows and Linux/LLVM 11 platform builds
+keep their defaults, so Quick still tests a <code class="docutils literal notranslate"><span class="pre">-O0</span></code> compiler.
 Both also use the platform C/C++
 diagnostic and standard-library hardening flags, including <code class="docutils literal notranslate"><span class="pre">-Werror</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">WITH_INTERNAL_ALLOC_CHECK=yes</span></code>. Splitting the modes across two
