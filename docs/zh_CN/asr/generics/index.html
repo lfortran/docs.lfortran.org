@@ -660,6 +660,8 @@ end program
 end function
 </pre></div>
 </div>
+<p>The unary operators <code class="docutils literal notranslate"><span class="pre">operator(+)</span></code>, <code class="docutils literal notranslate"><span class="pre">operator(-)</span></code> and <code class="docutils literal notranslate"><span class="pre">operator(.not.)</span></code> can be passed in the same way for a deferred function with one argument. For example, <code class="docutils literal notranslate"><span class="pre">operator(-)</span></code> for a deferred function with one <code class="docutils literal notranslate"><span class="pre">integer</span></code> argument generates a function equivalent to <code class="docutils literal notranslate"><span class="pre">ret</span> <span class="pre">=</span> <span class="pre">-arg0</span></code>.</p>
+<p>For both unary and binary operators, a specific procedure of a user-defined operator of the same name (for example, an <code class="docutils literal notranslate"><span class="pre">interface</span> <span class="pre">operator(-)</span></code> for a derived type) that matches the interface of the deferred function is preferred over the intrinsic operator. When the intrinsic operator is used, the result of an arithmetic or a unary operator is converted to the result type of the deferred function. A unary operator that does not apply to the argument type, such as <code class="docutils literal notranslate"><span class="pre">.not.</span></code> on a <code class="docutils literal notranslate"><span class="pre">real</span></code> argument, is reported as an error.</p>
 </section>
 <section id="asr-generation">
 <h3 id="asr-generation">ASR Generation<a class="headerlink" href="#asr-generation" title="永久链接至标题">¶</a></h3>
