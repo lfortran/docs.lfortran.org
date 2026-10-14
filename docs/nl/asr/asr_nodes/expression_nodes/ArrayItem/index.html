@@ -1409,7 +1409,7 @@
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permalink naar deze titel">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ArrayItem(expr v, array_index* args, ttype type,
-    arraystorage storage_format, expr? value)
+    arraystorage storage_format, expr? value, bool in_bounds)
 </pre></div>
 </div>
 </section>
@@ -1437,6 +1437,9 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
 <td><p>the compile time value of the expression, when the frontend could fold it; <code class="docutils literal notranslate"><span class="pre">nil</span></code> otherwise.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">in_bounds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when every subscript is known to be within the bounds of <code class="docutils literal notranslate"><span class="pre">v</span></code>, so a backend need not check it at runtime; <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -1453,6 +1456,24 @@ array type.</p>
 <p>Subscripts are as written, so an array declared <code class="docutils literal notranslate"><span class="pre">a(2:5)</span></code> is indexed from two.
 A backend subtracts the lower bound itself, using the <code class="docutils literal notranslate"><span class="pre">dims</span></code> of the array
 type.</p>
+<p>With runtime bounds checking, a backend checks every subscript of an element
+reference against the bounds of <code class="docutils literal notranslate"><span class="pre">v</span></code>. A pass that creates the reference can
+set <code class="docutils literal notranslate"><span class="pre">in_bounds</span></code> when the subscript cannot be out of bounds, and the check is
+then omitted. The frontend always sets <code class="docutils literal notranslate"><span class="pre">false</span></code>. The <code class="docutils literal notranslate"><span class="pre">array_op</span></code> pass sets it in
+the loops it creates for an array assignment: for the operand whose bounds
+the loops run over, and for every operand whose shape a preceding
+<a class="reference internal" href="../../statement_nodes/DebugCheckArrayBounds/"><span class="doc std std-doc">DebugCheckArrayBounds</span></a> compares
+with the target, or whose extents are compile-time constants equal to those
+of the target (the check is then omitted). With a runtime check the claim
+holds only because that check stops the program on a mismatch, so a backend
+that honors <code class="docutils literal notranslate"><span class="pre">in_bounds</span></code> must also implement <code class="docutils literal notranslate"><span class="pre">DebugCheckArrayBounds</span></code>.</p>
+<p>A section target such as <code class="docutils literal notranslate"><span class="pre">a(:,</span> <span class="pre">i)</span></code> is assigned through its base array, with
+the loops running over its subscript triplets. Its element references are
+marked when the end of every triplet is known to lie within the bounds of
+<code class="docutils literal notranslate"><span class="pre">a</span></code>, for example a bound of <code class="docutils literal notranslate"><span class="pre">a</span></code> itself, and the subscripts of the first
+element, the starts of the triplets and the scalar subscripts, are known to
+as well. With bounds checking, <code class="docutils literal notranslate"><span class="pre">array_op</span></code> checks the latter once instead,
+by referencing that element before the loops if the section is not empty.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink naar deze titel">¶</a></h2>
@@ -1478,6 +1499,7 @@ type.</p>
 <span class="w">  </span><span class="p">)</span>
 <span class="w">  </span><span class="ss">:storage_format</span><span class="w"> </span><span class="ss">:ColMajor</span>
 <span class="w">  </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">  </span><span class="ss">:in_bounds</span><span class="w"> </span><span class="nv">false</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1707,6 +1729,7 @@ type.</p>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:storage_format</span><span class="w"> </span><span class="ss">:ColMajor</span>
 <span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:in_bounds</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">            </span><span class="p">)</span>
 <span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
