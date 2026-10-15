@@ -1003,7 +1003,8 @@
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Stały odnośnik do tego nagłówka">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GpuKernelLaunch(symbol kernel, expr grid_size, expr block_size,
-    call_arg* args)
+    call_arg* args, symbol? component_fit, gpu_scratch_buffer* scratch)
+gpu_scratch_buffer = (int argument_index, expr size, expr? read_back)
 </pre></div>
 </div>
 </section>
@@ -1027,6 +1028,12 @@
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">args</span></code></p></td>
 <td><p>the arguments passed to every thread.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">component_fit</span></code></p></td>
+<td><p>the <a class="reference internal" href="../../symbol_nodes/Block/"><span class="doc std std-doc">Block</span></a> the host runs before the launch to give the allocatable array components of elements of an array argument the loop writes the storage the kernel writes into, or <code class="docutils literal notranslate"><span class="pre">nil</span></code> when the loop writes none.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scratch</span></code></p></td>
+<td><p>the arguments that are buffers only the device holds (below).</p></td>
 </tr>
 </tbody>
 </table>
@@ -1065,6 +1072,14 @@ every extent, not just the total element count.</p>
 <a class="reference internal" href="../../../../gpu_offloading/"><span class="doc std std-doc">GPU offloading</span></a>), so a loop the offload cannot
 lower is a compile-time error, whatever its reason, whether or not
 <code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code> is given, and also with <code class="docutils literal notranslate"><span class="pre">--show-gpu-kernel-source</span></code>.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">scratch</span></code> entry makes the argument <code class="docutils literal notranslate"><span class="pre">argument_index</span></code> a buffer of <code class="docutils literal notranslate"><span class="pre">size</span></code>
+elements of the kernel argument’s element type that only the device holds,
+such as an arena of the device heap: the host allocates nothing for it and
+copies nothing in or out. The actual argument is an allocatable array of the
+launching procedure, not allocated before the launch. When <code class="docutils literal notranslate"><span class="pre">read_back</span></code> is
+present, the host allocates the actual with <code class="docutils literal notranslate"><span class="pre">read_back</span></code> elements after the
+launch, at most <code class="docutils literal notranslate"><span class="pre">size</span></code>, and copies the leading elements of the buffer into
+it; otherwise the actual stays unallocated.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Stały odnośnik do tego nagłówka">¶</a></h2>
@@ -1091,6 +1106,8 @@ lower is a compile-time error, whatever its reason, whether or not
 <span class="w">      </span><span class="p">)</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="w">  </span><span class="p">]</span>
+<span class="w">  </span><span class="ss">:component_fit</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">  </span><span class="ss">:scratch</span><span class="w"> </span><span class="p">[]</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1229,6 +1246,8 @@ lower is a compile-time error, whatever its reason, whether or not
 <span class="w">                      </span><span class="p">)</span>
 <span class="w">                    </span><span class="p">)</span>
 <span class="w">                  </span><span class="p">]</span>
+<span class="w">                  </span><span class="ss">:component_fit</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                  </span><span class="ss">:scratch</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                </span><span class="p">)</span>
 <span class="w">                </span><span class="p">(</span><span class="nf">GpuSync</span><span class="p">)</span>
 <span class="w">              </span><span class="p">]</span>
