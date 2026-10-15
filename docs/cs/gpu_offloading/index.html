@@ -328,7 +328,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#the-offloading-pipeline" class="md-nav__link">The offloading pipeline</a>
+        <li class="md-nav__item"><a href="#the-offloading-pipeline" class="md-nav__link">The offloading pipeline</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#stopping-on-the-device" class="md-nav__link">Stopping on the device</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#testing" class="md-nav__link">Testing</a>
         </li>
@@ -605,7 +609,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#the-offloading-pipeline" class="md-nav__link">The offloading pipeline</a>
+        <li class="md-nav__item"><a href="#the-offloading-pipeline" class="md-nav__link">The offloading pipeline</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#stopping-on-the-device" class="md-nav__link">Stopping on the device</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#testing" class="md-nav__link">Testing</a>
         </li>
@@ -704,16 +712,17 @@ entry states why it is there. Current proposal:</p>
 <td><p>no Fortran units or formats on a device</p></td>
 <td><p>never, or a host-side buffer later</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span></code>, <code class="docutils literal notranslate"><span class="pre">stop</span></code></p></td>
-<td><p>Metal</p></td>
-<td><p>a Metal shader has no way to halt the program</p></td>
-<td><p>a host-side status buffer later</p></td>
-</tr>
 </tbody>
 </table>
-<p><code class="docutils literal notranslate"><span class="pre">stop</span></code> is on the list for now. The standard and gfortran treat <code class="docutils literal notranslate"><span class="pre">stop</span></code> in a
-<code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> body as invalid (it is an image control statement), so it will
-become a semantic error instead.</p>
+<p><code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span></code> and <code class="docutils literal notranslate"><span class="pre">stop</span></code> are not on the list: every device runs them, through
+a status buffer the host reads after the launch (see
+<span class="xref myst">Stopping on the device</span>). That covers a <code class="docutils literal notranslate"><span class="pre">stop</span></code> in a
+procedure the loop calls (purity is not enforced yet, see the open questions)
+and in an offloaded <code class="docutils literal notranslate"><span class="pre">!$omp</span> <span class="pre">parallel</span> <span class="pre">do</span></code> loop. A <code class="docutils literal notranslate"><span class="pre">stop</span></code> directly in a
+<code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> body is invalid Fortran – it is an image control statement,
+which the standard does not allow there and gfortran rejects – and is to
+become a semantic error on every target, not an entry of this list; until
+then it runs like any other <code class="docutils literal notranslate"><span class="pre">stop</span></code>.</p>
 <p>Everything else is not on the list, even when it is not implemented yet. For
 example <code class="docutils literal notranslate"><span class="pre">integer(8)</span></code> on Metal (the Metal Shading Language has 64-bit integers),
 <code class="docutils literal notranslate"><span class="pre">complex</span></code>, <code class="docutils literal notranslate"><span class="pre">character</span></code>, run-time sized locals or derived types with allocatable
@@ -744,8 +753,7 @@ check small:</p>
 procedure cannot do external input/output or <code class="docutils literal notranslate"><span class="pre">stop</span></code>. So external I/O and
 <code class="docutils literal notranslate"><span class="pre">stop</span></code> can only appear directly in the loop body.</p></li>
 <li><p>A pure procedure can still do internal-file I/O (<code class="docutils literal notranslate"><span class="pre">write</span></code> to a character
-variable) and <code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span></code>, so those have to be looked for in the called
-procedures too.</p></li>
+variable), so that has to be looked for in the called procedures too.</p></li>
 <li><p>gfortran (<code class="docutils literal notranslate"><span class="pre">-std=f2018</span></code>) rejects <code class="docutils literal notranslate"><span class="pre">stop</span></code> in a <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> body as an image
 control statement, while <code class="docutils literal notranslate"><span class="pre">print</span></code> in the body and <code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span></code> in a pure
 procedure are accepted. (To be confirmed against the standard text.)</p></li>
@@ -873,7 +881,48 @@ ignored on every backend (#12778), and so is a <code class="docutils literal not
 loop (#12856), so such a loop writes elements it should not.</p></li>
 </ul>
 </li>
+<li><p>A kernel cannot end the program, so a <code class="docutils literal notranslate"><span class="pre">stop</span></code> or <code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span></code> the kernel
+reaches, in the loop body or in a procedure it calls, is split between the
+device and the host (see the next section).</p></li>
 </ul>
+<section id="stopping-on-the-device">
+<h3 id="stopping-on-the-device">Stopping on the device<a class="headerlink" href="#stopping-on-the-device" title="Trvalý odkaz na tento nadpis">¶</a></h3>
+<p>Every launch of a kernel that reaches a <code class="docutils literal notranslate"><span class="pre">stop</span></code> or <code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span></code> is given a
+small status buffer, an extra argument of the kernel, which the host clears
+before the launch. The offload pass numbers each such statement (its site)
+and rewrites it, in ASR, before any backend sees it:</p>
+<ul class="simple">
+<li><p>In the kernel, the statement records its stop code, when it has an integer
+one, in the element of the buffer that belongs to its site, then its site
+in the first element, and returns: that thread runs nothing more. The
+other threads carry on; the program ends after the launch anyway.</p></li>
+<li><p>A procedure the kernel calls that holds such a statement, or calls one
+that does, gets two hidden scalar arguments, the site and the stop code.
+The statement sets them and returns, and every call to such a procedure is
+followed by a test that returns from the caller in turn when they are set.
+The kernel records them in the buffer as if it had reached the statement
+itself. A call in the condition of an <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">while</span></code>, <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">case</span></code> or in
+the limits of a <code class="docutils literal notranslate"><span class="pre">do</span></code> loop is tested at the start of each body as well, so
+no body runs with the value a stopped call returned. (The rest of the
+statement that made the call does run with that value.)</p></li>
+<li><p>After the launch the host reads the buffer, and if a site is recorded it
+runs that same statement on the host, with the recorded stop code. The
+program therefore prints what it prints on the CPU (<code class="docutils literal notranslate"><span class="pre">ERROR</span> <span class="pre">STOP</span> <span class="pre">42</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ERROR</span> <span class="pre">STOP</span> <span class="pre">evaluate:</span> <span class="pre">unknown</span> <span class="pre">activation</span></code>) and ends with the same status.</p></li>
+</ul>
+<p>The code is written before the site, and only by a thread that reached that
+site, so whichever thread’s site the host reads, the code next to it was
+written by a thread that reached the same site: no atomic operations are
+needed, and no backend has anything to lower but assignments and <code class="docutils literal notranslate"><span class="pre">return</span></code>.
+When several threads stop, which one is reported is not specified, as the
+iterations of a <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> have no order.</p>
+<p>A character stop code has to be a constant, which the host statement
+repeats. One computed at run time (<code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span> <span class="pre">"bad</span> <span class="pre">"</span> <span class="pre">//</span> <span class="pre">name</span></code>) is an error
+for now („a character stop code that is not a constant“): it would have to
+be formatted on the device or copied back. Run-time checks in the kernel
+(bounds checking) would use the same buffer once the device code checks
+them; it does not yet.</p>
+</section>
 </section>
 <section id="testing">
 <h2 id="testing">Testing<a class="headerlink" href="#testing" title="Trvalý odkaz na tento nadpis">¶</a></h2>
@@ -915,7 +964,7 @@ module file.</p></li>
 <h2 id="differences-from-the-current-implementation">Differences from the current implementation<a class="headerlink" href="#differences-from-the-current-implementation" title="Trvalý odkaz na tento nadpis">¶</a></h2>
 <ul class="simple">
 <li><p>The pipeline still has its own checks for device limits (the width of the
-data that reaches a kernel, input/output and <code class="docutils literal notranslate"><span class="pre">stop</span></code> statements), spread over
+data that reaches a kernel, input/output statements), spread over
 several passes and the device code generator. They report a compile error
 rather than assert, because the check does not guarantee everything they
 look at: symbols a rewrite introduces, the bodies of procedures only the
