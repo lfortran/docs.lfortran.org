@@ -1031,10 +1031,13 @@ loop writes the component in more than one place (in both branches of an
 allocates or checks the element the write picks, with the size the write
 gives it: the extents of the array assigned to the component, or those
 of the <code class="docutils literal notranslate"><span class="pre">allocate</span></code> or array assignment in <code class="docutils literal notranslate"><span class="pre">f</span></code> (in the body a submodule
-gives it, for a separate module procedure), in terms of the actual
-arguments of the call. An element the loop does not write is left as it is. The
-limits of the loops are evaluated once, before this host code runs, and
-the launch reads the same values.</p></li>
+gives it, for a separate module procedure), also inside a <code class="docutils literal notranslate"><span class="pre">block</span></code> or
+<code class="docutils literal notranslate"><span class="pre">associate</span></code> construct of <code class="docutils literal notranslate"><span class="pre">f</span></code>, in terms of the actual arguments of the
+call. A type-bound <code class="docutils literal notranslate"><span class="pre">f</span></code> called through an object of a type that is not
+polymorphic (<code class="docutils literal notranslate"><span class="pre">net%infer(x)</span></code>) is the procedure its binding names, with
+the object as its passed-object argument. An element the loop does not
+write is left as it is. The limits of the loops are evaluated once,
+before this host code runs, and the launch reads the same values.</p></li>
 <li><p>The host does not guess what it cannot work out before the loop runs:</p>
 <ul>
 <li><p>The size. It may come from a call (also one whose result <code class="docutils literal notranslate"><span class="pre">f</span></code>
