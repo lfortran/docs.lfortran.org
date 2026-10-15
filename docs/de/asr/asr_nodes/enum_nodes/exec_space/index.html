@@ -783,8 +783,12 @@ names: it takes the <code class="docutils literal notranslate"><span class="pre"
 of Metal, its arguments are bound as buffers, and it returns nothing.</p>
 <p>Only the kernels are marked by the frontend. The <code class="docutils literal notranslate"><span class="pre">device_partition</span></code> pass takes
 the closure of the call graph from them and gives every procedure it reaches
-the space it belongs in, so a procedure called from both a kernel and the host
-becomes <code class="docutils literal notranslate"><span class="pre">HostDevice</span></code>.</p>
+the space it belongs in. A procedure with a body called from both a kernel
+and the host is cloned: the device code calls the <code class="docutils literal notranslate"><span class="pre">Device</span></code> clone and the host
+keeps the original, since the device passes rewrite device procedures in
+place. A procedure without a body there, such as a <code class="docutils literal notranslate"><span class="pre">bind(c)</span></code> interface,
+becomes <code class="docutils literal notranslate"><span class="pre">HostDevice</span></code>, and so does a device procedure the host calls before a
+launch to size a kernel’s workspace.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Link zu dieser Überschrift">¶</a></h2>
