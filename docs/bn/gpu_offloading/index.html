@@ -824,6 +824,81 @@ size may not read a value the loop writes, which the host does not know
 before the launch: such a loop is an error ("workspace ... cannot be
 sized on the host", or "a temporary array cannot be sized on the host"
 for a temporary the compiler introduces).</p></li>
+<li><p>A procedure the loop calls runs on the device as a procedure, wherever the
+call is: in an expression, an <code class="docutils literal notranslate"><span class="pre">associate</span></code> selector, a condition, or
+another procedure. A device without variable-length arrays or a heap
+(Metal, CUDA) cannot declare a local array of such a procedure whose size
+is known only at run time -- an allocatable local, an automatic array, or
+a temporary the compiler introduces, such as the result of a function it
+calls. Each such local becomes an argument of the procedure, and every
+call passes an array of its own for it, with the extents of the local
+written over the actual arguments of that call. Up the chain of calls this
+ends in the kernel, where the array is a per-thread workspace like any
+other (see the previous point). The extents may read the arguments of the
+procedure and named constants, and are written as they are on entry to the
+procedure: a name it binds once (an associate name, a scalar assigned once
+and changed through no other name) stands for what it is bound to, the
+extent of a section for the extents of its ranges, and a function without
+side effects is called with arguments of that kind
+(<code class="docutils literal notranslate"><span class="pre">allocate(a(maxval(n)))</span></code> with <code class="docutils literal notranslate"><span class="pre">associate</span> <span class="pre">(n</span> <span class="pre">=&gt;</span> <span class="pre">self%nodes_)</span></code>). The value
+of an <code class="docutils literal notranslate"><span class="pre">intent(in)</span></code> argument is fixed for the call unless it is a pointer,
+whose target the procedure may change. An extent that is evaluated after
+entry -- of a local of a <code class="docutils literal notranslate"><span class="pre">block</span></code>, or of the array a call is given for its
+callee -- may not read a dummy argument the procedure can change before
+(<code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">n</span> <span class="pre">+</span> <span class="pre">4</span></code>), whose value the callers do not know. A procedure with such
+a local that calls itself, directly or not, would need one array per level
+of the recursion, and is an error, and so is an extent that reads anything
+else ("workspace ... cannot be sized on the host"). A call that is the
+whole right-hand side of an assignment is spliced into the kernel instead:
+the body of the procedure replaces the call, with the actual arguments in
+place of the dummy arguments, which more often makes the extents
+constants. An allocatable dummy array that the procedure neither
+allocates, deallocates, asks about with <code class="docutils literal notranslate"><span class="pre">allocated</span></code>, nor hands on to an
+allocatable dummy, is handed over as a plain array, with the lower bounds
+of the actual argument as arguments of their own. Inside device code an
+allocatable local is given the shape of the <code class="docutils literal notranslate"><span class="pre">allocate</span></code>, reallocation or
+move that gives it one, also when that shape is read from another such
+local, and when several of them give it the same shape, as shared lowering
+does when it allocates a temporary and then reallocates it to the shape it
+already has. That shape has to be written as it is on entry, as an extent
+is, so that it is one value at every allocation; any other allocatable of
+device code is an error. A reallocation by an assignment gives the shape
+of the array the assigned value takes its shape from: <code class="docutils literal notranslate"><span class="pre">r</span> <span class="pre">=</span> <span class="pre">2*c(2:)</span></code> gives
+<code class="docutils literal notranslate"><span class="pre">r</span></code> the shape of <code class="docutils literal notranslate"><span class="pre">c(2:)</span></code>, also when <code class="docutils literal notranslate"><span class="pre">r</span></code> is the result of a function. A
+rank-one allocatable local whose extent is only known where it is
+allocated -- inside a loop of the procedure, as the temporaries of
+<code class="docutils literal notranslate"><span class="pre">v(1:n(l))</span> <span class="pre">*</span> <span class="pre">a(1:n(l),</span> <span class="pre">l-1)</span></code> in <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">l</span> <span class="pre">=</span> <span class="pre">2,</span> <span class="pre">m</span></code> -- points instead to the
+leading part of a buffer, which is a run-time sized local like those
+above, of an upper bound of every such extent known on entry: the extent
+of a section whose subscripts read the loop index is bounded by the extent
+of its array in that dimension, as a section never has more elements
+there. The local itself keeps the exact extent of each allocation.</p></li>
+<li><p>A derived-type value that device code creates -- a local of a
+procedure, or the result of a function such as a structure constructor,
+<code class="docutils literal notranslate"><span class="pre">associate</span> <span class="pre">(t</span> <span class="pre">=&gt;</span> <span class="pre">tensor_t(x))</span></code> -- has no storage for an allocatable array
+component on the device either. Each such component is stored in an
+array of its own, of the shape the procedure gives the component: the
+extents of its <code class="docutils literal notranslate"><span class="pre">allocate</span></code>, of the array an assignment reallocates it to,
+of the same component of a value assigned to the whole variable, or the
+shape a procedure gives the component of its <code class="docutils literal notranslate"><span class="pre">intent(out)</span></code> or
+<code class="docutils literal notranslate"><span class="pre">intent(inout)</span></code> argument when the value is passed for it, in terms of the
+actual arguments of that call. The shape is written as it is on entry to
+the procedure, over its arguments: a name the procedure binds once (an
+associate name, a scalar assigned once) stands for what it is bound to,
+and the extent of a section for the extents of its ranges. The array is
+then a run-time sized local like those above, given to the callers up to
+the kernel and sized on the host; a procedure the value is passed to is
+handed the array as the component, as it is handed the device buffer of a
+component of a kernel argument. An assignment of the whole value copies
+the component into that array. A component given several different
+shapes, or a shape read from a value the procedure computes, is an error
+("the allocatable component ... cannot be sized on the host").</p></li>
+<li><p>A derived-type argument a procedure defines (<code class="docutils literal notranslate"><span class="pre">intent(out)</span></code> or
+<code class="docutils literal notranslate"><span class="pre">intent(inout)</span></code>) is passed by reference, to a value in the memory of the
+calling thread, as the procedure's locals are. An element of a kernel
+argument passed for one lives in device memory instead, so the kernel
+copies it into a local of its own around the call; its allocatable
+components are not copied, the procedure is handed their device buffers.</p></li>
 <li><p>A kernel cannot allocate. When a loop writes an allocatable array component
 of an element of an array of derived type, the storage the kernel writes
 into has to exist before the launch. The write may be <code class="docutils literal notranslate"><span class="pre">t(i)</span> <span class="pre">=</span> <span class="pre">f(...)</span></code>,
@@ -995,6 +1070,12 @@ pipeline loads (separate compilation), widths that are not on the list
 (<code class="docutils literal notranslate"><span class="pre">integer(8)</span></code> on Metal), and a derived type with an unused <code class="docutils literal notranslate"><span class="pre">real(8)</span></code>
 component that is handed to the kernel whole (see the open questions).</p></li>
 <li><p>Purity of procedures called from <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> is not enforced.</p></li>
+<li><p>A run-time sized local of a procedure the loop calls whose extent reads
+the index of a <code class="docutils literal notranslate"><span class="pre">do</span></code> loop of the procedure is sized only when the extent
+is that of a section (bounded by the extent of its array), and only for a
+rank-one allocatable: <code class="docutils literal notranslate"><span class="pre">allocate(w(n(l)))</span></code> in <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">l</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">m</span></code>, or a local of
+higher rank, cannot be sized yet, even when the host could work out the
+largest value before the launch by going over the loop.</p></li>
 </ul>
 </section>
 </section>
