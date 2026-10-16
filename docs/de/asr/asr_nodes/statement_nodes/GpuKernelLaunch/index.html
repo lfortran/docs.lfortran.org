@@ -1112,6 +1112,11 @@ that statement on the host. They run after the first GpuSync that follows
 the launch, which the <code class="docutils literal notranslate"><span class="pre">gpu_launch_sync</span></code> pass places, copies of them after
 each GpuSync the launch may still be pending at; that pass also clears the
 first element of <code class="docutils literal notranslate"><span class="pre">stop_status</span></code> once, on entry to the procedure.</p>
+<p>Private array storage is placed after shared lowering by <code class="docutils literal notranslate"><span class="pre">gpu_kernel_storage</span></code>,
+before address-space specialization. Fixed-size arrays that fit the device’s
+stack budget have <code class="docutils literal notranslate"><span class="pre">Thread</span></code> memory space. Larger arrays have <code class="docutils literal notranslate"><span class="pre">Global</span></code> memory
+space and the kernel layout records their per-thread workspace slices. This
+placement never turns an iteration-private value into a shared value.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Link zu dieser Überschrift">¶</a></h2>
