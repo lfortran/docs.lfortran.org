@@ -671,6 +671,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../GpuDiscard/" class="md-nav__link">GpuDiscard</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../GpuKernelLaunch/" class="md-nav__link">GpuKernelLaunch</a>
       
     
@@ -1018,7 +1025,8 @@
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
 <p><strong>GpuSync</strong> blocks the host until every kernel launched so far has completed,
-so results written by a kernel can be read afterwards.</p>
+and the host has what they wrote, so results written by a kernel can be read
+afterwards. A launch keeps what its kernel writes on the device until then.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
@@ -1162,6 +1170,8 @@ so results written by a kernel can be read afterwards.</p>
 <span class="w">                  </span><span class="p">]</span>
 <span class="w">                  </span><span class="ss">:component_fit</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">                  </span><span class="ss">:scratch</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">                  </span><span class="ss">:stop_status</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                  </span><span class="ss">:stop_replay</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                </span><span class="p">)</span>
 <span class="w">                </span><span class="p">(</span><span class="nf">GpuSync</span><span class="p">)</span>
 <span class="w">              </span><span class="p">]</span>
@@ -1310,7 +1320,7 @@ so results written by a kernel can be read afterwards.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
-<p><a class="reference internal" href="../GpuKernelLaunch/"><span class="doc std std-doc">GpuKernelLaunch</span></a>, <a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a></p>
+<p><a class="reference internal" href="../GpuKernelLaunch/"><span class="doc std std-doc">GpuKernelLaunch</span></a>, <a class="reference internal" href="../GpuDiscard/"><span class="doc std std-doc">GpuDiscard</span></a>, <a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a></p>
 </section>
 </section>
 

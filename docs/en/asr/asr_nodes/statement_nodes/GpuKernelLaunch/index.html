@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="../../../../genindex/" />
     <link rel="search" title="Search" href="../../../../search/" />
     <link rel="next" title="GpuSync" href="../GpuSync/" />
-    <link rel="prev" title="GoToTarget" href="../GoToTarget/" />
+    <link rel="prev" title="GpuDiscard" href="../GpuDiscard/" />
   
    
 
@@ -670,6 +670,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../GpuDiscard/" class="md-nav__link">GpuDiscard</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     <label class="md-nav__link md-nav__link--active" for="__toc"> GpuKernelLaunch </label>
     
@@ -1002,7 +1009,8 @@
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GpuKernelLaunch(symbol kernel, expr grid_size, expr block_size,
-    call_arg* args, symbol? component_fit, gpu_scratch_buffer* scratch)
+    call_arg* args, symbol? component_fit, gpu_scratch_buffer* scratch,
+    expr? stop_status, stmt* stop_replay)
 gpu_scratch_buffer = (int argument_index, expr size, expr? read_back)
 </pre></div>
 </div>
@@ -1034,6 +1042,12 @@ gpu_scratch_buffer = (int argument_index, expr size, expr? read_back)
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scratch</span></code></p></td>
 <td><p>the arguments that are buffers only the device holds (below).</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stop_status</span></code></p></td>
+<td><p>the host array passed as the status buffer of a kernel that can <code class="docutils literal notranslate"><span class="pre">stop</span></code>, or <code class="docutils literal notranslate"><span class="pre">nil</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stop_replay</span></code></p></td>
+<td><p>the host statements that run the <code class="docutils literal notranslate"><span class="pre">stop</span></code> a thread of the launch recorded (below).</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -1044,9 +1058,10 @@ gpu_scratch_buffer = (int argument_index, expr size, expr? read_back)
 </section>
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>A launch is not a call: it starts <code class="docutils literal notranslate"><span class="pre">grid_size</span> <span class="pre">*</span> <span class="pre">block_size</span></code> threads and, unless
-the backend says otherwise, returns without waiting for them.
-<a class="reference internal" href="../GpuSync/"><span class="doc std std-doc">GpuSync</span></a> is what waits.</p>
+<p>A launch is not a call: it starts <code class="docutils literal notranslate"><span class="pre">grid_size</span> <span class="pre">*</span> <span class="pre">block_size</span></code> threads and
+returns without waiting for them. <a class="reference internal" href="../GpuSync/"><span class="doc std std-doc">GpuSync</span></a> is what waits; the
+<code class="docutils literal notranslate"><span class="pre">gpu_launch_sync</span></code> pass places it where the host next needs what a kernel
+wrote (see <a class="reference internal" href="../../../../gpu_offloading/"><span class="doc std std-doc">GPU offloading</span></a>).</p>
 <p>The execution configuration is part of the node rather than of the kernel,
 because the same kernel is normally launched with different sizes.</p>
 <p>The kernel is an ordinary <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>; what makes
@@ -1079,6 +1094,12 @@ launching procedure, not allocated before the launch. When <code class="docutils
 present, the host allocates the actual with <code class="docutils literal notranslate"><span class="pre">read_back</span></code> elements after the
 launch, at most <code class="docutils literal notranslate"><span class="pre">size</span></code>, and copies the leading elements of the buffer into
 it; otherwise the actual stays unallocated.</p>
+<p>A kernel that can <code class="docutils literal notranslate"><span class="pre">stop</span></code> records the statement a thread reached in the
+status buffer <code class="docutils literal notranslate"><span class="pre">stop_status</span></code>. The statements of <code class="docutils literal notranslate"><span class="pre">stop_replay</span></code> read it and run
+that statement on the host. They run after the first GpuSync that follows
+the launch, which the <code class="docutils literal notranslate"><span class="pre">gpu_launch_sync</span></code> pass places, copies of them after
+each GpuSync the launch may still be pending at; that pass also clears the
+first element of <code class="docutils literal notranslate"><span class="pre">stop_status</span></code> once, on entry to the procedure.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
@@ -1107,6 +1128,8 @@ it; otherwise the actual stays unallocated.</p>
 <span class="w">  </span><span class="p">]</span>
 <span class="w">  </span><span class="ss">:component_fit</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">  </span><span class="ss">:scratch</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="ss">:stop_status</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">  </span><span class="ss">:stop_replay</span><span class="w"> </span><span class="p">[]</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1247,6 +1270,8 @@ it; otherwise the actual stays unallocated.</p>
 <span class="w">                  </span><span class="p">]</span>
 <span class="w">                  </span><span class="ss">:component_fit</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">                  </span><span class="ss">:scratch</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">                  </span><span class="ss">:stop_status</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                  </span><span class="ss">:stop_replay</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                </span><span class="p">)</span>
 <span class="w">                </span><span class="p">(</span><span class="nf">GpuSync</span><span class="p">)</span>
 <span class="w">              </span><span class="p">]</span>
@@ -1395,7 +1420,7 @@ it; otherwise the actual stays unallocated.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>, <a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a>, <a class="reference internal" href="../GpuSync/"><span class="doc std std-doc">GpuSync</span></a>, <a class="reference internal" href="../../expression_nodes/GpuThreadIndex/"><span class="doc std std-doc">GpuThreadIndex</span></a></p>
+<p><a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>, <a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a>, <a class="reference internal" href="../GpuSync/"><span class="doc std std-doc">GpuSync</span></a>, <a class="reference internal" href="../GpuDiscard/"><span class="doc std std-doc">GpuDiscard</span></a>, <a class="reference internal" href="../../expression_nodes/GpuThreadIndex/"><span class="doc std std-doc">GpuThreadIndex</span></a></p>
 </section>
 </section>
 
@@ -1409,7 +1434,7 @@ it; otherwise the actual stays unallocated.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../GoToTarget/" title="GoToTarget"
+            <a href="../GpuDiscard/" title="GpuDiscard"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -1418,7 +1443,7 @@ it; otherwise the actual stays unallocated.</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> GoToTarget </span>
+                      class="md-footer-nav__direction"> Previous </span> GpuDiscard </span>
               </div>
             </a>
           
