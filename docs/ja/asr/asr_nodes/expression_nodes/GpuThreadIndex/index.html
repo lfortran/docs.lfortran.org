@@ -65,7 +65,7 @@
     <link rel="index" title="索引" href="../../../../genindex/" />
     <link rel="search" title="検索" href="../../../../search/" />
     <link rel="next" title="Iachar" href="../Iachar/" />
-    <link rel="prev" title="GpuBlockSize" href="../GpuBlockSize/" />
+    <link rel="prev" title="GpuLaneIndex" href="../GpuLaneIndex/" />
   
    
 
@@ -735,6 +735,20 @@
     
     
       <a href="../GpuBlockSize/" class="md-nav__link">GpuBlockSize</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../GpuLaneBroadcast/" class="md-nav__link">GpuLaneBroadcast</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../GpuLaneIndex/" class="md-nav__link">GpuLaneIndex</a>
       
     
     </li>
@@ -1449,7 +1463,11 @@
 <h2 id="description">Description<a class="headerlink" href="#description" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Every thread of a kernel runs the same body, and this is what tells them
 apart. The index counts from zero within the block; the position in the whole
-grid is <code class="docutils literal notranslate"><span class="pre">GpuBlockIndex</span> <span class="pre">*</span> <span class="pre">GpuBlockSize</span> <span class="pre">+</span> <span class="pre">GpuThreadIndex</span></code>.</p>
+grid is <code class="docutils literal notranslate"><span class="pre">GpuBlockIndex</span> <span class="pre">*</span> <span class="pre">GpuBlockSize</span> <span class="pre">+</span> <span class="pre">GpuThreadIndex</span></code>. In a kernel whose
+layout has <code class="docutils literal notranslate"><span class="pre">lanes</span></code> (see
+<a class="reference internal" href="../../helper_nodes/gpu_kernel_layout/"><span class="doc std std-doc">gpu_kernel_layout</span></a>), that position
+numbers the iterations, which several threads share: the lanes, which
+<a class="reference internal" href="../GpuLaneIndex/"><span class="doc std std-doc">GpuLaneIndex</span></a> tells apart.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -1740,7 +1758,7 @@ grid is <code class="docutils literal notranslate"><span class="pre">GpuBlockInd
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../GpuBlockSize/" title="GpuBlockSize"
+            <a href="../GpuLaneIndex/" title="GpuLaneIndex"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -1749,7 +1767,7 @@ grid is <code class="docutils literal notranslate"><span class="pre">GpuBlockInd
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> GpuBlockSize </span>
+                      class="md-footer-nav__direction"> Previous </span> GpuLaneIndex </span>
               </div>
             </a>
           

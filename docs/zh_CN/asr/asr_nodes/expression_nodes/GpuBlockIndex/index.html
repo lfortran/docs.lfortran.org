@@ -771,6 +771,20 @@
     <li class="md-nav__item">
     
     
+      <a href="../GpuLaneBroadcast/" class="md-nav__link">GpuLaneBroadcast</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../GpuLaneIndex/" class="md-nav__link">GpuLaneIndex</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../GpuThreadIndex/" class="md-nav__link">GpuThreadIndex</a>
       
     
@@ -1447,8 +1461,8 @@
 </section>
 <section id="description">
 <h2 id="description">描述<a class="headerlink" href="#description" title="永久链接至标题">¶</a></h2>
-<p>The block index counts from zero, up to the <code class="docutils literal notranslate"><span class="pre">grid_size</span></code> the kernel was
-launched with.</p>
+<p>The block index counts from zero, below the number of blocks the kernel was
+launched with: its <code class="docutils literal notranslate"><span class="pre">thread_count</span></code> rounded up to whole blocks.</p>
 </section>
 <section id="examples">
 <h2 id="examples">示例<a class="headerlink" href="#examples" title="永久链接至标题">¶</a></h2>

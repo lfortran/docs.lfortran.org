@@ -529,7 +529,7 @@
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Ссылка на этот заголовок">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gpu_kernel_layout = (gpu_kernel_argument* buffers, gpu_kernel_argument* scalars,
     gpu_workspace* workspaces, bool packed, int source_argument_count,
-    symbol* device_functions)
+    symbol* device_functions, symbol? lanes)
 gpu_kernel_argument = (symbol variable, symbol? member, ttype type,
     gpu_argument_kind kind, int argument_index, int dimension, bool written)
 gpu_workspace = (symbol variable, gpu_workspace_dimension* dims,
@@ -560,6 +560,15 @@ and both allocation and device indexing consume that value.</p>
 <p><code class="docutils literal notranslate"><span class="pre">source_argument_count</span></code> separates original arguments from these appended
 parameters. <code class="docutils literal notranslate"><span class="pre">device_functions</span></code> records the device call graph in callee-first
 order; direct self-recursion is permitted.</p>
+<p><code class="docutils literal notranslate"><span class="pre">lanes</span></code>, when present, is the kernel’s last parameter, an integer scalar
+after the extent parameters: each iteration of the kernel runs on that many
+consecutive threads of one SIMD-group, its lanes, which share the loops
+inside it (<a class="reference internal" href="../../expression_nodes/GpuLaneIndex/"><span class="doc std std-doc">GpuLaneIndex</span></a>,
+<a class="reference internal" href="../../statement_nodes/GpuLaneBarrier/"><span class="doc std std-doc">GpuLaneBarrier</span></a>,
+<a class="reference internal" href="../../expression_nodes/GpuLaneBroadcast/"><span class="doc std std-doc">GpuLaneBroadcast</span></a>). The thread
+index the kernel reads then numbers its iterations, the host starts
+<code class="docutils literal notranslate"><span class="pre">lanes</span></code> threads per iteration, and a workspace slice belongs to an
+iteration. <code class="docutils literal notranslate"><span class="pre">gpu_vector_lanes</span></code> sets it, after the finalizer.</p>
 <p>The finalizer produces this metadata after shared lowering. Host expansion
 and device emission read it without reconstructing the ABI.</p>
 <p>See <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a>,

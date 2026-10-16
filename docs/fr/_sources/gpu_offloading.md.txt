@@ -142,15 +142,27 @@ generates the device source. It never falls back to the CPU:
   or a section -- is an alias of it, in the loop body and in a procedure the
   loop calls, so what is written through the name reaches the variable: the
   selector takes the place of a scalar name (and of every name in the loop
-  body), and an array name of a procedure points at the selector. A selector
-  designates the object it designates on entry to the construct, so a
-  subscript of it that the construct may change
+  body, also inside the `block` and `associate` constructs in it), and an
+  array name of a procedure points at the selector. So the kernel is handed
+  the variable once, however many names the loop reads and writes it
+  through (`associate (w => self%w)` with `self` also used in the loop). A
+  selector designates the object it designates on entry to the construct,
+  so a subscript of it that the construct may change
   (`associate (e => w(j)); j = 3; e = 1`) is read into a variable of its own
   on entry.
 * An associate name of a construct the loop is in, bound to an expression
   (`associate (n => size(a))`), is the value the expression had when the
   construct was entered, which the kernel is handed as a scalar: the
   expression is not evaluated again, and what it reads is not handed over.
+* A call of a function that returns an array, in an array statement of the
+  loop body (`a(1:n, p) = x(p)%values() * 2`, `sum(x(p)%values())`, an
+  operand of `matmul`), is made once, before the statement, and its result
+  assigned to an array of the iteration, which the statement then reads
+  element by element; so is the call an associate name of a construct in
+  the loop is bound to (`associate (y => x(p)%values())`), on entry. The
+  array, like any allocatable of device code assigned the result of a
+  function, takes the shape the function gives its result, over the
+  actual arguments of the call.
 * An array an iteration needs whose size is known only at run time -- a
   local of a `block` with run-time extents, an allocatable local, or a
   temporary the compiler introduces, such as the result of a function or
@@ -158,7 +170,9 @@ generates the device source. It never falls back to the CPU:
   allocates before the launch, when the host can size it (the fast path),
   and on the device heap otherwise (see
   [Allocating on the device](#allocating-on-the-device)). Every thread uses
-  a slice of a host-sized buffer. When the size changes from one iteration
+  a slice of a host-sized buffer, one slice per iteration, which only the
+  device holds: what a slice holds on entry is undefined, as for any local,
+  and nothing is copied in or back. When the size changes from one iteration
   to the next (`allocate(w(m(k)))`, or `x(k)%values()` whose result has the
   size of a component of the iteration's element), the host works it out
   for every iteration before the launch, from the loop limits and the
@@ -749,6 +763,54 @@ An assignment is sent to the device when all of this holds:
 
 The host still evaluates the bounds of the loop (`size`, `lbound`), which
 read only the shape of the arrays.
+
+An assignment whose every element is assigned again before anything reads it
+(`dcdw = 0.` followed by `dcdw = sum(reduce_dcdw, dim=4)`) is removed before
+this, by the `dead_array_store` pass, so it costs no launch at all.
+
+### Lanes: an iteration on a SIMD-group
+
+A loop with few iterations -- a training step over a mini-batch of one, a
+loop over the layers of a network -- leaves most of the GPU idle, and runs
+each iteration as one long chain of dependent memory accesses on one
+thread: a GPU thread does not run ahead of a load the way a CPU core does,
+so every element of every array statement inside the iteration costs a
+memory latency. The `gpu_vector_lanes` pass, right after
+`gpu_kernel_finalize`, rewrites such a kernel so that each iteration runs on
+the lanes of a SIMD-group, which share the loops inside it (Metal only, 32
+lanes; a device's capabilities say how many, see `GpuDeviceCapabilities::
+lanes_per_iteration`):
+
+* A loop whose iterations are independent -- it assigns every shared array
+  at one subscript list holding its variable, reads such an array only at
+  that subscript list (or at one provably different element: `a(i, l)` and
+  `a(k, l - 1)`), and every scalar it assigns is assigned first in each
+  iteration and dead after it -- is shared out: lane k takes iterations k,
+  k + lanes, ..., and the lanes wait for each other after it
+  (`GpuLaneBarrier`). Adjacent loops over the same iterations are joined
+  first, and a loop whose body is one more such loop shares out the pairs
+  of iterations of both.
+* A statement with an effect the lanes must not repeat -- one that writes
+  shared memory outside such a loop, calls a procedure that is not pure,
+  or takes elements of the device heap -- runs on the first lane, and the
+  others take the scalars it assigned from it (`GpuLaneBroadcast`).
+* Everything else runs on every lane, with the same values.
+
+A lane that stops in a shared-out loop records the stop and returns, as a
+thread does, and the other lanes return after the loop. A kernel is left as
+it is when a statement in the way cannot be run on one lane (it returns, or
+assigns a private array), and when it writes an element of a kernel argument
+that every iteration writes -- an array declared outside the loop that each
+iteration uses as a temporary, which the launch shares between all threads
+(a known limitation, which lanes would only make show more often).
+
+The host chooses the lanes per launch: the SIMD-group width for a launch of
+at most 1024 iterations, one otherwise, where the iterations fill the GPU
+anyway and the lanes would only repeat each other's work. The kernel takes
+the lanes as its last parameter (`gpu_kernel_layout.lanes`); its thread
+index then numbers the iterations, the host starts `lanes` threads per
+iteration, and a workspace slice belongs to an iteration, shared by its
+lanes.
 
 ### Deliberate relaxations
 

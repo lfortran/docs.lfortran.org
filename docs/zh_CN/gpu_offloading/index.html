@@ -352,6 +352,8 @@
         </li>
         <li class="md-nav__item"><a href="#whole-array-assignments-between-launches" class="md-nav__link">Whole-array assignments between launches</a>
         </li>
+        <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
+        </li>
         <li class="md-nav__item"><a href="#deliberate-relaxations" class="md-nav__link">Deliberate relaxations</a>
         </li></ul>
             </nav>
@@ -662,6 +664,8 @@
         </li>
         <li class="md-nav__item"><a href="#whole-array-assignments-between-launches" class="md-nav__link">Whole-array assignments between launches</a>
         </li>
+        <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
+        </li>
         <li class="md-nav__item"><a href="#deliberate-relaxations" class="md-nav__link">Deliberate relaxations</a>
         </li></ul>
             </nav>
@@ -856,15 +860,27 @@ kernel), it asserts it.</p></li>
 or a section – is an alias of it, in the loop body and in a procedure the
 loop calls, so what is written through the name reaches the variable: the
 selector takes the place of a scalar name (and of every name in the loop
-body), and an array name of a procedure points at the selector. A selector
-designates the object it designates on entry to the construct, so a
-subscript of it that the construct may change
+body, also inside the <code class="docutils literal notranslate"><span class="pre">block</span></code> and <code class="docutils literal notranslate"><span class="pre">associate</span></code> constructs in it), and an
+array name of a procedure points at the selector. So the kernel is handed
+the variable once, however many names the loop reads and writes it
+through (<code class="docutils literal notranslate"><span class="pre">associate</span> <span class="pre">(w</span> <span class="pre">=&gt;</span> <span class="pre">self%w)</span></code> with <code class="docutils literal notranslate"><span class="pre">self</span></code> also used in the loop). A
+selector designates the object it designates on entry to the construct,
+so a subscript of it that the construct may change
 (<code class="docutils literal notranslate"><span class="pre">associate</span> <span class="pre">(e</span> <span class="pre">=&gt;</span> <span class="pre">w(j));</span> <span class="pre">j</span> <span class="pre">=</span> <span class="pre">3;</span> <span class="pre">e</span> <span class="pre">=</span> <span class="pre">1</span></code>) is read into a variable of its own
 on entry.</p></li>
 <li><p>An associate name of a construct the loop is in, bound to an expression
 (<code class="docutils literal notranslate"><span class="pre">associate</span> <span class="pre">(n</span> <span class="pre">=&gt;</span> <span class="pre">size(a))</span></code>), is the value the expression had when the
 construct was entered, which the kernel is handed as a scalar: the
 expression is not evaluated again, and what it reads is not handed over.</p></li>
+<li><p>A call of a function that returns an array, in an array statement of the
+loop body (<code class="docutils literal notranslate"><span class="pre">a(1:n,</span> <span class="pre">p)</span> <span class="pre">=</span> <span class="pre">x(p)%values()</span> <span class="pre">*</span> <span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">sum(x(p)%values())</span></code>, an
+operand of <code class="docutils literal notranslate"><span class="pre">matmul</span></code>), is made once, before the statement, and its result
+assigned to an array of the iteration, which the statement then reads
+element by element; so is the call an associate name of a construct in
+the loop is bound to (<code class="docutils literal notranslate"><span class="pre">associate</span> <span class="pre">(y</span> <span class="pre">=&gt;</span> <span class="pre">x(p)%values())</span></code>), on entry. The
+array, like any allocatable of device code assigned the result of a
+function, takes the shape the function gives its result, over the
+actual arguments of the call.</p></li>
 <li><p>An array an iteration needs whose size is known only at run time – a
 local of a <code class="docutils literal notranslate"><span class="pre">block</span></code> with run-time extents, an allocatable local, or a
 temporary the compiler introduces, such as the result of a function or
@@ -872,7 +888,9 @@ the copy an overlapping assignment needs – lives in a buffer the host
 allocates before the launch, when the host can size it (the fast path),
 and on the device heap otherwise (see
 <span class="xref myst">Allocating on the device</span>). Every thread uses
-a slice of a host-sized buffer. When the size changes from one iteration
+a slice of a host-sized buffer, one slice per iteration, which only the
+device holds: what a slice holds on entry is undefined, as for any local,
+and nothing is copied in or back. When the size changes from one iteration
 to the next (<code class="docutils literal notranslate"><span class="pre">allocate(w(m(k)))</span></code>, or <code class="docutils literal notranslate"><span class="pre">x(k)%values()</span></code> whose result has the
 size of a component of the iteration’s element), the host works it out
 for every iteration before the launch, from the loop limits and the
@@ -1466,6 +1484,51 @@ source did not have.</p></li>
 </ul>
 <p>The host still evaluates the bounds of the loop (<code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">lbound</span></code>), which
 read only the shape of the arrays.</p>
+<p>An assignment whose every element is assigned again before anything reads it
+(<code class="docutils literal notranslate"><span class="pre">dcdw</span> <span class="pre">=</span> <span class="pre">0.</span></code> followed by <code class="docutils literal notranslate"><span class="pre">dcdw</span> <span class="pre">=</span> <span class="pre">sum(reduce_dcdw,</span> <span class="pre">dim=4)</span></code>) is removed before
+this, by the <code class="docutils literal notranslate"><span class="pre">dead_array_store</span></code> pass, so it costs no launch at all.</p>
+</section>
+<section id="lanes-an-iteration-on-a-simd-group">
+<h3 id="lanes-an-iteration-on-a-simd-group">Lanes: an iteration on a SIMD-group<a class="headerlink" href="#lanes-an-iteration-on-a-simd-group" title="永久链接至标题">¶</a></h3>
+<p>A loop with few iterations – a training step over a mini-batch of one, a
+loop over the layers of a network – leaves most of the GPU idle, and runs
+each iteration as one long chain of dependent memory accesses on one
+thread: a GPU thread does not run ahead of a load the way a CPU core does,
+so every element of every array statement inside the iteration costs a
+memory latency. The <code class="docutils literal notranslate"><span class="pre">gpu_vector_lanes</span></code> pass, right after
+<code class="docutils literal notranslate"><span class="pre">gpu_kernel_finalize</span></code>, rewrites such a kernel so that each iteration runs on
+the lanes of a SIMD-group, which share the loops inside it (Metal only, 32
+lanes; a device’s capabilities say how many, see <code class="docutils literal notranslate"><span class="pre">GpuDeviceCapabilities::</span> <span class="pre">lanes_per_iteration</span></code>):</p>
+<ul class="simple">
+<li><p>A loop whose iterations are independent – it assigns every shared array
+at one subscript list holding its variable, reads such an array only at
+that subscript list (or at one provably different element: <code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">l)</span></code> and
+<code class="docutils literal notranslate"><span class="pre">a(k,</span> <span class="pre">l</span> <span class="pre">-</span> <span class="pre">1)</span></code>), and every scalar it assigns is assigned first in each
+iteration and dead after it – is shared out: lane k takes iterations k,
+k + lanes, …, and the lanes wait for each other after it
+(<code class="docutils literal notranslate"><span class="pre">GpuLaneBarrier</span></code>). Adjacent loops over the same iterations are joined
+first, and a loop whose body is one more such loop shares out the pairs
+of iterations of both.</p></li>
+<li><p>A statement with an effect the lanes must not repeat – one that writes
+shared memory outside such a loop, calls a procedure that is not pure,
+or takes elements of the device heap – runs on the first lane, and the
+others take the scalars it assigned from it (<code class="docutils literal notranslate"><span class="pre">GpuLaneBroadcast</span></code>).</p></li>
+<li><p>Everything else runs on every lane, with the same values.</p></li>
+</ul>
+<p>A lane that stops in a shared-out loop records the stop and returns, as a
+thread does, and the other lanes return after the loop. A kernel is left as
+it is when a statement in the way cannot be run on one lane (it returns, or
+assigns a private array), and when it writes an element of a kernel argument
+that every iteration writes – an array declared outside the loop that each
+iteration uses as a temporary, which the launch shares between all threads
+(a known limitation, which lanes would only make show more often).</p>
+<p>The host chooses the lanes per launch: the SIMD-group width for a launch of
+at most 1024 iterations, one otherwise, where the iterations fill the GPU
+anyway and the lanes would only repeat each other’s work. The kernel takes
+the lanes as its last parameter (<code class="docutils literal notranslate"><span class="pre">gpu_kernel_layout.lanes</span></code>); its thread
+index then numbers the iterations, the host starts <code class="docutils literal notranslate"><span class="pre">lanes</span></code> threads per
+iteration, and a workspace slice belongs to an iteration, shared by its
+lanes.</p>
 </section>
 <section id="deliberate-relaxations">
 <h3 id="deliberate-relaxations">Deliberate relaxations<a class="headerlink" href="#deliberate-relaxations" title="永久链接至标题">¶</a></h3>
