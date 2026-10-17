@@ -745,8 +745,6 @@
     | UnboundedPointerArray
     | FixedSizeArray
     | StringArraySinglePointer
-    | NumPyArray
-    | ISODescriptorArray
     | SIMDArray
     | AssumedRankArray
 </pre></div>
@@ -775,12 +773,6 @@
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">StringArraySinglePointer</span></code></p></td>
 <td><p>an array of strings held as one allocation.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NumPyArray</span></code></p></td>
-<td><p>the layout NumPy uses, for LPython interoperation.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ISODescriptorArray</span></code></p></td>
-<td><p>the descriptor the C interoperability part of the standard defines, <code class="docutils literal notranslate"><span class="pre">CFI_cdesc_t</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SIMDArray</span></code></p></td>
 <td><p>a short fixed length array held in a vector register.</p></td>
