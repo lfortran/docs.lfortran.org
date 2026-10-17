@@ -859,7 +859,10 @@ the <code class="docutils literal notranslate"><span class="pre">id</span></code
 <li><p><strong>ArrayPhysicalCast</strong>: only the physical type changes; the logical type
 does not.</p>
 <blockquote>
-<div><p>Note: the “new” physical type here will also be part of the “type” member</p>
+<div><p>Note: the “new” physical type here will also be part of the “type” member,
+except for the rank(0) view of an assumed-rank array (<code class="docutils literal notranslate"><span class="pre">old</span></code> is
+AssumedRankArray, <code class="docutils literal notranslate"><span class="pre">new</span></code> is DescriptorArray, <code class="docutils literal notranslate"><span class="pre">type</span></code> is the scalar element
+type); see <a class="reference internal" href="../asr_nodes/expression_nodes/ArrayPhysicalCast/"><span class="doc std std-doc">ArrayPhysicalCast</span></a>.</p>
 </div></blockquote>
 <p>This allows to represent any combination, but we’ll only support a few; at least we need:</p>
 <ul class="simple">

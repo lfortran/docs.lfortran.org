@@ -1476,6 +1476,14 @@ the value.</p>
 argument, for instance, needs a descriptor to be built around it, and the cast
 is where that happens. The new physical type appears both in <code class="docutils literal notranslate"><span class="pre">new</span></code> and in the
 <code class="docutils literal notranslate"><span class="pre">physical_type</span></code> of <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p>
+<p>There is one exception, the rank(0) view of an assumed-rank array. Inside a
+<code class="docutils literal notranslate"><span class="pre">rank</span> <span class="pre">(0)</span></code> block of <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">rank</span></code> the selector is a scalar, so the cast has
+<code class="docutils literal notranslate"><span class="pre">old</span> <span class="pre">=</span> <span class="pre">AssumedRankArray</span></code>, <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">=</span> <span class="pre">DescriptorArray</span></code> and a scalar <code class="docutils literal notranslate"><span class="pre">type</span></code>, the
+element type of the array. A scalar has no <code class="docutils literal notranslate"><span class="pre">physical_type</span></code>; the value is read
+through the data pointer of the assumed-rank descriptor. The verifier
+recognizes this case by <code class="docutils literal notranslate"><span class="pre">old</span> <span class="pre">=</span> <span class="pre">AssumedRankArray</span></code> and a <code class="docutils literal notranslate"><span class="pre">type</span></code> that is not an
+array; only then, instead of comparing <code class="docutils literal notranslate"><span class="pre">new</span></code> with <code class="docutils literal notranslate"><span class="pre">type</span></code>, it requires
+<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">=</span> <span class="pre">DescriptorArray</span></code>.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Lien permanent vers ce titre">¶</a></h2>
