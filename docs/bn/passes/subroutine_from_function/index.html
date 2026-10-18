@@ -579,6 +579,15 @@ This pass transforms functions that return aggregate types (like arrays, structs
 3. <code class="docutils literal notranslate"><span class="pre">is_aggregate_or_array_or_nonPrimitive_type()</span></code> have the roles on which we decide.
 4. If transformation is needed, We transform function's member <code class="docutils literal notranslate"><span class="pre">return_var</span></code> into intentOUT argument and we nullify the member.
 5. We also store the original return type in a map for later use.</p>
+<p>Procedure variables, casts and null constants must use the lowered interface
+as well. A null constant's type is refreshed from its procedure-variable
+expression after lowering: module-file serialization can give the constant a
+separate copy of the original signature, so changing the variable alone is not
+sufficient. Import that signature into the null constant's current scope:
+specification expressions in the procedure variable's type can reference
+symbols visible only in its declaration scope (for example a module function
+used as an array bound). Reusing the type directly would leave those references
+out of scope in a derived-type constructor.</p>
 </section>
 <section id="runtime-character-result-metadata">
 <h1 id="runtime-character-result-metadata">Runtime character result metadata<a class="headerlink" href="#runtime-character-result-metadata" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h1>
