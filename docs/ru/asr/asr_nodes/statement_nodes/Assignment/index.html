@@ -1017,7 +1017,7 @@
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Ссылка на этот заголовок">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Assignment(expr target, expr value, stmt? overloaded, bool realloc_lhs,
-    bool move_allocation)
+    bool move_allocation, bool new_target)
 </pre></div>
 </div>
 </section>
@@ -1044,6 +1044,9 @@
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">move_allocation</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when the allocation of <code class="docutils literal notranslate"><span class="pre">value</span></code> is moved to <code class="docutils literal notranslate"><span class="pre">target</span></code> instead of being copied, as for <code class="docutils literal notranslate"><span class="pre">move_alloc</span></code>. Both are allocatable arrays, or both are allocatable noncharacter scalars and <code class="docutils literal notranslate"><span class="pre">target</span></code> is type compatible with <code class="docutils literal notranslate"><span class="pre">value</span></code>; the object is neither copied nor finalized.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">new_target</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when <code class="docutils literal notranslate"><span class="pre">target</span></code> is a new object that the assignment only defines, such as an element of an array allocated with <code class="docutils literal notranslate"><span class="pre">SOURCE=</span></code>. The value is copied into it: <code class="docutils literal notranslate"><span class="pre">target</span></code> is not finalized first, and its components are not assigned by defined assignment, as they are for the variable of an intrinsic assignment. Such an assignment is neither a move nor a defined assignment.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1098,6 +1101,7 @@ pass turns it into loops later.</p>
 <span class="w">  </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">  </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">  </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">  </span><span class="ss">:new_target</span><span class="w"> </span><span class="nv">false</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1175,6 +1179,7 @@ pass turns it into loops later.</p>
 <span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:new_target</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">        </span><span class="ss">:global_init</span><span class="w"> </span><span class="nv">nil</span>
