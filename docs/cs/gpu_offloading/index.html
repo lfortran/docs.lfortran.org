@@ -1415,7 +1415,13 @@ have completed. A scratch buffer – a run-time sized local of the kernel
 <p>On the CPU emulation (<code class="docutils literal notranslate"><span class="pre">--gpu=cuda_cpu</span></code>) a launch runs the kernel on the
 host’s memory before it returns, so there is never anything to copy or wait
 for. The CUDA runtime keeps the same table and orders copies and launches
-on one stream.</p>
+on one stream. It keeps scratch and read-only upload buffers per kernel and
+argument slot, reusing their capacity and deferring replaced allocations until
+a synchronization. Preparing arguments can itself synchronize when the deferred
+queue or residency table fills. After such a synchronization, CUDA prepares all
+bindings again before dispatch: writable residents must still be present and
+dirty for the new launch, and reads must use their current bindings. This does
+not add a synchronization to each launch.</p>
 <p>The Metal runtime encodes the launches one after another into one compute
 encoder and commits its command buffer every 64 launches and at every wait:
 encoding a dispatch costs the host about 2 us, committing a command buffer
@@ -1591,6 +1597,23 @@ wrong values. Integration tests therefore check their results in the program,
 and third-party codes whose test suites check values (Formal, Fiats) are run
 with <code class="docutils literal notranslate"><span class="pre">--gpu=metal</span></code> in CI.</p></li>
 </ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">test_gpu_cuda_api_state*</span></code> unit tests compile the production CUDA runtime
+against a small host CUDA API test double. They exercise deferred-queue saturation
+for scratch and read-only buffers, and residency-table eviction. Copies and
+launches are queued in order, and the tests check readback and allocation lifetime.
+These are API-state tests, not CUDA_CPU emulation, native GPU execution, or
+performance evidence:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>ctest<span class="w"> </span>-R<span class="w"> </span><span class="s1">'^test_gpu_cuda_api_state'</span><span class="w"> </span>-V<span class="w"> </span>&gt;<span class="w"> </span>cuda-api-state.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>The same scratch saturation sequence is registered as <code class="docutils literal notranslate"><span class="pre">gpu_cuda_scratch_order</span></code>
+in the native <code class="docutils literal notranslate"><span class="pre">cuda</span></code> integration backend. It needs NVCC and an NVIDIA device:
+64 kernel caches with 30 small scratch buffers reach the 4096-entry deferred
+queue boundary before dispatch 201, whose output and scratch readback must both
+be 201. Run it on native CUDA even when the host API-state tests pass:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>integration_tests<span class="w"> </span>-b<span class="w"> </span>cuda<span class="w"> </span>-t<span class="w"> </span><span class="s1">'^gpu_cuda_scratch_order$'</span><span class="w"> </span>-j6<span class="w"> </span>&gt;<span class="w"> </span>cuda-scratch-order.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</pre></div>
+</div>
 </section>
 <section id="open-questions">
 <h2 id="open-questions">Open questions<a class="headerlink" href="#open-questions" title="Trvalý odkaz na tento nadpis">¶</a></h2>
