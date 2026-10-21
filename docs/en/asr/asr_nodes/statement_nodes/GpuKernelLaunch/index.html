@@ -1035,7 +1035,7 @@ gpu_scratch_buffer = (int argument_index, expr size, expr? read_back)
 <td><p>the <a class="reference internal" href="../../symbol_nodes/Function/"><span class="doc std std-doc">Function</span></a> to run. Its signature has <code class="docutils literal notranslate"><span class="pre">exec_space</span> <span class="pre">=</span> <span class="pre">Kernel</span></code>; see <a class="reference internal" href="../../enum_nodes/exec_space/"><span class="doc std std-doc">exec_space</span></a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">thread_count</span></code></p></td>
-<td><p>the number of threads that run the kernel’s body, one per iteration of the loop; a count below one runs none.</p></td>
+<td><p>the number of threads the launch numbers: one per iteration of the loop, or, when the nest is launched in tiles, one per place in whole tiles; a count below one runs none.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">block_size</span></code></p></td>
 <td><p>the number of threads per block.</p></td>
@@ -1070,7 +1070,21 @@ blocks of <code class="docutils literal notranslate"><span class="pre">block_siz
 numbered from zero, block after block; the kernel sends every thread numbered
 <code class="docutils literal notranslate"><span class="pre">thread_count</span></code> or higher back before its body, so the host sizes what the
 launch holds per thread – a workspace slice – by <code class="docutils literal notranslate"><span class="pre">thread_count</span></code>, not by the
-threads it starts. <a class="reference internal" href="../GpuSync/"><span class="doc std std-doc">GpuSync</span></a> is what waits; the <code class="docutils literal notranslate"><span class="pre">gpu_launch_sync</span></code>
+threads it starts.</p>
+<p>On a device that asks for tiles (CUDA), a nest of two or more dimensions
+without a reduction can be launched in tiles: a block covers a tile of 32
+iterations of the dimension its stores are contiguous in by the rest of the
+block along a second dimension, the one the stores step through next in
+memory (or, if they do not agree on one, the next one in loop order). The
+block index numbers the tiles, and <code class="docutils literal notranslate"><span class="pre">thread_count</span></code> counts whole tiles. Where
+whole tiles would pad the nest by more than a quarter, as a short dimension
+does, the host tells the kernel to number the iterations flat instead, and
+<code class="docutils literal notranslate"><span class="pre">thread_count</span></code> counts iterations. Padding to whole tiles can take
+<code class="docutils literal notranslate"><span class="pre">thread_count</span></code> past the kind of the loop indices, so it is an <code class="docutils literal notranslate"><span class="pre">integer(8)</span></code>.
+The kernel checks the zero-based tile coordinates against the extents before
+adding the loop lower bounds. A padded thread returns before constructing a
+source index that could overflow even when every valid index is representable.
+<a class="reference internal" href="../GpuSync/"><span class="doc std std-doc">GpuSync</span></a> is what waits; the <code class="docutils literal notranslate"><span class="pre">gpu_launch_sync</span></code>
 pass places it where the host next needs what a kernel wrote (see
 <a class="reference internal" href="../../../../gpu_offloading/"><span class="doc std std-doc">GPU offloading</span></a>).</p>
 <p>The execution configuration is part of the node rather than of the kernel,
