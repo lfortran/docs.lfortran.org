@@ -1017,7 +1017,8 @@
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GpuKernelLaunch(symbol kernel, expr thread_count, expr block_size,
     call_arg* args, symbol? component_fit, gpu_scratch_buffer* scratch,
-    expr? stop_status, stmt* stop_replay)
+    expr? stop_status, stmt* stop_replay, expr* overwritten,
+    expr* overwritten_if)
 gpu_scratch_buffer = (int argument_index, expr size, expr? read_back)
 </pre></div>
 </div>
@@ -1054,6 +1055,12 @@ gpu_scratch_buffer = (int argument_index, expr size, expr? read_back)
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stop_replay</span></code></p></td>
 <td><p>the host statements that run the <code class="docutils literal notranslate"><span class="pre">stop</span></code> a thread of the launch recorded (below).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">overwritten</span></code></p></td>
+<td><p>array arguments the kernel may assign whole before it reads them (below).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">overwritten_if</span></code></p></td>
+<td><p>for each of <code class="docutils literal notranslate"><span class="pre">overwritten</span></code>, the host condition under which it does.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1125,6 +1132,23 @@ that statement on the host. They run after the first GpuSync that follows
 the launch, which the <code class="docutils literal notranslate"><span class="pre">gpu_launch_sync</span></code> pass places, copies of them after
 each GpuSync the launch may still be pending at; that pass also clears the
 first element of <code class="docutils literal notranslate"><span class="pre">stop_status</span></code> once, on entry to the procedure.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">overwritten_if[i]</span></code>, a scalar logical the host evaluates at the launch,
+is true, the kernel assigns every element of the array <code class="docutils literal notranslate"><span class="pre">overwritten[i]</span></code>, an
+actual argument of the launch, before it reads any of them. What the host
+holds there then does not reach the kernel, so <code class="docutils literal notranslate"><span class="pre">device_launch_expand</span></code> hands
+the buffer to the runtime as <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_WRITE_DISCARD</span></code>, and a runtime
+with memory of its own only makes room for it instead of copying it in.
+<code class="docutils literal notranslate"><span class="pre">gpu_offload</span></code> finds such arrays in the loop as the source wrote it: an
+assignment <code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j,</span> <span class="pre">...)</span> <span class="pre">=</span> <span class="pre">value</span></code> subscripted by the loop variables, one per
+loop, that each iteration reaches before anything else of it names <code class="docutils literal notranslate"><span class="pre">a</span></code>, at
+the top of the iteration or inside IFs that compare loop variables with
+values the loop cannot change. The condition is that those loops, narrowed
+by the IFs, run over exactly the bounds of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
+<p>This proof does not imply that the buffer is unaliased. If any other buffer
+argument of the launch overlaps it, the runtime treats the discard as an
+ordinary write so that the other argument can still read its previous
+contents. The kernel layout’s <code class="docutils literal notranslate"><span class="pre">gpu_kernel_argument.noalias</span></code> is a separate
+shared-ASR proof; it is not inferred from <code class="docutils literal notranslate"><span class="pre">overwritten</span></code>.</p>
 <p>Private array storage is placed after shared lowering by <code class="docutils literal notranslate"><span class="pre">gpu_kernel_storage</span></code>,
 before address-space specialization. Fixed-size arrays that fit the device’s
 stack budget have <code class="docutils literal notranslate"><span class="pre">Thread</span></code> memory space. Larger arrays have <code class="docutils literal notranslate"><span class="pre">Global</span></code> memory
@@ -1160,6 +1184,8 @@ placement never turns an iteration-private value into a shared value.</p>
 <span class="w">  </span><span class="ss">:scratch</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">  </span><span class="ss">:stop_status</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">  </span><span class="ss">:stop_replay</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="ss">:overwritten</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="ss">:overwritten_if</span><span class="w"> </span><span class="p">[]</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1302,6 +1328,8 @@ placement never turns an iteration-private value into a shared value.</p>
 <span class="w">                  </span><span class="ss">:scratch</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                  </span><span class="ss">:stop_status</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">                  </span><span class="ss">:stop_replay</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">                  </span><span class="ss">:overwritten</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">                  </span><span class="ss">:overwritten_if</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                </span><span class="p">)</span>
 <span class="w">                </span><span class="p">(</span><span class="nf">GpuSync</span><span class="p">)</span>
 <span class="w">              </span><span class="p">]</span>
