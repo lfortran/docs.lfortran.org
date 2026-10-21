@@ -623,6 +623,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../OMPOverwrite/" class="md-nav__link">OMPOverwrite</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../OMPPrivate/" class="md-nav__link">OMPPrivate</a>
       
     
@@ -739,6 +746,7 @@
   | OMPIndependent()
   | OMPTargetRequested()
   | OMPCriticalName(identifier name)
+  | OMPOverwrite(expr array, expr condition)
 </pre></div>
 </div>
 </section>
@@ -769,7 +777,10 @@ Two record what the source asserted rather than what it asked to be done:
 one another, and <a class="reference internal" href="../OMPTargetRequested/"><span class="doc std std-doc">OMPTargetRequested</span></a> says a device
 was asked for. <a class="reference internal" href="../OMPCriticalName/"><span class="doc std std-doc">OMPCriticalName</span></a> names a critical
 construct, which selects the lock it shares with the critical constructs of
-the same name.</p>
+the same name.
+<a class="reference internal" href="../OMPOverwrite/"><span class="doc std std-doc">OMPOverwrite</span></a> is never written by the source: a loop
+transformation records with it which arrays the loop it rewrote assigns whole
+before reading them.</p>
 <p>A clause that is not written is simply absent from the list; there is no
 default clause node.</p>
 </section>
