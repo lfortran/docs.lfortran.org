@@ -445,6 +445,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../interactive_evaluation/" class="md-nav__link">Interactive evaluation</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../jupyterlite/" class="md-nav__link">LFortran in the Browser (JupyterLite)</a>
       
     
@@ -656,6 +663,8 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="lfortran-design">
 <h1 id="design--page-root">LFortran Design<a class="headerlink" href="#design--page-root" title="永久链接至标题">¶</a></h1>
+<p>The native prompt and optional Xeus kernel share an
+<a class="reference internal" href="../interactive_evaluation/"><span class="doc std std-doc">interactive evaluation API</span></a>.</p>
 <section id="high-level-overview">
 <h2 id="high-level-overview">高级概述<a class="headerlink" href="#high-level-overview" title="永久链接至标题">¶</a></h2>
 <p>LFortran 围绕两个独立的模块 AST 和 ASR 构建，这两个模块都是独立的（完全独立于 LFortran 的其余部分），鼓励用户将它们独立用于其他应用程序并在其上构建工具：</p>
