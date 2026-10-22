@@ -47,7 +47,7 @@
   
   
   
-    <title>Interactive evaluation &#8212; LFortran</title>
+    <title>Running a cell: the prompt and the Jupyter kernel &#8212; LFortran</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -103,7 +103,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">LFortran Documentation</span>
-          <span class="md-header-nav__topic"> Interactive evaluation </span>
+          <span class="md-header-nav__topic"> Running a cell: the prompt and the Jupyter kernel </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -341,9 +341,9 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> Interactive evaluation </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Running a cell: the prompt and the Jupyter kernel </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">Interactive evaluation</a>
+      <a href="#" class="md-nav__link md-nav__link--active">Running a cell: the prompt and the Jupyter kernel</a>
       
         
 <nav class="md-nav md-nav--secondary">
@@ -532,43 +532,51 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="interactive-evaluation">
-<h1 id="interactive-evaluation--page-root">Interactive evaluation<a class="headerlink" href="#interactive-evaluation--page-root" title="Permalink naar deze titel">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="running-a-cell-the-prompt-and-the-jupyter-kernel">
+<h1 id="interactive-evaluation--page-root">Running a cell: the prompt and the Jupyter kernel<a class="headerlink" href="#interactive-evaluation--page-root" title="Permalink naar deze titel">¶</a></h1>
 <p>The terminal prompt and the optional Xeus kernel run cells with
 <code class="docutils literal notranslate"><span class="pre">FortranEvaluator::execute(code,</span> <span class="pre">verbose,</span> <span class="pre">io)</span></code> (<code class="docutils literal notranslate"><span class="pre">src/lfortran/fortran_evaluator.h</span></code>).
 It evaluates one cell like <code class="docutils literal notranslate"><span class="pre">evaluate()</span></code>, with fresh diagnostics and the default
 passes, and also runs the <code class="docutils literal notranslate"><span class="pre">%%showast</span></code>, <code class="docutils literal notranslate"><span class="pre">%%showasr</span></code>, <code class="docutils literal notranslate"><span class="pre">%%showllvm</span></code>, <code class="docutils literal notranslate"><span class="pre">%%showasm</span></code>,
 <code class="docutils literal notranslate"><span class="pre">%%showcpp</span></code> and <code class="docutils literal notranslate"><span class="pre">%%showfmt</span></code> inspection cells (the magic is the first line of
-the cell; trailing blanks and a CRLF line ending are ignored). The evaluator
-must be constructed
-with <code class="docutils literal notranslate"><span class="pre">CompilerOptions::interactive</span></code> set; it keeps the session’s symbols across
-cells. A failed cell is not rolled back.</p>
+the cell; trailing blanks and a CRLF line ending are ignored). An inspection
+cell sees the session’s declarations, but it does not run, so its own
+declarations do not join the session. <code class="docutils literal notranslate"><span class="pre">CompilerOptions::interactive</span></code> must be
+set before the first cell; the evaluator keeps the session’s symbols across
+cells (see <a class="reference internal" href="../interactive_cells/"><span class="doc">Interactive evaluation: one TranslationUnit per cell</span></a>). A failed cell is not rolled back.</p>
 <p>The returned <code class="docutils literal notranslate"><span class="pre">CellResult</span></code> holds the typed <code class="docutils literal notranslate"><span class="pre">EvalResult</span></code> (or, when <code class="docutils literal notranslate"><span class="pre">inspection</span></code>
-is set, the inspection <code class="docutils literal notranslate"><span class="pre">output</span></code>), the rendered diagnostics and, for a failed
-cell, an error name and text. The diagnostics of a successful cell are its
-warnings; both frontends show them. Compiler exceptions become an error with
-the stack trace in its text. <code class="docutils literal notranslate"><span class="pre">EvalResult::text()</span></code> formats a value the way the
-prompt and the kernel show it (8/17 significant digits for real/complex, always
-with a decimal point or an exponent, so that <code class="docutils literal notranslate"><span class="pre">1.0</span></code> is not shown as <code class="docutils literal notranslate"><span class="pre">1</span></code>;
-<code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">False</span></code>; character text) and <code class="docutils literal notranslate"><span class="pre">EvalResult::has_value()</span></code> is false for
-statements and empty cells.</p>
+is set, the inspection <code class="docutils literal notranslate"><span class="pre">output</span></code>) and the rendered diagnostics; those of a
+successful cell are its warnings, which both frontends show. For a failed cell
+it holds an error name and message: <code class="docutils literal notranslate"><span class="pre">CompilerError</span></code> with the rendered
+diagnostics, <code class="docutils literal notranslate"><span class="pre">DisplayError</span></code>, or, for an internal compiler error
+(<code class="docutils literal notranslate"><span class="pre">internal_error</span></code>), the exception’s name and message, with its stack trace
+apart in <code class="docutils literal notranslate"><span class="pre">error_traceback</span></code>. <code class="docutils literal notranslate"><span class="pre">CellResult::error_text()</span></code> is what a frontend shows
+for it. The kernel sends the message as the Jupyter <code class="docutils literal notranslate"><span class="pre">evalue</span></code> and the stack
+trace as the <code class="docutils literal notranslate"><span class="pre">traceback</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">EvalResult::text()</span></code> formats a value the way the prompt and the kernel show it:
+for real and complex, the shortest text that reads back as the same value (at
+most 9/17 significant digits), always with a decimal point or an exponent, so
+that <code class="docutils literal notranslate"><span class="pre">1.0</span></code> is not shown as <code class="docutils literal notranslate"><span class="pre">1</span></code>; <code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">False</span></code>; character text.
+<code class="docutils literal notranslate"><span class="pre">EvalResult::has_value()</span></code> is false for statements and empty cells.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">lfortran_display</span></code> module’s <code class="docutils literal notranslate"><span class="pre">display_data</span></code> and <code class="docutils literal notranslate"><span class="pre">clear_output</span></code> call the
 <code class="docutils literal notranslate"><span class="pre">lfortran_display_data</span></code> and <code class="docutils literal notranslate"><span class="pre">lfortran_clear_output</span></code> C functions of the runtime
-library. While <code class="docutils literal notranslate"><span class="pre">execute()</span></code> runs a cell, it registers hooks with the runtime
-(<code class="docutils literal notranslate"><span class="pre">_lfortran_set_display_hooks</span></code>) that forward to that cell’s <code class="docutils literal notranslate"><span class="pre">CellIO</span></code>, including
-in WASM; at any other time, and in compiled programs, the functions do
-nothing. The hooks are process-wide, so cells must not run concurrently. An
-exception thrown by a hook does not unwind through generated code; the cell
-fails with <code class="docutils literal notranslate"><span class="pre">DisplayError</span></code>. The module is built with or without Xeus.
-<code class="docutils literal notranslate"><span class="pre">execute()</span></code> does not capture stdout/stderr; that is up to the frontend.</p>
+library. While <code class="docutils literal notranslate"><span class="pre">execute()</span></code> runs a cell, it registers hooks and a context with
+the runtime (<code class="docutils literal notranslate"><span class="pre">_lfortran_set_display_hooks</span></code>) that forward to that cell’s
+<code class="docutils literal notranslate"><span class="pre">CellIO</span></code>, including in WASM; at any other time, and in compiled programs, the
+functions do nothing. The hooks are process-wide, so cells must not run
+concurrently. An exception thrown by a hook does not unwind through generated
+code; the cell fails with <code class="docutils literal notranslate"><span class="pre">DisplayError</span></code> and the exception’s message. The
+module is built with or without Xeus. <code class="docutils literal notranslate"><span class="pre">execute()</span></code> does not capture
+stdout/stderr; that is up to the frontend. Jupyter messages must be UTF-8, so
+the kernel shows any other bytes of a cell’s output as U+FFFD.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">test_lfortran</span></code> cases <code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span> <span class="pre">execute:</span> <span class="pre">*</span></code> (also run in the WASM
 build of the JupyterLite kernel), <code class="docutils literal notranslate"><span class="pre">test_repl</span></code> and, in Xeus builds,
 <code class="docutils literal notranslate"><span class="pre">test_kernel_evaluation</span></code> cover this; the <code class="docutils literal notranslate"><span class="pre">display_data_01</span></code> integration test
-covers compiled programs. The complex-result cases of <code class="docutils literal notranslate"><span class="pre">test_lfortran</span></code> also exercise the JIT result
-ABI on Windows: there complex(4) comes back as two float bit patterns in an
-integer register and complex(8) through an output pointer, and
-<code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span></code> calls those signatures explicitly rather than relying on
-the C++ <code class="docutils literal notranslate"><span class="pre">std::complex</span></code> return convention.</p>
+covers compiled programs. The complex-result cases of <code class="docutils literal notranslate"><span class="pre">test_lfortran</span></code> also
+exercise the JIT result ABI on Windows: there complex(4) comes back as two
+float bit patterns in an integer register and complex(8) through an output
+pointer, and <code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span></code> calls those signatures explicitly rather than
+relying on the C++ <code class="docutils literal notranslate"><span class="pre">std::complex</span></code> return convention.</p>
 </section>
 
 

@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="../genindex/" />
     <link rel="search" title="Search" href="../search/" />
     <link rel="next" title="Contributing" href="../contributing/" />
-    <link rel="prev" title="Interactive evaluation" href="../interactive_evaluation/" />
+    <link rel="prev" title="Running a cell: the prompt and the Jupyter kernel" href="../interactive_evaluation/" />
   
    
 
@@ -339,7 +339,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../interactive_evaluation/" class="md-nav__link">Interactive evaluation</a>
+      <a href="../interactive_evaluation/" class="md-nav__link">Running a cell: the prompt and the Jupyter kernel</a>
       
     
     </li>
@@ -711,7 +711,7 @@ The full jobs run the same scripts the pixi tasks below wrap:</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>C++ evaluator test (<code class="docutils literal notranslate"><span class="pre">FortranEvaluator::evaluate2</span></code>)</p></td>
+<tr class="row-even"><td><p>C++ evaluator test (<code class="docutils literal notranslate"><span class="pre">FortranEvaluator::execute</span></code> or <code class="docutils literal notranslate"><span class="pre">evaluate2</span></code>)</p></td>
 <td><p>native build only</p></td>
 <td><p>Almost always — this is also the form the <em>fix</em> has to be tested in. See “Writing a test” below.</p></td>
 </tr>
@@ -727,8 +727,10 @@ The full jobs run the same scripts the pixi tasks below wrap:</p>
 </table>
 <p>The kernel logic is shared by all three: <code class="docutils literal notranslate"><span class="pre">src/lfortran/fortran_kernel.cpp</span></code>
 drives <code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span></code> (<code class="docutils literal notranslate"><span class="pre">src/lfortran/fortran_evaluator.cpp</span></code>), and each
-notebook cell is one call to <code class="docutils literal notranslate"><span class="pre">FortranEvaluator::evaluate2()</span></code>. Only the transport
-(ZeroMQ vs. <code class="docutils literal notranslate"><span class="pre">xeus-lite</span></code> in a web worker) and the code generator target differ.
+notebook cell is one call to <code class="docutils literal notranslate"><span class="pre">FortranEvaluator::execute()</span></code>, which runs an
+ordinary cell the way <code class="docutils literal notranslate"><span class="pre">evaluate2()</span></code> does (see <a class="reference internal" href="../interactive_evaluation/"><span class="doc">Running a cell: the prompt and the Jupyter kernel</span></a>).
+Only the transport (ZeroMQ vs. <code class="docutils literal notranslate"><span class="pre">xeus-lite</span></code> in a web worker) and the code
+generator target differ.
 So a bug that is not about WASM itself will reproduce in the native kernel and,
 usually, in a plain C++ evaluator test.</p>
 </section>
@@ -753,13 +755,14 @@ jupyter<span class="w"> </span>lab<span class="w"> </span>share/lfortran/nb/Mand
 <p>Open one of the notebooks under <code class="docutils literal notranslate"><span class="pre">share/lfortran/nb/</span></code> — these are the same
 notebooks that ship with the online lab (<code class="docutils literal notranslate"><span class="pre">Demo1</span></code>, <code class="docutils literal notranslate"><span class="pre">Demo2</span></code>, <code class="docutils literal notranslate"><span class="pre">Variables</span></code>,
 <code class="docutils literal notranslate"><span class="pre">Mandelbrot</span></code>, <code class="docutils literal notranslate"><span class="pre">Rich_Display</span></code>) — and run the failing cell. Rich output
-(<code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">lfortran_display;</span> <span class="pre">call</span> <span class="pre">display_data(...)</span></code>) works here, because the
-<code class="docutils literal notranslate"><span class="pre">lfortran_display_data</span></code> / <code class="docutils literal notranslate"><span class="pre">lfortran_clear_output</span></code> bridge symbols are defined in
-the kernel binary and resolved by the JIT.</p>
+(<code class="docutils literal notranslate"><span class="pre">use</span> <span class="pre">lfortran_display;</span> <span class="pre">call</span> <span class="pre">display_data(...)</span></code>) works here: the
+<code class="docutils literal notranslate"><span class="pre">lfortran_display_data</span></code> / <code class="docutils literal notranslate"><span class="pre">lfortran_clear_output</span></code> functions of the runtime
+library, which the JIT resolves in the kernel process, forward to the kernel
+while it runs the cell.</p>
 <p>Note that the command-line REPL (<code class="docutils literal notranslate"><span class="pre">lfortran</span></code> with no arguments) is <strong>not</strong> a
 substitute: it is line-oriented, so a multi-line cell (in particular one
 containing a <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">...</span> <span class="pre">end</span> <span class="pre">module</span></code>) is evaluated as a sequence of separate
-<code class="docutils literal notranslate"><span class="pre">evaluate2()</span></code> calls rather than as one cell, which changes the behaviour.</p>
+cells rather than as one cell, which changes the behaviour.</p>
 </section>
 <section id="option-b-full-jupyterlite-build">
 <h2 id="option-b-full-jupyterlite-build">Option B — full JupyterLite build<a class="headerlink" href="#option-b-full-jupyterlite-build" title="Permalink to this headline">¶</a></h2>
@@ -1027,8 +1030,11 @@ how cells are represented in ASR, which is usually where such a bug lives.</p></
 </section>
 <section id="step-2-write-the-mre-as-an-evaluator-test">
 <h3 id="step-2-write-the-mre-as-an-evaluator-test">Step 2 — write the MRE as an evaluator test<a class="headerlink" href="#step-2-write-the-mre-as-an-evaluator-test" title="Permalink to this headline">¶</a></h3>
-<p>One notebook cell == one <code class="docutils literal notranslate"><span class="pre">evaluate2()</span></code> call. Add a <code class="docutils literal notranslate"><span class="pre">doctest</span></code> <code class="docutils literal notranslate"><span class="pre">TEST_CASE</span></code> to
-<code class="docutils literal notranslate"><span class="pre">src/lfortran/tests/test_llvm.cpp</span></code>, next to the other <code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span></code> cases:</p>
+<p>One notebook cell == one <code class="docutils literal notranslate"><span class="pre">execute()</span></code> call, which for an ordinary cell is one
+<code class="docutils literal notranslate"><span class="pre">evaluate2()</span></code> call. Add a <code class="docutils literal notranslate"><span class="pre">doctest</span></code> <code class="docutils literal notranslate"><span class="pre">TEST_CASE</span></code> to
+<code class="docutils literal notranslate"><span class="pre">src/lfortran/tests/test_llvm.cpp</span></code>, next to the other <code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span></code> cases
+(use <code class="docutils literal notranslate"><span class="pre">execute()</span></code> when the bug involves an inspection cell, the display or the
+rendered diagnostics):</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST_CASE</span><span class="p">(</span><span class="s">"FortranEvaluator module defined in one cell, used in the next"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">CompilerOptions</span><span class="w"> </span><span class="n">cu</span><span class="p">;</span>
 <span class="w">    </span><span class="n">cu</span><span class="p">.</span><span class="n">interactive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
@@ -1113,21 +1119,20 @@ part of the WASM run.</p>
 </section>
 <section id="a-note-on-rich-display-display-data">
 <h3 id="a-note-on-rich-display-display-data">A note on rich display (<code class="docutils literal notranslate"><span class="pre">display_data</span></code>)<a class="headerlink" href="#a-note-on-rich-display-display-data" title="Permalink to this headline">¶</a></h3>
-<p>Bugs of the form “the cell should show an image but shows nothing” cannot be
-asserted end-to-end in an evaluator test: <code class="docutils literal notranslate"><span class="pre">lfortran_display_data()</span></code> is defined
-in the kernel (<code class="docutils literal notranslate"><span class="pre">src/lfortran/fortran_kernel.cpp</span></code>), not in the test binary, so a
-test that actually calls it will not link/resolve. Reduce such a bug to the
-compile/evaluate failure underneath it instead:</p>
+<p>A cell’s <code class="docutils literal notranslate"><span class="pre">display_data</span></code> and <code class="docutils literal notranslate"><span class="pre">clear_output</span></code> calls reach the <code class="docutils literal notranslate"><span class="pre">CellIO</span></code> hooks
+passed to <code class="docutils literal notranslate"><span class="pre">FortranEvaluator::execute()</span></code>, so an evaluator test can assert them
+(see <code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span> <span class="pre">execute:</span> <span class="pre">display</span> <span class="pre">hooks</span></code> in <code class="docutils literal notranslate"><span class="pre">test_llvm.cpp</span></code>). For a bug of
+the form “the cell should show an image but shows nothing”, first find out
+whether the display or the computation is at fault:</p>
 <ol class="arabic simple">
 <li><p>In the notebook, replace <code class="docutils literal notranslate"><span class="pre">call</span> <span class="pre">display_data(...)</span></code> with
 <code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">*,</span> <span class="pre">len(payload)</span></code> (or print a checksum of the payload). If the cell now
 prints nothing or errors, the display bridge is innocent and you have a plain
 evaluator bug — write the test as in step 2.</p></li>
 <li><p>If the payload is computed correctly and only the display is missing, the bug
-is in the kernel/display path. Reproduce it with Option A (native kernel),
-which exercises the same <code class="docutils literal notranslate"><span class="pre">lfortran_display_data</span></code> code path with a debugger
-attached, and keep a notebook-level reproducer under <code class="docutils literal notranslate"><span class="pre">share/lfortran/nb/</span></code>
-plus an evaluator test for whatever compile-time part can be asserted.</p></li>
+is in the display path. Assert the display data with <code class="docutils literal notranslate"><span class="pre">execute()</span></code> and a
+<code class="docutils literal notranslate"><span class="pre">CellIO</span></code>, or reproduce it with Option A (native kernel), which exercises the
+same <code class="docutils literal notranslate"><span class="pre">lfortran_display_data</span></code> code path with a debugger attached.</p></li>
 </ol>
 </section>
 </section>
@@ -1143,7 +1148,7 @@ plus an evaluator test for whatever compile-time part can be asserted.</p></li>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="../interactive_evaluation/" title="Interactive evaluation"
+            <a href="../interactive_evaluation/" title="Running a cell: the prompt and the Jupyter kernel"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -1152,7 +1157,7 @@ plus an evaluator test for whatever compile-time part can be asserted.</p></li>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Interactive evaluation </span>
+                      class="md-footer-nav__direction"> Previous </span> Running a cell: the prompt and the Jupyter kernel </span>
               </div>
             </a>
           

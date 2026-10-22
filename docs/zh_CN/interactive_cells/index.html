@@ -64,7 +64,7 @@
     <link rel="shortcut icon" href="../_static/lfortran-logo.svg"/>
     <link rel="index" title="索引" href="../genindex/" />
     <link rel="search" title="搜索" href="../search/" />
-    <link rel="next" title="Interactive evaluation" href="../interactive_evaluation/" />
+    <link rel="next" title="Running a cell: the prompt and the Jupyter kernel" href="../interactive_evaluation/" />
     <link rel="prev" title="AST 和 ASR 之间的区别" href="../ast_and_asr/" />
   
    
@@ -408,7 +408,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../interactive_evaluation/" class="md-nav__link">Interactive evaluation</a>
+      <a href="../interactive_evaluation/" class="md-nav__link">Running a cell: the prompt and the Jupyter kernel</a>
       
     
     </li>
@@ -725,7 +725,9 @@ produce no output.</p>
 ones (<code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span> <span class="pre">shadow</span> <span class="pre">a</span> <span class="pre">variable/function/module</span> <span class="pre">across</span> <span class="pre">cells</span></code>) are
 the executable description of the semantics above: each checks that the new
 binding is visible <em>and</em> that the old one is still alive.</p>
-<p>One cell is one <code class="docutils literal notranslate"><span class="pre">evaluate2()</span></code> call, so a test is written as a sequence of them.
+<p>One cell is one <code class="docutils literal notranslate"><span class="pre">FortranEvaluator::execute()</span></code> call, which for an ordinary cell
+is one <code class="docutils literal notranslate"><span class="pre">evaluate2()</span></code> call, so a test is written as a sequence of them (see
+<a class="reference internal" href="../interactive_evaluation/"><span class="doc">Running a cell: the prompt and the Jupyter kernel</span></a>).
 See <a class="reference internal" href="../jupyterlite/"><span class="doc">LFortran in the Browser (JupyterLite)</span></a> for reproducing a lab bug in the browser and reducing it
 to such a test.</p>
 </section>
@@ -755,12 +757,12 @@ to such a test.</p>
             </a>
           
           
-            <a href="../interactive_evaluation/" title="Interactive evaluation"
+            <a href="../interactive_evaluation/" title="Running a cell: the prompt and the Jupyter kernel"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Interactive evaluation </span>
+                class="md-footer-nav__direction"> Next </span> Running a cell: the prompt and the Jupyter kernel </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
