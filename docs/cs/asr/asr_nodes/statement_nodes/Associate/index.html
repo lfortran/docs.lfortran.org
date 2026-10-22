@@ -1023,7 +1023,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Trvalý odkaz na tento nadpis">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Trvalý odkaz na tento nadpis">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Associate(expr target, expr value)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Associate(expr target, expr value, pointer_bounds_form form)
 </pre></div>
 </div>
 </section>
@@ -1041,6 +1041,9 @@
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
 <td><p>what it is bound to.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">form</span></code></p></td>
+<td><p>whether <code class="docutils literal notranslate"><span class="pre">target</span></code> gives the bounds of a pointer, and how; see <a class="reference internal" href="../../enum_nodes/pointer_bounds_form/"><span class="doc std std-doc">pointer_bounds_form</span></a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1061,6 +1064,24 @@ anything, which is what distinguishes it from
 <a class="reference internal" href="../../expression_nodes/PointerNullConstant/"><span class="doc std std-doc">PointerNullConstant</span></a> value is how
 <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=&gt;</span> <span class="pre">null()</span></code> is represented, and <a class="reference internal" href="../Nullify/"><span class="doc std std-doc">Nullify</span></a> is the equivalent
 statement form.</p>
+<p>A pointer assignment with a bounds-spec-list, <code class="docutils literal notranslate"><span class="pre">p(lb:)</span> <span class="pre">=&gt;</span> <span class="pre">a</span></code>, or a
+bounds-remapping-list, <code class="docutils literal notranslate"><span class="pre">p(lb:ub)</span> <span class="pre">=&gt;</span> <span class="pre">a</span></code>, has as target an
+<a class="reference internal" href="../../expression_nodes/ArraySection/"><span class="doc std std-doc">ArraySection</span></a> of the pointer, and <code class="docutils literal notranslate"><span class="pre">form</span></code>
+says which of the two it is. For a bounds-spec the section has only the lower
+bound of every dimension and no upper bound: the extents of the pointer are
+those of the value, so a backend computes the upper bound of dimension <code class="docutils literal notranslate"><span class="pre">i</span></code> as
+<code class="docutils literal notranslate"><span class="pre">lb</span> <span class="pre">+</span> <span class="pre">size(value,</span> <span class="pre">i)</span> <span class="pre">-</span> <span class="pre">1</span></code>. For a bounds-remapping-list it has the lower and
+the upper bound of every dimension, as written. Every bound is a scalar
+integer expression, neither has a stride, and the value and every bound are
+evaluated once. Every other association has <code class="docutils literal notranslate"><span class="pre">form</span></code>
+<code class="docutils literal notranslate"><span class="pre">NoPointerBounds</span></code>. The verifier checks that the form is set exactly when the
+target is a section of a pointer, that the bounds present are those of the
+form and are scalar integers, that the value is not <code class="docutils literal notranslate"><span class="pre">null()</span></code>, that the value
+of a bounds-spec has the rank of the pointer, that the value of a
+bounds-remapping-list is an array, and that the value is a <code class="docutils literal notranslate"><span class="pre">DescriptorArray</span></code>
+(an array of another physical type is cast to the physical type of the
+section). That the value of a bounds-remapping-list has rank one or is simply
+contiguous (F2018 9.5.4, 10.2.2.3) is checked by the frontend.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Trvalý odkaz na tento nadpis">¶</a></h2>
@@ -1079,6 +1100,7 @@ statement form.</p>
 <span class="w">    </span><span class="p">)</span>
 <span class="w">    </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">  </span><span class="p">)</span>
+<span class="w">  </span><span class="ss">:form</span><span class="w"> </span><span class="ss">:NoPointerBounds</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1279,6 +1301,7 @@ statement form.</p>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="ss">:form</span><span class="w"> </span><span class="ss">:NoPointerBounds</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
 <span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
@@ -1354,7 +1377,7 @@ statement form.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Trvalý odkaz na tento nadpis">¶</a></h2>
-<p><a class="reference internal" href="../Assignment/"><span class="doc std std-doc">Assignment</span></a>, <a class="reference internal" href="../../symbol_nodes/AssociateBlock/"><span class="doc std std-doc">AssociateBlock</span></a>, <a class="reference internal" href="../Nullify/"><span class="doc std std-doc">Nullify</span></a>, <a class="reference internal" href="../../expression_nodes/GetPointer/"><span class="doc std std-doc">GetPointer</span></a></p>
+<p><a class="reference internal" href="../Assignment/"><span class="doc std std-doc">Assignment</span></a>, <a class="reference internal" href="../../symbol_nodes/AssociateBlock/"><span class="doc std std-doc">AssociateBlock</span></a>, <a class="reference internal" href="../Nullify/"><span class="doc std std-doc">Nullify</span></a>, <a class="reference internal" href="../../expression_nodes/GetPointer/"><span class="doc std std-doc">GetPointer</span></a>, <a class="reference internal" href="../../enum_nodes/pointer_bounds_form/"><span class="doc std std-doc">pointer_bounds_form</span></a></p>
 </section>
 </section>
 
