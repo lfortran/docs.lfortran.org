@@ -700,9 +700,12 @@
 <p>Use <a class="reference external" href="https://pixi.sh/">Pixi</a> to install the repository's build dependencies and
 build LFortran. Install Pixi following its platform instructions, and install
 Git. On macOS, install Xcode Command Line Tools (<code class="docutils literal notranslate"><span class="pre">xcode-select</span> <span class="pre">--install</span></code>).
-On Windows, install Visual Studio's C++ build tools and Git Bash, and run Pixi
+On Windows, install Visual Studio's C++ build tools and run Pixi
 from an initialized MSVC developer environment (the x64 Native Tools Command
-Prompt). Use Pixi inside WSL for the Unix-only integration runner.
+Prompt). Bash is not required: Pixi installs the cross-platform
+<a class="reference external" href="https://github.com/prefix-dev/shell"><code class="docutils literal notranslate"><span class="pre">shell</span></code></a>, which runs the build scripts
+natively on every platform. Use Pixi inside WSL for the Unix-only integration
+runner.
 Pixi supplies the Linux C/C++ compilers, Clang for native LLVM executable
 linking, and LLVM's OpenMP runtime (<code class="docutils literal notranslate"><span class="pre">libomp</span></code>), so host Clang is not required.
 On macOS, the environment selects the Xcode C/C++ compilers; the C backend
@@ -721,6 +724,11 @@ test suite. Its executable is <code class="docutils literal notranslate"><span c
 <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">start</span></code>, or use <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">shell</span> <span class="pre">-e</span> <span class="pre">llvm11</span></code> to put it on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.
 On Windows the executable has the <code class="docutils literal notranslate"><span class="pre">.exe</span></code> extension. The native Windows task
 uses Release mode with compiler and runtime stacktraces disabled.</p>
+<p>Arguments after <code class="docutils literal notranslate"><span class="pre">build</span></code> are passed to CMake and override the task's defaults.
+For example, on Linux or macOS, build Debug with <code class="docutils literal notranslate"><span class="pre">-O2</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>build<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span><span class="s1">'-DCMAKE_CXX_FLAGS_DEBUG=-g -O2'</span><span class="w"> </span><span class="s1">'-DCMAKE_C_FLAGS_DEBUG=-g -O2'</span><span class="w"> </span>&gt;<span class="w"> </span>build.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</pre></div>
+</div>
 <p>After editing sources, rebuild incrementally:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>rebuild<span class="w"> </span>&gt;<span class="w"> </span>build.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </pre></div>
