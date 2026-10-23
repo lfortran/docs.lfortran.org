@@ -816,7 +816,12 @@ type, rank and extents may be represented differently, and
 <a class="reference internal" href="../../expression_nodes/ArrayPhysicalCast/"><span class="doc std std-doc">ArrayPhysicalCast</span></a> is what converts
 between the representations without changing the value.</p>
 <p>Passing a <code class="docutils literal notranslate"><span class="pre">FixedSizeArray</span></code> to a procedure expecting a <code class="docutils literal notranslate"><span class="pre">DescriptorArray</span></code> is the
-common case: the cast builds the descriptor.</p>
+common case: the cast builds the descriptor. The result of a cast to any
+physical type other than <code class="docutils literal notranslate"><span class="pre">DescriptorArray</span></code> is a plain array value, never an
+allocatable or a pointer, since only a descriptor can hold bounds that change
+at run time.</p>
+<p><a class="reference internal" href="../../type_nodes/Array/"><span class="doc std std-doc">Array</span></a> lists the rules the verifier checks between the
+physical type and the dimensions.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">Veja Também<a class="headerlink" href="#see-also" title="Link permanente para este título">¶</a></h2>

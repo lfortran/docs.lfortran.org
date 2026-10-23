@@ -611,6 +611,11 @@ it is disassociated. It is associated by
 <a class="reference internal" href="../../statement_nodes/Associate/"><span class="doc std std-doc">Associate</span></a>, tested with
 <a class="reference internal" href="../../expression_nodes/PointerAssociated/"><span class="doc std std-doc">PointerAssociated</span></a> and cleared by
 <a class="reference internal" href="../../statement_nodes/Nullify/"><span class="doc std std-doc">Nullify</span></a>.</p>
+<p>A pointer array is a <strong>Pointer</strong> of an <a class="reference internal" href="../Array/"><span class="doc std std-doc">Array</span></a> whose extents are
+<code class="docutils literal notranslate"><span class="pre">nil</span></code>. Pointer association sets the bounds and the strides at run time, so
+that array always has physical type <code class="docutils literal notranslate"><span class="pre">DescriptorArray</span></code> (<code class="docutils literal notranslate"><span class="pre">AssumedRankArray</span></code> when
+its rank is assumed); the verifier reports any other as
+<code class="docutils literal notranslate"><span class="pre">asr.verify.pointer.array_descriptor</span></code>.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Link zu dieser Überschrift">¶</a></h2>

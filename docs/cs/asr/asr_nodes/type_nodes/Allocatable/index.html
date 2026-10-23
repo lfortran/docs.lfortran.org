@@ -611,7 +611,10 @@
 deallocated automatically when its scope ends. That is the difference from
 <a class="reference internal" href="../Pointer/"><span class="doc std std-doc">Pointer</span></a>, which may refer to storage it does not own.</p>
 <p>The wrapped type carries the shape and the length: an allocatable array is an
-<strong>Allocatable</strong> of an <a class="reference internal" href="../Array/"><span class="doc std std-doc">Array</span></a> whose extents are <code class="docutils literal notranslate"><span class="pre">nil</span></code>.</p>
+<strong>Allocatable</strong> of an <a class="reference internal" href="../Array/"><span class="doc std std-doc">Array</span></a> whose extents are <code class="docutils literal notranslate"><span class="pre">nil</span></code>. Allocation
+sets the bounds at run time, so that array always has physical type
+<code class="docutils literal notranslate"><span class="pre">DescriptorArray</span></code> (<code class="docutils literal notranslate"><span class="pre">AssumedRankArray</span></code> when its rank is assumed); the verifier
+reports any other as <code class="docutils literal notranslate"><span class="pre">asr.verify.allocatable.array_descriptor</span></code>.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Trvalý odkaz na tento nadpis">¶</a></h2>

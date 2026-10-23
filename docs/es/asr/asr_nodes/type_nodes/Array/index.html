@@ -620,6 +620,23 @@
 argument passed to it may have the same element type and rank but different
 <code class="docutils literal notranslate"><span class="pre">physical_type</span></code>, and the frontend inserts an
 <a class="reference internal" href="../../expression_nodes/ArrayPhysicalCast/"><span class="doc std std-doc">ArrayPhysicalCast</span></a> between them.</p>
+<p>The physical type has to agree with the dimensions, and the verifier checks
+that it does:</p>
+<ul class="simple">
+<li><p>a <code class="docutils literal notranslate"><span class="pre">FixedSizeArray</span></code> is stored inline, so every lower bound and every extent
+is a compile-time constant (<code class="docutils literal notranslate"><span class="pre">asr.verify.array.fixed_size_constant_dims</span></code>).
+The deferred constants of a template are exempt until it is instantiated;</p></li>
+<li><p>an allocatable or pointer array is a <code class="docutils literal notranslate"><span class="pre">DescriptorArray</span></code>
+(<code class="docutils literal notranslate"><span class="pre">asr.verify.allocatable.array_descriptor</span></code>,
+<code class="docutils literal notranslate"><span class="pre">asr.verify.pointer.array_descriptor</span></code>);</p></li>
+<li><p>an assumed-size dummy argument, <code class="docutils literal notranslate"><span class="pre">a(n,</span> <span class="pre">*)</span></code>, is passed as its data alone and
+has no extent in its last dimension, so it is never a <code class="docutils literal notranslate"><span class="pre">DescriptorArray</span></code>
+unless it is polymorphic and the descriptor carries its dynamic type
+(<code class="docutils literal notranslate"><span class="pre">asr.verify.variable.assumed_size_descriptor</span></code>). It is an
+<code class="docutils literal notranslate"><span class="pre">UnboundedPointerArray</span></code>, or a <code class="docutils literal notranslate"><span class="pre">PointerArray</span></code> for <code class="docutils literal notranslate"><span class="pre">bind(c)</span></code>. A rank one
+<code class="docutils literal notranslate"><span class="pre">a(*)</span></code> has the same dimensions as the assumed-shape <code class="docutils literal notranslate"><span class="pre">a(:)</span></code>, so only the
+physical type tells the two apart.</p></li>
+</ul>
 <p>An assumed-rank array has no dimensions at all: its <code class="docutils literal notranslate"><span class="pre">dims</span></code> is empty and its
 physical type is <code class="docutils literal notranslate"><span class="pre">AssumedRankArray</span></code>. Its rank is only known at the call, and
 <a class="reference internal" href="../../statement_nodes/SelectRank/"><span class="doc std std-doc">SelectRank</span></a> is what recovers it.</p>
