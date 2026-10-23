@@ -1480,6 +1480,11 @@
 <h2 id="description">Описание<a class="headerlink" href="#description" title="Ссылка на этот заголовок">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">size(a)</span></code> and <code class="docutils literal notranslate"><span class="pre">size(a,</span> <span class="pre">d)</span></code>. For an array whose shape is known at compile time
 the frontend folds the result into <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">array_dim_intrinsics_update</span></code> pass replaces <code class="docutils literal notranslate"><span class="pre">ArraySize</span></code> of an array
+section (<code class="docutils literal notranslate"><span class="pre">v</span></code> an <code class="docutils literal notranslate"><span class="pre">ArraySection</span></code>, or an elemental expression whose shape is
+that of one) without a <code class="docutils literal notranslate"><span class="pre">value</span></code> by the size computed from the section’s
+subscripts, so the backends only read the size of an array they store. A
+<code class="docutils literal notranslate"><span class="pre">dim</span></code> that is not a compile time constant selects the extent with <code class="docutils literal notranslate"><span class="pre">merge</span></code>.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Ссылка на этот заголовок">¶</a></h2>

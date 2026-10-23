@@ -1486,6 +1486,15 @@
 whole rather than element by element. They have a node of their own because
 their lowering is different: an array intrinsic becomes a loop nest, and the
 <code class="docutils literal notranslate"><span class="pre">intrinsic_array_function</span></code> pass is what writes it.</p>
+<p><code class="docutils literal notranslate"><span class="pre">spread</span></code> with a scalar <code class="docutils literal notranslate"><span class="pre">source</span></code> is stored as <code class="docutils literal notranslate"><span class="pre">spread</span></code> of the one element
+array <code class="docutils literal notranslate"><span class="pre">[source]</span></code>, with <code class="docutils literal notranslate"><span class="pre">overload_id</span></code> -1 marking that the source was a scalar.
+Its first argument is then a rank 1 array with one element, whose extent, when
+it is a constant, is 1 (<code class="docutils literal notranslate"><span class="pre">asr.verify.spread.scalar_source</span></code>): the
+<code class="docutils literal notranslate"><span class="pre">ArrayConstructor</span></code> or <code class="docutils literal notranslate"><span class="pre">ArrayConstant</span></code> <code class="docutils literal notranslate"><span class="pre">[source]</span></code> as created, or a temporary
+array, possibly of deferred shape, once a pass such as <code class="docutils literal notranslate"><span class="pre">implied_do_loops</span></code>
+moved the constructor out. The result is a rank 1 array
+(<code class="docutils literal notranslate"><span class="pre">asr.verify.spread.scalar_source_rank</span></code>). The Fortran printer prints that
+element as the scalar <code class="docutils literal notranslate"><span class="pre">source</span></code>.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
