@@ -1031,7 +1031,7 @@
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permalink naar deze titel">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DebugCheckArrayBounds(expr target, expr* components,
-    bool move_allocation)
+    array_extent_check* checks, bool move_allocation)
 </pre></div>
 </div>
 </section>
@@ -1050,7 +1050,10 @@
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">components</span></code></p></td>
 <td><p>the array operands of the right hand side, whose shapes must match <code class="docutils literal notranslate"><span class="pre">target</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">move_allocation</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">checks</span></code></p></td>
+<td><p>the extents compared at run time, in order (see <a class="reference internal" href="../../helper_nodes/array_extent_check/"><span class="doc std std-doc">array_extent_check</span></a>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">move_allocation</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when the assignment it guards moves an allocation instead of copying.</p></td>
 </tr>
 </tbody>
@@ -1077,6 +1080,16 @@ and are marked <a class="reference internal" href="../../expression_nodes/ArrayI
 <p>Each element of <code class="docutils literal notranslate"><span class="pre">components</span></code> must itself be an array: the check compares the
 extents of the target against the extents of the operands the assignment
 reads.</p>
+<p>The pass that inserts the node also decides what it compares, and records it
+in <code class="docutils literal notranslate"><span class="pre">checks</span></code>, so that a code generator only evaluates and compares the
+extents it is given. Each operand is compared with the next one, when both
+have the same rank, and then the first operand with <code class="docutils literal notranslate"><span class="pre">target</span></code>, in every
+dimension the two arrays have. A dimension in which both extents are
+compile-time constants and equal is left out, since its comparison cannot
+fail. A comparison of two operands reports a mismatch in a binary operation,
+one with <code class="docutils literal notranslate"><span class="pre">target</span></code> a mismatch in the assignment. When <code class="docutils literal notranslate"><span class="pre">target</span></code> is an
+allocatable array that is not allocated, its unallocated state is reported
+instead of its extents.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink naar deze titel">¶</a></h2>
@@ -1087,6 +1100,45 @@ reads.</p>
 <span class="w">  </span><span class="ss">:components</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">(</span><span class="nf">Var</span>
 <span class="w">      </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"b"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="w">  </span><span class="ss">:checks</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">array_extent_check</span>
+<span class="w">      </span><span class="ss">:left</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="ss">:right</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="ss">:dim</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="ss">:left_extent</span><span class="w"> </span><span class="p">(</span><span class="nf">ArraySize</span>
+<span class="w">        </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">          </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="ss">:dim</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">          </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">          </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">            </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">          </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">      </span><span class="p">)</span>
+<span class="w">      </span><span class="ss">:right_extent</span><span class="w"> </span><span class="p">(</span><span class="nf">ArraySize</span>
+<span class="w">        </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">          </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"b"</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="ss">:dim</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">          </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">          </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">            </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">          </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">      </span><span class="p">)</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="w">  </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
@@ -1158,30 +1210,20 @@ reads.</p>
 <span class="w">              </span><span class="ss">:symbolic_value</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:storage</span><span class="w"> </span><span class="ss">:Default</span>
-<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Array</span>
-<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
-<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
-<span class="w">                </span><span class="p">)</span>
-<span class="w">                </span><span class="ss">:dims</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                  </span><span class="p">(</span><span class="nf">dimension</span>
-<span class="w">                    </span><span class="ss">:start</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
-<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
-<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
-<span class="w">                      </span><span class="p">)</span>
-<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
-<span class="w">                    </span><span class="p">)</span>
-<span class="w">                    </span><span class="ss">:length</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
-<span class="w">                      </span><span class="ss">:n</span><span class="w"> </span><span class="mi">3</span>
-<span class="w">                      </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
-<span class="w">                        </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
-<span class="w">                      </span><span class="p">)</span>
-<span class="w">                      </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
-<span class="w">                    </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Allocatable</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Array</span>
+<span class="w">                  </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                    </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
 <span class="w">                  </span><span class="p">)</span>
-<span class="w">                </span><span class="p">]</span>
-<span class="w">                </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:FixedSizeArray</span>
-<span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
+<span class="w">                  </span><span class="ss">:dims</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">(</span><span class="nf">dimension</span>
+<span class="w">                      </span><span class="ss">:start</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                      </span><span class="ss">:length</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                  </span><span class="p">]</span>
+<span class="w">                  </span><span class="ss">:physical_type</span><span class="w"> </span><span class="ss">:DescriptorArray</span>
+<span class="w">                  </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
+<span class="w">                </span><span class="p">)</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:type_declaration</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
@@ -1212,6 +1254,45 @@ reads.</p>
 <span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"b"</span><span class="p">)</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:checks</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">(</span><span class="nf">array_extent_check</span>
+<span class="w">                </span><span class="ss">:left</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">                </span><span class="ss">:right</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                </span><span class="ss">:dim</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                </span><span class="ss">:left_extent</span><span class="w"> </span><span class="p">(</span><span class="nf">ArraySize</span>
+<span class="w">                  </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                    </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                  </span><span class="ss">:dim</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                    </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                    </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                      </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                  </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                    </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                  </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:right_extent</span><span class="w"> </span><span class="p">(</span><span class="nf">ArraySize</span>
+<span class="w">                  </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                    </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"b"</span><span class="p">)</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                  </span><span class="ss">:dim</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                    </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                    </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                      </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                  </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                    </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                  </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">            </span><span class="p">]</span>
 <span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
@@ -1239,7 +1320,7 @@ reads.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permalink naar deze titel">¶</a></h2>
-<p><a class="reference internal" href="../Assignment/"><span class="doc std std-doc">Assignment</span></a>, <a class="reference internal" href="../../expression_nodes/ArraySize/"><span class="doc std std-doc">ArraySize</span></a>, <a class="reference internal" href="../../expression_nodes/ArrayBound/"><span class="doc std std-doc">ArrayBound</span></a></p>
+<p><a class="reference internal" href="../Assignment/"><span class="doc std std-doc">Assignment</span></a>, <a class="reference internal" href="../../helper_nodes/array_extent_check/"><span class="doc std std-doc">array_extent_check</span></a>, <a class="reference internal" href="../../expression_nodes/ArraySize/"><span class="doc std std-doc">ArraySize</span></a>, <a class="reference internal" href="../../expression_nodes/ArrayBound/"><span class="doc std std-doc">ArrayBound</span></a></p>
 </section>
 </section>
 

@@ -64,7 +64,7 @@
     <link rel="shortcut icon" href="../../../../_static/lfortran-logo.svg"/>
     <link rel="index" title="Indeks" href="../../../../genindex/" />
     <link rel="search" title="Szukaj" href="../../../../search/" />
-    <link rel="next" title="array_index" href="../array_index/" />
+    <link rel="next" title="array_extent_check" href="../array_extent_check/" />
     <link rel="prev" title="ASR Helper Nodes" href="../helper_nodes/" />
   
    
@@ -512,6 +512,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../array_extent_check/" class="md-nav__link">array_extent_check</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../array_index/" class="md-nav__link">array_index</a>
       
     
@@ -569,6 +576,13 @@
     
     
       <a href="../do_loop_head/" class="md-nav__link">do_loop_head</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../dtio_binding/" class="md-nav__link">dtio_binding</a>
       
     
     </li>
@@ -937,6 +951,36 @@ allocation. Everything a backend needs for one object is in one product, so
 <span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
+<span class="w">            </span><span class="ss">:shape_differs</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerCompare</span>
+<span class="w">              </span><span class="ss">:left</span><span class="w"> </span><span class="p">(</span><span class="nf">ArraySize</span>
+<span class="w">                </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>
+<span class="w">                  </span><span class="ss">:v</span><span class="w"> </span><span class="p">(</span><span class="nf">SymbolRef</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">"a"</span><span class="p">)</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:dim</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                  </span><span class="ss">:n</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                  </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                    </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                  </span><span class="p">)</span>
+<span class="w">                  </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:op</span><span class="w"> </span><span class="ss">:NotEq</span>
+<span class="w">              </span><span class="ss">:right</span><span class="w"> </span><span class="p">(</span><span class="nf">IntegerConstant</span>
+<span class="w">                </span><span class="ss">:n</span><span class="w"> </span><span class="mi">20</span>
+<span class="w">                </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Integer</span>
+<span class="w">                  </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="ss">:intboz_type</span><span class="w"> </span><span class="ss">:Decimal</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">Logical</span>
+<span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="p">)</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">ExplicitDeallocate</span>
 <span class="w">            </span><span class="ss">:vars</span><span class="w"> </span><span class="p">[</span>
@@ -1000,12 +1044,12 @@ allocation. Everything a backend needs for one object is in one product, so
             </a>
           
           
-            <a href="../array_index/" title="array_index"
+            <a href="../array_extent_check/" title="array_extent_check"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> array_index </span>
+                class="md-footer-nav__direction"> Next </span> array_extent_check </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

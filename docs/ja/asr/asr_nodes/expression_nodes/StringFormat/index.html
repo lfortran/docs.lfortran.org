@@ -1444,7 +1444,7 @@
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>StringFormat(expr? fmt, expr* args, string_format_kind kind,
-    ttype type, expr? value)
+    dtio_binding* dtio_bindings, expr? dtio_unit, ttype type, expr? value)
 </pre></div>
 </div>
 </section>
@@ -1465,6 +1465,12 @@
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">kind</span></code></p></td>
 <td><p>which formatting language the format is written in; see <a class="reference internal" href="../../enum_nodes/string_format_kind/"><span class="doc std std-doc">string_format_kind</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dtio_bindings</span></code></p></td>
+<td><p>the defined output procedures of the derived-type items, one per declared type and polymorphism; see <a class="reference internal" href="../../helper_nodes/dtio_binding/"><span class="doc std std-doc">dtio_binding</span></a>. Empty when no item has one.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dtio_unit</span></code></p></td>
+<td><p>the unit passed to a defined output procedure: an <code class="docutils literal notranslate"><span class="pre">IntegerConstant</span></code> or a <code class="docutils literal notranslate"><span class="pre">Var</span></code>, or <code class="docutils literal notranslate"><span class="pre">nil</span></code> for an internal file. Always <code class="docutils literal notranslate"><span class="pre">nil</span></code> when <code class="docutils literal notranslate"><span class="pre">dtio_bindings</span></code> is empty.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
 <td><p>the string type of the result.</p></td>
@@ -1489,6 +1495,10 @@ statements. <a class="reference internal" href="../../statement_nodes/Print/"><s
 backend that can build the string has already implemented both.</p>
 <p><code class="docutils literal notranslate"><span class="pre">kind</span></code> distinguishes Fortran edit descriptors from C's <code class="docutils literal notranslate"><span class="pre">printf</span></code> and from
 Python's several formatting languages, so one node serves every frontend.</p>
+<p>A derived-type item with a defined output procedure is formatted by calling
+that procedure when its edit descriptor is reached. <code class="docutils literal notranslate"><span class="pre">dtio_bindings</span></code> says which
+procedure each such item calls, and <code class="docutils literal notranslate"><span class="pre">dtio_unit</span></code> which unit it is given, so the
+formatting stays one expression.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -1500,6 +1510,8 @@ Python's several formatting languages, so one node serves every frontend.</p>
 <span class="w">    </span><span class="p">)</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="w">  </span><span class="ss">:kind</span><span class="w"> </span><span class="ss">:FormatFortran</span>
+<span class="w">  </span><span class="ss">:dtio_bindings</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="ss">:dtio_unit</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">  </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">String</span>
 <span class="w">    </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">1</span>
 <span class="w">    </span><span class="ss">:len</span><span class="w"> </span><span class="nv">nil</span>
@@ -1559,6 +1571,8 @@ Python's several formatting languages, so one node serves every frontend.</p>
 <span class="w">                </span><span class="p">)</span>
 <span class="w">              </span><span class="p">]</span>
 <span class="w">              </span><span class="ss">:kind</span><span class="w"> </span><span class="ss">:FormatFortran</span>
+<span class="w">              </span><span class="ss">:dtio_bindings</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">              </span><span class="ss">:dtio_unit</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">              </span><span class="ss">:type</span><span class="w"> </span><span class="p">(</span><span class="nf">String</span>
 <span class="w">                </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">1</span>
 <span class="w">                </span><span class="ss">:len</span><span class="w"> </span><span class="nv">nil</span>

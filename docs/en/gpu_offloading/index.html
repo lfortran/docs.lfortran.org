@@ -1632,7 +1632,12 @@ with a <code class="docutils literal notranslate"><span class="pre">stop</span><
 <li><p>Every entry of the unsupported list has a test for the error, and a test that
 the same program runs correctly on the CPU with <code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code>.</p></li>
 <li><p>Every pipeline fix comes with an integration test that runs on the GPU
-backends (<code class="docutils literal notranslate"><span class="pre">metal</span></code>, <code class="docutils literal notranslate"><span class="pre">cuda_cpu</span></code> labels) and checks the results.</p></li>
+backends (<code class="docutils literal notranslate"><span class="pre">metal</span></code>, <code class="docutils literal notranslate"><span class="pre">cuda</span></code> labels) and checks the results.</p></li>
+<li><p>One <code class="docutils literal notranslate"><span class="pre">cuda</span></code> label covers both CUDA modes, and every <code class="docutils literal notranslate"><span class="pre">cuda</span></code> test must pass in
+both: <code class="docutils literal notranslate"><span class="pre">integration_tests</span> <span class="pre">-b</span> <span class="pre">cuda_cpu</span></code> runs the <code class="docutils literal notranslate"><span class="pre">cuda</span></code> tests in the CPU
+emulation (<code class="docutils literal notranslate"><span class="pre">--gpu=cuda_cpu</span></code>, what CI runs), and <code class="docutils literal notranslate"><span class="pre">integration_tests</span> <span class="pre">-b</span> <span class="pre">cuda</span></code>
+runs the same tests natively on an NVIDIA GPU (<code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code>). There is no
+<code class="docutils literal notranslate"><span class="pre">cuda_cpu</span></code> label.</p></li>
 <li><p>Compiling is not enough: an offloaded loop can compile and still compute the
 wrong values. Integration tests therefore check their results in the program,
 and third-party codes whose test suites check values (Formal, Fiats) are run
@@ -1653,17 +1658,18 @@ performance evidence:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>ctest<span class="w"> </span>-R<span class="w"> </span><span class="s1">'^test_gpu_cuda_api_state'</span><span class="w"> </span>-V<span class="w"> </span>&gt;<span class="w"> </span>cuda-api-state.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </pre></div>
 </div>
-<p>The same scratch saturation sequence is registered as <code class="docutils literal notranslate"><span class="pre">gpu_cuda_scratch_order</span></code>
-in the native <code class="docutils literal notranslate"><span class="pre">cuda</span></code> integration backend. It needs NVCC and an NVIDIA device:
+<p>The same sequences also run against the real CUDA runtime in
+<code class="docutils literal notranslate"><span class="pre">src/tests/gpu_cuda_scratch_order.cu</span></code>, which calls the CUDA API directly and is
+therefore not an integration test. It needs NVCC and an NVIDIA device:
 64 kernel caches with 30 small scratch buffers reach the 4096-entry deferred
 queue boundary before dispatch 201, whose output and scratch readback must both
-be 201. Run it on native CUDA even when the host API-state tests pass:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>integration_tests<span class="w"> </span>-b<span class="w"> </span>cuda<span class="w"> </span>-t<span class="w"> </span><span class="s1">'^gpu_cuda_scratch_order$'</span><span class="w"> </span>-j6<span class="w"> </span>&gt;<span class="w"> </span>cuda-scratch-order.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+be 201. The script builds it and runs the scratch sequence, its variant with a
+discarded output, and the mixed write/discard alias cases. Run it on a GPU
+machine even when the host API-state tests pass:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>src/tests/gpu_cuda_scratch_order.sh<span class="w"> </span>&gt;<span class="w"> </span>cuda-scratch-order.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">gpu_cuda_scratch_order_discard</span></code> repeats that sequence with a discarded output;
-<code class="docutils literal notranslate"><span class="pre">gpu_cuda_scratch_order_alias</span></code> includes the mixed write/discard alias cases.
-<code class="docutils literal notranslate"><span class="pre">gpu_metal_507</span></code> checks a full overwrite through a target array that reads its
+<p><code class="docutils literal notranslate"><span class="pre">gpu_metal_507</span></code> checks a full overwrite through a target array that reads its
 old elements through a pointer alias, on the ordinary, CPU-emulated, Metal and
 native CUDA paths. The CUDA API-state tests do not replace any of these
 backend tests.</p>
