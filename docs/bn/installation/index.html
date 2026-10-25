@@ -1139,6 +1139,17 @@ including WASM and implicit-interface tests. Backend support labels and
 normal/fast/standard flags still apply. An empty selected backend is an error.
 Use the full suite for primary regression coverage; add representative tests
 to the list when introducing a new feature or platform-sensitive path.</p>
+<p>To leave out specific tests, pass their registered names (the <code class="docutils literal notranslate"><span class="pre">NAME</span></code> of
+<code class="docutils literal notranslate"><span class="pre">RUN</span></code> or <code class="docutils literal notranslate"><span class="pre">COMPILE</span></code>) to <code class="docutils literal notranslate"><span class="pre">--exclude</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>integration_tests<span class="w"> </span>-b<span class="w"> </span>llvm<span class="w"> </span>-f<span class="w"> </span>--exclude<span class="w"> </span>real128_intrinsic_math_01<span class="w"> </span>real128_intrinsic_math_02<span class="w"> </span>&gt;<span class="w"> </span>integration-fast.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>Excluded tests are removed at configure time, like the smoke selection, so
+they are neither built nor run, in every mode (<code class="docutils literal notranslate"><span class="pre">-f</span></code>, <code class="docutils literal notranslate"><span class="pre">--std=f23</span></code>, ...). This
+is for working around a test that does not compile in a downstream
+environment, such as an installed package. An unregistered name is an error.
+The <code class="docutils literal notranslate"><span class="pre">LFORTRAN_CTEST_EXCLUDE</span></code> environment variable (a regular expression) only
+skips running tests that were already built.</p>
 </section>
 </section>
 </section>
