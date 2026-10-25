@@ -1091,8 +1091,12 @@ pass allocated has <code class="docutils literal notranslate"><span class="pre">
 assigned a value that is not polymorphic takes the type of the value: the
 pass deallocates it with an <a class="reference internal" href="../ImplicitDeallocate/"><span class="doc std std-doc">ImplicitDeallocate</span></a>,
 which finalizes it when it is allocated, allocates it with that type, and
-gives the assignment <code class="docutils literal notranslate"><span class="pre">new_allocation</span></code>. A backend then only lowers the
-allocation and the assignment it is given.</p>
+gives the assignment <code class="docutils literal notranslate"><span class="pre">new_allocation</span></code>. A polymorphic value gives it its
+dynamic type: an allocated variable of another dynamic type is deallocated,
+and an unallocated one is allocated with <code class="docutils literal notranslate"><span class="pre">MOLD=</span></code> the value and assigned with
+<code class="docutils literal notranslate"><span class="pre">new_allocation</span></code>, while one of the same dynamic type, as for <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">a</span></code>, is
+assigned as it is. A backend then only lowers the allocation and the
+assignment it is given.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Exemplos<a class="headerlink" href="#examples" title="Link permanente para este título">¶</a></h2>
