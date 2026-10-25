@@ -760,6 +760,10 @@ emits an ordinary call, wrapped in an
 <code class="docutils literal notranslate"><span class="pre">overloaded</span></code> member of
 <a class="reference internal" href="../../statement_nodes/Assignment/"><span class="doc std std-doc">Assignment</span></a>, so that the original spelling
 is not lost.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">use</span></code> imports an operator, the using scope gets its own
+<strong>CustomOperator</strong>, whose procedures are its imports of the operator’s
+specifics, named <code class="docutils literal notranslate"><span class="pre">&lt;specific&gt;@&lt;operator&gt;</span></code> (such as <code class="docutils literal notranslate"><span class="pre">plus_int@~~plus</span></code> for
+<code class="docutils literal notranslate"><span class="pre">operator(.plus.)</span></code>). See <a class="reference internal" href="../GenericProcedure/"><span class="doc std std-doc">GenericProcedure</span></a>.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Ссылка на этот заголовок">¶</a></h2>

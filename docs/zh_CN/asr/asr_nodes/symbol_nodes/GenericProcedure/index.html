@@ -524,7 +524,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">描述</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">描述</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#a-generic-procedure-imported-by-use" class="md-nav__link">A generic procedure imported by <code class="docutils literal notranslate"><span class="pre">use</span></code></a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">示例</a>
         </li>
@@ -691,7 +695,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">描述</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">描述</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#a-generic-procedure-imported-by-use" class="md-nav__link">A generic procedure imported by <code class="docutils literal notranslate"><span class="pre">use</span></code></a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">示例</a>
         </li>
@@ -759,6 +767,64 @@ kept in <code class="docutils literal notranslate"><span class="pre">original_na
 written generically.</p>
 <p>A <strong>GenericProcedure</strong> is never called directly and never reaches a backend as
 a call target.</p>
+<section id="a-generic-procedure-imported-by-use">
+<h3 id="a-generic-procedure-imported-by-use">A generic procedure imported by <code class="docutils literal notranslate"><span class="pre">use</span></code><a class="headerlink" href="#a-generic-procedure-imported-by-use" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">use</span></code> does not import a generic procedure or an operator
+(<a class="reference internal" href="../CustomOperator/"><span class="doc std std-doc">CustomOperator</span></a>) of a module as an
+<a class="reference internal" href="../ExternalSymbol/"><span class="doc std std-doc">ExternalSymbol</span></a>. The using scope gets its own
+<strong>GenericProcedure</strong> under the local name of the generic. Each specific
+procedure of the module’s generic, public or private, becomes a private
+<strong>ExternalSymbol</strong> of the using scope named <code class="docutils literal notranslate"><span class="pre">&lt;specific&gt;@&lt;generic&gt;</span></code>, where
+<code class="docutils literal notranslate"><span class="pre">&lt;specific&gt;</span></code> is the name of the procedure in its module and <code class="docutils literal notranslate"><span class="pre">&lt;generic&gt;</span></code> the
+local name of the generic. These imports are the <code class="docutils literal notranslate"><span class="pre">procs</span></code> of the new node. A
+number is added to the name when another procedure has it, for example when
+two modules have private specifics of the same name.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">module </span><span class="n">m</span>
+<span class="w">    </span><span class="k">implicit none</span>
+<span class="k">    private</span>
+<span class="k">    public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">show</span>
+<span class="w">    </span><span class="k">interface </span><span class="n">show</span>
+<span class="w">        </span><span class="k">module procedure </span><span class="n">show_int</span><span class="p">,</span><span class="w"> </span><span class="n">show_real</span>
+<span class="w">    </span><span class="k">end interface</span>
+<span class="k">contains</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end module</span>
+
+<span class="k">program </span><span class="n">p</span>
+<span class="w">    </span><span class="k">use </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">print_it</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">show</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="k">end program</span>
+</pre></div>
+</div>
+<p>The scope of <code class="docutils literal notranslate"><span class="pre">p</span></code> gets:</p>
+<table>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Symbol</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">print_it</span></code></p></td>
+<td><p>a GenericProcedure whose <code class="docutils literal notranslate"><span class="pre">procs</span></code> are <code class="docutils literal notranslate"><span class="pre">show_int@print_it</span></code> and <code class="docutils literal notranslate"><span class="pre">show_real@print_it</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">show_int@print_it</span></code></p></td>
+<td><p>a private ExternalSymbol to <code class="docutils literal notranslate"><span class="pre">show_int</span></code> of <code class="docutils literal notranslate"><span class="pre">m</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">show_real@print_it</span></code></p></td>
+<td><p>a private ExternalSymbol to <code class="docutils literal notranslate"><span class="pre">show_real</span></code> of <code class="docutils literal notranslate"><span class="pre">m</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>A call through the generic takes the specific from <code class="docutils literal notranslate"><span class="pre">procs</span></code>; it never looks a
+procedure up by name. So a procedure of the program or of its host with the
+name of a specific does not take its place. When the scope already has a
+generic of that name, from another <code class="docutils literal notranslate"><span class="pre">use</span></code> or from an interface block, the
+specifics it lacks are added to it (F2018 C1515). A module passes an imported
+generic on like its own one, unless the generic is private there.</p>
+<p>A type-bound generic comes with its type, not through <code class="docutils literal notranslate"><span class="pre">use</span></code>. A call through it
+imports the specific procedure at the call, under the same
+<code class="docutils literal notranslate"><span class="pre">&lt;specific&gt;@&lt;generic&gt;</span></code> name.</p>
+</section>
 </section>
 <section id="examples">
 <h2 id="examples">示例<a class="headerlink" href="#examples" title="永久链接至标题">¶</a></h2>
