@@ -1382,7 +1382,10 @@ make<span class="w"> </span>-j8
 </section>
 <section id="enabling-the-jupyter-kernel">
 <h3 id="enabling-the-jupyter-kernel">Enabling the Jupyter Kernel<a class="headerlink" href="#enabling-the-jupyter-kernel" title="Link permanente para este título">¶</a></h3>
-<p>To install the Jupyter kernel, install the following Conda packages also:</p>
+<p>A build with LLVM has a Jupyter kernel (<code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">kernel</span> <span class="pre">-f</span> <span class="pre">FILE</span></code>), LFortran’s
+own implementation of the protocol, which needs no other library; its
+kernelspec is installed with LFortran. To use the Xeus kernel instead, install
+the following Conda packages also:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">xeus</span><span class="o">=</span><span class="mf">6.0.0</span> <span class="n">xeus</span><span class="o">-</span><span class="n">zmq</span><span class="o">=</span><span class="mf">4.0.0</span> <span class="n">nlohmann_json</span>
 </pre></div>
 </div>
