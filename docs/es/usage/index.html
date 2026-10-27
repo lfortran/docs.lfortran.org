@@ -890,7 +890,14 @@ the kernel writes it readable by its owner only, and removes it when it stops.</
 library. In a build with <code class="docutils literal notranslate"><span class="pre">WITH_XEUS=yes</span></code>, <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">kernel</span></code> runs the Xeus
 kernel instead, but the kernel a prompt starts is still LFortran’s own, as
 Xeus cannot tell when the last client disconnects; the client is always
-LFortran’s own. See <code class="docutils literal notranslate"><span class="pre">src/lfortran/jupyter.cpp</span></code>.</p>
+LFortran’s own. The Xeus kernel uses Xeus’s own server for every channel.
+A READ whose client has disconnected waits there, and the clients behind
+that cell wait with it. A client’s <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">-v</span></code> does not show the cell’s
+AST, ASR and LLVM IR in that kernel, because Xeus does not pass that field
+of the request to the interpreter. A cell that fails aborts the requests
+already waiting with an error reply and no idle status, so a client that
+waits for the aborted cell to become idle waits with it. See
+<code class="docutils literal notranslate"><span class="pre">src/lfortran/jupyter.cpp</span></code> and <code class="docutils literal notranslate"><span class="pre">src/lfortran/fortran_kernel.cpp</span></code>.</p>
 </section>
 </section>
 <section id="invoking-lfortran">
