@@ -346,6 +346,8 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#the-shape" class="md-nav__link">The shape</a>
         </li>
+        <li class="md-nav__item"><a href="#implicit-typing-in-cells" class="md-nav__link">Implicit typing in cells</a>
+        </li>
         <li class="md-nav__item"><a href="#walking-the-chain" class="md-nav__link">Walking the chain</a>
         </li>
         <li class="md-nav__item"><a href="#qualifying-symbols-by-cell" class="md-nav__link">Qualifying symbols by cell</a>
@@ -365,6 +367,13 @@
     
     
       <a href="#the-shape" class="md-nav__link">The shape</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#implicit-typing-in-cells" class="md-nav__link">Implicit typing in cells</a>
       
     
     </li>
@@ -587,6 +596,8 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#the-shape" class="md-nav__link">The shape</a>
         </li>
+        <li class="md-nav__item"><a href="#implicit-typing-in-cells" class="md-nav__link">Implicit typing in cells</a>
+        </li>
         <li class="md-nav__item"><a href="#walking-the-chain" class="md-nav__link">Walking the chain</a>
         </li>
         <li class="md-nav__item"><a href="#qualifying-symbols-by-cell" class="md-nav__link">Qualifying symbols by cell</a>
@@ -656,6 +667,20 @@ binding they were made with.</p></li>
 way to name it once it is shadowed. The same holds for variables and modules;
 a module redefined in a later cell leaves procedures compiled against the
 earlier one using the earlier one.</p>
+</section>
+<section id="implicit-typing-in-cells">
+<h2 id="implicit-typing-in-cells">Implicit typing in cells<a class="headerlink" href="#implicit-typing-in-cells" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>A cell containing <code class="docutils literal notranslate"><span class="pre">implicit</span> <span class="pre">none</span></code> (or <code class="docutils literal notranslate"><span class="pre">implicit</span> <span class="pre">none(type)</span></code>) disables implicit
+typing for later cells in that session, including when LFortran was started
+with <code class="docutils literal notranslate"><span class="pre">--implicit-typing</span></code>. Previously declared names remain available, and new
+names can still be declared explicitly. Re-running the statement is allowed.
+The default session already requires explicit declarations.</p>
+<p>The evaluator retains the implicit type dictionary with each committed cell’s
+symbol-table snapshot. Inspection cells (<code class="docutils literal notranslate"><span class="pre">%%showasr</span></code>, <code class="docutils literal notranslate"><span class="pre">%%showllvm</span></code>, etc.) do
+not change this policy, and a program unit’s local implicit rules do not change
+the session’s policy. Separate evaluators have independent policies.
+<code class="docutils literal notranslate"><span class="pre">implicit</span> <span class="pre">none(external)</span></code> is not yet supported as a cell and produces a
+semantic diagnostic rather than changing the implicit type dictionary.</p>
 </section>
 <section id="walking-the-chain">
 <h2 id="walking-the-chain">Walking the chain<a class="headerlink" href="#walking-the-chain" title="Stały odnośnik do tego nagłówka">¶</a></h2>
