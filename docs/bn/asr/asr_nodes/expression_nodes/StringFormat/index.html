@@ -1495,6 +1495,19 @@ statements. <a class="reference internal" href="../../statement_nodes/Print/"><s
 backend that can build the string has already implemented both.</p>
 <p><code class="docutils literal notranslate"><span class="pre">kind</span></code> distinguishes Fortran edit descriptors from C's <code class="docutils literal notranslate"><span class="pre">printf</span></code> and from
 Python's several formatting languages, so one node serves every frontend.</p>
+<p>Fortran formats support the Fortran 2023 <code class="docutils literal notranslate"><span class="pre">LZP</span></code>, <code class="docutils literal notranslate"><span class="pre">LZS</span></code>, and <code class="docutils literal notranslate"><span class="pre">LZ</span></code> controls:
+print, suppress, or restore processor-defined optional leading zeros in
+<code class="docutils literal notranslate"><span class="pre">F</span></code>, <code class="docutils literal notranslate"><span class="pre">E</span></code>, <code class="docutils literal notranslate"><span class="pre">D</span></code>, and real <code class="docutils literal notranslate"><span class="pre">G</span></code> output. The mode lasts for the current formatting
+operation, including format reversion; it does not affect <code class="docutils literal notranslate"><span class="pre">EN</span></code>, <code class="docutils literal notranslate"><span class="pre">ES</span></code>, <code class="docutils literal notranslate"><span class="pre">EX</span></code>,
+or input conversion. The related <code class="docutils literal notranslate"><span class="pre">OPEN</span></code>/<code class="docutils literal notranslate"><span class="pre">WRITE</span></code> <code class="docutils literal notranslate"><span class="pre">LEADING_ZERO=</span></code> specifiers
+are not implemented by these FORMAT controls. Embedded blanks in these
+controls are insignificant, including on input, where no target is consumed.
+Leading-zero selection does not change the significant digits or rounding
+of real <code class="docutils literal notranslate"><span class="pre">G</span></code> output, in either fixed or exponential form, including <code class="docutils literal notranslate"><span class="pre">RC</span></code>
+compatible rounding of halfway values away from zero. The regression
+<code class="docutils literal notranslate"><span class="pre">integration_tests/format_leading_zero.f90</span></code> currently runs only with LLVM:
+GFortran 16 rejects these valid Fortran 2023 descriptors, so independent
+reference validation remains unavailable.</p>
 <p>A derived-type item with a defined output procedure is formatted by calling
 that procedure when its edit descriptor is reached. <code class="docutils literal notranslate"><span class="pre">dtio_bindings</span></code> says which
 procedure each such item calls, and <code class="docutils literal notranslate"><span class="pre">dtio_unit</span></code> which unit it is given, so the
