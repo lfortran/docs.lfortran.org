@@ -315,6 +315,8 @@
         </li>
         <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
         </li>
+        <li class="md-nav__item"><a href="#llvm-alias-information" class="md-nav__link">LLVM Alias Information</a>
+        </li>
         <li class="md-nav__item"><a href="#common-blocks" class="md-nav__link">COMMON Blocks</a>
         </li>
         <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notas:</a>
@@ -360,6 +362,13 @@
     
     
       <a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#llvm-alias-information" class="md-nav__link">LLVM Alias Information</a>
       
     
     </li>
@@ -628,6 +637,8 @@
         </li>
         <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
         </li>
+        <li class="md-nav__item"><a href="#llvm-alias-information" class="md-nav__link">LLVM Alias Information</a>
+        </li>
         <li class="md-nav__item"><a href="#common-blocks" class="md-nav__link">COMMON Blocks</a>
         </li>
         <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notas:</a>
@@ -725,6 +736,29 @@ In this mode, LFortran produces empty object files (<code class="docutils litera
 is usually the default mode used by most other Fortran compilers. We create object code, and we still create <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files for modules and they contain everything just like for direct mode but when any <code class="docutils literal notranslate"><span class="pre">.mod</span></code> file is loaded, we change all symbols to <code class="docutils literal notranslate"><span class="pre">ExternalUndefined</span></code> ABI. We don’t change the ABI for <code class="docutils literal notranslate"><span class="pre">bind(c)</span></code> (since those are undefined already in object code, the user is responsible to provide an implementation at link time).</p></li>
 </ol>
 <p>Note: <strong><em>If you enable separate compilation mode, you have to enable it for all the files.</em></strong></p>
+</section>
+<section id="llvm-alias-information">
+<h2 id="llvm-alias-information">LLVM Alias Information<a class="headerlink" href="#llvm-alias-information" title="Link permanente para este título">¶</a></h2>
+<p>With <code class="docutils literal notranslate"><span class="pre">--fast</span></code>, the LLVM backend uses Fortran dummy-argument restrictions to
+mark eligible parameters <code class="docutils literal notranslate"><span class="pre">noalias</span></code>. It also distinguishes array data from
+compiler-managed descriptors and struct pointer fields using TBAA. Numeric
+and logical elements share one data class, so this metadata does not claim
+that two data arrays cannot overlap.</p>
+<p>Lowered function results retain the explicit <code class="docutils literal notranslate"><span class="pre">ResultArgument</span></code> storage role;
+the backend does not infer that role from dummy position or type. A C_PTR
+passed as a C address is not a restricted Fortran object’s address and is
+not annotated <code class="docutils literal notranslate"><span class="pre">noalias</span></code>. Scoped ASYNCHRONOUS/VOLATILE redeclarations are
+represented by <code class="docutils literal notranslate"><span class="pre">ScopedVariableAttribute</span></code>, referring to the canonical
+host/use-associated variable without changing its declaration. Such regions
+also exclude the variable from whole-procedure alias promises and dead
+whole-array store elimination.</p>
+<p>The data class includes owned local automatic and fixed-size arrays, but not
+raw local storage associated through EQUIVALENCE or COMMON, saved storage, or
+storage whose address is taken with C_LOC. Raw local VOLATILE, ASYNCHRONOUS,
+and coarray storage is excluded too. Ambiguous accesses, byte accesses, and
+memory-copy intrinsics remain untagged. Fresh <code class="docutils literal notranslate"><span class="pre">_lfortran_malloc_alloc</span></code> results
+are <code class="docutils literal notranslate"><span class="pre">noalias</span></code>; reallocations are not. These optimizer hints are disabled in
+default mode and for OpenMP, coarray, and GPU offload configurations.</p>
 </section>
 <section id="common-blocks">
 <h2 id="common-blocks">COMMON Blocks<a class="headerlink" href="#common-blocks" title="Link permanente para este título">¶</a></h2>

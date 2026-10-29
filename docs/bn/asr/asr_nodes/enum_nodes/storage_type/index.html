@@ -760,7 +760,7 @@
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>storage_type = Default | Save | Parameter | Threadprivate
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>storage_type = Default | Save | Parameter | Threadprivate | ResultArgument
 </pre></div>
 </div>
 </section>
@@ -785,6 +785,9 @@
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Threadprivate</span></code></p></td>
 <td><p>a module variable with a separate persistent instance for each thread.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ResultArgument</span></code></p></td>
+<td><p>caller-provided storage for a function result lowered to an output dummy argument.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -803,6 +806,13 @@ expression.</p>
 retaining the module variable's lifetime and declaration initializer, and
 is preserved in module files. LLVM emits thread-local globals, including
 imported declarations. The C and C++ backends report this storage as unsupported.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ResultArgument</span></code> is recorded when return-value lowering converts a result
+variable into a dummy argument. It preserves the result's provenance through
+symbol copying, rather than inferring it from argument position or shape.
+Verification requires the variable to be a dummy of a procedure with no
+<code class="docutils literal notranslate"><span class="pre">return_var</span></code>, and its intent to be <code class="docutils literal notranslate"><span class="pre">Out</span></code> or <code class="docutils literal notranslate"><span class="pre">InOut</span></code>. Alias analysis must not
+give this caller-provided result storage the ordinary dummy-argument noalias
+promise; it can overlap other arguments through result temporaries.</p>
 </section>
 <section id="see-also">
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
