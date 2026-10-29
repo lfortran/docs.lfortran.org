@@ -1077,6 +1077,11 @@ runtime module.</p></li>
 <li><p>Keep the cell split of the original notebook. Merging cells that the notebook
 kept separate (or splitting a cell the notebook kept together) can make the
 bug disappear — that split <em>is</em> the reproducer.</p></li>
+<li><p>Preserve evaluator lifetimes too. To test independent sessions reusing a
+symbol name, construct multiple <code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span></code> objects in one <code class="docutils literal notranslate"><span class="pre">TEST_CASE</span></code>,
+including overlapping and destroyed sessions. WASM side modules share a
+process-wide dynamic-linker namespace: each executor qualifies its definitions
+and subsequent imports of them, but leaves runtime imports unchanged.</p></li>
 <li><p>Check the value, not only <code class="docutils literal notranslate"><span class="pre">r.ok</span></code>. <code class="docutils literal notranslate"><span class="pre">EvalResult::type</span></code> is one of
 <code class="docutils literal notranslate"><span class="pre">integer4/integer8/real4/real8/complex4/complex8/boolean/statement/none</span></code>; a
 bare expression cell returns the typed value, a statement cell returns
