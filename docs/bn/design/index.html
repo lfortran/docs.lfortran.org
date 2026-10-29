@@ -313,6 +313,8 @@
         </li>
         <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">ASR Design Details</a>
         </li>
+        <li class="md-nav__item"><a href="#c-procedure-arguments" class="md-nav__link">C++ procedure arguments</a>
+        </li>
         <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
         </li>
         <li class="md-nav__item"><a href="#llvm-alias-information" class="md-nav__link">LLVM Alias Information</a>
@@ -355,6 +357,13 @@
     
     
       <a href="#asr-design-details" class="md-nav__link">ASR Design Details</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#c-procedure-arguments" class="md-nav__link">C++ procedure arguments</a>
       
     
     </li>
@@ -635,6 +644,8 @@
         </li>
         <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">ASR Design Details</a>
         </li>
+        <li class="md-nav__item"><a href="#c-procedure-arguments" class="md-nav__link">C++ procedure arguments</a>
+        </li>
         <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
         </li>
         <li class="md-nav__item"><a href="#llvm-alias-information" class="md-nav__link">LLVM Alias Information</a>
@@ -752,6 +763,15 @@ message, then the ASR C++ classes are constructed correctly. Thus by
 construction, the ASR classes always contain valid Fortran code and the rest
 of LFortran can depend on it.</p></li>
 </ul>
+</section>
+<section id="c-procedure-arguments">
+<h2 id="c-procedure-arguments">C++ procedure arguments<a class="headerlink" href="#c-procedure-arguments" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
+<p>The C++ backend represents source-ABI procedure dummies as callable template
+parameters. Actual procedures are wrapped in generic lambdas so that array
+descriptor templates are specialized when the callback is invoked. Each array
+dummy has its own template parameter: equal element kind and rank do not imply
+equal descriptor types or extents. This is a C++ representation choice; the
+Fortran interface and argument conversion remain determined by ASR.</p>
 </section>
 <section id="compilation-modes">
 <h2 id="compilation-modes">Compilation Modes<a class="headerlink" href="#compilation-modes" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>

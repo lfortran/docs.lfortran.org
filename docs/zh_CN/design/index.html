@@ -313,6 +313,8 @@
         </li>
         <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">ASR 设计细节</a>
         </li>
+        <li class="md-nav__item"><a href="#c-procedure-arguments" class="md-nav__link">C++ procedure arguments</a>
+        </li>
         <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
         </li>
         <li class="md-nav__item"><a href="#llvm-alias-information" class="md-nav__link">LLVM Alias Information</a>
@@ -355,6 +357,13 @@
     
     
       <a href="#asr-design-details" class="md-nav__link">ASR 设计细节</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#c-procedure-arguments" class="md-nav__link">C++ procedure arguments</a>
       
     
     </li>
@@ -635,6 +644,8 @@
         </li>
         <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">ASR 设计细节</a>
         </li>
+        <li class="md-nav__item"><a href="#c-procedure-arguments" class="md-nav__link">C++ procedure arguments</a>
+        </li>
         <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
         </li>
         <li class="md-nav__item"><a href="#llvm-alias-information" class="md-nav__link">LLVM Alias Information</a>
@@ -714,6 +725,15 @@
 <li><p>ASR 尽可能简单：它不包含任何无法从 ASR 推断出的信息。</p></li>
 <li><p>ASR C++ 类（未来）的设计类似于 SymEngine：它们被构造一次，之后它们是不可变的。构造函数在 Debug 中检查是否满足所有要求（例如，函数中的所有变量都有一个虚拟参数集，显式形状数组不可分配以及所有其他 Fortran 要求使其成为有效代码），但在发布模式它无需检查即可快速构建类。然后是构建 ASR C++ 类以满足要求的构建器类（在调试模式下检查），如果代码不是有效的 Fortran 代码，构建器会给出错误消息，如果它没有给出错误消息，则 ASR C++ 类构造正确。因此，通过构造，ASR 类总是包含有效的 Fortran 代码，而 LFortran 的其余部分可以依赖它。</p></li>
 </ul>
+</section>
+<section id="c-procedure-arguments">
+<h2 id="c-procedure-arguments">C++ procedure arguments<a class="headerlink" href="#c-procedure-arguments" title="永久链接至标题">¶</a></h2>
+<p>The C++ backend represents source-ABI procedure dummies as callable template
+parameters. Actual procedures are wrapped in generic lambdas so that array
+descriptor templates are specialized when the callback is invoked. Each array
+dummy has its own template parameter: equal element kind and rank do not imply
+equal descriptor types or extents. This is a C++ representation choice; the
+Fortran interface and argument conversion remain determined by ASR.</p>
 </section>
 <section id="compilation-modes">
 <h2 id="compilation-modes">Compilation Modes<a class="headerlink" href="#compilation-modes" title="永久链接至标题">¶</a></h2>

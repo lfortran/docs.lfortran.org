@@ -765,6 +765,8 @@ pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span
 pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>integration_tests<span class="w"> </span>-b<span class="w"> </span>gfortran<span class="w"> </span>-j8<span class="w"> </span>&gt;<span class="w"> </span>gfortran.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </pre></div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">llvm11</span></code> Pixi environment also provisions Kokkos for generated C++ tests
+and sets <code class="docutils literal notranslate"><span class="pre">LFORTRAN_KOKKOS_DIR</span></code> to that environment's prefix.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">gfortran</span></code> backend honors <code class="docutils literal notranslate"><span class="pre">FC</span></code> when set, otherwise it uses <code class="docutils literal notranslate"><span class="pre">gfortran</span></code>.
 On macOS ARM, the <code class="docutils literal notranslate"><span class="pre">llvm11</span></code> environment sets <code class="docutils literal notranslate"><span class="pre">FC="gfortran</span> <span class="pre">-B/usr/bin/"</span></code> to
 select Xcode's assembler and linker. Recent GFortran emits M1/LSE instructions

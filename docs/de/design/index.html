@@ -313,6 +313,8 @@
         </li>
         <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">Details zum ASR-Design</a>
         </li>
+        <li class="md-nav__item"><a href="#c-procedure-arguments" class="md-nav__link">C++ procedure arguments</a>
+        </li>
         <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
         </li>
         <li class="md-nav__item"><a href="#llvm-alias-information" class="md-nav__link">LLVM Alias Information</a>
@@ -355,6 +357,13 @@
     
     
       <a href="#asr-design-details" class="md-nav__link">Details zum ASR-Design</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#c-procedure-arguments" class="md-nav__link">C++ procedure arguments</a>
       
     
     </li>
@@ -635,6 +644,8 @@
         </li>
         <li class="md-nav__item"><a href="#asr-design-details" class="md-nav__link">Details zum ASR-Design</a>
         </li>
+        <li class="md-nav__item"><a href="#c-procedure-arguments" class="md-nav__link">C++ procedure arguments</a>
+        </li>
         <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
         </li>
         <li class="md-nav__item"><a href="#llvm-alias-information" class="md-nav__link">LLVM Alias Information</a>
@@ -714,6 +725,15 @@
 <li><p>Die ASR ist so einfach wie möglich: sie enthält keine Informationen, die nicht aus der ASR abgeleitet werden könnten.</p></li>
 <li><p>Die ASR C++-Klassen (in Zukunft) sind ähnlich wie die SymEngine konzipiert: Sie werden einmal konstruiert und sind danach unveränderlich. Der Konstruktor prüft im Debug-Modus eher, ob alle Anforderungen erfüllt sind (z.B., dass alle Variablen in einer Funktion ein Dummy-Argument haben, dass explizite Arrays nicht zuweisbar sind und alle anderen Fortran-Anforderungen, um es zu einem gültigen Code zu machen), aber im Release-Modus konstruiert er die Klasse schnell und ohne Prüfungen. Dann gibt es Builder-Klassen, die die ASR-C++-Klassen so konstruieren, dass sie die Anforderungen erfüllen (die im Debug-Modus überprüft werden), und der Builder gibt eine Fehlermeldung aus, wenn ein Code kein gültiger Fortran-Code ist, und wenn er keine Fehlermeldung ausgibt, dann sind die ASR-C++-Klassen korrekt konstruiert. Somit enthalten die ASR-Klassen konstruktionsbedingt immer gültigen Fortran-Code und der Rest von LFortran kann davon abhängen.</p></li>
 </ul>
+</section>
+<section id="c-procedure-arguments">
+<h2 id="c-procedure-arguments">C++ procedure arguments<a class="headerlink" href="#c-procedure-arguments" title="Link zu dieser Überschrift">¶</a></h2>
+<p>The C++ backend represents source-ABI procedure dummies as callable template
+parameters. Actual procedures are wrapped in generic lambdas so that array
+descriptor templates are specialized when the callback is invoked. Each array
+dummy has its own template parameter: equal element kind and rank do not imply
+equal descriptor types or extents. This is a C++ representation choice; the
+Fortran interface and argument conversion remain determined by ASR.</p>
 </section>
 <section id="compilation-modes">
 <h2 id="compilation-modes">Compilation Modes<a class="headerlink" href="#compilation-modes" title="Link zu dieser Überschrift">¶</a></h2>
