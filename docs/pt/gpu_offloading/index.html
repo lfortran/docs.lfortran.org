@@ -1049,7 +1049,18 @@ this way – a component given several different shapes, or a shape read
 from a value the procedure computes, an array of values of the type, or
 a value held in a component of another value – every value of that type
 device code creates is on the device heap instead (a <em>heap type</em>, see
-<span class="xref myst">Allocating on the device</span>).</p></li>
+<span class="xref myst">Allocating on the device</span>).
+Component buffers do not necessarily share the address space of the
+derived-type value: a fixed-size result temporary can have thread-local
+buffers, while a host buffer or a lifted workspace is in global memory.
+After storage placement, <code class="docutils literal notranslate"><span class="pre">gpu_memory_space</span></code> reads the canonical
+component-to-storage <code class="docutils literal notranslate"><span class="pre">Associate</span></code> bindings. A device specialization that
+needs non-global component buffers takes them, their extents and their
+lower bounds as explicit ASR arguments, with ordinary array memory-space
+types. Its dummy components are bound to those arguments with <code class="docutils literal notranslate"><span class="pre">Associate</span></code>,
+so forwarding them to another routine preserves each buffer’s space.
+Code generation emits those arguments rather than adding a second,
+implicitly global component interface.</p></li>
 <li><p>An argument a procedure defines (<code class="docutils literal notranslate"><span class="pre">intent(out)</span></code> or <code class="docutils literal notranslate"><span class="pre">intent(inout)</span></code>), a
 scalar or a derived-type value, is passed by reference, to a value in the
 memory of the calling thread, as the procedure’s locals are. An actual
