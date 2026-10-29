@@ -770,6 +770,18 @@ select Xcode’s assembler and linker. Recent GFortran emits M1/LSE instructions
 that the LLVM 11 environment’s bundled Clang assembler rejects by default.
 This tool selection does not pass GFortran-specific flags to LFortran or
 change the LLVM version used for reference outputs.</p>
+<p>Native test environments include Kokkos 4.4.01 for the C++ backend. Inside
+the selected Pixi environment, set <code class="docutils literal notranslate"><span class="pre">LFORTRAN_KOKKOS_DIR="$CONDA_PREFIX"</span></code>.
+For an uninstalled development build, also set
+<code class="docutils literal notranslate"><span class="pre">LFORTRAN_RUNTIME_LIBRARY_HEADER_DIR="$LFORTRAN_BUILD_DIR/src/libasr/runtime"</span></code>.
+The packaged Kokkos enables OpenMP, so C++ compilation must enable OpenMP too.
+On macOS, Xcode Clang accepts <code class="docutils literal notranslate"><span class="pre">-Xpreprocessor</span> <span class="pre">-fopenmp</span></code>, with
+<code class="docutils literal notranslate"><span class="pre">-I"$CONDA_PREFIX/include"</span></code> and <code class="docutils literal notranslate"><span class="pre">-L"$CONDA_PREFIX/lib"</span> <span class="pre">-lomp</span></code>.
+The C++ driver’s <code class="docutils literal notranslate"><span class="pre">--openmp</span></code> currently passes <code class="docutils literal notranslate"><span class="pre">-fopenmp</span></code>, which Xcode Clang
+rejects; to validate generated C++ on that platform, emit it with
+<code class="docutils literal notranslate"><span class="pre">--backend=cpp</span> <span class="pre">--show-cpp</span></code> and compile/link it explicitly with these flags,
+the runtime header directory, and <code class="docutils literal notranslate"><span class="pre">-lkokkoscontainers</span> <span class="pre">-lkokkoscore</span></code>.
+Keep <code class="docutils literal notranslate"><span class="pre">-Wl,-rpath,"$CONDA_PREFIX/lib"</span></code> when linking against the Pixi libraries.</p>
 <p>The integration task uses Make from the selected environment. The runner is
 currently intended for Unix-like shells; use WSL
 for that suite on Windows. CTest uses the selected native build. Append <code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">&lt;pattern&gt;</span></code> to <code class="docutils literal notranslate"><span class="pre">tests</span></code> or <code class="docutils literal notranslate"><span class="pre">integration_tests</span></code> for a focused run. Reference tests
