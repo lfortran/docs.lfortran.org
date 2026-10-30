@@ -1043,6 +1043,14 @@ the PRIF smoke test and integration tests keep their existing image settings.
 The missing-tool installer uses the same <code class="docutils literal notranslate"><span class="pre">fpm=0.12.0</span></code> pin as the application
 harness. A failed installed tool or unit test is an error, not a reason to
 skip coverage or reinstall speculatively.</p>
+<p>Linux OpenCoarrays references use the separate Pixi <code class="docutils literal notranslate"><span class="pre">coarray-reference</span></code>
+environment, not the runner’s Fortran compiler or Caffeine’s LFortran toolchain.
+It owns GNU Fortran 13 and OpenMPI 5.0.6: OpenCoarrays currently rejects
+OpenMPI with GNU Fortran &gt;=14 because of the changed coarray ABI.
+The <code class="docutils literal notranslate"><span class="pre">opencoarrays-configure</span></code>, <code class="docutils literal notranslate"><span class="pre">opencoarrays-build</span></code>, <code class="docutils literal notranslate"><span class="pre">opencoarrays-install</span></code>,
+<code class="docutils literal notranslate"><span class="pre">caf</span></code> and <code class="docutils literal notranslate"><span class="pre">cafrun</span></code> tasks keep configuration, compilation and execution in that
+same environment. The harness still owns reference selection and test metadata;
+the shared workflow installs Pixi without eagerly installing this environment.</p>
 <p>Only the Linux <strong>GFortran/OpenCoarrays reference validation</strong> is source-dependent
 in Quick. The shared workflow supplies <code class="docutils literal notranslate"><span class="pre">LFORTRAN_COARRAY_BASE</span></code> (the PR base SHA
 or push’s previous SHA) and <code class="docutils literal notranslate"><span class="pre">LFORTRAN_COARRAY_HEAD</span></code> (the actual checkout SHA).
