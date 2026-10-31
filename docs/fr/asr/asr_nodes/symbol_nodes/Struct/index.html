@@ -740,7 +740,7 @@
 <td><p>the name of the derived type.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">struct_signature</span></code></p></td>
-<td><p>the <a class="reference internal" href="../../type_nodes/StructType/"><span class="doc std std-doc">StructType</span></a> that describes an instance of this type.</p></td>
+<td><p>the <a class="reference internal" href="../../type_nodes/StructType/"><span class="doc std std-doc">StructType</span></a> that describes an instance of this type, with <code class="docutils literal notranslate"><span class="pre">is_cstruct</span></code> true (<code class="docutils literal notranslate"><span class="pre">asr.verify.struct.signature_is_instance_type</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dependencies</span></code></p></td>
 <td><p>the names of the symbols the definition refers to.</p></td>
@@ -882,7 +882,7 @@ value is built with
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">                </span><span class="ss">:member_function_types</span><span class="w"> </span><span class="p">[]</span>
-<span class="w">                </span><span class="ss">:is_cstruct</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">                </span><span class="ss">:is_cstruct</span><span class="w"> </span><span class="nv">true</span>
 <span class="w">                </span><span class="ss">:is_unlimited_polymorphic</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:dependencies</span><span class="w"> </span><span class="p">[]</span>
