@@ -315,7 +315,11 @@
         </li>
         <li class="md-nav__item"><a href="#c-procedure-arguments" class="md-nav__link">C++ procedure arguments</a>
         </li>
-        <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
+        <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#descriptor-entry-wrappers" class="md-nav__link">Descriptor entry wrappers</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#repeated-pure-array-calls" class="md-nav__link">Repeated Pure Array Calls</a>
         </li>
@@ -655,7 +659,11 @@
         </li>
         <li class="md-nav__item"><a href="#c-procedure-arguments" class="md-nav__link">C++ procedure arguments</a>
         </li>
-        <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a>
+        <li class="md-nav__item"><a href="#compilation-modes" class="md-nav__link">Compilation Modes</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#descriptor-entry-wrappers" class="md-nav__link">Descriptor entry wrappers</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#repeated-pure-array-calls" class="md-nav__link">Repeated Pure Array Calls</a>
         </li>
@@ -764,6 +772,22 @@ In this mode, LFortran produces empty object files (<code class="docutils litera
 is usually the default mode used by most other Fortran compilers. We create object code, and we still create <code class="docutils literal notranslate"><span class="pre">.mod</span></code> files for modules and they contain everything just like for direct mode but when any <code class="docutils literal notranslate"><span class="pre">.mod</span></code> file is loaded, we change all symbols to <code class="docutils literal notranslate"><span class="pre">ExternalUndefined</span></code> ABI. We don’t change the ABI for <code class="docutils literal notranslate"><span class="pre">bind(c)</span></code> (since those are undefined already in object code, the user is responsible to provide an implementation at link time).</p></li>
 </ol>
 <p>Note: <strong><em>If you enable separate compilation mode, you have to enable it for all the files.</em></strong></p>
+<section id="descriptor-entry-wrappers">
+<h3 id="descriptor-entry-wrappers">Descriptor entry wrappers<a class="headerlink" href="#descriptor-entry-wrappers" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>The array-by-data pass can make a retained descriptor-ABI subroutine an entry
+wrapper for its existing data-ABI specialization. The exported signature and
+type-bound procedure/vtable references still name the original descriptor entry,
+including across separately compiled modules. The normal call conversion handles
+runtime contiguity and copies strided inputs while preserving bounds and extents.
+Only required, ordinary numeric assumed-shape <code class="docutils literal notranslate"><span class="pre">intent(in)</span></code> arrays qualify;
+pointer, allocatable, TARGET, VOLATILE, ASYNCHRONOUS and coarray dummies do not.
+Scalar arguments must be numeric or derived-type receivers. In particular,
+logical presence flags introduced by optional-argument lowering exclude an entry.
+Procedures with saved local state, contained procedures, observable array
+addresses/contiguity, or forwarding of an input descriptor are left unchanged.
+Unused automatic locals are removed from the wrapper, but declarations needed
+by its signature remain.</p>
+</section>
 </section>
 <section id="repeated-pure-array-calls">
 <h2 id="repeated-pure-array-calls">Repeated Pure Array Calls<a class="headerlink" href="#repeated-pure-array-calls" title="Enlazar permanentemente con este título">¶</a></h2>
