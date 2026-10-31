@@ -702,6 +702,14 @@
 <li><p>Generación de código LLVM IR y optimizaciones de nivel inferior: convierte un ASR en un LLVM IR. Esta etapa también realiza todas las demás optimizaciones que no producen un ASR, pero que aún tiene sentido antes de pasar a LLVM IR.</p></li>
 <li><p>Generación de código de máquina: LLVM luego realiza todas sus optimizaciones y genera código de máquina (como un ejecutable binario, una biblioteca, un archivo de objeto, o se carga y ejecuta usando JIT como parte de la sesión interactiva de LFortran o en un núcleo de Jupyter).</p></li>
 </ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">function_result_scope</span></code> ASR pass also gives a statement scope to scalar
+constructor temporaries assigned to allocatable targets when the type has
+only numeric/logical components, owns allocatable array storage, and has no
+final subroutines (including inherited ones). The existing BLOCK lifetime
+initializes their component descriptors only when the constructor executes
+and releases their private storage after the assignment. Descriptor layout
+and ownership are unchanged. Types with pointers, nested derived components
+or user finalization keep their existing lifetime.</p>
 <p>LFortran está estructurado como una biblioteca, por lo que, por ejemplo, se puede usar el analizador para obtener un AST y hacer algo con él, o se puede usar el analizador semántico para obtener ASR y hacer algo con él. Uno puede generar la ASR directamente (por ejemplo, desde SymPy) y luego convertirlo a AST y a un código fuente de Fortran, o usar LFortran para compilarlo en código de máquina directamente. En otras palabras, uno puede usar LFortran para convertir fácilmente entre las tres representaciones equivalentes:</p>
 <ul class="simple">
 <li><p>Código fuente de Fortran</p></li>

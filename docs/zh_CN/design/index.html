@@ -702,6 +702,14 @@
 <li><p>LLVM IR 代码生成和较低级别的优化：将 ASR 转换为 LLVM IR。此阶段还执行所有其他不产生 ASR，但在传递给 LLVM IR 之前仍然有意义的优化。</p></li>
 <li><p>机器代码生成：LLVM 然后进行所有优化并生成机器代码（例如二进制可执行文件、库、目标文件，或者使用 JIT 作为交互式 LFortran 会话的一部分或在 Jupyter 内核中加载和执行）。</p></li>
 </ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">function_result_scope</span></code> ASR pass also gives a statement scope to scalar
+constructor temporaries assigned to allocatable targets when the type has
+only numeric/logical components, owns allocatable array storage, and has no
+final subroutines (including inherited ones). The existing BLOCK lifetime
+initializes their component descriptors only when the constructor executes
+and releases their private storage after the assignment. Descriptor layout
+and ownership are unchanged. Types with pointers, nested derived components
+or user finalization keep their existing lifetime.</p>
 <p>LFortran 被构造为一个库，因此可以使用解析器获取 AST 并对其进行处理，或者然后可以使用语义分析器获取 ASR 并对其进行处理。可以直接生成 ASR（例如，从 SymPy），然后转换为 AST 和 Fortran 源代码，或者使用 LFortran 直接将其编译为机器代码。换句话说，可以使用 LFortran 在三种等效表示之间轻松转换：</p>
 <ul class="simple">
 <li><p>Fortran 源代码</p></li>
