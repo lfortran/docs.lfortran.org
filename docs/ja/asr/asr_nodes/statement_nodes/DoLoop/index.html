@@ -1066,8 +1066,10 @@
 <section id="description">
 <h2 id="description">Description<a class="headerlink" href="#description" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>The trip count is computed from <code class="docutils literal notranslate"><span class="pre">head</span></code> before the first iteration, so changing
-the bounds inside the body does not change the number of iterations. An
-increment of <code class="docutils literal notranslate"><span class="pre">nil</span></code> means one.</p>
+the bounds inside the body does not change the number of iterations. The head
+is always in the <a class="reference internal" href="../../helper_nodes/do_loop_head/"><span class="doc std std-doc">normalized form</span></a>:
+<code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">end</span></code> and <code class="docutils literal notranslate"><span class="pre">increment</span></code> are present and have the type of the index
+variable.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">do</span></code> loop with no head at all is an infinite loop, <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">...</span> <span class="pre">end</span> <span class="pre">do</span></code>, and is
 represented by a head whose members are all <code class="docutils literal notranslate"><span class="pre">nil</span></code>.</p>
 </section>

@@ -566,7 +566,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">描述</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">描述</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#normalized-form" class="md-nav__link">Normalized form</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">示例</a>
         </li>
@@ -677,7 +681,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">描述</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">描述</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#normalized-form" class="md-nav__link">Normalized form</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">示例</a>
         </li>
@@ -724,7 +732,7 @@
 <td><p>its last value.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">increment</span></code></p></td>
-<td><p>the step, or <code class="docutils literal notranslate"><span class="pre">nil</span></code> for one.</p></td>
+<td><p>the step.</p></td>
 </tr>
 </tbody>
 </table>
@@ -742,6 +750,33 @@
 control serves all three.</p>
 <p>The trip count is computed from <code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">end</span></code> and <code class="docutils literal notranslate"><span class="pre">increment</span></code> before the
 first iteration. A head whose members are all <code class="docutils literal notranslate"><span class="pre">nil</span></code> is an infinite loop.</p>
+<section id="normalized-form">
+<h3 id="normalized-form">Normalized form<a class="headerlink" href="#normalized-form" title="永久链接至标题">¶</a></h3>
+<p>Every head is in a normalized form, so that passes and backends lower it as
+given, without supplying a default step or converting types themselves. The
+verifier checks that each head of a <a class="reference internal" href="../../statement_nodes/DoLoop/"><span class="doc std std-doc">DoLoop</span></a>,
+<a class="reference internal" href="../../statement_nodes/DoConcurrentLoop/"><span class="doc std std-doc">DoConcurrentLoop</span></a> and
+<a class="reference internal" href="../../statement_nodes/ForAllSingle/"><span class="doc std std-doc">ForAllSingle</span></a> is either</p>
+<ul class="simple">
+<li><p>a counted head: <code class="docutils literal notranslate"><span class="pre">v</span></code> is a scalar variable, and <code class="docutils literal notranslate"><span class="pre">start</span></code>, <code class="docutils literal notranslate"><span class="pre">end</span></code> and
+<code class="docutils literal notranslate"><span class="pre">increment</span></code> are all present and scalar, each of exactly the type and kind
+of <code class="docutils literal notranslate"><span class="pre">v</span></code>. A step of one is written out as a constant <code class="docutils literal notranslate"><span class="pre">1</span></code> of that type; where
+the source mixes kinds, such as <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">i</span> <span class="pre">=</span> <span class="pre">1_8,</span> <span class="pre">n</span></code> with an <code class="docutils literal notranslate"><span class="pre">integer(4)</span> <span class="pre">::</span> <span class="pre">i</span></code>,
+the expression is wrapped in an explicit <a class="reference internal" href="../../expression_nodes/Cast/"><span class="doc std std-doc">Cast</span></a>
+to the type of <code class="docutils literal notranslate"><span class="pre">v</span></code>; or</p></li>
+<li><p>the head of an infinite loop, <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">...</span> <span class="pre">end</span> <span class="pre">do</span></code>, with all four members <code class="docutils literal notranslate"><span class="pre">nil</span></code>.
+Only a <strong>DoLoop</strong> may have it.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">v</span></code> is usually an integer, but has to agree only with the other three, so the
+deleted feature of a <code class="docutils literal notranslate"><span class="pre">real</span></code> DO variable, which the frontend still accepts,
+gives a head of that real type.</p>
+<p>Code that creates a loop builds the head with
+<code class="docutils literal notranslate"><span class="pre">ASRUtils::make_DoLoop_t_util</span></code>, <code class="docutils literal notranslate"><span class="pre">ASRUtils::make_DoConcurrentLoop_t_util</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ASRUtils::make_ForAllSingle_t_util</span></code> or <code class="docutils literal notranslate"><span class="pre">ASRBuilder::DoLoop</span></code>, which normalize
+it (<code class="docutils literal notranslate"><span class="pre">ASRUtils::normalize_do_loop_head</span></code>), rather than with the generated
+<code class="docutils literal notranslate"><span class="pre">ASR::make_*_t</span></code> constructors. ASR written as text has to spell out the
+normalized form, including the <code class="docutils literal notranslate"><span class="pre">increment</span></code>.</p>
+</section>
 </section>
 <section id="examples">
 <h2 id="examples">示例<a class="headerlink" href="#examples" title="永久链接至标题">¶</a></h2>
