@@ -769,6 +769,10 @@
     | ReduceIAND
     | ReduceIOR
     | ReduceIEOR
+    | ReduceAND
+    | ReduceOR
+    | ReduceEQV
+    | ReduceNEQV
 </pre></div>
 </div>
 </section>
@@ -804,6 +808,18 @@
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ReduceIEOR</span></code></p></td>
 <td><p>bitwise exclusive or.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ReduceAND</span></code></p></td>
+<td><p>logical and (<code class="docutils literal notranslate"><span class="pre">.and.</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ReduceOR</span></code></p></td>
+<td><p>logical or (<code class="docutils literal notranslate"><span class="pre">.or.</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ReduceEQV</span></code></p></td>
+<td><p>logical equivalence (<code class="docutils literal notranslate"><span class="pre">.eqv.</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ReduceNEQV</span></code></p></td>
+<td><p>logical non-equivalence (<code class="docutils literal notranslate"><span class="pre">.neqv.</span></code>).</p></td>
 </tr>
 </tbody>
 </table>
