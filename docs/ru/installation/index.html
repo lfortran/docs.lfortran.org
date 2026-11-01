@@ -880,6 +880,14 @@ Exhaustive never runs on PRs.</p>
 <p>Full LLVM-WASM, no-LLVM and MLIR suites belong directly to Quick on every event.
 They are not declared in Exhaustive or its shared compiler workflow, so there
 are no duplicate or skipped Exhaustive copies of these jobs.</p>
+<p>To build and test the MLIR backend locally with the MLIR release that Quick
+uses:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>mlir<span class="w"> </span>build<span class="w"> </span>-DWITH_MLIR<span class="o">=</span>yes
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>mlir<span class="w"> </span>integration_tests<span class="w"> </span>-b<span class="w"> </span>mlir<span class="w"> </span>-j8<span class="w"> </span>&gt;<span class="w"> </span>mlir.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">-e</span> <span class="pre">mlir</span> <span class="pre">rebuild</span></code> after source edits. This configuration has its
+own <code class="docutils literal notranslate"><span class="pre">build/mlir</span></code> directory; reference tests still require <code class="docutils literal notranslate"><span class="pre">llvm11</span></code>.</p>
 <p>The full LLVM-WASM suite runs in two parallel jobs that build the same
 compiler: <code class="docutils literal notranslate"><span class="pre">Test</span> <span class="pre">LLVM</span> <span class="pre">19</span> <span class="pre">WASM</span></code> runs the WASI backend (<code class="docutils literal notranslate"><span class="pre">llvm_wasm</span></code>, wasmtime)
 and the unit tests, and <code class="docutils literal notranslate"><span class="pre">Test</span> <span class="pre">LLVM</span> <span class="pre">19</span> <span class="pre">WASM</span> <span class="pre">Emscripten</span></code> runs the Emscripten
