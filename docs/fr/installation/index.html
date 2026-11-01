@@ -804,7 +804,8 @@ rather than maintaining a separate list of packages or CMake flags.</p>
 <p><code class="docutils literal notranslate"><span class="pre">pixi.toml</span></code> pins every package to an exact version, except zlib and zstd,
 whose versions differ between LLVM versions, so local builds and CI use the
 same direct dependencies. When you change a dependency, pin it to an exact
-version.</p>
+version. CI builds the platform compilers with the same environments and
+<code class="docutils literal notranslate"><span class="pre">build</span></code> task (see <span class="xref myst">Compiler caches</span>).</p>
 <p>Use the Pixi workflow for builds and tests; it supplies the declared
 project dependencies without separate system/global package installation.
 AI contributors must follow the
@@ -967,7 +968,9 @@ installation merely to enable runtime stacktraces. Application validation must
 exercise the runtime-enabled Release LLVM 11/19 and macOS LLVM 22 profiles;
 success with the former disabled-runtime flags is not evidence for this change.</p>
 <p>The distinct Kokkos/out-of-source and custom-install configurations run
-full suites. Standalone C++ builds, documentation/kernel tests, the
+full suites. The out-of-source job also removes the Prefix <code class="docutils literal notranslate"><span class="pre">shell</span></code> from its
+environment and checks that CMake runs <code class="docutils literal notranslate"><span class="pre">build0.sh</span></code> with Bash, which is how
+builds without Pixi work. Standalone C++ builds, documentation/kernel tests, the
 Docker build/tests, JupyterLite and source packaging remain additional checks.</p>
 <p>PRs do not run the Exhaustive workflow at all. For a rare, explicitly
 requested extended check of a PR, dispatch it in a fork (see below).</p>
@@ -996,7 +999,20 @@ caches when it closes.</p>
 <p>Keep compiler inputs identical between commits. The version comes from
 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">describe</span></code> and changes with every commit, so it must not appear in build
 paths: <code class="docutils literal notranslate"><span class="pre">ci/source_tarball.sh</span></code> unpacks the versioned source tarball into the
-fixed <code class="docutils literal notranslate"><span class="pre">lfortran-src/</span></code> directory, which <code class="docutils literal notranslate"><span class="pre">ci/build.sh</span></code> then builds.</p>
+fixed <code class="docutils literal notranslate"><span class="pre">lfortran-src/</span></code> directory, which the platform builds compile into the
+fixed <code class="docutils literal notranslate"><span class="pre">build/&lt;environment&gt;/</span></code> directory.</p>
+<p>The platform builds use the same Pixi environments and <code class="docutils literal notranslate"><span class="pre">build</span></code> task as local
+development. <code class="docutils literal notranslate"><span class="pre">.github/actions/build-platform</span></code> installs and activates
+<code class="docutils literal notranslate"><span class="pre">llvm&lt;version&gt;</span></code> (<code class="docutils literal notranslate"><span class="pre">prefix-dev/setup-pixi</span></code>), creates the source tarball, and
+builds it with
+<code class="docutils literal notranslate"><span class="pre">LFORTRAN_SOURCE_DIR=lfortran-src</span> <span class="pre">pixi</span> <span class="pre">run</span> <span class="pre">-e</span> <span class="pre">llvm&lt;version&gt;</span> <span class="pre">build</span> <span class="pre">-DLFORTRAN_BUILD_ALL=no</span> <span class="pre">-DWITH_LSP=yes</span> <span class="pre">-DWITH_XEUS=yes</span></code>, so the release tarball
+itself is tested. <code class="docutils literal notranslate"><span class="pre">ci/check_build.sh</span></code> then installs it and runs the unit,
+Jupyter kernel and notebook checks. The Pixi environments are not cached:
+each one is about 0.7 GB compressed and would evict compiler caches. Pixi keeps
+the package files” modification times, so ccache’s default compiler check
+still hits after every fresh installation. <code class="docutils literal notranslate"><span class="pre">pixi.toml</span></code> pins the compilers, so
+they change only with a deliberate <code class="docutils literal notranslate"><span class="pre">pixi.toml</span></code> update, which invalidates the
+compiler caches once.</p>
 <p>The action appends a timestamp to every saved key, so each save on <code class="docutils literal notranslate"><span class="pre">main</span></code> adds
 a new copy. After every Quick or Exhaustive run on <code class="docutils literal notranslate"><span class="pre">main</span></code>,
 <code class="docutils literal notranslate"><span class="pre">Prune-Main-Caches-CI.yml</span></code> (<code class="docutils literal notranslate"><span class="pre">ci/prune_main_caches.py</span></code>) deletes all but the
@@ -1296,7 +1312,11 @@ conda<span class="w"> </span>activate<span class="w"> </span>lf
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build0.sh
 </pre></div>
 </div>
-<p>Now you can use our script <code class="docutils literal notranslate"><span class="pre">./build1.sh</span></code> to build in Debug mode:</p>
+<p>Configuring CMake with <code class="docutils literal notranslate"><span class="pre">-DLFORTRAN_BUILD_ALL=yes</span></code> (as <code class="docutils literal notranslate"><span class="pre">build1.sh</span></code> does) runs
+<code class="docutils literal notranslate"><span class="pre">build0.sh</span></code> itself, with the Prefix <a class="reference external" href="https://github.com/prefix-dev/shell"><code class="docutils literal notranslate"><span class="pre">shell</span></code></a>
+when it is installed and otherwise with Bash, so a build without Pixi needs
+only Bash. Pass <code class="docutils literal notranslate"><span class="pre">-DLFORTRAN_SHELL=/path/to/bash</span></code> to choose explicitly.
+Now you can use our script <code class="docutils literal notranslate"><span class="pre">./build1.sh</span></code> to build in Debug mode:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build1.sh
 </pre></div>
 </div>
@@ -1474,8 +1494,10 @@ kernel was found:</p>
 ./build1.sh
 </pre></div>
 </div>
-<p>As of 2025-11-10, the environment passes the CI tests, provided you tell it where to install the Jupyter kernel:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">LFORTRAN_CMAKE_GENERATOR</span><span class="o">=</span>Ninja<span class="w"> </span><span class="nv">CONDA_PREFIX</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="w"> </span><span class="nv">JUPYTER_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/share/jupyter<span class="w"> </span>bash<span class="w"> </span>ci/build.sh
+<p>To run the CI platform build checks, tell it where to install the Jupyter kernel:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>shell<span class="w"> </span>ci/source_tarball.sh
+<span class="nv">LFORTRAN_SOURCE_DIR</span><span class="o">=</span>lfortran-src<span class="w"> </span>./build1.sh<span class="w"> </span>build<span class="w"> </span>-DLFORTRAN_BUILD_ALL<span class="o">=</span>no<span class="w"> </span>-DWITH_LSP<span class="o">=</span>yes<span class="w"> </span>-DWITH_XEUS<span class="o">=</span>yes<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
+<span class="nv">JUPYTER_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/share/jupyter<span class="w"> </span><span class="nv">WIN</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>shell<span class="w"> </span>ci/check_build.sh<span class="w"> </span>build
 </pre></div>
 </div>
 <p>(take note that the Nix shell does not use conda)</p>

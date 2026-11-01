@@ -913,10 +913,22 @@ procedure of an internal procedure (an extension) reaches the variables of
 the outer host through the aliases of the procedure it is nested in, whose
 own frame refers to them; the pass processes the hosts from the outside in.
 Calls between the internal procedures of a host pass on the frame dummy.</p>
-<p>For now, a program unit in which an internal procedure is used as a
-procedure value (an actual argument, a pointer target or an interface), or a
-main program with a global initializer, keeps the older lowering through
-module variables that are copied in and out around calls.</p>
+<p>A procedure value of an internal procedure that needs the frame (an actual
+argument, a pointer target, the interface of a procedure variable, the
+callback of a defined output procedure) cannot pass it. It names instead a
+<em>thunk</em>: a procedure of the host with the interface of the internal
+procedure, which calls it with the frame that the host’s <em>frame slot</em>, a
+<code class="docutils literal notranslate"><span class="pre">Save</span></code> pointer of the host, points to. A statement that makes a procedure
+value points the slot at the frame of its instance first, and every instance
+of the host saves the slot when it starts and restores it before it returns.
+So a procedure value reaches the instance that made it, unless a newer
+instance of the same host has made a procedure value since and is still
+active; values that carry their frame would be exact in that case too. A
+call in an interface body to a procedure of the host that reads one of its
+variables for a bound or a length (<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">::</span> <span class="pre">n</span></code>) uses a thunk the same way.
+The thunks and the procedures that make procedure values read the slot
+directly, so a backend must resolve a saved variable of the host there
+(<code class="docutils literal notranslate"><span class="pre">ASRUtils::is_frame_slot</span></code>).</p>
 <p>The ASR after this pass is not valid Fortran: a member of Reference type and
 a HostAssociated variable have no Fortran syntax, and
 <code class="docutils literal notranslate"><span class="pre">--show-fortran</span></code> prints them as <code class="docutils literal notranslate"><span class="pre">reference</span></code>, <code class="docutils literal notranslate"><span class="pre">host_associated</span></code> and
