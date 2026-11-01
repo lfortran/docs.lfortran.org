@@ -961,9 +961,8 @@ arguments. With n the number of iterations of the nest, the pass emits</p>
 </pre></div>
 </div>
 <p>and then sets the DO variables to the values the original nest leaves in
-them (the last iteration's, or one step past it with
-<code class="docutils literal notranslate"><span class="pre">--use-loop-variable-after-loop</span></code>), so that the result does not depend on
-the run-time choice between the skewed and the original loop.</p>
+them (one step past the last iteration's), so that the result does not
+depend on the run-time choice between the skewed and the original loop.</p>
 <p>The window is computed in <code class="docutils literal notranslate"><span class="pre">integer(8)</span></code>, whatever the kinds of the loop
 indices, and is a part of the loop's rows, so its ends convert exactly to
 the kind of the loop's index. For each launch the windows of the bands
