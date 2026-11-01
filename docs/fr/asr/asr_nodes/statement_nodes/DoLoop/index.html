@@ -580,7 +580,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#lowering" class="md-nav__link">Lowering</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -1013,7 +1017,11 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a>
+        <li class="md-nav__item"><a href="#description" class="md-nav__link">Description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#lowering" class="md-nav__link">Lowering</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
@@ -1079,6 +1087,27 @@ is always in the <a class="reference internal" href="../../helper_nodes/do_loop_
 variable.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">do</span></code> loop with no head at all is an infinite loop, <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">...</span> <span class="pre">end</span> <span class="pre">do</span></code>, and is
 represented by a head whose members are all <code class="docutils literal notranslate"><span class="pre">nil</span></code>.</p>
+<section id="lowering">
+<h3 id="lowering">Lowering<a class="headerlink" href="#lowering" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Every backend lowers this node itself; no pass rewrites it into a
+<a class="reference internal" href="../WhileLoop/"><span class="doc std std-doc">WhileLoop</span></a>. For <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">i</span> <span class="pre">=</span> <span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">c</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">c</span></code> are evaluated once, before the first iteration, and <code class="docutils literal notranslate"><span class="pre">i</span></code>
+is set to <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>The C-family backends (C, C++, CUDA, Metal) write a C <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, copying
+<code class="docutils literal notranslate"><span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">c</span></code> into constants first when the body can change them.</p></li>
+<li><p>The other backends (LLVM, WASM, x86, MLIR) test whether the loop runs at
+all (<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;=</span> <span class="pre">b</span></code> for a positive step, <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&gt;=</span> <span class="pre">b</span></code> for a negative one). After
+each iteration they add <code class="docutils literal notranslate"><span class="pre">c</span></code> to <code class="docutils literal notranslate"><span class="pre">i</span></code> and continue while <code class="docutils literal notranslate"><span class="pre">i</span></code> had not reached
+<code class="docutils literal notranslate"><span class="pre">b</span></code> (a step of <code class="docutils literal notranslate"><span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">-1</span></code>), or while iterations remain of the unsigned
+count <code class="docutils literal notranslate"><span class="pre">|b</span> <span class="pre">-</span> <span class="pre">a|</span> <span class="pre">/</span> <span class="pre">|c|</span></code> (any other step), which is right even where <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">-</span> <span class="pre">a</span></code>
+overflows the kind of <code class="docutils literal notranslate"><span class="pre">i</span></code>. A step of zero is a run-time error.</p></li>
+<li><p><a class="reference internal" href="../Cycle/"><span class="doc std std-doc">Cycle</span></a> goes to the increment of <code class="docutils literal notranslate"><span class="pre">i</span></code>, and <a class="reference internal" href="../Exit/"><span class="doc std std-doc">Exit</span></a> past
+the loop and its <code class="docutils literal notranslate"><span class="pre">orelse</span></code>.</p></li>
+</ul>
+<p>After the loop, <code class="docutils literal notranslate"><span class="pre">i</span></code> has the value the standard specifies: one step past its
+last value, or <code class="docutils literal notranslate"><span class="pre">a</span></code> for a loop that does not run.</p>
+</section>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Lien permanent vers ce titre">¶</a></h2>
