@@ -630,6 +630,7 @@
     | TypeParameter(identifier param, deferred_type_attr deferred_attr, bool is_class)
     | Array(ttype type, dimension* dims, array_physical_type physical_type, memory_space memory_space)
     | FunctionType(ttype* arg_types, ttype? return_var_type, abi abi, deftype deftype, string? bindc_name, bool elemental, bool pure, bool module, bool inline, bool static, symbol* restrictions, bool is_restriction, exec_space exec_space)
+    | Reference(ttype type)
 </pre></div>
 </div>
 </section>
@@ -658,6 +659,8 @@ fixed by a <a class="reference internal" href="../../kinds_nodes/kinds/"><span c
 <a class="reference internal" href="../Allocatable/"><span class="doc std std-doc">Allocatable</span></a>, which wrap another type;</p></li>
 <li><p><a class="reference internal" href="../CPtr/"><span class="doc std std-doc">CPtr</span></a> and <a class="reference internal" href="../FunctionType/"><span class="doc std std-doc">FunctionType</span></a>, which describe a C
 address and a procedure signature;</p></li>
+<li><p><a class="reference internal" href="../Reference/"><span class="doc std std-doc">Reference</span></a>, the type of a member of a frame that holds the
+address of a variable of the host of an internal procedure;</p></li>
 <li><p><a class="reference internal" href="../TypeParameter/"><span class="doc std std-doc">TypeParameter</span></a>, a placeholder inside a generic
 <a class="reference internal" href="../../symbol_nodes/Template/"><span class="doc std std-doc">Template</span></a>;</p></li>
 <li><p>the LPython container types <a class="reference internal" href="../List/"><span class="doc std std-doc">List</span></a>, <a class="reference internal" href="../Set/"><span class="doc std std-doc">Set</span></a>, <a class="reference internal" href="../Dict/"><span class="doc std std-doc">Dict</span></a>
@@ -693,6 +696,7 @@ between representations without changing the value, while
 <li class="toctree-l1"><a class="reference internal" href="../Logical/">Logical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Pointer/">Pointer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Real/">Real</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reference/">Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Set/">Set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../String/">String</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../StringPhysicalType/">string_physical_type</a></li>

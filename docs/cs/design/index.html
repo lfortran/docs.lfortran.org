@@ -327,6 +327,8 @@
         </li>
         <li class="md-nav__item"><a href="#common-blocks" class="md-nav__link">COMMON Blocks</a>
         </li>
+        <li class="md-nav__item"><a href="#host-association" class="md-nav__link">Host Association</a>
+        </li>
         <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notes:</a>
         </li>
         <li class="md-nav__item"><a href="#conditional-expressions-and-conditional-arguments" class="md-nav__link">Conditional Expressions and Conditional Arguments</a>
@@ -398,6 +400,13 @@
     
     
       <a href="#common-blocks" class="md-nav__link">COMMON Blocks</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#host-association" class="md-nav__link">Host Association</a>
       
     
     </li>
@@ -671,6 +680,8 @@
         </li>
         <li class="md-nav__item"><a href="#common-blocks" class="md-nav__link">COMMON Blocks</a>
         </li>
+        <li class="md-nav__item"><a href="#host-association" class="md-nav__link">Host Association</a>
+        </li>
         <li class="md-nav__item"><a href="#notes" class="md-nav__link">Notes:</a>
         </li>
         <li class="md-nav__item"><a href="#conditional-expressions-and-conditional-arguments" class="md-nav__link">Conditional Expressions and Conditional Arguments</a>
@@ -906,6 +917,35 @@ those values, in both compilation modes. A view without initial values is
 object file of a module read from its module file, or by an earlier
 interactive cell, after which the block cannot grow or be given initial
 values. See <a class="reference internal" href="../asr/asr_nodes/symbol_nodes/CommonBlock/"><span class="doc std std-doc">CommonBlock</span></a>.</p>
+</section>
+<section id="host-association">
+<h2 id="host-association">Host Association<a class="headerlink" href="#host-association" title="Trvalý odkaz na tento nadpis">¶</a></h2>
+<p>An internal procedure reaches the variables of its host by host association:
+it uses the same storage as the instance of the host that invoked it, not a
+copy (F2018 19.5.1.4). A recursive host has one instance per active call, so
+that storage cannot be a global variable. The ASR that the frontend produces
+keeps the internal procedure nested in its host, and its <code class="docutils literal notranslate"><span class="pre">Var</span></code>s refer directly
+to the variables of the host.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">nested_vars</span></code> pass lowers this into ASR that every backend can emit
+without knowing about nesting. Every instance of a host gets a <em>frame</em>: a
+local variable of a derived type declared in the host, with one member per
+host variable that its internal procedures use. A member of
+<a class="reference internal" href="../asr/asr_nodes/type_nodes/Reference/"><span class="doc std std-doc">Reference</span></a> type holds the address of
+the host variable, which the host stores with
+<a class="reference internal" href="../asr/asr_nodes/statement_nodes/BindReference/"><span class="doc std std-doc">BindReference</span></a> at the start
+of its body. Nothing is copied, so allocation status, bounds, dynamic type,
+<code class="docutils literal notranslate"><span class="pre">target</span></code> identity and storage association are those of the host variable. An
+internal procedure gets the frame as its last dummy argument, and in it every
+host variable is replaced by a variable of <code class="docutils literal notranslate"><span class="pre">HostAssociated</span></code>
+<a class="reference internal" href="../asr/asr_nodes/enum_nodes/storage_type/"><span class="doc std std-doc">storage</span></a>: an alias with the type of
+the host variable, bound on entry to the variable that its <code class="docutils literal notranslate"><span class="pre">symbolic_value</span></code>
+designates through the frame. Such a variable has no storage of its own
+(<code class="docutils literal notranslate"><span class="pre">ASRUtils::has_own_storage</span></code>), so it is never allocated, initialized,
+finalized or deallocated by the internal procedure.</p>
+<p>The ASR after this pass is not valid Fortran: a member of Reference type and
+a HostAssociated variable have no Fortran syntax, and
+<code class="docutils literal notranslate"><span class="pre">--show-fortran</span></code> prints them as <code class="docutils literal notranslate"><span class="pre">reference</span></code>, <code class="docutils literal notranslate"><span class="pre">host_associated</span></code> and
+<code class="docutils literal notranslate"><span class="pre">bind_reference(...)</span></code>.</p>
 </section>
 <section id="notes">
 <h2 id="notes">Notes:<a class="headerlink" href="#notes" title="Trvalý odkaz na tento nadpis">¶</a></h2>
