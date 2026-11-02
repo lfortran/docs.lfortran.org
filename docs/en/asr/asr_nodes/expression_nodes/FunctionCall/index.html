@@ -1472,7 +1472,7 @@
 <td><p>the compile time value of the expression, when the frontend could fold it; <code class="docutils literal notranslate"><span class="pre">nil</span></code> otherwise.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dt</span></code></p></td>
-<td><p>for a call through a type-bound procedure, the object it was reached through; <code class="docutils literal notranslate"><span class="pre">nil</span></code> otherwise.</p></td>
+<td><p>for a call through a type-bound procedure, the object it was reached through; for a call through a procedure-pointer component with an implicit interface, a <a class="reference internal" href="../FunctionPointerCast/"><span class="doc std std-doc">FunctionPointerCast</span></a> of the component whose <code class="docutils literal notranslate"><span class="pre">to</span></code> is <code class="docutils literal notranslate"><span class="pre">name</span></code>, the call-site interface; <code class="docutils literal notranslate"><span class="pre">nil</span></code> otherwise.</p></td>
 </tr>
 </tbody>
 </table>

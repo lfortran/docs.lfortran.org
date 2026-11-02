@@ -1060,7 +1060,7 @@
 <td><p>the actual arguments, each a <a class="reference internal" href="../../helper_nodes/call_arg/"><span class="doc std std-doc">call_arg</span></a>. An absent optional argument is a <code class="docutils literal notranslate"><span class="pre">call_arg</span></code> with a <code class="docutils literal notranslate"><span class="pre">nil</span></code> value.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dt</span></code></p></td>
-<td><p>for a call through a type-bound procedure, the object it was reached through; <code class="docutils literal notranslate"><span class="pre">nil</span></code> otherwise.</p></td>
+<td><p>for a call through a type-bound procedure, the object it was reached through; for a call through a procedure-pointer component with an implicit interface, a <a class="reference internal" href="../../expression_nodes/FunctionPointerCast/"><span class="doc std std-doc">FunctionPointerCast</span></a> of the component whose <code class="docutils literal notranslate"><span class="pre">to</span></code> is <code class="docutils literal notranslate"><span class="pre">name</span></code>, the call-site interface; <code class="docutils literal notranslate"><span class="pre">nil</span></code> otherwise.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">strict_bounds_checking</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when the actual and dummy shapes must be checked to agree at run time.</p></td>

@@ -1040,8 +1040,10 @@
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GpuKernelLaunch(symbol kernel, expr thread_count, expr block_size,
     call_arg* args, symbol? component_fit, gpu_scratch_buffer* scratch,
     expr? stop_status, stmt* stop_replay, expr* overwritten,
-    expr* overwritten_if)
+    expr* overwritten_if, gpu_launch_dimension* chunk_dimensions,
+    int chunk_fixed_iterations)
 gpu_scratch_buffer = (int argument_index, expr size, expr? read_back)
+gpu_launch_dimension = (symbol start_parameter, symbol end_parameter)
 </pre></div>
 </div>
 </section>
@@ -1083,6 +1085,12 @@ gpu_scratch_buffer = (int argument_index, expr size, expr? read_back)
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">overwritten_if</span></code></p></td>
 <td><p>for each of <code class="docutils literal notranslate"><span class="pre">overwritten</span></code>, the host condition under which it does.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code></p></td>
+<td><p>the dimensions of the iteration space a launch of more iterations than the chunk limit splits into chunks, each run as a launch of the kernel, in the order the kernel numbers its iterations (below); empty when it always runs as one.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">chunk_fixed_iterations</span></code></p></td>
+<td><p>the product of the constant extents of the dimensions every chunk covers whole: 1 when there are none, and 0 when <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code> is empty.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1171,6 +1179,33 @@ argument of the launch overlaps it, the runtime treats the discard as an
 ordinary write so that the other argument can still read its previous
 contents. The kernel layout’s <code class="docutils literal notranslate"><span class="pre">gpu_kernel_argument.noalias</span></code> is a separate
 shared-ASR proof; it is not inferred from <code class="docutils literal notranslate"><span class="pre">overwritten</span></code>.</p>
+<p>A launch with <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code> runs as several launches of its kernel when
+it has more iterations than the chunk limit (<code class="docutils literal notranslate"><span class="pre">huge(0)</span></code>, which the hidden,
+test-only option <code class="docutils literal notranslate"><span class="pre">--gpu-chunk-limit</span></code> lowers): one per chunk, a box of the
+iteration space of at most that many iterations. The iterations of a <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> may run in any order, so the chunks run one after another, and
+the kernel numbers the iterations of each chunk from the bounds of its box.
+A chunk covers every dimension not in <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code> whole; their
+extents are constants, which the kernel keeps, and their product is
+<code class="docutils literal notranslate"><span class="pre">chunk_fixed_iterations</span></code>, at most the limit. Each dimension in
+<code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code> names the kernel parameters that hold its bounds,
+<code class="docutils literal notranslate"><span class="pre">start_parameter</span></code> and <code class="docutils literal notranslate"><span class="pre">end_parameter</span></code>, which each chunk sets to the bounds
+of its box, and the launch reads the bounds of the whole dimension from its
+arguments for them. They are listed fastest-varying first, and a chunk
+covers as many values of each as fit beside the dimensions covered whole
+and the ones before it in the list, and at least one. <code class="docutils literal notranslate"><span class="pre">gpu_offload</span></code> splits
+every dimension whose extent is not a constant, and those with constant
+extents beyond what fits the limit. It gives a launch no
+<code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code> when its nest cannot have more iterations than the
+limit, as the kind of each loop index and its constant bounds bound its
+extent: a one-dimensional <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span> <span class="pre">(i</span> <span class="pre">=</span> <span class="pre">1:n)</span></code> with an <code class="docutils literal notranslate"><span class="pre">integer(4)</span></code>
+index has at most <code class="docutils literal notranslate"><span class="pre">huge(0)</span></code> iterations. <code class="docutils literal notranslate"><span class="pre">device_launch_expand</span></code> sets the
+buffers, scratch buffers and workspaces once, sized for the largest chunk,
+and then launches each chunk with its own scalar arguments and grid. A
+launch that may run in tiles runs flat when it would start more threads
+than the chunk limit, and a buffer handed over as
+<code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_WRITE_DISCARD</span></code> is handed over again as written after each
+chunk, so the chunks after the first keep what it wrote. Only CUDA launches
+without a reduction have <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code>.</p>
 <p>Private array storage is placed after shared lowering by <code class="docutils literal notranslate"><span class="pre">gpu_kernel_storage</span></code>,
 before address-space specialization. Fixed-size arrays that fit the device’s
 stack budget have <code class="docutils literal notranslate"><span class="pre">Thread</span></code> memory space. Larger arrays have <code class="docutils literal notranslate"><span class="pre">Global</span></code> memory
@@ -1208,6 +1243,8 @@ placement never turns an iteration-private value into a shared value.</p>
 <span class="w">  </span><span class="ss">:stop_replay</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">  </span><span class="ss">:overwritten</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">  </span><span class="ss">:overwritten_if</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="ss">:chunk_dimensions</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="ss">:chunk_fixed_iterations</span><span class="w"> </span><span class="mi">0</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1353,6 +1390,8 @@ placement never turns an iteration-private value into a shared value.</p>
 <span class="w">                  </span><span class="ss">:stop_replay</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                  </span><span class="ss">:overwritten</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                  </span><span class="ss">:overwritten_if</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">                  </span><span class="ss">:chunk_dimensions</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">                  </span><span class="ss">:chunk_fixed_iterations</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">                </span><span class="p">)</span>
 <span class="w">                </span><span class="p">(</span><span class="nf">GpuSync</span><span class="p">)</span>
 <span class="w">              </span><span class="p">]</span>
