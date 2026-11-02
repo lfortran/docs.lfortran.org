@@ -1302,14 +1302,17 @@ bash<span class="w"> </span>miniconda.sh<span class="w"> </span>-b<span class="w
 conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
-<p>生成构建所需的文件（此步骤取决于 <code class="docutils literal notranslate"><span class="pre">re2c</span></code>、<code class="docutils literal notranslate"><span class="pre">bison</span></code> 和 <code class="docutils literal notranslate"><span class="pre">python</span></code>）：</p>
+<p>Generate files that are needed for the build (this step depends on <code class="docutils literal notranslate"><span class="pre">re2c</span></code>, <code class="docutils literal notranslate"><span class="pre">bison</span></code> and <code class="docutils literal notranslate"><span class="pre">python</span></code>; run
+<code class="docutils literal notranslate"><span class="pre">PYTHON=python3</span> <span class="pre">./build0.sh</span></code> if your system only provides <code class="docutils literal notranslate"><span class="pre">python3</span></code>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build0.sh
 </pre></div>
 </div>
 <p>Configuring CMake with <code class="docutils literal notranslate"><span class="pre">-DLFORTRAN_BUILD_ALL=yes</span></code> (as <code class="docutils literal notranslate"><span class="pre">build1.sh</span></code> does) runs
 <code class="docutils literal notranslate"><span class="pre">build0.sh</span></code> itself, with the Prefix <a class="reference external" href="https://github.com/prefix-dev/shell"><code class="docutils literal notranslate"><span class="pre">shell</span></code></a>
 when it is installed and otherwise with Bash, so a build without Pixi needs
-only Bash. Pass <code class="docutils literal notranslate"><span class="pre">-DLFORTRAN_SHELL=/path/to/bash</span></code> to choose explicitly.
+only Bash. Pass <code class="docutils literal notranslate"><span class="pre">-DLFORTRAN_SHELL=/path/to/bash</span></code> to choose explicitly. CMake
+runs the generators with the first <code class="docutils literal notranslate"><span class="pre">python3</span></code> or <code class="docutils literal notranslate"><span class="pre">python</span></code> found on <code class="docutils literal notranslate"><span class="pre">PATH</span></code>;
+pass <code class="docutils literal notranslate"><span class="pre">-DLFORTRAN_PYTHON=/path/to/python</span></code> to choose explicitly.
 Now you can use our script <code class="docutils literal notranslate"><span class="pre">./build1.sh</span></code> to build in Debug mode:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build1.sh
 </pre></div>

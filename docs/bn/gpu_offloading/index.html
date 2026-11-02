@@ -320,7 +320,11 @@
         </li>
         <li class="md-nav__item"><a href="#outcomes" class="md-nav__link">Outcomes</a>
         </li>
-        <li class="md-nav__item"><a href="#the-unsupported-list" class="md-nav__link">The unsupported list</a>
+        <li class="md-nav__item"><a href="#the-unsupported-list" class="md-nav__link">The unsupported list</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#scalar-logarithms" class="md-nav__link">Scalar logarithms</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#the-unsupported-construct-check" class="md-nav__link">The unsupported-construct check</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -646,7 +650,11 @@
         </li>
         <li class="md-nav__item"><a href="#outcomes" class="md-nav__link">Outcomes</a>
         </li>
-        <li class="md-nav__item"><a href="#the-unsupported-list" class="md-nav__link">The unsupported list</a>
+        <li class="md-nav__item"><a href="#the-unsupported-list" class="md-nav__link">The unsupported list</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#scalar-logarithms" class="md-nav__link">Scalar logarithms</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#the-unsupported-construct-check" class="md-nav__link">The unsupported-construct check</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -798,6 +806,13 @@ example <code class="docutils literal notranslate"><span class="pre">integer(8)<
 components are all offloaded, or are an error until the pipeline supports them.</p>
 <p>Adding an entry to the list is a design decision, not a way to make a failing
 loop compile.</p>
+<section id="scalar-logarithms">
+<h3 id="scalar-logarithms">Scalar logarithms<a class="headerlink" href="#scalar-logarithms" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
+<p>Real <code class="docutils literal notranslate"><span class="pre">log</span></code> in a kernel or a device-only procedure retains its intrinsic
+identity through the intrinsic-function pass and lowers to the device's native
+<code class="docutils literal notranslate"><span class="pre">log</span></code> operation. This includes transitive helper calls. Host procedures retain
+their normal runtime lowering; Metal still requires <code class="docutils literal notranslate"><span class="pre">real(real32)</span></code>.</p>
+</section>
 </section>
 <section id="the-unsupported-construct-check">
 <h2 id="the-unsupported-construct-check">The unsupported-construct check<a class="headerlink" href="#the-unsupported-construct-check" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
@@ -864,6 +879,9 @@ kernel, lowers it through the shared ASR passes, lays out its arguments and
 generates the device source. It never falls back to the CPU:</p>
 <ul class="simple">
 <li><p>There is no CPU alternative kept alongside the kernel, and nothing to undo.</p></li>
+<li><p>Outlining copies nested <code class="docutils literal notranslate"><span class="pre">block</span></code> and <code class="docutils literal notranslate"><span class="pre">associate</span></code> scopes with their bodies.
+Calls inside nested parallel regions name those copied scopes and the
+kernel's copies of their helper procedures, not the host's symbols.</p></li>
 <li><p>A construct the pipeline cannot lower yet is a compiler error at the loop
 ("not yet implemented"). It is fixed like any other compiler bug: reduce it to
 a minimal reproducer, fix the pipeline, add an integration test.</p></li>

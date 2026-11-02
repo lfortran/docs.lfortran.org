@@ -1444,7 +1444,7 @@
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ArrayReshape(expr array, expr shape, expr? pad, expr? order,
-    ttype type, expr? value)
+    ttype type, expr? value, expr? result)
 </pre></div>
 </div>
 </section>
@@ -1475,6 +1475,9 @@
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
 <td><p>the compile time value of the expression, when the frontend could fold it; <code class="docutils literal notranslate"><span class="pre">nil</span></code> otherwise.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result</span></code></p></td>
+<td><p>optional allocatable descriptor temporary supplying independent scratch storage for a runtime numeric or logical result without <code class="docutils literal notranslate"><span class="pre">pad</span></code>.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -1487,6 +1490,11 @@
 <h2 id="description">Description<a class="headerlink" href="#description" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">reshape(a,</span> <span class="pre">shape)</span></code>. The elements are taken in array element order, so the
 result holds the same values in the same sequence with different extents.</p>
+<p>The temporary pass can supply <code class="docutils literal notranslate"><span class="pre">result</span></code>, with explicit allocation before
+evaluation and deallocation before reuse. Scope cleanup releases its last
+allocation. The backend fills this storage without allocating another data
+buffer; it does not transfer ownership to the assignment target. This keeps
+repeated evaluation bounded while preserving independent assigned values.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -1541,6 +1549,7 @@ result holds the same values in the same sequence with different extents.</p>
 <span class="w">    </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">  </span><span class="p">)</span>
 <span class="w">  </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">  </span><span class="ss">:result</span><span class="w"> </span><span class="nv">nil</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1776,6 +1785,7 @@ result holds the same values in the same sequence with different extents.</p>
 <span class="w">                </span><span class="ss">:memory_space</span><span class="w"> </span><span class="ss">:Global</span>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">              </span><span class="ss">:value</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">              </span><span class="ss">:result</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="p">)</span>
 <span class="w">            </span><span class="ss">:overloaded</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="ss">:realloc_lhs</span><span class="w"> </span><span class="nv">false</span>
