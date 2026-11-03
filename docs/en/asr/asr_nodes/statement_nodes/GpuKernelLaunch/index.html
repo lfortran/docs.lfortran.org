@@ -1040,7 +1040,7 @@
     call_arg* args, symbol? component_fit, gpu_scratch_buffer* scratch,
     expr? stop_status, stmt* stop_replay, expr* overwritten,
     expr* overwritten_if, gpu_launch_dimension* chunk_dimensions,
-    int chunk_fixed_iterations)
+    int chunk_fixed_iterations, symbol? first_chunk_parameter)
 gpu_scratch_buffer = (int argument_index, expr size, expr? read_back)
 gpu_launch_dimension = (symbol start_parameter, symbol end_parameter)
 </pre></div>
@@ -1090,6 +1090,9 @@ gpu_launch_dimension = (symbol start_parameter, symbol end_parameter)
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">chunk_fixed_iterations</span></code></p></td>
 <td><p>the product of the constant extents of the dimensions every chunk covers whole: 1 when there are none, and 0 when <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code> is empty.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">first_chunk_parameter</span></code></p></td>
+<td><p>the kernel parameter a launch with <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code> sets to 1 when it runs as one or for its first chunk, and to 0 for the later chunks, whatever it passes for it in <code class="docutils literal notranslate"><span class="pre">args</span></code>, so that only the threads of the first chunk start the accumulators of its reductions (below), or <code class="docutils literal notranslate"><span class="pre">nil</span></code>. It is not a bound parameter of <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1204,7 +1207,22 @@ launch that may run in tiles runs flat when it would start more threads
 than the chunk limit, and a buffer handed over as
 <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_WRITE_DISCARD</span></code> is handed over again as written after each
 chunk, so the chunks after the first keep what it wrote. Only CUDA launches
-without a reduction have <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code>.</p>
+have <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code>.</p>
+<p>A launch with a reduction gives each thread an accumulator of its own, an
+element of a buffer argument, which the kernel sets to the identity of the
+operator before the body combines into it; the host folds the accumulators
+into the scalar after the launch. The threads of each chunk are numbered
+from zero, so a launch that may run in chunks has one accumulator per
+iteration of its largest chunk, the first one, when it has more iterations
+than the chunk limit. Its kernel takes <code class="docutils literal notranslate"><span class="pre">first_chunk_parameter</span></code>, which the
+launch sets to 1 when it runs as one or for its first chunk, and to 0 for
+the later chunks: the threads of the first chunk start their
+accumulators, and those of the later chunks keep combining into what the
+thread of the same number left there. A thread past the end of a partial
+chunk returns before it touches its accumulator, and the host folds only
+the ones the first chunk started, once, after the last chunk. A launch
+without <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code>, or whose kernel has no accumulators, has no
+<code class="docutils literal notranslate"><span class="pre">first_chunk_parameter</span></code>.</p>
 <p>Private array storage is placed after shared lowering by <code class="docutils literal notranslate"><span class="pre">gpu_kernel_storage</span></code>,
 before address-space specialization. Fixed-size arrays that fit the device’s
 stack budget have <code class="docutils literal notranslate"><span class="pre">Thread</span></code> memory space. Larger arrays have <code class="docutils literal notranslate"><span class="pre">Global</span></code> memory
@@ -1244,6 +1262,7 @@ placement never turns an iteration-private value into a shared value.</p>
 <span class="w">  </span><span class="ss">:overwritten_if</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">  </span><span class="ss">:chunk_dimensions</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">  </span><span class="ss">:chunk_fixed_iterations</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="ss">:first_chunk_parameter</span><span class="w"> </span><span class="nv">nil</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1391,6 +1410,7 @@ placement never turns an iteration-private value into a shared value.</p>
 <span class="w">                  </span><span class="ss">:overwritten_if</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                  </span><span class="ss">:chunk_dimensions</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">                  </span><span class="ss">:chunk_fixed_iterations</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">                  </span><span class="ss">:first_chunk_parameter</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">                </span><span class="p">)</span>
 <span class="w">                </span><span class="p">(</span><span class="nf">GpuSync</span><span class="p">)</span>
 <span class="w">              </span><span class="p">]</span>
