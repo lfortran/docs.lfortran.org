@@ -1335,6 +1335,15 @@ of each derived type its device code holds, which is what the decision is
 about; the host’s type of an array argument is the kernel’s copy the launch
 passes it for. Two types of one name, from two modules, are two types.</p></li>
 </ul>
+<p>Scalar reductions used as the sole actual of a side-effect-free scalar
+function, such as <code class="docutils literal notranslate"><span class="pre">rounded(sum(a*b))</span></code>, can use the same elementwise
+accumulator as a direct <code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">sum(a*b)</span></code>: the shared array-temporary pass
+assigns the typed reduction to a scalar at the original evaluation site.
+The product then needs neither a workspace nor a device-heap allocation.
+This normalization excludes array-valued results, calls within the reduction,
+volatile/asynchronous reads, competing function evaluations and <code class="docutils literal notranslate"><span class="pre">where</span></code>
+bodies; sections must already support in-place elementwise reads.
+Other arrays and workspaces are unaffected.</p>
 <section id="the-arenas">
 <h4 id="the-arenas">The arenas<a class="headerlink" href="#the-arenas" title="Permalink naar deze titel">¶</a></h4>
 <p>A launch whose kernel allocates on the heap gets one <em>arena</em> per element
