@@ -322,6 +322,8 @@
         </li>
         <li class="md-nav__item"><a href="#the-unsupported-list" class="md-nav__link">The unsupported list</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#device-identifiers" class="md-nav__link">Device identifiers</a>
+        </li>
         <li class="md-nav__item"><a href="#scalar-logarithms" class="md-nav__link">Scalar logarithms</a>
         </li></ul>
             </nav>
@@ -652,6 +654,8 @@
         </li>
         <li class="md-nav__item"><a href="#the-unsupported-list" class="md-nav__link">The unsupported list</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#device-identifiers" class="md-nav__link">Device identifiers</a>
+        </li>
         <li class="md-nav__item"><a href="#scalar-logarithms" class="md-nav__link">Scalar logarithms</a>
         </li></ul>
             </nav>
@@ -806,6 +810,23 @@ example <code class="docutils literal notranslate"><span class="pre">integer(8)<
 components are all offloaded, or are an error until the pipeline supports them.</p>
 <p>Adding an entry to the list is a design decision, not a way to make a failing
 loop compile.</p>
+<section id="device-identifiers">
+<h3 id="device-identifiers">Device identifiers<a class="headerlink" href="#device-identifiers" title="Link zu dieser Überschrift">¶</a></h3>
+<p>Valid Fortran names such as <code class="docutils literal notranslate"><span class="pre">half</span></code>, <code class="docutils literal notranslate"><span class="pre">kernel</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">device</span></code> need not be
+valid Metal identifiers. The <code class="docutils literal notranslate"><span class="pre">unique_symbols</span></code> pass gives Metal device data
+and derived types collision-free names in their defining scopes, updating
+component references and binding scalar record component arguments by symbol.
+It preserves types, layout, host ABI and kernel registration names, without
+enabling otherwise ineligible global mangling. Device helper declarations
+and calls use their existing emission names. CUDA (including <code class="docutils literal notranslate"><span class="pre">cuda_cpu</span></code>
+emulation) uses the same symbol-based renaming for C/C++ keywords such as
+<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code> and <code class="docutils literal notranslate"><span class="pre">class</span></code>, without applying Metal-only naming restrictions.
+Ordinary CPU compilation is unchanged.</p>
+<p>Host launch expressions retain host component definitions, not aliases
+retargeted to device copies. In particular, workspace extents such as
+<code class="docutils literal notranslate"><span class="pre">size(records(selected)%component,</span> <span class="pre">dim)</span></code> are bound to the actual host
+array’s derived type before device identifiers are renamed.</p>
+</section>
 <section id="scalar-logarithms">
 <h3 id="scalar-logarithms">Scalar logarithms<a class="headerlink" href="#scalar-logarithms" title="Link zu dieser Überschrift">¶</a></h3>
 <p>Real <code class="docutils literal notranslate"><span class="pre">log</span></code> in a kernel or a device-only procedure retains its intrinsic
