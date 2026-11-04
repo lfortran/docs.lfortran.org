@@ -1214,8 +1214,12 @@ the limit gets a kernel that numbers its iterations flat, so a nest of at
 most that many iterations runs as one launch with no <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code>,
 and its constant bounds stay constants in the kernel. A buffer handed over as
 <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_WRITE_DISCARD</span></code> is handed over again as written after each
-chunk, so the chunks after the first keep what it wrote. Only CUDA launches
-have <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code>.</p>
+chunk, so the chunks after the first keep what it wrote. A launch whose
+kernel runs several threads per iteration (the layout’s <code class="docutils literal notranslate"><span class="pre">lanes</span></code>) starts
+that many per iteration of each chunk. CUDA and Metal launches have
+<code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code>. The host counts the iterations of a launch in
+<code class="docutils literal notranslate"><span class="pre">integer(8)</span></code>, so a Metal kernel, which numbers them in 32 bits, runs a nest
+of more than <code class="docutils literal notranslate"><span class="pre">huge(0)</span></code> iterations in chunks.</p>
 <p>A launch with a reduction gives each thread an accumulator of its own, an
 element of a buffer argument, which the kernel sets to the identity of the
 operator before the body combines into it; the host folds the accumulators

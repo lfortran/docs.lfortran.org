@@ -325,6 +325,8 @@
         <li class="md-nav__item"><a href="#device-identifiers" class="md-nav__link">Device identifiers</a>
         </li>
         <li class="md-nav__item"><a href="#scalar-logarithms" class="md-nav__link">Scalar logarithms</a>
+        </li>
+        <li class="md-nav__item"><a href="#optional-captures" class="md-nav__link">Optional captures</a>
         </li></ul>
             </nav>
         </li>
@@ -659,6 +661,8 @@
         <li class="md-nav__item"><a href="#device-identifiers" class="md-nav__link">Device identifiers</a>
         </li>
         <li class="md-nav__item"><a href="#scalar-logarithms" class="md-nav__link">Scalar logarithms</a>
+        </li>
+        <li class="md-nav__item"><a href="#optional-captures" class="md-nav__link">Optional captures</a>
         </li></ul>
             </nav>
         </li>
@@ -838,6 +842,25 @@ array’s derived type before device identifiers are renamed.</p>
 identity through the intrinsic-function pass and lowers to the device’s native
 <code class="docutils literal notranslate"><span class="pre">log</span></code> operation. This includes transitive helper calls. Host procedures retain
 their normal runtime lowering; Metal still requires <code class="docutils literal notranslate"><span class="pre">real(real32)</span></code>.</p>
+</section>
+<section id="optional-captures">
+<h3 id="optional-captures">Optional captures<a class="headerlink" href="#optional-captures" title="Permalink naar deze titel">¶</a></h3>
+<p>Optional captures do not suppress a GPU launch: nonoptional work still runs
+when a captured argument is absent. The optional-argument ASR pass supplies
+the kernel’s explicit presence flag, including when forwarding to device
+procedures. Host buffer addresses and shape queries use a safe view associated
+with the actual argument only when it is present; absent arrays use an empty
+view. Decomposed allocatable components use the root argument’s presence
+before associating their host views or reading their bounds. Scalar ABI
+placeholders likewise never read absent storage. These
+placeholders are not Fortran default values: guarded device accesses retain
+the original absence semantics. Views preserve proven contiguity without a
+host array copy; potentially strided arguments still use the normal
+copy-in/copy-out path.</p>
+<p>GPU synchronization recognizes the address-taken backing storage in the
+generated ASR associations, preserving host read/write and scope-exit
+synchronization for captured non-<code class="docutils literal notranslate"><span class="pre">TARGET</span></code> arguments. These body-local aliases
+do not change declared <code class="docutils literal notranslate"><span class="pre">TARGET</span></code> attributes or the separately compiled dummy ABI.</p>
 </section>
 </section>
 <section id="the-unsupported-construct-check">
@@ -1591,10 +1614,16 @@ barrier writes, or writes one that such a dispatch reads: launches that do
 not depend on each other overlap, and the others run in launch order. At
 most three committed command buffers are pending; a host that launches
 faster than the device runs waits for the oldest, which also bounds how many
-buffers the pending launches hold. A scratch buffer is kept per kernel and
-argument and used by every launch of the kernel, which writes it, so
-launches of one kernel never overlap, and what a launch leaves in it is dead
-when it ends.</p>
+buffers the pending launches hold. A scratch buffer of at most 16 MiB is
+kept per kernel and argument and used by every launch of the kernel, which
+writes it, so launches of one kernel that share it never overlap. A larger
+one, such as a device-heap arena, is kept by the kernel handle of one launch
+and released with it, so a new launch gets a new one. A launch that runs in
+chunks encodes every chunk with its one kernel handle, so the chunks share
+all its scratch buffers, the small and the large ones: what an earlier chunk
+leaves in a scratch buffer is still there for the later chunks and for the
+host to read back. Between launches, what a launch leaves in a scratch
+buffer is dead.</p>
 </section>
 <section id="where-the-host-waits">
 <h3 id="where-the-host-waits">Where the host waits<a class="headerlink" href="#where-the-host-waits" title="Permalink naar deze titel">¶</a></h3>
