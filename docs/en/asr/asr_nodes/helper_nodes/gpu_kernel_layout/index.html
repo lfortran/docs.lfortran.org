@@ -547,7 +547,8 @@ gpu_kernel_argument = (symbol variable, symbol? member, ttype type,
     gpu_argument_kind kind, int argument_index, int dimension, bool written,
     bool noalias)
 gpu_workspace = (symbol variable, gpu_workspace_dimension* dims,
-    int buffer_index, int element_size)
+    int buffer_index, int element_size, expr? allocation_if,
+    symbol? allocation_parameter, bool allocation_on_true)
 gpu_workspace_dimension = (expr extent, symbol? parameter)
 </pre></div>
 </div>
@@ -581,13 +582,23 @@ element size agrees with its element kind.</p>
 kernel arguments. A constant has no <code class="docutils literal notranslate"><span class="pre">parameter</span></code>; a runtime extent has a
 distinct appended scalar parameter. The host evaluates the expression once
 and both allocation and device indexing consume that value.</p>
+<p>When present, <code class="docutils literal notranslate"><span class="pre">allocation_if</span></code> is a proven uniform, host-evaluable predicate
+captured once at each launch in <code class="docutils literal notranslate"><span class="pre">allocation_parameter</span></code>. <code class="docutils literal notranslate"><span class="pre">allocation_on_true</span></code>
+gives the polarity that requires storage. Inactive workspaces request zero
+bytes without changing array bounds or suppressing unrelated kernel work;
+inactive or empty slices do not form pointers into absent storage. Without
+an allocation predicate, the workspace is allocated unconditionally.</p>
+<p>Nested concurrent loops retain enclosing data-use guards and contribute their
+own branches to the same dominance proof. Loop controls are also storage uses;
+iteration-dependent predicates, locality/reduction domains, escaping storage
+and uses outside the guard conservatively retain unconditional allocation.</p>
 <p><code class="docutils literal notranslate"><span class="pre">source_argument_count</span></code> separates original arguments from these appended
 parameters. <code class="docutils literal notranslate"><span class="pre">device_functions</span></code> records the device call graph in callee-first
 order; direct self-recursion is permitted.</p>
 <p><code class="docutils literal notranslate"><span class="pre">lanes</span></code>, when present, is the kernel’s last parameter, an integer scalar
-after the extent parameters: each iteration of the kernel runs on that many
-consecutive threads of one SIMD-group, its lanes, which share the loops
-inside it (<a class="reference internal" href="../../expression_nodes/GpuLaneIndex/"><span class="doc std std-doc">GpuLaneIndex</span></a>,
+after the extent and allocation parameters: each iteration of the kernel runs
+on that many consecutive threads of one SIMD-group, its lanes, which share
+the loops inside it (<a class="reference internal" href="../../expression_nodes/GpuLaneIndex/"><span class="doc std std-doc">GpuLaneIndex</span></a>,
 <a class="reference internal" href="../../statement_nodes/GpuLaneBarrier/"><span class="doc std std-doc">GpuLaneBarrier</span></a>,
 <a class="reference internal" href="../../expression_nodes/GpuLaneBroadcast/"><span class="doc std std-doc">GpuLaneBroadcast</span></a>). The thread
 index the kernel reads then numbers its iterations, the host starts

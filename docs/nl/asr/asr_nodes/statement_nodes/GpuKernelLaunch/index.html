@@ -1240,6 +1240,16 @@ before address-space specialization. Fixed-size arrays that fit the device’s
 stack budget have <code class="docutils literal notranslate"><span class="pre">Thread</span></code> memory space. Larger arrays have <code class="docutils literal notranslate"><span class="pre">Global</span></code> memory
 space and the kernel layout records their per-thread workspace slices. This
 placement never turns an iteration-private value into a shared value.</p>
+<p>A workspace may record <code class="docutils literal notranslate"><span class="pre">allocation_if</span></code>, its captured <code class="docutils literal notranslate"><span class="pre">allocation_parameter</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">allocation_on_true</span></code>. Shared kernel planning accepts only stable, total
+scalar predicates that are host-evaluable at every launch and dominate every
+data use with the recorded polarity. The host captures the predicate once at
+the launch and the device uses the same value. When inactive, launch expansion
+requests zero scratch bytes without suppressing unrelated kernel work. Array
+shape and bounds are unchanged; inactive or empty slices do not form pointers
+into absent storage. Thread-varying tests, optional or aliased scalars,
+descriptor reads, calls, and other non-total expressions conservatively retain
+normal allocation unless another safe enclosing guard proves it unnecessary.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink naar deze titel">¶</a></h2>
