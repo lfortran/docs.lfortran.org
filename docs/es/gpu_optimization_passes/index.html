@@ -327,7 +327,13 @@
         </li>
         <li class="md-nav__item"><a href="#inlining-gpu-loop-utils-h" class="md-nav__link">Inlining (<code class="docutils literal notranslate"><span class="pre">gpu_loop_utils.h</span></code>)</a>
         </li>
-        <li class="md-nav__item"><a href="#producer-consumer-fusion-fuse-gpu-loop-fusion-cpp" class="md-nav__link">Producer-consumer fusion (<code class="docutils literal notranslate"><span class="pre">fuse</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu_loop_fusion.cpp</span></code>)</a>
+        <li class="md-nav__item"><a href="#producer-consumer-fusion-fuse-gpu-loop-fusion-cpp" class="md-nav__link">Producer-consumer fusion (<code class="docutils literal notranslate"><span class="pre">fuse</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu_loop_fusion.cpp</span></code>)</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#private-map-into-an-ordered-scalar-fold" class="md-nav__link">Private map into an ordered scalar fold</a>
+        </li>
+        <li class="md-nav__item"><a href="#time-step-fusion" class="md-nav__link">Time-step fusion</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#index-set-splitting-split-gpu-index-set-split-cpp" class="md-nav__link">Index-set splitting (<code class="docutils literal notranslate"><span class="pre">split</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu_index_set_split.cpp</span></code>)</a>
         </li>
@@ -625,7 +631,13 @@
         </li>
         <li class="md-nav__item"><a href="#inlining-gpu-loop-utils-h" class="md-nav__link">Inlining (<code class="docutils literal notranslate"><span class="pre">gpu_loop_utils.h</span></code>)</a>
         </li>
-        <li class="md-nav__item"><a href="#producer-consumer-fusion-fuse-gpu-loop-fusion-cpp" class="md-nav__link">Producer-consumer fusion (<code class="docutils literal notranslate"><span class="pre">fuse</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu_loop_fusion.cpp</span></code>)</a>
+        <li class="md-nav__item"><a href="#producer-consumer-fusion-fuse-gpu-loop-fusion-cpp" class="md-nav__link">Producer-consumer fusion (<code class="docutils literal notranslate"><span class="pre">fuse</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu_loop_fusion.cpp</span></code>)</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#private-map-into-an-ordered-scalar-fold" class="md-nav__link">Private map into an ordered scalar fold</a>
+        </li>
+        <li class="md-nav__item"><a href="#time-step-fusion" class="md-nav__link">Time-step fusion</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#index-set-splitting-split-gpu-index-set-split-cpp" class="md-nav__link">Index-set splitting (<code class="docutils literal notranslate"><span class="pre">split</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu_index_set_split.cpp</span></code>)</a>
         </li>
@@ -705,6 +717,24 @@ evaluated (the second operand of a logical operator, an argument of
 </section>
 <section id="producer-consumer-fusion-fuse-gpu-loop-fusion-cpp">
 <h2 id="producer-consumer-fusion-fuse-gpu-loop-fusion-cpp">Producer-consumer fusion (<code class="docutils literal notranslate"><span class="pre">fuse</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu_loop_fusion.cpp</span></code>)<a class="headerlink" href="#producer-consumer-fusion-fuse-gpu-loop-fusion-cpp" title="Enlazar permanentemente con este título">¶</a></h2>
+<section id="private-map-into-an-ordered-scalar-fold">
+<h3 id="private-map-into-an-ordered-scalar-fold">Private map into an ordered scalar fold<a class="headerlink" href="#private-map-into-an-ordered-scalar-fold" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>After shared reduction lowering, <code class="docutils literal notranslate"><span class="pre">gpu_private_reduction_fusion</span></code> also runs
+for Metal. A block-local rank-one map used only by one additive scalar fold
+over the identical full unit-stride domain can be replaced by a typed scalar
+assignment before each fold update. This preserves the producer’s evaluation
+count, the scalar rounding boundary and the fold’s addition order; it does
+not introduce SIMD reduction or reassociation. <code class="docutils literal notranslate"><span class="pre">--gpu-loop-transforms=none</span></code>
+disables it.</p>
+<p>The array must not escape, alias other storage, be volatile or have another
+reader or writer. A partial-domain fold, conditional multi-output producer,
+or row loop reusing the map keeps the original storage. In particular this
+does not yet eliminate arrays shared by grouped reductions and conditional
+weight materialization in a projection. No backend-specific pattern or
+application name is involved.</p>
+</section>
+<section id="time-step-fusion">
+<h3 id="time-step-fusion">Time-step fusion<a class="headerlink" href="#time-step-fusion" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>Two adjacent parallel loops, a producer that assigns arrays element by
 element and a consumer that reads them at constant offsets, become one loop
 over the consumer’s iterations in which each element the consumer reads is
@@ -812,6 +842,7 @@ lower bounds, the fused loop also requires (at run time) each lower bound to
 be the producer’s first index, and uses that value instead of reading the
 bound: the subscripts become constant offsets of the loop indices, which the
 index-set splitting below can reason about.</p>
+</section>
 </section>
 <section id="index-set-splitting-split-gpu-index-set-split-cpp">
 <h2 id="index-set-splitting-split-gpu-index-set-split-cpp">Index-set splitting (<code class="docutils literal notranslate"><span class="pre">split</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu_index_set_split.cpp</span></code>)<a class="headerlink" href="#index-set-splitting-split-gpu-index-set-split-cpp" title="Enlazar permanentemente con este título">¶</a></h2>

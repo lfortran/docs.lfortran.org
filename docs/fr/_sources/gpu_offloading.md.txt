@@ -828,6 +828,16 @@ runtime does with an entry changes:
 * A range a kernel may write is used in place: nothing is allocated, copied
   in or copied back, and `lfortran_gpu_sync` only waits. The host does not
   access such a range before the next sync, as in the copy model.
+* The first touch of a page by the GPU is a page fault that the driver
+  serves, at about 2 GB/s on an MI300A, while glibc serves a large allocation
+  with a fresh `mmap` and unmaps it when it is freed: a temporary array a
+  loop allocates at every iteration, or the accumulators of a reduction,
+  would be fresh memory at every launch (a kernel writing a fresh 512 MB
+  array took 0.2-0.4 s instead of 0.2 ms). The runtime therefore makes glibc
+  serve every allocation from its heap and never trim it
+  (`mallopt(M_MMAP_MAX, 0)` and `mallopt(M_TRIM_THRESHOLD, -1)`), so freed
+  memory stays mapped, for the host and the GPU, and is reused.
+  `LFORTRAN_GPU_KEEP_MEMORY=0` leaves malloc as it is.
 * The host may change or free a range a kernel only reads as soon as the
   launch returns (see the next section). One of at most 64 KiB is therefore
   still copied, which leaves the launch asynchronous; a larger one is used in
@@ -835,10 +845,12 @@ runtime does with an entry changes:
 * `lfortran_gpu_discard` of a range that a pending launch writes in place
   waits for the launch, since the host is about to free memory the kernel
   uses.
-* On AMD the runtime gives every range it uses in place, once,
-  `hipMemAdvise(hipMemAdviseSetPreferredLocation)` for the GPU: an MI300A
-  kernel reads memory the host allocated at about 127 GB/s without it and at
-  about 3.4 TB/s with it.
+* The runtime gives the driver no advice about a range it uses in place. On
+  an MI300A, `hipMemAdvise(hipMemAdviseSetPreferredLocation)` for the GPU
+  made such kernels erratic: a STREAM triad ran at 2.7 TB/s in one run and
+  at 3 GB/s in the next, and a matrix-vector product at 1 GB/s in most runs.
+  Without it the triad runs at 3.2 TB/s and the product at 330 GB/s in every
+  run.
 
 The runtime selects the model when it starts. `LFORTRAN_GPU_MEMORY=copy` or
 `unified` selects one; `auto`, the default, selects the unified model on a

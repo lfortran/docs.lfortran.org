@@ -1117,8 +1117,9 @@ block along a second dimension, the one the stores step through next in
 memory (or, if they do not agree on one, the next one in loop order). The
 block index numbers the tiles, and <code class="docutils literal notranslate"><span class="pre">thread_count</span></code> counts whole tiles. Where
 whole tiles would pad the nest by more than a quarter, as a short dimension
-does, the host tells the kernel to number the iterations flat instead, and
-<code class="docutils literal notranslate"><span class="pre">thread_count</span></code> counts iterations. Padding to whole tiles can take
+does, or would start more threads than the chunk limit (below), the host
+tells the kernel to number the iterations flat instead, and <code class="docutils literal notranslate"><span class="pre">thread_count</span></code>
+counts iterations. Padding to whole tiles can take
 <code class="docutils literal notranslate"><span class="pre">thread_count</span></code> past the kind of the loop indices, so it is an <code class="docutils literal notranslate"><span class="pre">integer(8)</span></code>.
 The kernel checks the zero-based tile coordinates against the extents before
 adding the loop lower bounds. A padded thread returns before constructing a
@@ -1185,7 +1186,11 @@ shared-ASR proof; it is not inferred from <code class="docutils literal notransl
 it has more iterations than the chunk limit (<code class="docutils literal notranslate"><span class="pre">huge(0)</span></code>, which the hidden,
 test-only option <code class="docutils literal notranslate"><span class="pre">--gpu-chunk-limit</span></code> lowers): one per chunk, a box of the
 iteration space of at most that many iterations. The iterations of a <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> may run in any order, so the chunks run one after another, and
-the kernel numbers the iterations of each chunk from the bounds of its box.
+the kernel numbers the iterations of each chunk from the bounds of its box,
+from zero. A chunk has at most <code class="docutils literal notranslate"><span class="pre">huge(0)</span></code> iterations, so a kernel whose loop
+indices are all <code class="docutils literal notranslate"><span class="pre">integer(4)</span></code> numbers them in <code class="docutils literal notranslate"><span class="pre">integer(4)</span></code>, while the launch
+counts the iterations of the whole nest in <code class="docutils literal notranslate"><span class="pre">integer(8)</span></code>; an <code class="docutils literal notranslate"><span class="pre">integer(8)</span></code>
+index keeps <code class="docutils literal notranslate"><span class="pre">integer(8)</span></code> numbering.
 A chunk covers every dimension not in <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code> whole; their
 extents are constants, and their product is <code class="docutils literal notranslate"><span class="pre">chunk_fixed_iterations</span></code>, at
 most the limit. A bound whose value is known at compile time (a literal, a
@@ -1205,9 +1210,10 @@ extent: a one-dimensional <code class="docutils literal notranslate"><span class
 index has at most <code class="docutils literal notranslate"><span class="pre">huge(0)</span></code> iterations. <code class="docutils literal notranslate"><span class="pre">device_launch_expand</span></code> sets the
 buffers, scratch buffers and workspaces once, sized for the largest chunk,
 and then launches each chunk with its own scalar arguments and grid. A
-launch with <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code> that may run in tiles runs flat when it would
-start more threads than the chunk limit; a tiled launch without them is not
-yet limited. Where every extent of the nest is a constant, that is decided
+launch that may run in tiles runs flat when its whole tiles would start
+more threads than the chunk limit, with or without <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code>, so no
+launch starts more threads than the limit. Where every extent of the nest is
+a constant, that is decided
 at compile time: a nest whose whole tiles come to more threads than
 the limit gets a kernel that numbers its iterations flat, so a nest of at
 most that many iterations runs as one launch with no <code class="docutils literal notranslate"><span class="pre">chunk_dimensions</span></code>,
