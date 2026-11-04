@@ -354,6 +354,8 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#what-the-runtime-does" class="md-nav__link">What the runtime does</a>
         </li>
+        <li class="md-nav__item"><a href="#memory-models" class="md-nav__link">Memory models</a>
+        </li>
         <li class="md-nav__item"><a href="#where-the-host-waits" class="md-nav__link">Where the host waits</a>
         </li>
         <li class="md-nav__item"><a href="#whole-array-assignments-between-launches" class="md-nav__link">Whole-array assignments between launches</a>
@@ -686,6 +688,8 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#what-the-runtime-does" class="md-nav__link">What the runtime does</a>
         </li>
+        <li class="md-nav__item"><a href="#memory-models" class="md-nav__link">Memory models</a>
+        </li>
         <li class="md-nav__item"><a href="#where-the-host-waits" class="md-nav__link">Where the host waits</a>
         </li>
         <li class="md-nav__item"><a href="#whole-array-assignments-between-launches" class="md-nav__link">Whole-array assignments between launches</a>
@@ -716,7 +720,8 @@
   <section class="tex2jax_ignore mathjax_ignore" id="gpu-offloading">
 <h1 id="gpu-offloading--page-root">GPU Offloading<a class="headerlink" href="#gpu-offloading--page-root" title="Lien permanent vers ce titre">¶</a></h1>
 <p>This document describes how LFortran decides where a parallel loop runs when a
-GPU backend is selected with <code class="docutils literal notranslate"><span class="pre">--gpu=metal</span></code>, <code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code> or <code class="docutils literal notranslate"><span class="pre">--gpu=cuda_cpu</span></code>.
+GPU backend is selected with <code class="docutils literal notranslate"><span class="pre">--gpu=metal</span></code>, <code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code>, <code class="docutils literal notranslate"><span class="pre">--gpu=cuda_cpu</span></code> or
+<code class="docutils literal notranslate"><span class="pre">--gpu=hip</span></code>.
 It is a design document: where the current implementation differs, the
 differences are listed at the end.</p>
 <section id="goals">
@@ -1523,6 +1528,59 @@ not add a synchronization to each launch. Discard buffers participate in this
 same retry and writable-residency preparation. Same-address writable aliases,
 including discards downgraded by overlap, use one covering extent so that
 preparation cannot alternate between their different byte counts.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--gpu=hip</span></code> runs the same CUDA runtime on AMD GPUs, through ROCm. HIP is
+CUDA C++ for AMD GPUs, so the backend shares everything with <code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code> up
+to the toolchain: the ASR passes, the device capabilities and the device code
+generator, whose output only gains <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;hip/hip_runtime.h&gt;</span></code>. The HIP
+driver (<code class="docutils literal notranslate"><span class="pre">hipcc</span></code> by default, <code class="docutils literal notranslate"><span class="pre">--device-compiler</span></code> to choose another) compiles it
+as HIP for <code class="docutils literal notranslate"><span class="pre">--gpu-arch</span></code> (<code class="docutils literal notranslate"><span class="pre">gfx90a</span></code>, <code class="docutils literal notranslate"><span class="pre">gfx942</span></code>, …; the GPUs of the compiling
+machine by default) and links the program. The GPU runtime is
+<code class="docutils literal notranslate"><span class="pre">lfortran_gpu_cuda.c</span></code> itself, which the host C compiler builds against
+<code class="docutils literal notranslate"><span class="pre">hip/cuda_runtime.h</span></code>, an implementation of the part of the CUDA runtime API
+it calls with HIP, and the headers of the ROCm installation the HIP driver
+belongs to. The program finds the HIP runtime library of that installation
+through its run path.</p>
+</section>
+<section id="memory-models">
+<h3 id="memory-models">Memory models<a class="headerlink" href="#memory-models" title="Lien permanent vers ce titre">¶</a></h3>
+<p>A GPU with memory of its own – every discrete GPU, NVIDIA’s and AMD’s – runs
+a kernel on copies of the host’s arrays in device memory: the <em>copy model</em>
+above. A GPU that shares the host’s memory and can access what the host
+allocated, such as the AMD MI300A with <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code>, can also run a kernel on
+the host’s arrays where they are: the <em>unified model</em>. On an MI300A a kernel
+runs at the same speed either way, but the copies cost: a copy between host
+and device memory runs at about 58 GB/s there, while the kernels run at about
+3.5 TB/s, so a launch that copies its arrays spends nearly all its time
+copying.</p>
+<p>The unified model is a special case of the copy model rather than a design of
+its own: the compiler emits the same launches, waits and discards for both,
+and the CUDA runtime keeps the same residency table, in which a range used in
+place is an entry whose device memory is the host range itself. Only what the
+runtime does with an entry changes:</p>
+<ul class="simple">
+<li><p>A range a kernel may write is used in place: nothing is allocated, copied
+in or copied back, and <code class="docutils literal notranslate"><span class="pre">lfortran_gpu_sync</span></code> only waits. The host does not
+access such a range before the next sync, as in the copy model.</p></li>
+<li><p>The host may change or free a range a kernel only reads as soon as the
+launch returns (see the next section). One of at most 64 KiB is therefore
+still copied, which leaves the launch asynchronous; a larger one is used in
+place, and the launch waits for the kernel before it returns.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lfortran_gpu_discard</span></code> of a range that a pending launch writes in place
+waits for the launch, since the host is about to free memory the kernel
+uses.</p></li>
+<li><p>On AMD the runtime gives every range it uses in place, once,
+<code class="docutils literal notranslate"><span class="pre">hipMemAdvise(hipMemAdviseSetPreferredLocation)</span></code> for the GPU: an MI300A
+kernel reads memory the host allocated at about 127 GB/s without it and at
+about 3.4 TB/s with it.</p></li>
+</ul>
+<p>The runtime selects the model when it starts. <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_MEMORY=copy</span></code> or
+<code class="docutils literal notranslate"><span class="pre">unified</span></code> selects one; <code class="docutils literal notranslate"><span class="pre">auto</span></code>, the default, selects the unified model on a
+GPU that reports that it is integrated with the host and can access its
+pageable memory (on AMD, an APU run with <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code>), and the copy model
+otherwise. <code class="docutils literal notranslate"><span class="pre">unified</span></code> on a GPU that cannot access host memory is an error.
+<code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_VERBOSE=1</span></code> prints the model selected. The CPU emulation reports
+a separate device that can access host memory, so its default is the copy
+model and <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_MEMORY=unified</span></code> runs the unified model on the CPU.</p>
 <p>The Metal runtime encodes the launches one after another into one compute
 encoder and commits its command buffer every 64 launches and at every wait:
 encoding a dispatch costs the host about 2 us, committing a command buffer
@@ -1693,11 +1751,15 @@ with a <code class="docutils literal notranslate"><span class="pre">stop</span><
 the same program runs correctly on the CPU with <code class="docutils literal notranslate"><span class="pre">--gpu-allow-cpu-fallback</span></code>.</p></li>
 <li><p>Every pipeline fix comes with an integration test that runs on the GPU
 backends (<code class="docutils literal notranslate"><span class="pre">metal</span></code>, <code class="docutils literal notranslate"><span class="pre">cuda</span></code> labels) and checks the results.</p></li>
-<li><p>One <code class="docutils literal notranslate"><span class="pre">cuda</span></code> label covers both CUDA modes, and every <code class="docutils literal notranslate"><span class="pre">cuda</span></code> test must pass in
-both: <code class="docutils literal notranslate"><span class="pre">integration_tests</span> <span class="pre">-b</span> <span class="pre">cuda_cpu</span></code> runs the <code class="docutils literal notranslate"><span class="pre">cuda</span></code> tests in the CPU
-emulation (<code class="docutils literal notranslate"><span class="pre">--gpu=cuda_cpu</span></code>, what CI runs), and <code class="docutils literal notranslate"><span class="pre">integration_tests</span> <span class="pre">-b</span> <span class="pre">cuda</span></code>
-runs the same tests natively on an NVIDIA GPU (<code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code>). There is no
-<code class="docutils literal notranslate"><span class="pre">cuda_cpu</span></code> label.</p></li>
+<li><p>One <code class="docutils literal notranslate"><span class="pre">cuda</span></code> label covers every mode of the CUDA device code, and every
+<code class="docutils literal notranslate"><span class="pre">cuda</span></code> test must pass in all of them: <code class="docutils literal notranslate"><span class="pre">integration_tests</span> <span class="pre">-b</span> <span class="pre">cuda_cpu</span></code> runs
+the <code class="docutils literal notranslate"><span class="pre">cuda</span></code> tests in the CPU emulation (<code class="docutils literal notranslate"><span class="pre">--gpu=cuda_cpu</span></code>, what CI runs),
+<code class="docutils literal notranslate"><span class="pre">integration_tests</span> <span class="pre">-b</span> <span class="pre">cuda</span></code> runs the same tests natively on an NVIDIA GPU
+(<code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code>), and <code class="docutils literal notranslate"><span class="pre">integration_tests</span> <span class="pre">-b</span> <span class="pre">hip</span></code> on an AMD GPU
+(<code class="docutils literal notranslate"><span class="pre">--gpu=hip</span></code>). There are no <code class="docutils literal notranslate"><span class="pre">cuda_cpu</span></code> and <code class="docutils literal notranslate"><span class="pre">hip</span></code> labels. The memory models
+are tested by running a backend with <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_MEMORY=copy</span></code> and
+<code class="docutils literal notranslate"><span class="pre">unified</span></code>: the CPU emulation in either, an AMD APU with <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code> in
+either, and a discrete GPU in the copy model.</p></li>
 <li><p>Compiling is not enough: an offloaded loop can compile and still compute the
 wrong values. Integration tests therefore check their results in the program,
 and third-party codes whose test suites check values (Formal, Fiats) are run
@@ -1780,6 +1842,23 @@ analysis, one procedure at a time, does not see.</p></li>
 <section id="differences-from-the-current-implementation">
 <h2 id="differences-from-the-current-implementation">Differences from the current implementation<a class="headerlink" href="#differences-from-the-current-implementation" title="Lien permanent vers ce titre">¶</a></h2>
 <ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--gpu=hip</span></code> has the device capabilities of <code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code> (the CUDA entry of
+<code class="docutils literal notranslate"><span class="pre">gpu_device_capabilities</span></code>): its 512 KiB of stack per thread, and tiles of
+32 iterations, the width of a warp rather than of an AMD wavefront (64). A
+capability entry of its own, with the stack an AMD GPU gives a thread,
+needs the passes that ask whether <code class="docutils literal notranslate"><span class="pre">gpu_offload_cuda</span></code> is set rather than
+what the device can do to ask the capabilities instead.</p></li>
+<li><p>In the unified memory model a launch that reads more than 64 KiB of host
+memory in place waits for its kernel, because the host may change what a
+launch only reads as soon as it returns. With the <code class="docutils literal notranslate"><span class="pre">gpu_launch_sync</span></code> pass
+also placing a wait before a host statement that writes or frees storage a
+pending launch reads – a wait the runtime would skip in the copy model –
+such a launch would not have to wait.</p></li>
+<li><p>A copy from pageable host memory (<code class="docutils literal notranslate"><span class="pre">malloc</span></code>) to the device waits for the
+launches before it on the stream, in CUDA and in HIP, except for small
+copies: the host waits for the device at every launch that copies an
+array. Copying through pinned staging buffers would leave those launches
+asynchronous.</p></li>
 <li><p>The pipeline still has its own checks for device limits (the width of the
 data that reaches a kernel, input/output statements), spread over
 several passes and the device code generator. They report a compile error

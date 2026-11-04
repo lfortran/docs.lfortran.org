@@ -660,20 +660,19 @@ transformations of the kind a stencil or polyhedral compiler makes; none of
 them knows anything about a particular application. Each proves that what it
 does preserves the meaning of the program, and leaves the loops as they are
 when it cannot.</p>
-<p>They run for <code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code> and <code class="docutils literal notranslate"><span class="pre">--gpu=cuda_cpu</span></code> (on by default), right after
-the dispatch has assigned the loops (the pass <code class="docutils literal notranslate"><span class="pre">gpu_loop_transforms</span></code>, which
-runs <code class="docutils literal notranslate"><span class="pre">gpu_loop_fusion</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu_time_skew</span></code>, then <code class="docutils literal notranslate"><span class="pre">gpu_index_set_split</span></code>, before
-<code class="docutils literal notranslate"><span class="pre">gpu_offload</span></code>; each of the three can also be run on its own with <code class="docutils literal notranslate"><span class="pre">--pass</span></code>),
-so their output is ordinary <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> nests and host code that the
-rest of the offload pipeline lowers as it lowers any other; Metal keeps its
-loops as written. <code class="docutils literal notranslate"><span class="pre">--gpu-loop-transforms</span></code> selects them: <code class="docutils literal notranslate"><span class="pre">all</span></code> (the
-default), <code class="docutils literal notranslate"><span class="pre">none</span></code>, or a comma separated list of <code class="docutils literal notranslate"><span class="pre">fuse</span></code>, <code class="docutils literal notranslate"><span class="pre">swap</span></code>, <code class="docutils literal notranslate"><span class="pre">split</span></code>,
-<code class="docutils literal notranslate"><span class="pre">jam</span></code> and <code class="docutils literal notranslate"><span class="pre">skew</span></code> (<code class="docutils literal notranslate"><span class="pre">swap</span></code> only applies to loops that are fused); any other
-value is an error. The
-choices that depend on the size of the device’s last-level cache ask the
-runtime for it (<code class="docutils literal notranslate"><span class="pre">lfortran_gpu_cache_bytes</span></code>, the L2 size on CUDA) unless
-<code class="docutils literal notranslate"><span class="pre">--gpu-cache-bytes=N</span></code> states it (the tests use a small value to exercise
-the paths for large problems on small ones).</p>
+<p>They run for <code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code>, <code class="docutils literal notranslate"><span class="pre">--gpu=cuda_cpu</span></code> and <code class="docutils literal notranslate"><span class="pre">--gpu=hip</span></code> (on by default),
+right after the dispatch has assigned the loops (the pass
+<code class="docutils literal notranslate"><span class="pre">gpu_loop_transforms</span></code>, which runs <code class="docutils literal notranslate"><span class="pre">gpu_loop_fusion</span></code>, <code class="docutils literal notranslate"><span class="pre">gpu_time_skew</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">gpu_index_set_split</span></code>, before <code class="docutils literal notranslate"><span class="pre">gpu_offload</span></code>; each of the three can also be run
+on its own with <code class="docutils literal notranslate"><span class="pre">--pass</span></code>), so their output is ordinary <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> nests
+and host code that the rest of the offload pipeline lowers as it lowers any
+other; Metal keeps its loops as written. <code class="docutils literal notranslate"><span class="pre">--gpu-loop-transforms</span></code> selects them:
+<code class="docutils literal notranslate"><span class="pre">all</span></code> (the default), <code class="docutils literal notranslate"><span class="pre">none</span></code>, or a comma separated list of <code class="docutils literal notranslate"><span class="pre">fuse</span></code>, <code class="docutils literal notranslate"><span class="pre">swap</span></code>,
+<code class="docutils literal notranslate"><span class="pre">split</span></code>, <code class="docutils literal notranslate"><span class="pre">jam</span></code> and <code class="docutils literal notranslate"><span class="pre">skew</span></code> (<code class="docutils literal notranslate"><span class="pre">swap</span></code> only applies to loops that are fused); any
+other value is an error. The choices that depend on the size of the device’s
+last-level cache ask the runtime for it (<code class="docutils literal notranslate"><span class="pre">lfortran_gpu_cache_bytes</span></code>, the L2
+size on CUDA) unless <code class="docutils literal notranslate"><span class="pre">--gpu-cache-bytes=N</span></code> states it (the tests use a small
+value to exercise the paths for large problems on small ones).</p>
 <p>The measurements quoted below are of Formal’s 2D advection-diffusion
 example (<code class="docutils literal notranslate"><span class="pre">--solver</span> <span class="pre">workspace</span> <span class="pre">--order</span> <span class="pre">4</span></code>, the <code class="docutils literal notranslate"><span class="pre">split</span></code> kernel: per Runge-Kutta
 stage one loop computing four face flux arrays and one computing their
