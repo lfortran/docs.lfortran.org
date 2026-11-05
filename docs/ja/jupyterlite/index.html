@@ -743,15 +743,10 @@ usually, in a plain C++ evaluator test.</p>
 <h2 id="option-a-native-jupyter-kernel-fast-loop">Option A — native Jupyter kernel (fast loop)<a class="headerlink" href="#option-a-native-jupyter-kernel-fast-loop" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>This is the ordinary xeus kernel, described in
 <a class="reference internal" href="../installation/"><span class="doc std std-doc">Enabling the Jupyter Kernel</span></a>. In short:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>xeus&gt;<span class="o">=</span><span class="m">6</span>.0.0<span class="w"> </span>xeus-zmq&gt;<span class="o">=</span><span class="m">4</span>.0.0<span class="w"> </span>nlohmann_json<span class="w"> </span>jupyter<span class="w"> </span>-c<span class="w"> </span>conda-forge
-
-cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-DWITH_LLVM<span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-DWITH_XEUS<span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-DCMAKE_PREFIX_PATH<span class="o">=</span><span class="s2">"</span><span class="nv">$CONDA_PREFIX</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>shell<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w">   </span><span class="c1"># provides Xeus, xeus-zmq, nlohmann_json and Jupyter</span>
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>llvm11<span class="w"> </span>build<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug<span class="w"> </span>-DWITH_XEUS<span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">"</span><span class="nv">$CONDA_PREFIX</span><span class="s2">"</span>
-cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j<span class="w"> </span>--target<span class="w"> </span>install
+cmake<span class="w"> </span>--build<span class="w"> </span>build/llvm11<span class="w"> </span>--target<span class="w"> </span>install
 
 jupyter<span class="w"> </span>kernelspec<span class="w"> </span>list<span class="w"> </span>--json<span class="w">   </span><span class="c1"># "fortran" must be listed</span>
 jupyter<span class="w"> </span>lab<span class="w"> </span>share/lfortran/nb/Mandelbrot.ipynb
@@ -824,7 +819,7 @@ that is why <code class="docutils literal notranslate"><span class="pre">wasm-ke
 installed copies in the <code class="docutils literal notranslate"><span class="pre">wasm-host</span></code> environment.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lab-build</span></code> passes <code class="docutils literal notranslate"><span class="pre">--XeusAddon.default_channels</span></code> explicitly. <code class="docutils literal notranslate"><span class="pre">jupyterlite-xeus</span></code>
 otherwise recovers the channel list from the prefix's <code class="docutils literal notranslate"><span class="pre">conda-meta/history</span></code>,
-which micromamba writes and pixi does not; without it the build fails late
+which conda and micromamba write and pixi does not; without it the build fails late
 with <code class="docutils literal notranslate"><span class="pre">Cannot</span> <span class="pre">detect</span> <span class="pre">channels</span> <span class="pre">from</span> <span class="pre">prefix</span> <span class="pre">...</span></code>. The flag must be <strong>repeated
 once per channel</strong> — passing a quoted list (<code class="docutils literal notranslate"><span class="pre">="['a','b']"</span></code>) makes traitlets
 store the bracketed text as a single channel, which builds without error but
@@ -998,14 +993,10 @@ files predate a modfile-format change, and <code class="docutils literal notrans
 </section>
 <section id="running-the-same-commands-as-ci">
 <h3 id="running-the-same-commands-as-ci">Running the same commands as CI<a class="headerlink" href="#running-the-same-commands-as-ci" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>CI does not use pixi; it drives the same three scripts with micromamba
-environments built from <code class="docutils literal notranslate"><span class="pre">ci/environment_linux.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">environment-wasm-build.yml</span></code>
-and <code class="docutils literal notranslate"><span class="pre">environment-wasm-host.yml</span></code> (see <code class="docutils literal notranslate"><span class="pre">.github/workflows/Exhaustive-Checks-CI.yml</span></code>).
-The scripts are identical — only the environment manager and the value of
-<code class="docutils literal notranslate"><span class="pre">PREFIX</span></code> differ:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PREFIX</span><span class="o">=</span><span class="nv">$MAMBA_ROOT_PREFIX</span>/envs/xeus-lfortran-wasm-host
-micromamba<span class="w"> </span>run<span class="w"> </span>-n<span class="w"> </span>lf<span class="w"> </span>./wasm-build0.sh
-micromamba<span class="w"> </span>run<span class="w"> </span>-n<span class="w"> </span>xeus-lfortran-wasm-build<span class="w"> </span>./wasm-build1.sh
+<p>CI runs the same tasks (the "Build xlfortran JupyterLite kernel and run tests"
+job of <code class="docutils literal notranslate"><span class="pre">.github/workflows/Exhaustive-Checks-CI.yml</span></code>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>wasm-build<span class="w"> </span>wasm-test
+pixi<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span>lite<span class="w"> </span>lab-build
 </pre></div>
 </div>
 </section>
