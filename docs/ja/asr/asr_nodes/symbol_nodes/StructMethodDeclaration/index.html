@@ -717,7 +717,7 @@
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>StructMethodDeclaration(symbol_table parent_symtab, identifier name,
     identifier? self_argument, identifier proc_name, symbol proc,
-    abi abi, bool is_deferred, bool is_nopass)
+    abi abi, bool is_deferred, bool is_nopass, access access)
 </pre></div>
 </div>
 </section>
@@ -754,6 +754,9 @@
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_nopass</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> for <code class="docutils literal notranslate"><span class="pre">nopass</span></code>: the object is not passed as an argument.</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">access</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Public</span></code> or <code class="docutils literal notranslate"><span class="pre">Private</span></code>, from the binding's access specification; a <code class="docutils literal notranslate"><span class="pre">Private</span></code> binding is accessible only inside the module that defines the type.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -786,6 +789,7 @@ of <code class="docutils literal notranslate"><span class="pre">dt</span></code>
 <span class="w">  </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
 <span class="w">  </span><span class="ss">:is_deferred</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">  </span><span class="ss">:is_nopass</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">  </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -811,6 +815,7 @@ of <code class="docutils literal notranslate"><span class="pre">dt</span></code>
 <span class="w">                    </span><span class="ss">:abi</span><span class="w"> </span><span class="ss">:Source</span>
 <span class="w">                    </span><span class="ss">:is_deferred</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">                    </span><span class="ss">:is_nopass</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">                    </span><span class="ss">:access</span><span class="w"> </span><span class="ss">:Public</span>
 <span class="w">                  </span><span class="p">)</span>
 <span class="w">                  </span><span class="s">"r"</span><span class="w"> </span><span class="p">(</span><span class="nf">Variable</span>
 <span class="w">                    </span><span class="ss">:parent_symtab</span><span class="w"> </span><span class="mi">2</span>

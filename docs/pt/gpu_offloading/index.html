@@ -362,6 +362,8 @@
         </li>
         <li class="md-nav__item"><a href="#whole-array-assignments-between-launches" class="md-nav__link">Whole-array assignments between launches</a>
         </li>
+        <li class="md-nav__item"><a href="#fast-math-in-device-code" class="md-nav__link">Fast math in device code</a>
+        </li>
         <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
         </li>
         <li class="md-nav__item"><a href="#deliberate-relaxations" class="md-nav__link">Deliberate relaxations</a>
@@ -697,6 +699,8 @@
         <li class="md-nav__item"><a href="#where-the-host-waits" class="md-nav__link">Where the host waits</a>
         </li>
         <li class="md-nav__item"><a href="#whole-array-assignments-between-launches" class="md-nav__link">Whole-array assignments between launches</a>
+        </li>
+        <li class="md-nav__item"><a href="#fast-math-in-device-code" class="md-nav__link">Fast math in device code</a>
         </li>
         <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
         </li>
@@ -1554,7 +1558,11 @@ preparation cannot alternate between their different byte counts.</p>
 <p><code class="docutils literal notranslate"><span class="pre">--gpu=hip</span></code> runs the same CUDA runtime on AMD GPUs, through ROCm. HIP is
 CUDA C++ for AMD GPUs, so the backend shares everything with <code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code> up
 to the toolchain: the ASR passes, the device capabilities and the device code
-generator, whose output only gains <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;hip/hip_runtime.h&gt;</span></code>. The HIP
+generator, whose output only gains <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;hip/hip_runtime.h&gt;</span></code>. The one
+capability that differs is the unrolling of short sequential loops in device
+code: ROCm’s device compiler does not unroll a loop whose trip count it does
+not know, so HIP unrolls them four times (a matrix-vector product with a
+thread per row ran 3x faster on an MI300A), while CUDA unrolls none. The HIP
 driver (<code class="docutils literal notranslate"><span class="pre">hipcc</span></code> by default, <code class="docutils literal notranslate"><span class="pre">--device-compiler</span></code> to choose another) compiles it
 as HIP for <code class="docutils literal notranslate"><span class="pre">--gpu-arch</span></code> (<code class="docutils literal notranslate"><span class="pre">gfx90a</span></code>, <code class="docutils literal notranslate"><span class="pre">gfx942</span></code>, …; the GPUs of the compiling
 machine by default) and links the program. The GPU runtime is
@@ -1615,7 +1623,12 @@ pageable memory (on AMD, an APU run with <code class="docutils literal notransla
 otherwise. <code class="docutils literal notranslate"><span class="pre">unified</span></code> on a GPU that cannot access host memory is an error.
 <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_VERBOSE=1</span></code> prints the model selected. The CPU emulation reports
 a separate device that can access host memory, so its default is the copy
-model and <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_MEMORY=unified</span></code> runs the unified model on the CPU.</p>
+model and <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_MEMORY=unified</span></code> runs the unified model on the CPU.
+In the unified model on AMD the host waits for the GPU by sleeping until the
+driver wakes it (<code class="docutils literal notranslate"><span class="pre">hipDeviceScheduleBlockingSync</span></code>) rather than by spinning:
+the CPU and the GPU of an APU share the power of their socket, and on an
+MI300A a host thread spinning while a kernel streams through memory made the
+kernel 3-5% slower.</p>
 <p>The Metal runtime encodes the launches one after another into one compute
 encoder and commits its command buffer every 64 launches and at every wait:
 encoding a dispatch costs the host about 2 us, committing a command buffer
@@ -1647,8 +1660,7 @@ keeps what pending launches may write and which of them may have recorded a
 stop. It waits:</p>
 <ul class="simple">
 <li><p>before a host statement that may read or write, allocate or reallocate
-storage a pending launch may write. Storage that a launch only reads needs
-no wait;</p></li>
+storage a pending launch may write;</p></li>
 <li><p>before a statement that acts outside the program – input/output, <code class="docutils literal notranslate"><span class="pre">stop</span></code>,
 or a call to a procedure that is not pure and whose body may do
 input/output or stop – while a launch that may have recorded a stop is
@@ -1662,6 +1674,16 @@ pending;</p></li>
 <p>A wait in a loop that launches nothing is placed before the loop instead.
 After every <code class="docutils literal notranslate"><span class="pre">GpuSync</span></code> the pass runs the stop replay of each launch that may
 be pending there (<code class="docutils literal notranslate"><span class="pre">GpuKernelLaunch.stop_replay</span></code>), in launch order.</p>
+<p>Storage that a launch only reads the runtime may hand the kernel in place
+(the unified and managed memory models), and the host must not change it
+under the kernel. The pass keeps what pending launches read as well, and
+puts a <code class="docutils literal notranslate"><span class="pre">GpuWait</span></code> – wait for the launches that read host memory in place,
+copying nothing back – before a host statement that may change or free
+such storage, and at the end of a <code class="docutils literal notranslate"><span class="pre">block</span></code> whose locals they read. Since an
+access is not known to be a read or a write, any statement that accesses
+the storage counts, except where it only evaluates an expression. A launch
+itself never waits, so launches that only share what they read, such as the
+iterations of a time loop, run back to back.</p>
 <p>Storage that a pending launch writes and the host frees is not waited for:
 a local of a <code class="docutils literal notranslate"><span class="pre">block</span></code> at the end of the block, or where <code class="docutils literal notranslate"><span class="pre">exit</span></code> or <code class="docutils literal notranslate"><span class="pre">cycle</span></code>
 leaves it, and an array the host deallocates, get a <code class="docutils literal notranslate"><span class="pre">GpuDiscard</span></code> instead,
@@ -1732,6 +1754,14 @@ read only the shape of the arrays.</p>
 <p>An assignment whose every element is assigned again before anything reads it
 (<code class="docutils literal notranslate"><span class="pre">dcdw</span> <span class="pre">=</span> <span class="pre">0.</span></code> followed by <code class="docutils literal notranslate"><span class="pre">dcdw</span> <span class="pre">=</span> <span class="pre">sum(reduce_dcdw,</span> <span class="pre">dim=4)</span></code>) is removed before
 this, by the <code class="docutils literal notranslate"><span class="pre">dead_array_store</span></code> pass, so it costs no launch at all.</p>
+</section>
+<section id="fast-math-in-device-code">
+<h3 id="fast-math-in-device-code">Fast math in device code<a class="headerlink" href="#fast-math-in-device-code" title="Link permanente para este título">¶</a></h3>
+<p>With <code class="docutils literal notranslate"><span class="pre">--fast</span></code> (and without <code class="docutils literal notranslate"><span class="pre">--no-fast-math</span></code>) the CUDA and HIP device code
+computes <code class="docutils literal notranslate"><span class="pre">1/sqrt(x)</span></code> as <code class="docutils literal notranslate"><span class="pre">rsqrt(x)</span></code>, one operation where a correctly rounded
+quotient of a correctly rounded root takes two long ones: an n-body
+force loop ran 16% faster on an H100. The result can differ from the exact
+one in the last bit, as host code under <code class="docutils literal notranslate"><span class="pre">--fast</span></code> can.</p>
 </section>
 <section id="lanes-an-iteration-on-a-simd-group">
 <h3 id="lanes-an-iteration-on-a-simd-group">Lanes: an iteration on a SIMD-group<a class="headerlink" href="#lanes-an-iteration-on-a-simd-group" title="Link permanente para este título">¶</a></h3>

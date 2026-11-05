@@ -683,9 +683,11 @@ other; Metal keeps its loops as written. <code class="docutils literal notransla
 <code class="docutils literal notranslate"><span class="pre">all</span></code> (the default), <code class="docutils literal notranslate"><span class="pre">none</span></code>, or a comma separated list of <code class="docutils literal notranslate"><span class="pre">fuse</span></code>, <code class="docutils literal notranslate"><span class="pre">swap</span></code>,
 <code class="docutils literal notranslate"><span class="pre">split</span></code>, <code class="docutils literal notranslate"><span class="pre">jam</span></code> and <code class="docutils literal notranslate"><span class="pre">skew</span></code> (<code class="docutils literal notranslate"><span class="pre">swap</span></code> only applies to loops that are fused); any
 other value is an error. The choices that depend on the size of the device’s
-last-level cache ask the runtime for it (<code class="docutils literal notranslate"><span class="pre">lfortran_gpu_cache_bytes</span></code>, the L2
-size on CUDA) unless <code class="docutils literal notranslate"><span class="pre">--gpu-cache-bytes=N</span></code> states it (the tests use a small
-value to exercise the paths for large problems on small ones).</p>
+last-level cache ask the runtime for it (<code class="docutils literal notranslate"><span class="pre">lfortran_gpu_cache_bytes</span></code>: the L2
+size on CUDA, and on HIP the largest cache the kernel driver lists for the
+GPU, the 256 MiB Infinity Cache of an MI300) unless <code class="docutils literal notranslate"><span class="pre">--gpu-cache-bytes=N</span></code>
+states it (the tests use a small value to exercise the paths for large
+problems on small ones).</p>
 <p>The measurements quoted below are of Formal’s 2D advection-diffusion
 example (<code class="docutils literal notranslate"><span class="pre">--solver</span> <span class="pre">workspace</span> <span class="pre">--order</span> <span class="pre">4</span></code>, the <code class="docutils literal notranslate"><span class="pre">split</span></code> kernel: per Runge-Kutta
 stage one loop computing four face flux arrays and one computing their
@@ -953,7 +955,7 @@ reaches 1.22 TB/s of DRAM bandwidth at 60% occupancy, the plain one 1.36
 TB/s at 70%). Both nests are generated, and the host picks the jammed one
 when the launch’s iterations times the bytes an iteration names (one
 element of every array of the body) fit in the last-level cache, which the
-runtime reports (<code class="docutils literal notranslate"><span class="pre">lfortran_gpu_cache_bytes</span></code>, the L2 size on CUDA).</p>
+runtime reports (<code class="docutils literal notranslate"><span class="pre">lfortran_gpu_cache_bytes</span></code>).</p>
 <p>Effect (2048²): 0.149 s to 0.133 s. The stage kernel goes from 29 µs to
 24.7 µs, with 37% fewer instructions; it now runs at the L2 bandwidth
 (5.8 TB/s, 166 MB of L2 traffic per stage against 117 MB of compulsory
