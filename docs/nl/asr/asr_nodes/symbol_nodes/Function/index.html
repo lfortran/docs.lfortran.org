@@ -719,7 +719,7 @@
     ttype function_signature, identifier* dependencies, expr* args,
     stmt* body, expr? return_var, access access, bool deterministic,
     bool side_effect_free, string? module_file, gpu_kernel_layout? gpu,
-    location start_name, location end_name)
+    interface_body? interface_body, location start_name, location end_name)
 </pre></div>
 </div>
 </section>
@@ -768,10 +768,13 @@
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gpu</span></code></p></td>
 <td><p>the finalized GPU kernel layout, or <code class="docutils literal notranslate"><span class="pre">nil</span></code>. Records buffer and scalar bindings, workspace extents and parameters, and the device call graph.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_name</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">interface_body</span></code></p></td>
+<td><p>facts about an interface body (<code class="docutils literal notranslate"><span class="pre">deftype=Interface</span></code>), or <code class="docutils literal notranslate"><span class="pre">nil</span></code>. See <a class="reference internal" href="../../helper_nodes/interface_body/"><span class="doc std std-doc">interface_body</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">start_name</span></code></p></td>
 <td><p>the source span of the name in the <code class="docutils literal notranslate"><span class="pre">function</span></code> or <code class="docutils literal notranslate"><span class="pre">subroutine</span></code> statement.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">end_name</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">end_name</span></code></p></td>
 <td><p>the source span of the name in the matching <code class="docutils literal notranslate"><span class="pre">end</span></code> statement.</p></td>
 </tr>
 </tbody>

@@ -367,6 +367,8 @@
         <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
         </li>
         <li class="md-nav__item"><a href="#deliberate-relaxations" class="md-nav__link">Deliberate relaxations</a>
+        </li>
+        <li class="md-nav__item"><a href="#profiling-the-metal-runtime" class="md-nav__link">Profiling the Metal runtime</a>
         </li></ul>
             </nav>
         </li>
@@ -705,6 +707,8 @@
         <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
         </li>
         <li class="md-nav__item"><a href="#deliberate-relaxations" class="md-nav__link">Deliberate relaxations</a>
+        </li>
+        <li class="md-nav__item"><a href="#profiling-the-metal-runtime" class="md-nav__link">Profiling the Metal runtime</a>
         </li></ul>
             </nav>
         </li>
@@ -1005,6 +1009,16 @@ may have changed since entry to the procedure.
 If an extent cannot be rebuilt on the host, the workspace pre-flight reports
 a compile-time error; the compiler never silently leaves that array shared.
 Workspace memory therefore grows with the launch size.</p></li>
+<li><p>A scalar with unspecified locality that the loop assigns is copied back to
+the host after the launch only when a statement that can run after the
+loop may read the value it is left with, by the same reading as for the
+arrays above: a later <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">0</span></code>, or a later loop every iteration of which
+assigns <code class="docutils literal notranslate"><span class="pre">t</span></code> first, does not. It is kept when an iteration may read it
+before assigning it, which needs the value it had before the loop, and
+whenever the reading cannot follow every access to it (a pointer, an
+<code class="docutils literal notranslate"><span class="pre">equivalence</span></code>, a contained procedure or an <code class="docutils literal notranslate"><span class="pre">associate</span></code> around the loop).
+A loop of one iteration leaves the value it assigns defined (Fortran 2018,
+11.1.7.5), so a later read keeps it.</p></li>
 <li><p>An array an iteration needs whose size is known only at run time – a
 local of a <code class="docutils literal notranslate"><span class="pre">block</span></code> with run-time extents, an allocatable local, or a
 temporary the compiler introduces, such as the result of a function or
@@ -1518,7 +1532,9 @@ or to write – uses the same device buffer, without copying anything.</p></li>
 can use <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_WRITE_DISCARD</span></code> when its host coverage condition holds.
 CUDA and Metal skip copying it in unless another buffer argument overlaps
 it, in which case it remains an ordinary write. This does not establish
-<code class="docutils literal notranslate"><span class="pre">gpu_kernel_argument.noalias</span></code>; that proof is independent.
+<code class="docutils literal notranslate"><span class="pre">gpu_kernel_argument.noalias</span></code>; that proof is independent. The
+accumulators of a reduction are always recorded as overwritten: the
+kernel sets each one to the identity before it combines into it.
 Strict integer guards are narrowed without overflowing their endpoints,
 including dynamic <code class="docutils literal notranslate"><span class="pre">integer(8)</span></code> bounds. A strict guard requiring a value
 below the smallest integer or above the largest cannot establish an
@@ -1592,7 +1608,7 @@ through its run path.</p>
 <p>A GPU with memory of its own – every discrete GPU, NVIDIA’s and AMD’s – runs
 a kernel on copies of the host’s arrays in device memory: the <em>copy model</em>
 above. A GPU that shares the host’s memory and can access what the host
-allocated, such as the AMD MI300A with <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code>, can also run a kernel on
+allocated, such as the AMD MI300A with XNACK on, can also run a kernel on
 the host’s arrays where they are: the <em>unified model</em>. On an MI300A a kernel
 runs at the same speed either way, but the copies cost: a copy between host
 and device memory runs at about 58 GB/s there, while the kernels run at about
@@ -1662,9 +1678,19 @@ reads before a <code class="docutils literal notranslate"><span class="pre">GpuW
 or when it starts. <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_MEMORY=copy</span></code>, <code class="docutils literal notranslate"><span class="pre">unified</span></code> or <code class="docutils literal notranslate"><span class="pre">managed</span></code> selects
 one; <code class="docutils literal notranslate"><span class="pre">auto</span></code>, the default, selects the unified model on a GPU that reports
 that it is integrated with the host and can access its pageable memory (on
-AMD, an APU run with <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code>), the managed model on an NVIDIA GPU with
-concurrent managed access, and the copy model otherwise (on a separate AMD
-GPU too, where managed memory moves pages on demand only with <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code>).
+AMD, an APU with XNACK on), the managed model on an NVIDIA GPU with
+concurrent managed access, and the copy model otherwise. A separate AMD GPU
+keeps the copy model: with XNACK off a kernel reads the managed pages the host
+touched from host memory (a STREAM triad ran at 7 GB/s on an MI210), and with
+it on its speed varied from 5 to 1,380 GB/s between identical runs.</p>
+<p>XNACK is what lets an AMD GPU serve its page faults, and so access memory the
+host allocated. ROCm turns it on for a process run with <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code>, and
+reads the variable once, when the HIP runtime starts. The HIP runtime of
+LFortran sets <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code> before the program starts unless the user set it,
+so an MI300A runs in the unified model by default and <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=0</span></code> keeps
+XNACK off (and the copy model). A GPU or kernel that cannot serve the page
+faults keeps XNACK off whatever the variable says. Programs the program
+starts inherit the variable.
 <code class="docutils literal notranslate"><span class="pre">unified</span></code> on a GPU that cannot access host memory is an error.
 <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_VERBOSE=1</span></code> prints the model selected. The CPU emulation reports
 a separate device that can access host memory but not managed memory
@@ -1861,6 +1887,37 @@ procedure’s stop. And an error of a kernel (a fault, the watchdog) is
 reported where the host next waits, and not at all when the program ends
 with a <code class="docutils literal notranslate"><span class="pre">stop</span></code> before that.</p>
 </section>
+<section id="profiling-the-metal-runtime">
+<h3 id="profiling-the-metal-runtime">Profiling the Metal runtime<a class="headerlink" href="#profiling-the-metal-runtime" title="Stały odnośnik do tego nagłówka">¶</a></h3>
+<p>The Metal runtime reports where a program’s GPU time goes when the
+environment variable <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_PROFILE</span></code> is set:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_PROFILE=1</span></code> counts dispatches, committed command buffers, host
+syncs and waits, the bytes copied to and from the device, the device
+buffers allocated, the time spent compiling kernels, and the GPU time of
+the command buffers (their sum, and their union). For each kernel it counts
+the launches, the bytes they copy to the device, and the host time they
+take in <code class="docutils literal notranslate"><span class="pre">lfortran_gpu_launch</span></code> until they are encoded: the copies of their
+arguments, the buffers allocated for them, and any sync they need.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_PROFILE=2</span></code> also times each kernel on the GPU. Every launch is
+then committed in a command buffer of its own, and the GPU time of that
+command buffer (<code class="docutils literal notranslate"><span class="pre">GPUEndTime</span> <span class="pre">-</span> <span class="pre">GPUStartTime</span></code>) is the kernel’s. That runs the
+launches one after another, without the overlap a concurrent encoder
+allows, and adds a commit to each launch; for a kernel that takes a few
+microseconds the time is an upper bound.</p></li>
+</ul>
+<p>At exit, or at <code class="docutils literal notranslate"><span class="pre">lfortran_gpu_shutdown</span></code>, the runtime waits for the launches
+still pending and prints the totals and a table of the kernels, sorted by GPU
+time, to stderr, or to the file <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_PROFILE_FILE</span></code> names. A kernel is
+named by its entry point, <code class="docutils literal notranslate"><span class="pre">__lfortran_gpu_kernel_&lt;n&gt;_&lt;id&gt;</span></code>. The totals are
+also available to C code through <code class="docutils literal notranslate"><span class="pre">lfortran_gpu_metal_telemetry_snapshot</span></code>
+(<code class="docutils literal notranslate"><span class="pre">lfortran_gpu_runtime.h</span></code>). To get the cost of one step of a program, such as
+one generated token, run it for two numbers of steps and subtract the
+reports.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">LFORTRAN_GPU_PROFILE</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="nv">LFORTRAN_GPU_PROFILE_FILE</span><span class="o">=</span>profile.txt<span class="w"> </span>./a.out
+</pre></div>
+</div>
+</section>
 </section>
 <section id="testing">
 <h2 id="testing">Testing<a class="headerlink" href="#testing" title="Stały odnośnik do tego nagłówka">¶</a></h2>
@@ -1876,7 +1933,7 @@ the <code class="docutils literal notranslate"><span class="pre">cuda</span></co
 (<code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code>), and <code class="docutils literal notranslate"><span class="pre">integration_tests</span> <span class="pre">-b</span> <span class="pre">hip</span></code> on an AMD GPU
 (<code class="docutils literal notranslate"><span class="pre">--gpu=hip</span></code>). There are no <code class="docutils literal notranslate"><span class="pre">cuda_cpu</span></code> and <code class="docutils literal notranslate"><span class="pre">hip</span></code> labels. The memory models
 are tested by running a backend with <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_MEMORY=copy</span></code> and
-<code class="docutils literal notranslate"><span class="pre">unified</span></code>: the CPU emulation in either, an AMD APU with <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code> in
+<code class="docutils literal notranslate"><span class="pre">unified</span></code>: the CPU emulation in either, an AMD APU with XNACK on in
 either, and a discrete GPU in the copy model.</p></li>
 <li><p>Compiling is not enough: an offloaded loop can compile and still compute the
 wrong values. Integration tests therefore check their results in the program,
