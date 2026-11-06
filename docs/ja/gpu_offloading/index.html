@@ -1498,8 +1498,17 @@ reference of the kernel to it only reads it -- an operand, a subscript, the
 value of an assignment, an inquiry about its shape, an actual argument of
 an <code class="docutils literal notranslate"><span class="pre">intent(in)</span></code> dummy -- and <em>written</em> otherwise.</p>
 <ul class="simple">
-<li><p>The host bytes of a read-only buffer are copied when the launch is made,
-so the host may change or free them right after the launch.</p></li>
+<li><p>The host bytes of a read-only buffer are copied when the launch is made.
+The CUDA runtime keeps the copy of a range of at least 64 KiB in device
+memory until the next <code class="docutils literal notranslate"><span class="pre">lfortran_gpu_wait</span></code> or <code class="docutils literal notranslate"><span class="pre">lfortran_gpu_sync</span></code>, and a
+later launch that reads the same range uses it without copying again: the
+host does not change what a launch since the last wait reads before it
+waits (the <code class="docutils literal notranslate"><span class="pre">gpu_launch_sync</span></code> pass places the waits). The launches of a time
+loop that only read an array, between which the host touches nothing they
+use, copy it once. On an MI210, where a copy runs at about 25 GB/s, that
+makes a matrix-vector product 27 times faster (24 to 634 GB/s) and a
+sparse one 26 times. A kept copy that no launch used since the wait before
+the last one is freed.</p></li>
 <li><p>A written buffer is <em>resident</em>: the runtime keeps a device buffer for its
 host range in a table. When the device does not hold newer values than the
 host (the entry is not <em>dirty</em>), the host bytes are copied in; after the
@@ -1545,8 +1554,8 @@ blocks one after another, and the threads of a block one after another, so a
 <code class="docutils literal notranslate"><span class="pre">__syncthreads()</span></code> cannot be honoured and stops the program. The emulated
 device reports a 64 MiB L2 cache.
 The CUDA runtime keeps the same table and orders copies and launches
-on one stream. It keeps scratch and read-only upload buffers per kernel and
-argument slot, reusing their capacity and deferring replaced allocations until
+on one stream. It keeps scratch buffers, and upload buffers for read-only
+ranges below 64 KiB, per kernel and argument slot, reusing their capacity and deferring replaced allocations until
 a synchronization. Preparing arguments can itself synchronize when the deferred
 queue or residency table fills. After such a synchronization, CUDA prepares all
 bindings again before dispatch: writable residents must still be present and
@@ -1602,10 +1611,10 @@ serve every allocation from its heap and never trim it
 (<code class="docutils literal notranslate"><span class="pre">mallopt(M_MMAP_MAX,</span> <span class="pre">0)</span></code> and <code class="docutils literal notranslate"><span class="pre">mallopt(M_TRIM_THRESHOLD,</span> <span class="pre">-1)</span></code>), so freed
 memory stays mapped, for the host and the GPU, and is reused.
 <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_KEEP_MEMORY=0</span></code> leaves malloc as it is.</p></li>
-<li><p>The host may change or free a range a kernel only reads as soon as the
-launch returns (see the next section). One of at most 64 KiB is therefore
-still copied, which leaves the launch asynchronous; a larger one is used in
-place, and the launch waits for the kernel before it returns.</p></li>
+<li><p>A range a kernel only reads of at most 64 KiB is still copied; a larger
+one is used in place. The host does not change or free it while the launch
+is pending: the <code class="docutils literal notranslate"><span class="pre">gpu_launch_sync</span></code> pass puts a <code class="docutils literal notranslate"><span class="pre">GpuWait</span></code> before a host
+statement that may (see "Where the host waits").</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lfortran_gpu_discard</span></code> of a range that a pending launch writes in place
 waits for the launch, since the host is about to free memory the kernel
 uses.</p></li>
@@ -1616,14 +1625,44 @@ at 3 GB/s in the next, and a matrix-vector product at 1 GB/s in most runs.
 Without it the triad runs at 3.2 TB/s and the product at 330 GB/s in every
 run.</p></li>
 </ul>
-<p>The runtime selects the model when it starts. <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_MEMORY=copy</span></code> or
-<code class="docutils literal notranslate"><span class="pre">unified</span></code> selects one; <code class="docutils literal notranslate"><span class="pre">auto</span></code>, the default, selects the unified model on a
-GPU that reports that it is integrated with the host and can access its
-pageable memory (on AMD, an APU run with <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code>), and the copy model
-otherwise. <code class="docutils literal notranslate"><span class="pre">unified</span></code> on a GPU that cannot access host memory is an error.
+<p>A GPU with memory of its own whose driver can share memory with the host page
+by page -- CUDA managed memory on an NVIDIA GPU with concurrent managed access,
+such as an H100 -- has a third model, the <em>managed model</em>, which is what
+nvfortran's <code class="docutils literal notranslate"><span class="pre">-stdpar=gpu</span></code> uses for allocatable arrays. In the copy model every
+launch copies the arrays it only reads to the device again (the host may have
+changed them), and a host access copies back every array a kernel wrote, even
+to read one element: on an H100 over PCIe a STREAM triad of 1 GB arrays runs
+at 13 GB/s that way, against 1.9 TB/s in the kernel. In the managed model:</p>
+<ul class="simple">
+<li><p>The CUDA runtime replaces the program's allocator (the default allocator of
+<code class="docutils literal notranslate"><span class="pre">lfortran_intrinsics.c</span></code>) when the program starts, so that an allocation of
+at least 1 MiB -- an allocatable array -- is managed memory. Smaller
+allocations (strings, temporaries), and memory the allocator does not make
+(stack and static arrays), stay as they are, in the copy model.</p></li>
+<li><p>A range inside a managed allocation is used in place and has no entry: the
+driver moves its pages to the device when a kernel touches them and back
+when the host does, one page at a time. Nothing is copied at a launch,
+<code class="docutils literal notranslate"><span class="pre">lfortran_gpu_sync</span></code> only waits, and a host read of one element moves one
+page.</p></li>
+<li><p>The first launch that uses an allocation moves all of it to the device
+(<code class="docutils literal notranslate"><span class="pre">cudaMemPrefetchAsync</span></code>): 5 times faster than the page faults of the kernel
+when the host has just filled it. Later launches leave the pages where they
+are; prefetching ranges that are on the device already costs more than the
+faults it saves.</p></li>
+<li><p>As in the unified model, the host does not change a range a pending launch
+reads before a <code class="docutils literal notranslate"><span class="pre">GpuWait</span></code>; freeing managed memory waits for every launch.</p></li>
+</ul>
+<p>The runtime selects the model at the first allocation it could make managed,
+or when it starts. <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_MEMORY=copy</span></code>, <code class="docutils literal notranslate"><span class="pre">unified</span></code> or <code class="docutils literal notranslate"><span class="pre">managed</span></code> selects
+one; <code class="docutils literal notranslate"><span class="pre">auto</span></code>, the default, selects the unified model on a GPU that reports
+that it is integrated with the host and can access its pageable memory (on
+AMD, an APU run with <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code>), the managed model on an NVIDIA GPU with
+concurrent managed access, and the copy model otherwise (on a separate AMD
+GPU too, where managed memory moves pages on demand only with <code class="docutils literal notranslate"><span class="pre">HSA_XNACK=1</span></code>).
+<code class="docutils literal notranslate"><span class="pre">unified</span></code> on a GPU that cannot access host memory is an error.
 <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_VERBOSE=1</span></code> prints the model selected. The CPU emulation reports
-a separate device that can access host memory, so its default is the copy
-model and <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_MEMORY=unified</span></code> runs the unified model on the CPU.
+a separate device that can access host memory but not managed memory
+concurrently, so its default is the copy model, and <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_MEMORY=</span> <span class="pre">unified</span></code> or <code class="docutils literal notranslate"><span class="pre">managed</span></code> runs the other models on the CPU.
 In the unified model on AMD the host waits for the GPU by sleeping until the
 driver wakes it (<code class="docutils literal notranslate"><span class="pre">hipDeviceScheduleBlockingSync</span></code>) rather than by spinning:
 the CPU and the GPU of an APU share the power of their socket, and on an
@@ -1676,7 +1715,9 @@ After every <code class="docutils literal notranslate"><span class="pre">GpuSync
 be pending there (<code class="docutils literal notranslate"><span class="pre">GpuKernelLaunch.stop_replay</span></code>), in launch order.</p>
 <p>Storage that a launch only reads the runtime may hand the kernel in place
 (the unified and managed memory models), and the host must not change it
-under the kernel. The pass keeps what pending launches read as well, and
+under the kernel; in the copy model the runtime keeps its copy in device
+memory until the next wait, and the host must not change it before that
+either. The pass keeps what pending launches read as well, and
 puts a <code class="docutils literal notranslate"><span class="pre">GpuWait</span></code> -- wait for the launches that read host memory in place,
 copying nothing back -- before a host statement that may change or free
 such storage, and at the end of a <code class="docutils literal notranslate"><span class="pre">block</span></code> whose locals they read. Since an
@@ -1919,12 +1960,6 @@ analysis, one procedure at a time, does not see.</p></li>
 capability entry of its own, with the stack an AMD GPU gives a thread,
 needs the passes that ask whether <code class="docutils literal notranslate"><span class="pre">gpu_offload_cuda</span></code> is set rather than
 what the device can do to ask the capabilities instead.</p></li>
-<li><p>In the unified memory model a launch that reads more than 64 KiB of host
-memory in place waits for its kernel, because the host may change what a
-launch only reads as soon as it returns. With the <code class="docutils literal notranslate"><span class="pre">gpu_launch_sync</span></code> pass
-also placing a wait before a host statement that writes or frees storage a
-pending launch reads -- a wait the runtime would skip in the copy model --
-such a launch would not have to wait.</p></li>
 <li><p>A copy from pageable host memory (<code class="docutils literal notranslate"><span class="pre">malloc</span></code>) to the device waits for the
 launches before it on the stream, in CUDA and in HIP, except for small
 copies: the host waits for the device at every launch that copies an
