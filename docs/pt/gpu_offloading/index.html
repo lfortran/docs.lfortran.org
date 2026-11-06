@@ -1553,6 +1553,12 @@ emulation and registers in its place; the emulated <code class="docutils literal
 blocks one after another, and the threads of a block one after another, so a
 <code class="docutils literal notranslate"><span class="pre">__syncthreads()</span></code> cannot be honoured and stops the program. The emulated
 device reports a 64 MiB L2 cache.
+The runtime builds against the CUDA runtime API of CUDA 12 and of CUDA 13,
+which differ where the runtime prefetches managed memory
+(<code class="docutils literal notranslate"><span class="pre">cudaMemPrefetchAsync</span></code> takes a <code class="docutils literal notranslate"><span class="pre">cudaMemLocation</span></code> in CUDA 13). The emulation
+provides the CUDA 13 API, so <code class="docutils literal notranslate"><span class="pre">--gpu=cuda_cpu</span></code> builds the runtime as a CUDA 13
+toolkit does; it provides the CUDA 12 API when <code class="docutils literal notranslate"><span class="pre">CUDART_VERSION</span></code> is defined
+below 13000, which the <code class="docutils literal notranslate"><span class="pre">test_gpu_cuda_api_state_cuda12*</span></code> unit tests do.
 The CUDA runtime keeps the same table and orders copies and launches
 on one stream. It keeps scratch buffers, and upload buffers for read-only
 ranges below 64 KiB, per kernel and argument slot, reusing their capacity and deferring replaced allocations until
