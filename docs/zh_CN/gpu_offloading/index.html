@@ -1330,6 +1330,25 @@ written by a thread that reached the same site: no atomic operations are
 needed, and no backend has anything to lower but assignments and <code class="docutils literal notranslate"><span class="pre">return</span></code>.
 When several threads stop, which one is reported is not specified, as the
 iterations of a <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> have no order.</p>
+<p>A check that no call can fail is removed before any of this, so it costs
+the kernel nothing and does not make it a kernel that can stop
+(<code class="docutils literal notranslate"><span class="pre">gpu_device_guard_fold.cpp</span></code>). Each kernel has copies of the procedures it
+calls, so all the calls of a copy are known: when every call passes an
+<code class="docutils literal notranslate"><span class="pre">intent(in)</span></code> integer dummy a value in a range (<code class="docutils literal notranslate"><span class="pre">modulo(k</span> <span class="pre">-</span> <span class="pre">1,</span> <span class="pre">4)</span></code> is in
+0..3), the tests of the copy are judged with the dummy in that range, and an
+<code class="docutils literal notranslate"><span class="pre">if</span></code> whose test the ranges of the integers it compares decide is replaced by
+the branch it takes. The <code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span></code> of</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pure elemental integer function byte_of(word, part)
+    integer, intent(in) :: word, part
+    if (part &lt; 0 .or. part &gt; 3) error stop "part must be in 0..3"
+    byte_of = ibits(word, 8*part, 8)
+end function
+</pre></div>
+</div>
+<p>goes when every call is <code class="docutils literal notranslate"><span class="pre">byte_of(w((k-1)/4+1),</span> <span class="pre">modulo(k-1,</span> <span class="pre">4))</span></code>, and is kept,
+and stops the program, when a call can pass 4. The ranges come from
+constants, <code class="docutils literal notranslate"><span class="pre">modulo</span></code>, <code class="docutils literal notranslate"><span class="pre">mod</span></code>, <code class="docutils literal notranslate"><span class="pre">iand</span></code>, <code class="docutils literal notranslate"><span class="pre">ibits</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, integer
+arithmetic and the indices of counted loops.</p>
 <p>A character stop code has to be a constant, which the host statement
 repeats. One computed at run time (<code class="docutils literal notranslate"><span class="pre">error</span> <span class="pre">stop</span> <span class="pre">"bad</span> <span class="pre">"</span> <span class="pre">//</span> <span class="pre">name</span></code>) is an error
 for now (“a character stop code that is not a constant”): it would have to
@@ -1518,7 +1537,9 @@ kernel uses it, which <code class="docutils literal notranslate"><span class="pr
 (<code class="docutils literal notranslate"><span class="pre">gpu_kernel_argument.written</span></code>): a buffer is <em>read-only</em> when every
 reference of the kernel to it only reads it – an operand, a subscript, the
 value of an assignment, an inquiry about its shape, an actual argument of
-an <code class="docutils literal notranslate"><span class="pre">intent(in)</span></code> dummy – and <em>written</em> otherwise.</p>
+an <code class="docutils literal notranslate"><span class="pre">intent(in)</span></code> dummy, the target of a pointer the kernel binds (for the
+section an elemental function is called with) that nothing writes
+through – and <em>written</em> otherwise.</p>
 <ul class="simple">
 <li><p>The host bytes of a read-only buffer are copied when the launch is made.
 The CUDA runtime keeps the copy of a range of at least 64 KiB in device
@@ -1553,9 +1574,17 @@ overwrite and retains ordinary write access.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lfortran_gpu_sync</span></code> waits for every launch, copies every dirty entry back
 to the host, and marks it clean.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lfortran_gpu_discard</span></code> forgets the dirty entries of a host range that is
-about to be freed, without copying anything back.</p></li>
+about to be freed, without copying anything back; in the unified and
+managed memory models it first waits for a pending launch that uses the
+range in place.</p></li>
 <li><p>A range that overlaps a dirty one without being the same range makes the
-runtime wait first, so that the bytes it copies are current.</p></li>
+runtime wait first, so that the bytes it copies are current. The Metal
+runtime does not wait for a range a kernel only reads that holds the
+dirty ones whole (and that no range the kernel writes overlaps): it
+copies the host bytes and then, on the device, the dirty ranges over them
+(a blit). A program that writes the newest positions of a cache and then
+reads all of it, as attention over a KV cache does, so keeps the launches
+going.</p></li>
 <li><p>The runtime never writes a device buffer that a pending launch may still
 use: a copy into a resident buffer that is still in use goes into a fresh
 buffer, and pooled buffers are reused once the launches that used them
@@ -1648,7 +1677,7 @@ memory stays mapped, for the host and the GPU, and is reused.
 one is used in place. The host does not change or free it while the launch
 is pending: the <code class="docutils literal notranslate"><span class="pre">gpu_launch_sync</span></code> pass puts a <code class="docutils literal notranslate"><span class="pre">GpuWait</span></code> before a host
 statement that may (see “Where the host waits”).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lfortran_gpu_discard</span></code> of a range that a pending launch writes in place
+<li><p><code class="docutils literal notranslate"><span class="pre">lfortran_gpu_discard</span></code> of a range that a pending launch uses in place
 waits for the launch, since the host is about to free memory the kernel
 uses.</p></li>
 <li><p>The runtime gives the driver no advice about a range it uses in place. On
@@ -1732,7 +1761,9 @@ overlaps one the same launch writes, so that the kernel reads it as the
 host holds it; the runtime first waits for pending launches that write
 the allocation.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lfortran_gpu_wait</span></code> waits for every launch when one that reads host
-memory in place may be pending, and returns at once otherwise.</p></li>
+memory in place may be pending, and returns at once otherwise.
+<code class="docutils literal notranslate"><span class="pre">lfortran_gpu_discard</span></code> of a range in a managed allocation that a pending
+launch uses waits for the launches; of any other range it waits for none.</p></li>
 <li><p>Smaller allocations, memory the allocator does not make (stack and static
 arrays), and an allocation the device cannot map keep the copy model.</p></li>
 </ul>
@@ -1826,9 +1857,11 @@ memory until the next wait, and the host must not change it before that
 either. The pass keeps what pending launches read as well, and
 puts a <code class="docutils literal notranslate"><span class="pre">GpuWait</span></code> – wait for the launches that read host memory in place,
 copying nothing back – before a host statement that may change or free
-such storage, and at the end of a <code class="docutils literal notranslate"><span class="pre">block</span></code> whose locals they read. Since an
-access is not known to be a read or a write, any statement that accesses
-the storage counts, except where it only evaluates an expression. A launch
+such storage. Any statement that accesses the storage counts, except where
+it only reads it: where it evaluates an expression, such as the value of an
+assignment, or hands it to an <code class="docutils literal notranslate"><span class="pre">intent(in)</span></code> dummy of a deferring twin that
+cannot change it through a pointer (a weight matrix handed to every layer’s
+projection while the previous projection still reads it in place). A launch
 itself never waits, so launches that only share what they read, such as the
 iterations of a time loop, run back to back.</p>
 <p>A wait ends what the copy model keeps of what launches read, unless the
@@ -1855,11 +1888,20 @@ GB/s).</p>
 <p>Storage that a pending launch writes and the host frees is not waited for:
 a local of a <code class="docutils literal notranslate"><span class="pre">block</span></code> at the end of the block, or where <code class="docutils literal notranslate"><span class="pre">exit</span></code> or <code class="docutils literal notranslate"><span class="pre">cycle</span></code>
 leaves it, and an array the host deallocates, get a <code class="docutils literal notranslate"><span class="pre">GpuDiscard</span></code> instead,
-since nothing can read those values any more.</p>
+since nothing can read those values any more. A local array that a pending
+launch reads gets a <code class="docutils literal notranslate"><span class="pre">GpuDiscard</span></code> where it ends too, at the end of its
+<code class="docutils literal notranslate"><span class="pre">block</span></code> or when a deferring twin returns: the runtime waits there only for
+a launch that uses that storage in place, not for every launch that reads
+host memory in place. A twin such as <code class="docutils literal notranslate"><span class="pre">linear(x,</span> <span class="pre">w,</span> <span class="pre">y)</span></code>, whose second launch
+reads a local workspace the first one writes while the weights <code class="docutils literal notranslate"><span class="pre">w</span></code> are read
+in place, so returns without waiting for its launches.</p>
 <p>What a statement accesses is worked out over <em>access paths</em>: a variable and
 a chain of components (<code class="docutils literal notranslate"><span class="pre">workspace%dcdw</span></code>), whatever the subscripts. A pointer
 the procedure associates with one designator only – an associate name, or a
-pointer the compiler creates for a section – stands for it. Two paths
+pointer the compiler creates for a section – stands for it. An array a
+launch is handed through a local pointer the procedure associates with a
+few designators, such as the pointer the lowering of an optional argument
+associates with the argument or with a placeholder, is each of them. Two paths
 overlap when one is a prefix of the other, except that a copy of only the
 bytes of a derived-type value itself (a polymorphic value the host copies
 for a launch) does not reach the data of its allocatable components. Asking
