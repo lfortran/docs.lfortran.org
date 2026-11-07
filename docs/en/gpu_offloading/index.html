@@ -363,6 +363,8 @@
         </li>
         <li class="md-nav__item"><a href="#fast-math-in-device-code" class="md-nav__link">Fast math in device code</a>
         </li>
+        <li class="md-nav__item"><a href="#packed-data-unrolling-by-the-divisor" class="md-nav__link">Packed data: unrolling by the divisor</a>
+        </li>
         <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
         </li>
         <li class="md-nav__item"><a href="#deliberate-relaxations" class="md-nav__link">Deliberate relaxations</a>
@@ -702,6 +704,8 @@
         <li class="md-nav__item"><a href="#whole-array-assignments-between-launches" class="md-nav__link">Whole-array assignments between launches</a>
         </li>
         <li class="md-nav__item"><a href="#fast-math-in-device-code" class="md-nav__link">Fast math in device code</a>
+        </li>
+        <li class="md-nav__item"><a href="#packed-data-unrolling-by-the-divisor" class="md-nav__link">Packed data: unrolling by the divisor</a>
         </li>
         <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
         </li>
@@ -1888,6 +1892,33 @@ computes <code class="docutils literal notranslate"><span class="pre">1/sqrt(x)<
 quotient of a correctly rounded root takes two long ones: an n-body
 force loop ran 16% faster on an H100. The result can differ from the exact
 one in the last bit, as host code under <code class="docutils literal notranslate"><span class="pre">--fast</span></code> can.</p>
+</section>
+<section id="packed-data-unrolling-by-the-divisor">
+<h3 id="packed-data-unrolling-by-the-divisor">Packed data: unrolling by the divisor<a class="headerlink" href="#packed-data-unrolling-by-the-divisor" title="Permalink to this headline">¶</a></h3>
+<p>A kernel that decodes packed data reads, for each index <code class="docutils literal notranslate"><span class="pre">d</span></code>, a word
+<code class="docutils literal notranslate"><span class="pre">w((d</span> <span class="pre">-</span> <span class="pre">1)/4</span> <span class="pre">+</span> <span class="pre">1)</span></code> and a part <code class="docutils literal notranslate"><span class="pre">modulo(d</span> <span class="pre">-</span> <span class="pre">1,</span> <span class="pre">4)</span></code> of it, often through a
+small pure function that checks the part, as the decode of a quantized
+matrix-vector product does:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="k">do </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">g</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">64</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="o">*</span><span class="mi">64</span>
+<span class="w">    </span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">packed_byte</span><span class="p">(</span><span class="n">w</span><span class="p">((</span><span class="n">d</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="nb">modulo</span><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)))</span><span class="o">*</span><span class="n">x</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="k">end do</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">gpu_residue_unroll</span></code> pass unrolls such a loop (a <code class="docutils literal notranslate"><span class="pre">do</span></code> or a one-index
+<code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code> of device code) by the constant divisor, in groups that
+start where the numerator <code class="docutils literal notranslate"><span class="pre">d</span> <span class="pre">-</span> <span class="pre">1</span></code> is a multiple of it. In each of the four
+copies the part is a constant and the quotient the same, so the word is
+read once per group, and a call of a small pure function with a constant
+argument is inlined so that its check folds away: no reloaded word, no
+<code class="docutils literal notranslate"><span class="pre">modulo</span></code>, no call and no test for a stop remain in the loop. A check that
+still fails, such as <code class="docutils literal notranslate"><span class="pre">packed_byte(w,</span> <span class="pre">4)</span></code>, still stops the program. The
+iterations run in their original order, so the results are the same bits.</p>
+<p>The groups need the numerator to be non-negative and at least four
+iterations; what the bounds of the loops around it do not prove is tested
+before the loop, which runs as written otherwise, and the iterations before
+the first group and after the last run as written too. On an Apple M4 Max,
+a 5120x17408 q8 product whose kernel runs the loop above took 1.02 ms of GPU
+time instead of 2.73 ms.</p>
 </section>
 <section id="lanes-an-iteration-on-a-simd-group">
 <h3 id="lanes-an-iteration-on-a-simd-group">Lanes: an iteration on a SIMD-group<a class="headerlink" href="#lanes-an-iteration-on-a-simd-group" title="Permalink to this headline">¶</a></h3>
