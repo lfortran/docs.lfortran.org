@@ -366,6 +366,8 @@
         </li>
         <li class="md-nav__item"><a href="#packed-data-unrolling-by-the-divisor" class="md-nav__link">Packed data: unrolling by the divisor</a>
         </li>
+        <li class="md-nav__item"><a href="#integer-powers-in-device-code" class="md-nav__link">Integer powers in device code</a>
+        </li>
         <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
         </li>
         <li class="md-nav__item"><a href="#deliberate-relaxations" class="md-nav__link">Deliberate relaxations</a>
@@ -707,6 +709,8 @@
         <li class="md-nav__item"><a href="#fast-math-in-device-code" class="md-nav__link">Fast math in device code</a>
         </li>
         <li class="md-nav__item"><a href="#packed-data-unrolling-by-the-divisor" class="md-nav__link">Packed data: unrolling by the divisor</a>
+        </li>
+        <li class="md-nav__item"><a href="#integer-powers-in-device-code" class="md-nav__link">Integer powers in device code</a>
         </li>
         <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
         </li>
@@ -1776,12 +1780,45 @@ pending, so that the stop the kernel recorded ends the program first;</p></li>
 <li><p>before a launch of a kernel that can stop while a launch of another such
 kernel is pending, so that the stop reported is the first one;</p></li>
 <li><p>before <code class="docutils literal notranslate"><span class="pre">return</span></code>, <code class="docutils literal notranslate"><span class="pre">goto</span></code> and the end of the procedure while any launch is
-pending;</p></li>
+pending, except in a deferring twin (below);</p></li>
 <li><p>before any statement it does not know.</p></li>
 </ul>
 <p>A wait in a loop that launches nothing is placed before the loop instead.
+A call of a subroutine whose first statement is <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(c)</span> <span class="pre">return</span></code>, such as a
+debug hook that returns unless a dump directory is set, tests <code class="docutils literal notranslate"><span class="pre">c</span></code> first
+(the <code class="docutils literal notranslate"><span class="pre">gpu_call_guards</span></code> pass, which runs before the temporaries of actual
+arguments are made), so its wait goes into the branch that calls it. It does
+so only when that is not observable: <code class="docutils literal notranslate"><span class="pre">c</span></code> calls no function and names no
+dummy or local of the subroutine, the subroutine has no <code class="docutils literal notranslate"><span class="pre">intent(out)</span></code> dummy,
+and the actual arguments call no function.
 After every <code class="docutils literal notranslate"><span class="pre">GpuSync</span></code> the pass runs the stop replay of each launch that may
 be pending there (<code class="docutils literal notranslate"><span class="pre">GpuKernelLaunch.stop_replay</span></code>), in launch order.</p>
+<p>A module subroutine with an array or derived-type dummy -- not <code class="docutils literal notranslate"><span class="pre">bind(c)</span></code>,
+elemental, a separate module procedure or device code, and with no pointer,
+target, procedure or frame dummy -- gets a <em>deferring twin</em>,
+<code class="docutils literal notranslate"><span class="pre">&lt;name&gt;__gpu_deferred</span></code>, which takes over its body, while the subroutine
+itself only calls the twin and then waits as before. The pass makes the
+twins first, of the modules of the file and of those loaded from module
+files alike: the choice depends only on the declaration, which is in the
+module file, so every file that uses the module makes the same twins. The
+calls the pass sees by name are redirected to the twin; a call through a
+procedure pointer, a dummy procedure or a binding, and one from a file
+compiled without a GPU device or from C, reaches the subroutine, which
+waits. The twin may return with launches pending, provided they write and
+read only what its dummy arguments hold -- not what an intent(in) dummy
+holds, a module variable, what a pointer points to -- and none may have
+recorded a stop (whose replay reads a status buffer that is a local of the
+twin): otherwise it waits at its exits as before, once the launches on its
+locals are discarded. A call of a twin is followed like a launch: it may
+leave launches pending that write the actual arguments of the dummies that
+are not intent(in), and read the others -- or, for a twin of this file, only
+those that the launches pending at its exits do. A caller does not wait
+before the call for the launches pending on an array actual argument that
+only the twin can name (a local or dummy no pointer reaches); the twin
+starts as if launches its caller made were pending on what its array
+dummies hold, and waits where it accesses them on the host. Before any other
+actual argument, a module variable, and when a launch that may have
+recorded a stop is pending, the caller waits as before.</p>
 <p>Storage that a launch only reads the runtime may hand the kernel in place
 (the unified and managed memory models), and the host must not change it
 under the kernel; in the copy model the runtime keeps its copy in device
@@ -1827,12 +1864,22 @@ overlap when one is a prefix of the other, except that a copy of only the
 bytes of a derived-type value itself (a polymorphic value the host copies
 for a launch) does not reach the data of its allocatable components. Asking
 about the shape of an array (<code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">lbound</span></code>, <code class="docutils literal notranslate"><span class="pre">allocated</span></code>) does not access
-its elements. A call accesses its actual arguments, and may access every
+its elements, and neither does disassociating a pointer (<code class="docutils literal notranslate"><span class="pre">nullify</span></code>) or
+storing the address of a variable in the frame of a contained procedure. A call accesses its actual arguments, and may access every
 variable that a pointer may point to or that another procedure can reach (a
 module variable, a variable of a procedure this one is contained in, a
-<code class="docutils literal notranslate"><span class="pre">target</span></code>); a call to a procedure contained in this one may access anything.
+<code class="docutils literal notranslate"><span class="pre">target</span></code>, a variable a pointer that another procedure can name may point
+to: not one only a local pointer of this procedure points to, such as the
+pointer the compiler makes for a section it hands to a procedure); a call to
+a procedure contained in this one may access anything.
 Of a derived-type value it is handed, a call whose callee's body is known
-accesses only the components the body names.</p>
+accesses only the components the body names. A call of a procedure whose
+body is known, launches nothing and has no pointer, target or procedure
+dummy accesses what that body accesses: the same parts of its actual
+arguments, the variables of its host procedure it names, what another
+procedure can reach only when the body names or calls something that can,
+and it acts outside the program when the body may, <code class="docutils literal notranslate"><span class="pre">stop</span></code> included. So a
+call that only asks for the shapes of its arguments (<code class="docutils literal notranslate"><span class="pre">call</span> <span class="pre">check_shapes(x,</span> <span class="pre">y)</span></code>) does not wait for the launch that writes them.</p>
 <p>The data the host copies for a launch itself -- a contiguous copy of a
 strided array, the components of an array of derived type, the arrays of a
 packed launch, the plain components of a polymorphic value -- are host
@@ -1920,6 +1967,19 @@ before the loop, which runs as written otherwise, and the iterations before
 the first group and after the last run as written too. On an Apple M4 Max,
 a 5120x17408 q8 product whose kernel runs the loop above took 1.02 ms of GPU
 time instead of 2.73 ms.</p>
+</section>
+<section id="integer-powers-in-device-code">
+<h3 id="integer-powers-in-device-code">Integer powers in device code<a class="headerlink" href="#integer-powers-in-device-code" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
+<p>A real power with a constant integer exponent from 0 to 8 in device code,
+such as <code class="docutils literal notranslate"><span class="pre">x**2</span></code>, is written as the products the host computes it with
+(<code class="docutils literal notranslate"><span class="pre">gpu_integer_powers</span></code>): <code class="docutils literal notranslate"><span class="pre">x*x</span></code>, <code class="docutils literal notranslate"><span class="pre">x*(x*x)</span></code>, <code class="docutils literal notranslate"><span class="pre">(x*x)*(x*x)</span></code> and so on, with <code class="docutils literal notranslate"><span class="pre">x</span></code>
+evaluated once, into a variable of its own unless it is one already. The
+device's <code class="docutils literal notranslate"><span class="pre">pow</span></code> takes a logarithm and an exponential under fast math, which
+is slower and not always exact (a product of powers of two came out
+inexact on an Apple M1), where <code class="docutils literal notranslate"><span class="pre">x*x</span></code> is the correctly rounded square the
+host computes. A power whose base can only be evaluated where it is written
+(in the test of a <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">while</span></code>, or an operand of <code class="docutils literal notranslate"><span class="pre">.and.</span></code> that need not be
+evaluated) is kept as it is, unless its base is a variable or an element.</p>
 </section>
 <section id="lanes-an-iteration-on-a-simd-group">
 <h3 id="lanes-an-iteration-on-a-simd-group">Lanes: an iteration on a SIMD-group<a class="headerlink" href="#lanes-an-iteration-on-a-simd-group" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h3>
