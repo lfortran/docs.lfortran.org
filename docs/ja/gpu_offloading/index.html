@@ -1831,7 +1831,13 @@ target, procedure or frame dummy -- gets a <em>deferring twin</em>,
 itself only calls the twin and then waits as before. The pass makes the
 twins first, of the modules of the file and of those loaded from module
 files alike: the choice depends only on the declaration, which is in the
-module file, so every file that uses the module makes the same twins. The
+module file, so every file that uses the module makes the same twins. A
+module compiled with <code class="docutils literal notranslate"><span class="pre">--separate-compilation</span></code> and without a GPU device (a
+library built for the host) records that its object defines its procedures
+and no twins: other files call its procedures themselves. In the default
+mode the file with the main program compiles the procedures of the modules
+it uses, with their twins only if it is compiled with <code class="docutils literal notranslate"><span class="pre">--gpu</span></code>, so it must be
+compiled with <code class="docutils literal notranslate"><span class="pre">--gpu</span></code> too when other files that call them are. The
 calls the pass sees by name are redirected to the twin; a call through a
 procedure pointer, a dummy procedure or a binding, and one from a file
 compiled without a GPU device or from C, reaches the subroutine, which
@@ -2032,8 +2038,9 @@ thread: a GPU thread does not run ahead of a load the way a CPU core does,
 so every element of every array statement inside the iteration costs a
 memory latency. The <code class="docutils literal notranslate"><span class="pre">gpu_vector_lanes</span></code> pass, right after
 <code class="docutils literal notranslate"><span class="pre">gpu_kernel_finalize</span></code>, rewrites such a kernel so that each iteration runs on
-the lanes of a SIMD-group, which share the loops inside it (Metal only, 32
-lanes; a device's capabilities say how many, see <code class="docutils literal notranslate"><span class="pre">GpuDeviceCapabilities::</span> <span class="pre">lanes_per_iteration</span></code>):</p>
+the lanes of a SIMD-group, which share the loops inside it (32 lanes on
+Metal and on an NVIDIA GPU; a device's capabilities say how many, see
+<code class="docutils literal notranslate"><span class="pre">GpuDeviceCapabilities::lanes_per_iteration</span></code>, and which loops they share):</p>
 <ul class="simple">
 <li><p>A loop whose iterations are independent -- it assigns every shared array
 at one subscript list holding its variable, reads such an array only at
@@ -2044,6 +2051,24 @@ k + lanes, ..., and the lanes wait for each other after it
 (<code class="docutils literal notranslate"><span class="pre">GpuLaneBarrier</span></code>). Adjacent loops over the same iterations are joined
 first, and a loop whose body is one more such loop shares out the pairs
 of iterations of both.</p></li>
+<li><p>A loop that accumulates into private scalars -- the inner product of a
+matrix-vector product, the forces on one body -- by one statement each,
+<code class="docutils literal notranslate"><span class="pre">s</span> <span class="pre">=</span> <span class="pre">s</span> <span class="pre">op</span> <span class="pre">e</span></code> (<code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">min</span></code>), and otherwise only assigns
+scalars of its own in every iteration, is shared out as well where the
+lanes can combine values (<code class="docutils literal notranslate"><span class="pre">lane_reductions</span></code>: an NVIDIA GPU, whose warps
+run them, and Metal, for values of 4 bytes): the lanes but the first
+start every accumulator at the identity, and after the loop every lane
+gets them combined (<code class="docutils literal notranslate"><span class="pre">GpuLaneReduce</span></code>: shuffles within the warp on CUDA,
+<code class="docutils literal notranslate"><span class="pre">simd_sum</span></code>, <code class="docutils literal notranslate"><span class="pre">simd_product</span></code>, <code class="docutils literal notranslate"><span class="pre">simd_min</span></code> and <code class="docutils literal notranslate"><span class="pre">simd_max</span></code> on Metal). A loop that reads a matrix
+along a row (<code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j)</span></code> over <code class="docutils literal notranslate"><span class="pre">j</span></code>) is left to one lane per iteration, since
+the threads of the launch already read a column of it together, and so
+are a loop of fewer than 64 iterations known at compile time and a loop
+whose bounds are read from an array, as the rows of a compressed sparse
+matrix are, which usually hold a few elements. A launch
+with one lane per iteration runs the loop as it was, in the other branch
+of a test of the lanes. On an H100 the forces of an n-body loop of 32768
+bodies run 1.5 times faster this way and the column sums of a 12288 by
+12288 matrix 2.6 times faster.</p></li>
 <li><p>A statement with an effect the lanes must not repeat -- one that writes
 shared memory outside such a loop, calls a procedure that is not pure,
 or takes elements of the device heap -- runs on the first lane, and the
@@ -2058,8 +2083,19 @@ that every iteration writes -- an array declared outside the loop that each
 iteration uses as a temporary, which the launch shares between all threads
 (a known limitation, which lanes would only make show more often).</p>
 <p>The host chooses the lanes per launch: the SIMD-group width for a launch of
-at most 1024 iterations, one otherwise, where the iterations fill the GPU
-anyway and the lanes would only repeat each other's work. The kernel takes
+at most <code class="docutils literal notranslate"><span class="pre">lanes_iterations_max</span></code> iterations (1024 on Metal, 65536 on an NVIDIA
+GPU, which keeps about 230,000 threads resident), one otherwise, where the
+iterations fill the GPU anyway and the lanes would only repeat each other's
+work. A kernel whose shared-out loops all read along the first subscript of
+the arrays they name, at least one along a column the iteration takes (a
+later subscript depends on it), and that repeats no such column walk on
+every lane, gets lanes up to <code class="docutils literal notranslate"><span class="pre">lanes_column_iterations_max</span></code> iterations
+(<code class="docutils literal notranslate"><span class="pre">huge(0)/32</span></code> on Metal): one lane per iteration would read 32 columns at
+once there, a few elements at a time, while the lanes read one column
+together. Every row of a quantized matrix-vector product, and every row of a
+gated-delta state update, is such an iteration. On an NVIDIA GPU only reduction loops are shared out
+(<code class="docutils literal notranslate"><span class="pre">lane_independent_loops</span></code> is off), and a kernel with workspaces or that
+takes memory from the device heap keeps one lane per iteration. The kernel takes
 the lanes as its last parameter (<code class="docutils literal notranslate"><span class="pre">gpu_kernel_layout.lanes</span></code>); its thread
 index then numbers the iterations, the host starts <code class="docutils literal notranslate"><span class="pre">lanes</span></code> threads per
 iteration, and a workspace slice belongs to an iteration, shared by its
