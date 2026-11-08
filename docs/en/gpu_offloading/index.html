@@ -2131,7 +2131,17 @@ microseconds the time is an upper bound.</p></li>
 <p>At exit, or at <code class="docutils literal notranslate"><span class="pre">lfortran_gpu_shutdown</span></code>, the runtime waits for the launches
 still pending and prints the totals and a table of the kernels, sorted by GPU
 time, to stderr, or to the file <code class="docutils literal notranslate"><span class="pre">LFORTRAN_GPU_PROFILE_FILE</span></code> names. A kernel is
-named by its entry point, <code class="docutils literal notranslate"><span class="pre">__lfortran_gpu_kernel_&lt;n&gt;_&lt;id&gt;</span></code>. The totals are
+named by its entry point, <code class="docutils literal notranslate"><span class="pre">__lfortran_gpu_kernel_&lt;n&gt;_&lt;scopes&gt;</span></code>: the number
+of the kernel in its file and the names of the program units and procedures
+the loop is in, each prefixed by its length (for example
+<code class="docutils literal notranslate"><span class="pre">__lfortran_gpu_kernel_0_6solver6update</span></code> for the first kernel of the file,
+in the procedure <code class="docutils literal notranslate"><span class="pre">update</span></code> of the module <code class="docutils literal notranslate"><span class="pre">solver</span></code>), followed by <code class="docutils literal notranslate"><span class="pre">_&lt;id&gt;</span></code> with
+<code class="docutils literal notranslate"><span class="pre">--separate-compilation</span></code>. A procedure with a binding label,
+<code class="docutils literal notranslate"><span class="pre">bind(c,</span> <span class="pre">name="&lt;label&gt;")</span></code>, is named by its label, prefixed by <code class="docutils literal notranslate"><span class="pre">b</span></code> and its
+length (<code class="docutils literal notranslate"><span class="pre">__lfortran_gpu_kernel_0_b8solve_c1</span></code> for <code class="docutils literal notranslate"><span class="pre">name="solve_c1"</span></code>), since
+only the label of such a procedure is global. Scopes whose names together are
+longer than 128 characters are replaced by <code class="docutils literal notranslate"><span class="pre">h</span></code> and a hash of them,
+<code class="docutils literal notranslate"><span class="pre">__lfortran_gpu_kernel_&lt;n&gt;_h&lt;digits&gt;</span></code>. The totals are
 also available to C code through <code class="docutils literal notranslate"><span class="pre">lfortran_gpu_metal_telemetry_snapshot</span></code>
 (<code class="docutils literal notranslate"><span class="pre">lfortran_gpu_runtime.h</span></code>). To get the cost of one step of a program, such as
 one generated token, run it for two numbers of steps and subtract the
