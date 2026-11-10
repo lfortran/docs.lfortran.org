@@ -368,6 +368,8 @@
         </li>
         <li class="md-nav__item"><a href="#integer-powers-in-device-code" class="md-nav__link">Integer powers in device code</a>
         </li>
+        <li class="md-nav__item"><a href="#loads-in-flight" class="md-nav__link">Loads in flight</a>
+        </li>
         <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
         </li>
         <li class="md-nav__item"><a href="#deliberate-relaxations" class="md-nav__link">Deliberate relaxations</a>
@@ -711,6 +713,8 @@
         <li class="md-nav__item"><a href="#packed-data-unrolling-by-the-divisor" class="md-nav__link">Packed data: unrolling by the divisor</a>
         </li>
         <li class="md-nav__item"><a href="#integer-powers-in-device-code" class="md-nav__link">Integer powers in device code</a>
+        </li>
+        <li class="md-nav__item"><a href="#loads-in-flight" class="md-nav__link">Loads in flight</a>
         </li>
         <li class="md-nav__item"><a href="#lanes-an-iteration-on-a-simd-group" class="md-nav__link">Lanes: an iteration on a SIMD-group</a>
         </li>
@@ -2028,6 +2032,32 @@ inexact on an Apple M1), where <code class="docutils literal notranslate"><span 
 host computes. A power whose base can only be evaluated where it is written
 (in the test of a <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">while</span></code>, or an operand of <code class="docutils literal notranslate"><span class="pre">.and.</span></code> that need not be
 evaluated) is kept as it is, unless its base is a variable or an element.</p>
+</section>
+<section id="loads-in-flight">
+<h3 id="loads-in-flight">Loads in flight<a class="headerlink" href="#loads-in-flight" title="永久链接至标题">¶</a></h3>
+<p>A GPU hides the latency of memory with many threads, each waiting for a
+load, or with few threads that each have many loads in flight. A loop with
+few iterations – the rows of a matrix-vector product – has few threads, so
+each must stream down its row with many loads outstanding. Two things in
+the device code for an NVIDIA GPU (<code class="docutils literal notranslate"><span class="pre">--gpu=cuda</span></code>) give it that; HIP unrolls
+such loops four times in the <code class="docutils literal notranslate"><span class="pre">gpu_sequential_unroll</span></code> pass instead:</p>
+<ul class="simple">
+<li><p>A small innermost sequential loop (at most 8 statements, no loop inside)
+is unrolled 16 times (<code class="docutils literal notranslate"><span class="pre">#pragma</span> <span class="pre">unroll</span> <span class="pre">16</span></code>), as nvfortran does, so a thread
+issues the loads of 16 iterations before it needs the first.</p></li>
+<li><p>A kernel whose small innermost loop reads an array through its variable
+times a stride that is not a constant (<code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j)</span></code> over <code class="docutils literal notranslate"><span class="pre">j</span></code>: each thread
+streams down a row while the threads read a column together) is declared
+<code class="docutils literal notranslate"><span class="pre">__launch_bounds__(threads_per_block,</span> <span class="pre">1)</span></code>. Without the second bound ptxas
+keeps the kernel to the registers that let eight blocks share a
+multiprocessor, and reuses the register of every load as soon as its
+value is consumed, which leaves a few loads in flight. With it, the
+unrolled matrix-vector product keeps all 32 in flight in 80 registers
+and runs at 86% of the memory bandwidth of an H100 instead of 31%. Other
+kernels get <code class="docutils literal notranslate"><span class="pre">__launch_bounds__(threads_per_block)</span></code> only: a gather, such
+as a sparse matrix-vector product, needs the occupancy to hide its loads
+and lost a quarter of its speed with the second bound.</p></li>
+</ul>
 </section>
 <section id="lanes-an-iteration-on-a-simd-group">
 <h3 id="lanes-an-iteration-on-a-simd-group">Lanes: an iteration on a SIMD-group<a class="headerlink" href="#lanes-an-iteration-on-a-simd-group" title="永久链接至标题">¶</a></h3>
