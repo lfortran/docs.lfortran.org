@@ -1225,6 +1225,12 @@ conda<span class="w"> </span>activate<span class="w"> </span>lf
 </pre></div>
 </div>
 <p>现在 <code class="docutils literal notranslate"><span class="pre">lf</span></code> 环境有 <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> 编译器可用，你可以通过执行 <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> 启动交互式提示，或使用 <code class="docutils literal notranslate"><span class="pre">lfortran</span> <span class="pre">-h</span></code> 查看命令行选项。</p>
+<p>On Windows, if launching the Conda-installed <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> reports
+<code class="docutils literal notranslate"><span class="pre">zstd.dll</span> <span class="pre">was</span> <span class="pre">not</span> <span class="pre">found</span></code>, install <code class="docutils literal notranslate"><span class="pre">zstd</span></code> from conda-forge in the same activated
+<code class="docutils literal notranslate"><span class="pre">lf</span></code> environment, then try launching <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> again:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>zstd
+</pre></div>
+</div>
 <section id="note-about-conda-installation">
 <h4 id="note-about-conda-installation">Note about Conda Installation<a class="headerlink" href="#note-about-conda-installation" title="永久链接至标题">¶</a></h4>
 <p>When installing LFortran using Conda, multiple copies of the <code class="docutils literal notranslate"><span class="pre">lfortran</span></code>
