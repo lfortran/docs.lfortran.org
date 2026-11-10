@@ -919,11 +919,11 @@ compiler. Both are Debug builds, so every full Quick suite runs with
 assertions and per-pass ASR verification. The LLVM 11 compiler runs four full
 passes, so it is compiled with <code class="docutils literal notranslate"><span class="pre">-O2</span></code> (<code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_FLAGS_DEBUG</span></code>); it stays a
 Debug build, so <code class="docutils literal notranslate"><span class="pre">WITH_LFORTRAN_ASSERT</span></code> stays on and nothing defines <code class="docutils literal notranslate"><span class="pre">NDEBUG</span></code>.
-This makes each pass about 1.6 times faster. The Linux/LLVM 21 platform
-compiler is compiled with <code class="docutils literal notranslate"><span class="pre">-O2</span></code> the same way: <code class="docutils literal notranslate"><span class="pre">.github/actions/build-platform</span></code>
-adds <code class="docutils literal notranslate"><span class="pre">-O2</span></code> to <code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code>/<code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span></code> for that platform only, so Exhaustive’s
-Linux/LLVM 21 platform job builds the same compiler and restores the same
-cache (key suffix <code class="docutils literal notranslate"><span class="pre">-o2</span></code>). The macOS, Windows and Linux/LLVM 11 platform builds
+This makes each pass about 1.6 times faster. Both Linux platform compilers
+are compiled with <code class="docutils literal notranslate"><span class="pre">-O2</span></code> the same way: <code class="docutils literal notranslate"><span class="pre">.github/actions/build-platform</span></code>
+adds <code class="docutils literal notranslate"><span class="pre">-O2</span></code> to <code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code>/<code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span></code> for Linux LLVM 11 and 21, so Exhaustive’s
+copies of those jobs build the same compilers and restore the same
+cache (key suffix <code class="docutils literal notranslate"><span class="pre">-o2</span></code>). The macOS and Windows platform builds
 keep their defaults, so Quick still tests a <code class="docutils literal notranslate"><span class="pre">-O0</span></code> compiler.
 Both also use the platform C/C++
 diagnostic and standard-library hardening flags, including <code class="docutils literal notranslate"><span class="pre">-Werror</span></code>, and
@@ -931,11 +931,13 @@ diagnostic and standard-library hardening flags, including <code class="docutils
 jobs reduces the critical path without sampling those suites or adding
 another dependent job/queue.</p>
 <p>The Linux/LLVM 11 platform build retains full reference coverage, platform smoke tests,
-and the full GFortran, C/C++, Fortran, direct-WASM, OpenMP and CUDA-on-CPU
-backend suites. Linux/LLVM 21 Debug also runs normal/fast smoke coverage, and
+and the full GFortran, C/C++, Fortran, direct-WASM and OpenMP
+backend suites, plus the CUDA-on-CPU smoke check. Linux/LLVM 21 Debug runs the
+full CUDA-on-CPU suite once, along with normal/fast smoke coverage, and
 Linux/LLVM 7/23 Release provide additional smoke coverage. macOS/LLVM 11 keeps
 platform smoke coverage and
-the full Metal and CUDA-on-CPU suites. Windows keeps its native Release
+the Metal and CUDA-on-CPU smoke checks. The full Metal suite runs in
+Exhaustive’s macOS platform job. Windows keeps its native Release
 build and supported compile/link/run checks. Caffeine/coarrays run on the
 LLVM 11 Debug compatibility compiler. The standalone compiler-to-WASM build is also retained;
 its native phase is Quick’s Linux GCC Release build, so it uses <code class="docutils literal notranslate"><span class="pre">-Werror</span></code>
@@ -947,8 +949,9 @@ every compatibility job runs Caffeine/coarrays. Three supplemental platform buil
 LLVM 11/21 Debug and full normal/reference suites on macOS LLVM 11 Debug.
 These retain the full platform coverage that used to run only in main’s Quick.
 Quick and Exhaustive share <code class="docutils literal notranslate"><span class="pre">.github/actions/build-platform</span></code> so these compiler
-configurations cannot drift. The supplemental jobs do not rerun Quick’s GPU,
-alternate-backend or descriptor-mode suites; Linux references stay in Quick.</p>
+configurations cannot drift. The macOS supplemental job runs the full Metal
+suite; the supplemental jobs do not rerun Quick’s CUDA-on-CPU,
+alternate-backend or descriptor-mode suites. Linux references stay in Quick.</p>
 <p>All native compatibility profiles enable runtime-stacktrace support, including
 the LLVM 11/19 and macOS application compilers. Caffeine removes LFortran
 <code class="docutils literal notranslate"><span class="pre">-g</span></code> from its defaults and GASNet linker flags; its <code class="docutils literal notranslate"><span class="pre">--enable-debug</span></code> build does
