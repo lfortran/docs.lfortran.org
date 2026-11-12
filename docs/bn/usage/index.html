@@ -1108,13 +1108,22 @@ such as Pixi. Use <code class="docutils literal notranslate"><span class="pre">L
 <p>The C and C++ backends also use this selection when compiling empty C objects
 for module-only source files, retaining <code class="docutils literal notranslate"><span class="pre">cc</span></code> as the default when neither
 variable is set. This does not change the C++ compiler used for generated C++.</p>
-<p>The LLVM backend links Linux executables itself, with LLD built into the
-<code class="docutils literal notranslate"><span class="pre">lfortran</span></code> binary. It locates the C runtime (startup objects, dynamic linker,
-libc and libgcc) and does not invoke clang or gcc for that link. <code class="docutils literal notranslate"><span class="pre">--linker</span></code>
-selects a different linker: <code class="docutils literal notranslate"><span class="pre">lld</span></code> is the built-in one, and <code class="docutils literal notranslate"><span class="pre">clang</span></code> or <code class="docutils literal notranslate"><span class="pre">gcc</span></code>
-is an external compiler driver. <code class="docutils literal notranslate"><span class="pre">--linker-path</span></code> and <code class="docutils literal notranslate"><span class="pre">LFORTRAN_LINKER</span></code> /
-<code class="docutils literal notranslate"><span class="pre">LFORTRAN_LINKER_PATH</span></code> apply to an external driver. macOS keeps Apple's
-linker and Windows keeps <code class="docutils literal notranslate"><span class="pre">link.exe</span></code>. A build with MLIR (<code class="docutils literal notranslate"><span class="pre">-DWITH_MLIR=yes</span></code>)
+<p>The LLVM backend links Linux and macOS executables itself, with LLD built
+into the <code class="docutils literal notranslate"><span class="pre">lfortran</span></code> binary. On Linux it locates the C runtime (startup
+objects, dynamic linker, libc and libgcc); on macOS it links against
+<code class="docutils literal notranslate"><span class="pre">libSystem</span></code> from the SDK in <code class="docutils literal notranslate"><span class="pre">SDKROOT</span></code> or the one <code class="docutils literal notranslate"><span class="pre">xcrun</span></code> selects, for the
+release in <code class="docutils literal notranslate"><span class="pre">MACOSX_DEPLOYMENT_TARGET</span></code>. When that variable is unset, the
+minimum is the macOS version implied by the target triple, which is the
+version Apple clang uses by default. Object files record the same release,
+so the link does not mix a newer object with an older executable. It does
+not invoke clang or gcc for that link. <code class="docutils literal notranslate"><span class="pre">--linker</span></code> selects a different
+linker: <code class="docutils literal notranslate"><span class="pre">lld</span></code> is the built-in one, and <code class="docutils literal notranslate"><span class="pre">clang</span></code> or <code class="docutils literal notranslate"><span class="pre">gcc</span></code> is an external
+compiler driver (on macOS, <code class="docutils literal notranslate"><span class="pre">--linker=clang</span></code> uses Apple's clang and linker).
+<code class="docutils literal notranslate"><span class="pre">--linker-path</span></code> and <code class="docutils literal notranslate"><span class="pre">LFORTRAN_LINKER</span></code> / <code class="docutils literal notranslate"><span class="pre">LFORTRAN_LINKER_PATH</span></code> apply to an
+external driver. On macOS the built-in linker needs LLVM 15 or newer (the
+first LLD that reads the dylibs Apple's linker writes); builds with older
+LLVM keep Apple's clang.
+Windows keeps <code class="docutils literal notranslate"><span class="pre">link.exe</span></code>. A build with MLIR (<code class="docutils literal notranslate"><span class="pre">-DWITH_MLIR=yes</span></code>)
 also keeps the external linker: the MLIR libraries load <code class="docutils literal notranslate"><span class="pre">libLLVM.so</span></code>, and a
 second static copy of LLVM in that process corrupts the heap.</p>
 <p>Native LLVM OpenMP programs use Clang with LLVM's <code class="docutils literal notranslate"><span class="pre">libomp</span></code>. Pass <code class="docutils literal notranslate"><span class="pre">--openmp</span></code>
