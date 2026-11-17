@@ -2069,7 +2069,10 @@ time instead of 2.73 ms.</p>
 <p>A real power with a constant integer exponent from 0 to 8 in device code,
 such as <code class="docutils literal notranslate"><span class="pre">x**2</span></code>, is written as the products the host computes it with
 (<code class="docutils literal notranslate"><span class="pre">gpu_integer_powers</span></code>): <code class="docutils literal notranslate"><span class="pre">x*x</span></code>, <code class="docutils literal notranslate"><span class="pre">x*(x*x)</span></code>, <code class="docutils literal notranslate"><span class="pre">(x*x)*(x*x)</span></code> and so on, with <code class="docutils literal notranslate"><span class="pre">x</span></code>
-evaluated once, into a variable of its own unless it is one already. The
+evaluated once, into a variable of its own unless it is one already, a
+constant, or an element of an array, which is read in each factor (so that
+the elements a statement reads side by side are still read as one vector,
+see Lanes). The
 device’s <code class="docutils literal notranslate"><span class="pre">pow</span></code> takes a logarithm and an exponential under fast math, which
 is slower and not always exact (a product of powers of two came out
 inexact on an Apple M1), where <code class="docutils literal notranslate"><span class="pre">x*x</span></code> is the correctly rounded square the
@@ -2098,6 +2101,13 @@ is added to <code class="docutils literal notranslate"><span class="pre">c</span
 <code class="docutils literal notranslate"><span class="pre">int(...,</span> <span class="pre">int8)</span></code>), other kinds, and sums with a missing or repeated byte
 position are left as they are. HIP, Metal and the CPU emulation (<code class="docutils literal notranslate"><span class="pre">cuda_cpu</span></code>)
 do not have the instruction and compile the arithmetic.</p>
+<p>The same pass writes a byte of an <code class="docutils literal notranslate"><span class="pre">integer(4)</span></code> placed in the low byte of a
+constant whose low byte is zero, <code class="docutils literal notranslate"><span class="pre">ior(iand(shiftr(w,</span> <span class="pre">8*k),</span> <span class="pre">255),</span> <span class="pre">c)</span></code> (or
+<code class="docutils literal notranslate"><span class="pre">iand(w,</span> <span class="pre">255)</span></code>, <code class="docutils literal notranslate"><span class="pre">shiftr(w,</span> <span class="pre">24)</span></code>, <code class="docutils literal notranslate"><span class="pre">ibits(w,</span> <span class="pre">8*k,</span> <span class="pre">8)</span></code> for the byte, with the
+operands of <code class="docutils literal notranslate"><span class="pre">ior</span></code> in either order), as one <code class="docutils literal notranslate"><span class="pre">__byte_perm(w,</span> <span class="pre">c,</span> <span class="pre">0x7650</span> <span class="pre">+</span> <span class="pre">k)</span></code>,
+which takes the low byte from w and the others from c: one instruction for
+the shift and the mask. A q8 dequantization reads a byte as a real this way,
+<code class="docutils literal notranslate"><span class="pre">transfer(ior(byte,</span> <span class="pre">1258291200),</span> <span class="pre">0.0)</span> <span class="pre">-</span> <span class="pre">8388608.0</span></code>.</p>
 </section>
 <section id="loads-in-flight">
 <h3 id="loads-in-flight">Loads in flight<a class="headerlink" href="#loads-in-flight" title="Stały odnośnik do tego nagłówka">¶</a></h3>
@@ -2110,7 +2120,14 @@ such loops four times in the <code class="docutils literal notranslate"><span cl
 <ul class="simple">
 <li><p>A small innermost sequential loop (at most 8 statements, no loop inside)
 is unrolled 16 times (<code class="docutils literal notranslate"><span class="pre">#pragma</span> <span class="pre">unroll</span> <span class="pre">16</span></code>), as nvfortran does, so a thread
-issues the loads of 16 iterations before it needs the first.</p></li>
+issues the loads of 16 iterations before it needs the first. In a kernel
+with lanes, a loop of a length known at compile time is unrolled by the
+iterations each of 32 lanes takes when they are fewer: a loop of 128 by
+4. Unrolled by 16, nvcc ran its few iterations in the loop that finishes
+the unrolled one, each waiting for its load (the sums over the 128 x 128
+state of a gated delta rule took 3 of their 4 us). The trips of such loops
+are counted with an unsigned division, and the lanes of a whole warp
+combine their values with shuffles under a constant mask.</p></li>
 <li><p>A kernel whose small innermost loop reads an array through its variable
 times a stride that is not a constant (<code class="docutils literal notranslate"><span class="pre">a(i,</span> <span class="pre">j)</span></code> over <code class="docutils literal notranslate"><span class="pre">j</span></code>: each thread
 streams down a row while the threads read a column together) is declared
@@ -2168,7 +2185,11 @@ that holds such a loop of a length not known at compile time has that
 sum shared out rather than its own iterations, which may be fewer than
 the lanes (a long sum split in a few parts). A launch
 with one lane per iteration runs the loop as it was, in the other branch
-of a test of the lanes. On an H100 the forces of an n-body loop of 32768
+of a test of the lanes, except in a kernel that reads vectors of 16 bytes
+(see below), whose launches get lanes whatever their size: it keeps the
+shared-out loop alone, which also runs on one lane (the second copy made
+nvcc schedule the first worse, and a quantized matrix-vector product took
+5% longer). On an H100 the forces of an n-body loop of 32768
 bodies run 1.5 times faster this way and the column sums of a 12288 by
 12288 matrix 2.6 times faster.</p></li>
 <li><p>A statement with an effect the lanes must not repeat – one that writes
@@ -2183,7 +2204,16 @@ runs a loop, such as <code class="docutils literal notranslate"><span class="pre
 inlined first (<code class="docutils literal notranslate"><span class="pre">gpu_inline_loop_calls</span></code>, using the inliner of the loop
 transformations, <code class="docutils literal notranslate"><span class="pre">GpuInliner</span></code>): its loop is then one of the kernel’s, and
 the lanes share it and combine its sum. An RMS norm of a 5120-element row
-computes its sum of squares this way.</p>
+computes its sum of squares this way. A call of a small pure function that
+is one expression of its arguments, an array among them – the dot product
+of one chunk of a row of a quantized matrix with the vector,
+<code class="docutils literal notranslate"><span class="pre">a1</span> <span class="pre">=</span> <span class="pre">a1</span> <span class="pre">+</span> <span class="pre">qdot(w,</span> <span class="pre">s,</span> <span class="pre">x,</span> <span class="pre">n,</span> <span class="pre">c)</span></code> – is replaced by that expression, written
+with the elements of the actual arguments: the loop over the chunks is then
+a reduction the lanes share, and its statement reads the words and the
+elements of the vector side by side, as vectors (<code class="docutils literal notranslate"><span class="pre">gpu_wide_loads</span></code>). As a
+call of its own, its reads are behind pointers that the device compiler
+cannot tell apart, and a 4-row q8 product of 34816 by 5120 took 324 us on an
+H200 instead of 92 us.</p>
 <p>A loop shared out between the lanes steps by the lanes, so each lane runs a
 loop of its own with one load after another. On Metal such a loop is
 unrolled sixteen times like a sequential loop of device code
@@ -2209,9 +2239,9 @@ every lane, gets lanes up to <code class="docutils literal notranslate"><span cl
 (<code class="docutils literal notranslate"><span class="pre">huge(0)/32</span></code> on Metal): one lane per iteration would read 32 columns at
 once there, a few elements at a time, while the lanes read one column
 together. Every row of a quantized matrix-vector product, and every row of a
-gated-delta state update, is such an iteration. On an NVIDIA GPU only reduction loops are shared out
-(<code class="docutils literal notranslate"><span class="pre">lane_independent_loops</span></code> is off), and a kernel with workspaces or that
-takes memory from the device heap keeps one lane per iteration. The kernel takes
+gated-delta state update, is such an iteration. On an NVIDIA GPU a kernel
+with workspaces or that takes memory from the device heap keeps one lane
+per iteration. The kernel takes
 the lanes as its last parameter (<code class="docutils literal notranslate"><span class="pre">gpu_kernel_layout.lanes</span></code>); its thread
 index then numbers the iterations, the host starts <code class="docutils literal notranslate"><span class="pre">lanes</span></code> threads per
 iteration, and a workspace slice belongs to an iteration, shared by its
@@ -2224,14 +2254,63 @@ otherwise moves by multiples of that number, reads them from new variables,
 which a <code class="docutils literal notranslate"><span class="pre">GpuWideLoad</span></code> before the statement assigns: from the 16 bytes at the
 first element when they start at a multiple of 16, one by one when they do
 not (the test depends on the address of the array and on its lower bound and
-extents only, and the device code tests it once per kernel). A warp then reads
+extents only, and the device code tests it once per kernel). A subscript
+that adds the lower bound of the array, as the element of an array dummy
+of an inlined function does (<code class="docutils literal notranslate"><span class="pre">a(i</span> <span class="pre">+</span> <span class="pre">(lbound(a,</span> <span class="pre">1)</span> <span class="pre">-</span> <span class="pre">1))</span></code>), counts from the
+start of the array whatever its lower bound is. A warp then reads
 512 contiguous bytes per instruction, with a quarter or an eighth of the
 instructions of the loads of single elements: the codes and activations of
 a lane of a quantized matrix-vector product read at 1.2 to 1.8 times the
 speed. Such a kernel needs no more lanes than a warp to keep the memory busy,
 so it does not get the lanes of a block (<code class="docutils literal notranslate"><span class="pre">gpu_reads_wide</span></code> in
-<code class="docutils literal notranslate"><span class="pre">gpu_wide_loads.cpp</span></code>), and its loops are unrolled eight times, where a loop
-of single elements is unrolled sixteen times.</p>
+<code class="docutils literal notranslate"><span class="pre">gpu_wide_loads.cpp</span></code>), and its loops are unrolled twice (not at all where
+its lanes share them: <code class="docutils literal notranslate"><span class="pre">unroll_wide_pragma</span></code> in <code class="docutils literal notranslate"><span class="pre">asr_to_cuda.cpp</span></code>), where a
+loop of single elements is unrolled sixteen times.</p>
+<p>The lanes of such a kernel need the vectors an iteration of their loop reads
+in flight together, each in 4 registers and about as many for what is
+decoded from it. So the kernel is declared
+<code class="docutils literal notranslate"><span class="pre">__launch_bounds__(threads_per_block,</span> <span class="pre">blocks)</span></code>, with as many blocks per
+multiprocessor as leave each thread <code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">+</span> <span class="pre">8*vectors</span></code> of its 65536 registers,
+at most six blocks of 256 (<code class="docutils literal notranslate"><span class="pre">kernel_qualifier</span></code> in <code class="docutils literal notranslate"><span class="pre">asr_to_cuda.cpp</span></code>; the
+vectors are counted once per element they start at, by
+<code class="docutils literal notranslate"><span class="pre">gpu_wide_vectors_per_iteration</span></code>). A q8 matrix-vector product of 34816 by
+5120 on an H200 that takes four rows per iteration reads 8 vectors (four
+rows of words and the vector’s four, which the rows share) and gets three
+blocks: 61 us, where six blocks spilled its registers and took 92 us. One
+that takes a row per iteration reads 5 and gets five blocks, and two rows
+(6 vectors) get four.</p>
+<p>An iteration of such a kernel is a warp that streams a whole row, and its
+launches have few iterations, so a launch with a warp per iteration starts
+blocks of two warps rather than of <code class="docutils literal notranslate"><span class="pre">threads_per_block</span></code> threads
+(<code class="docutils literal notranslate"><span class="pre">wide_block_iterations</span></code> in <code class="docutils literal notranslate"><span class="pre">gpu_vector_lanes.cpp</span></code>): the 320 blocks of 8
+warps of a product of 5120 rows, two per iteration, fell three on some of
+the 132 multiprocessors of an H200 and two on the others, which then waited
+for them (43 us; 38 us with blocks of two warps).</p>
+<p>The vectors a statement of a loop reads are read at the start of the loop’s
+body (<code class="docutils literal notranslate"><span class="pre">hoist</span></code> in <code class="docutils literal notranslate"><span class="pre">gpu_wide_loads.cpp</span></code>), ahead of the arithmetic of the
+statements before it, together with the other elements its statements read
+for certain (the scale of a row of a quantized product), into variables of
+their own: nvcc keeps a load where it is under a tight register bound, and
+the last rows of a 4-row product were read halfway through the iteration.
+A load moves only when nothing in the body assigns its array or, before it,
+a variable its subscripts read, and nothing leaves the body early (an
+<code class="docutils literal notranslate"><span class="pre">exit</span></code>, a <code class="docutils literal notranslate"><span class="pre">cycle</span></code>, a stop).</p>
+<p>A kernel whose loop reads four or more rows of one array side by side
+(<code class="docutils literal notranslate"><span class="pre">gpu_wide_rows_per_iteration</span></code>) gives each iteration the 64 lanes of a block
+of its own instead (<code class="docutils literal notranslate"><span class="pre">lanes_wide</span></code>), as a hand-written product gives a block
+to several rows: twice the lanes keep twice the loads of each row in flight
+with no more registers. Every launch of it has those lanes, so the kernel
+names them as a constant, and its launch bound is for blocks of 64 threads.
+On an H200 a q8 product of 34816 by 5120, four rows per iteration, took
+54.7 us with a warp per iteration and takes 51.6 us with 64 lanes (with the
+combinations of their sums batched, below). With two rows, a warp is faster
+(5120 by 17408: 38.5 us, against 46.8 us with 64 lanes).</p>
+<p>Where an iteration has the lanes of a whole block, consecutive statements
+that each combine what the lanes hold (the sums of the rows of such a
+product) meet in shared memory together, behind one barrier rather than one
+each (<code class="docutils literal notranslate"><span class="pre">emit_stmts</span></code> in <code class="docutils literal notranslate"><span class="pre">asr_to_gpu_c.h</span></code>): a block of 64 threads that sums 4
+rows of 5120 columns spent a third of its time waiting at the barriers of 5
+combinations.</p>
 </section>
 <section id="deliberate-relaxations">
 <h3 id="deliberate-relaxations">Deliberate relaxations<a class="headerlink" href="#deliberate-relaxations" title="Stały odnośnik do tego nagłówka">¶</a></h3>
