@@ -362,6 +362,8 @@
         </li>
         <li class="md-nav__item"><a href="#whole-array-assignments-between-launches" class="md-nav__link">Whole-array assignments between launches</a>
         </li>
+        <li class="md-nav__item"><a href="#reductions-of-arrays" class="md-nav__link">Reductions of arrays</a>
+        </li>
         <li class="md-nav__item"><a href="#fast-math-in-device-code" class="md-nav__link">Fast math in device code</a>
         </li>
         <li class="md-nav__item"><a href="#packed-data-unrolling-by-the-divisor" class="md-nav__link">Packed data: unrolling by the divisor</a>
@@ -709,6 +711,8 @@
         <li class="md-nav__item"><a href="#where-the-host-waits" class="md-nav__link">Where the host waits</a>
         </li>
         <li class="md-nav__item"><a href="#whole-array-assignments-between-launches" class="md-nav__link">Whole-array assignments between launches</a>
+        </li>
+        <li class="md-nav__item"><a href="#reductions-of-arrays" class="md-nav__link">Reductions of arrays</a>
         </li>
         <li class="md-nav__item"><a href="#fast-math-in-device-code" class="md-nav__link">Fast math in device code</a>
         </li>
@@ -2028,6 +2032,60 @@ read only the shape of the arrays.</p>
 <p>An assignment whose every element is assigned again before anything reads it
 (<code class="docutils literal notranslate"><span class="pre">dcdw</span> <span class="pre">=</span> <span class="pre">0.</span></code> followed by <code class="docutils literal notranslate"><span class="pre">dcdw</span> <span class="pre">=</span> <span class="pre">sum(reduce_dcdw,</span> <span class="pre">dim=4)</span></code>) is removed before
 this, by the <code class="docutils literal notranslate"><span class="pre">dead_array_store</span></code> pass, so it costs no launch at all.</p>
+</section>
+<section id="reductions-of-arrays">
+<h3 id="reductions-of-arrays">Reductions of arrays<a class="headerlink" href="#reductions-of-arrays" title="Link zu dieser Überschrift">¶</a></h3>
+<p>A reduction of a scalar (<code class="docutils literal notranslate"><span class="pre">reduce(+:</span> <span class="pre">s)</span></code>) gives each thread an accumulator,
+the threads of a warp combine theirs, and the host folds one slot per warp
+into <code class="docutils literal notranslate"><span class="pre">s</span></code> once the launch is done, so the host waits for the launch. A
+reduction of an array (<code class="docutils literal notranslate"><span class="pre">reduce(+:</span> <span class="pre">ss)</span></code>) whose iterations name the same
+elements of it – <code class="docutils literal notranslate"><span class="pre">ss(1)</span></code>, or <code class="docutils literal notranslate"><span class="pre">ss(k)</span></code> for a <code class="docutils literal notranslate"><span class="pre">k</span></code> the loop does not change –
+is combined on the device instead, and the host does not wait: a later
+launch can read the elements, as the next RMSNorm of a transformer reads the
+sum of the squares of the residual its update computes.</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="n">ss</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="k">do</span><span class="w"> </span><span class="k">concurrent</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="o">+</span><span class="p">:</span><span class="w"> </span><span class="n">ss</span><span class="p">)</span>
+<span class="w">    </span><span class="n">ss</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ss</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="k">end do</span>
+</pre></div>
+</div>
+<p>Each element the body names gets an accumulator of its own in every thread
+(<code class="docutils literal notranslate"><span class="pre">gpu_offload_array_reduction.cpp</span></code>), which replaces the element in the body;
+the kernel runs its iterations in a grid-stride loop that every thread of
+the launch finishes, and ends with a <code class="docutils literal notranslate"><span class="pre">GpuReduceCombine</span></code> of the accumulators.
+Where the operation gives the same result in any order – a sum of integers,
+a maximum or a minimum – the threads of each warp combine theirs, and the
+warp adds the result to the element with one atomic update: the element
+keeps what it held before the loop combined with every contribution, as
+Fortran says, and nothing else is needed. A sum of reals is fixed-point
+summed this way where the program scales it to integers, as the RMSNorm of a
+transformer can (<code class="docutils literal notranslate"><span class="pre">ss(k)</span> <span class="pre">=</span> <span class="pre">ss(k)</span> <span class="pre">+</span> <span class="pre">nint(s</span> <span class="pre">*</span> <span class="pre">2.0**24,</span> <span class="pre">int64)</span></code>). Otherwise,
+on an NVIDIA GPU the threads of each block combine theirs in a fixed order,
+the block writes the result to its part of a scratch buffer of the launch
+and arrives at a counter at the start of the buffer, and the block that
+arrives last combines the parts of all the blocks in the order of the blocks
+and applies them to the elements (<code class="docutils literal notranslate"><span class="pre">ss(1)</span> <span class="pre">=</span> <span class="pre">ss(1)</span> <span class="pre">+</span> <span class="pre">total</span></code>). The result is the
+same, bit for bit, however the blocks were scheduled. A launch that runs in
+chunks combines each chunk into the elements in turn. The runtime keeps the
+scratch buffer of a kernel from one launch to the next, zero when it is new,
+and the last block leaves the counter zero again, so a launch allocates and
+copies nothing for it. Where an iteration runs on several lanes, the first
+lane’s accumulators count, and the statements that only add to them run on
+the first lane alone. The CPU emulation runs the threads one after another,
+and each thread is a part.</p>
+<p>A constant that the statement right before the loop assigns to such an
+element (<code class="docutils literal notranslate"><span class="pre">ss(1)</span> <span class="pre">=</span> <span class="pre">0</span></code> above) would make the host wait for the launches that
+use <code class="docutils literal notranslate"><span class="pre">ss</span></code> before the loop, so the combination starts from it instead, and the
+host assigns it only when the loop has no iterations. An element combined
+with atomic updates starts from what it holds, so its assignment stays on
+the host; a program that wants no wait there clears the element on the
+device instead, as the loop that reads it can for the next one
+(<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(i</span> <span class="pre">==</span> <span class="pre">1)</span> <span class="pre">ss(3</span> <span class="pre">-</span> <span class="pre">k)</span> <span class="pre">=</span> <span class="pre">0</span></code>, which the lanes of an iteration allow).</p>
+<p>An element an iteration chooses (<code class="docutils literal notranslate"><span class="pre">h(idx(i))</span></code>, a histogram) would need atomic
+updates, and is an error, as are the whole array, a section of it, a type
+other than an integer or a real of kind 4 or 8, an operation other than <code class="docutils literal notranslate"><span class="pre">+</span></code>,
+<code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">max</span></code> and <code class="docutils literal notranslate"><span class="pre">min</span></code>, a loop that cycles or defines a scalar used after
+it, and a device other than CUDA (Metal and HIP).</p>
 </section>
 <section id="fast-math-in-device-code">
 <h3 id="fast-math-in-device-code">Fast math in device code<a class="headerlink" href="#fast-math-in-device-code" title="Link zu dieser Überschrift">¶</a></h3>

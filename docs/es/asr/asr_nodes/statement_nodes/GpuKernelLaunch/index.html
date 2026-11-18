@@ -750,6 +750,13 @@
     <li class="md-nav__item">
     
     
+      <a href="../GpuReduceCombine/" class="md-nav__link">GpuReduceCombine</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../GpuSync/" class="md-nav__link">GpuSync</a>
       
     
@@ -1180,7 +1187,10 @@ copies nothing in or out. The actual argument is an allocatable array of the
 launching procedure, not allocated before the launch. When <code class="docutils literal notranslate"><span class="pre">read_back</span></code> is
 present, the host allocates the actual with <code class="docutils literal notranslate"><span class="pre">read_back</span></code> elements after the
 launch, at most <code class="docutils literal notranslate"><span class="pre">size</span></code>, and copies the leading elements of the buffer into
-it; otherwise the actual stays unallocated.</p>
+it; otherwise the actual stays unallocated. The CUDA runtime keeps the
+memory of a scratch buffer from one launch of the kernel to the next, and
+gives it zero when it is new: the counter of a
+<a class="reference internal" href="../GpuReduceCombine/"><span class="doc std std-doc">GpuReduceCombine</span></a> relies on that.</p>
 <p>A kernel that can <code class="docutils literal notranslate"><span class="pre">stop</span></code> records the statement a thread reached in the
 status buffer <code class="docutils literal notranslate"><span class="pre">stop_status</span></code>. The statements of <code class="docutils literal notranslate"><span class="pre">stop_replay</span></code> read it and run
 that statement on the host. They run after the first GpuSync that follows
