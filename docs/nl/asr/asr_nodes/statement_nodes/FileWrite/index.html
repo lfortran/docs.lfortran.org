@@ -1061,7 +1061,7 @@
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FileWrite(int label, expr? unit, expr? iomsg, expr? iostat, expr? id,
     expr* values, expr? separator, expr? end, stmt? overloaded,
     bool is_formatted, symbol? nml, expr? rec, expr? pos,
-    expr? asynchronous, expr? decimal)
+    expr? asynchronous, expr? decimal, expr? delim)
 </pre></div>
 </div>
 </section>
@@ -1119,6 +1119,9 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">decimal</span></code></p></td>
 <td><p>the decimal edit mode of the transfer: <code class="docutils literal notranslate"><span class="pre">comma</span></code> writes a comma as the decimal symbol and separates list-directed values with a semicolon, <code class="docutils literal notranslate"><span class="pre">point</span></code> writes a point. It overrides the mode the unit was connected with, and is unset when the statement names none.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">delim</span></code></p></td>
+<td><p>the delimiter around character values in list-directed and namelist output: <code class="docutils literal notranslate"><span class="pre">quote</span></code> writes quotes, <code class="docutils literal notranslate"><span class="pre">apostrophe</span></code> writes apostrophes, and <code class="docutils literal notranslate"><span class="pre">none</span></code> writes the values undelimited. It overrides the mode the unit was connected with, and is unset when the statement names none.</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -1159,6 +1162,7 @@ their names.</p>
 <span class="w">  </span><span class="ss">:pos</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">  </span><span class="ss">:asynchronous</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">  </span><span class="ss">:decimal</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">  </span><span class="ss">:delim</span><span class="w"> </span><span class="nv">nil</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1386,6 +1390,7 @@ their names.</p>
 <span class="w">            </span><span class="ss">:pos</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="ss">:asynchronous</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">            </span><span class="ss">:decimal</span><span class="w"> </span><span class="nv">nil</span>
+<span class="w">            </span><span class="ss">:delim</span><span class="w"> </span><span class="nv">nil</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">FileBackspace</span>
 <span class="w">            </span><span class="ss">:label</span><span class="w"> </span><span class="mi">-1</span>
