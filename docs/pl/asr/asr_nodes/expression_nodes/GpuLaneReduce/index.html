@@ -1452,12 +1452,12 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="gpulanereduce">
 <h1 id="asr-asr-nodes-expression-nodes-gpulanereduce--page-root">GpuLaneReduce<a class="headerlink" href="#asr-asr-nodes-expression-nodes-gpulanereduce--page-root" title="Stały odnośnik do tego nagłówka">¶</a></h1>
-<p>What the lanes of the iteration hold, combined.</p>
+<p>What the lanes of the iteration, or of a group of them, hold, combined.</p>
 <section id="declaration">
 <h2 id="declaration">Declaration<a class="headerlink" href="#declaration" title="Stały odnośnik do tego nagłówka">¶</a></h2>
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GpuLaneReduce(expr arg, reduction_op op, ttype type, expr? value)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GpuLaneReduce(expr arg, reduction_op op, int width, ttype type, expr? value)
 </pre></div>
 </div>
 </section>
@@ -1476,10 +1476,13 @@
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">op</span></code></p></td>
 <td><p>how the values combine: <code class="docutils literal notranslate"><span class="pre">ReduceAdd</span></code>, <code class="docutils literal notranslate"><span class="pre">ReduceMul</span></code>, <code class="docutils literal notranslate"><span class="pre">ReduceMIN</span></code> or <code class="docutils literal notranslate"><span class="pre">ReduceMAX</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">width</span></code></p></td>
+<td><p>zero for all the lanes of the iteration; otherwise a power of two up to 32, the lanes of each group of that many consecutive lanes of a warp.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
 <td><p>the type of <code class="docutils literal notranslate"><span class="pre">arg</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
 <td><p>always <code class="docutils literal notranslate"><span class="pre">nil</span></code>.</p></td>
 </tr>
 </tbody>
@@ -1487,8 +1490,8 @@
 </section>
 <section id="return-values">
 <h3 id="return-values">Return values<a class="headerlink" href="#return-values" title="Stały odnośnik do tego nagłówka">¶</a></h3>
-<p>The values <code class="docutils literal notranslate"><span class="pre">arg</span></code> has in the lanes of the running thread’s iteration,
-combined by <code class="docutils literal notranslate"><span class="pre">op</span></code>, in every lane.</p>
+<p>The values <code class="docutils literal notranslate"><span class="pre">arg</span></code> has in the lanes of the running thread’s iteration (or,
+with a <code class="docutils literal notranslate"><span class="pre">width</span></code>, of its group), combined by <code class="docutils literal notranslate"><span class="pre">op</span></code>, in every lane.</p>
 </section>
 </section>
 <section id="description">
@@ -1503,12 +1506,19 @@ lane takes what all of them hold: <code class="docutils literal notranslate"><sp
 lane of the iteration evaluates it at the same point. Only a kernel for a
 device whose lanes can combine values has one
 (<code class="docutils literal notranslate"><span class="pre">GpuDeviceCapabilities::lane_reductions</span></code>, see <code class="docutils literal notranslate"><span class="pre">gpu_vector_lanes.cpp</span></code>).</p>
+<p>In a kernel whose iteration has the lanes of a whole block, a short loop
+of the iteration may run each of its iterations on a group of consecutive
+lanes of a warp, which share out the loops of its body; each group then
+combines what its lanes accumulated with a <code class="docutils literal notranslate"><span class="pre">width</span></code> of the group’s size
+(the scores of the positions of a chunk of an attention, a warp each).
+All the lanes of the warp evaluate it.</p>
 </section>
 <section id="examples">
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Stały odnośnik do tego nagłówka">¶</a></h2>
 <div class="highlight-clojure notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">GpuLaneReduce</span>
 <span class="w">  </span><span class="p">(</span><span class="nf">Var</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="nv">t</span><span class="p">)</span>
 <span class="w">  </span><span class="nv">ReduceAdd</span>
+<span class="w">  </span><span class="mi">0</span>
 <span class="w">  </span><span class="p">(</span><span class="nf">Real</span>
 <span class="w">    </span><span class="ss">:kind</span><span class="w"> </span><span class="mi">8</span>
 <span class="w">  </span><span class="p">)</span>
