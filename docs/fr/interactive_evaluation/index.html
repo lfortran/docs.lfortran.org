@@ -354,6 +354,8 @@
         <li class="md-nav__item"><a href="#runtime-input" class="md-nav__link">Runtime input</a>
         </li>
         <li class="md-nav__item"><a href="#interrupting-a-cell" class="md-nav__link">Interrupting a cell</a>
+        </li>
+        <li class="md-nav__item"><a href="#runtime-errors" class="md-nav__link">Runtime errors</a>
         </li></ul>
             </nav>
         </li>
@@ -371,6 +373,13 @@
     
     
       <a href="#interrupting-a-cell" class="md-nav__link">Interrupting a cell</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#runtime-errors" class="md-nav__link">Runtime errors</a>
       
     
     </li></ul>
@@ -552,6 +561,8 @@
         <li class="md-nav__item"><a href="#runtime-input" class="md-nav__link">Runtime input</a>
         </li>
         <li class="md-nav__item"><a href="#interrupting-a-cell" class="md-nav__link">Interrupting a cell</a>
+        </li>
+        <li class="md-nav__item"><a href="#runtime-errors" class="md-nav__link">Runtime errors</a>
         </li></ul>
             </nav>
         </li>
@@ -709,6 +720,29 @@ what is typed.</p>
 <code class="docutils literal notranslate"><span class="pre">test_session_regressions</span></code> cases <code class="docutils literal notranslate"><span class="pre">terminal_command</span></code>, <code class="docutils literal notranslate"><span class="pre">read_errors</span></code> and
 <code class="docutils literal notranslate"><span class="pre">test_interrupt_prompt</span></code>, <code class="docutils literal notranslate"><span class="pre">test_repl</span></code> and <code class="docutils literal notranslate"><span class="pre">test_kernel_evaluation</span></code> cover
 this.</p>
+</section>
+<section id="runtime-errors">
+<h2 id="runtime-errors">Runtime errors<a class="headerlink" href="#runtime-errors" title="Lien permanent vers ce titre">¶</a></h2>
+<p>A runtime error ends a compiled program with exit status 1. Where cells can
+be interrupted (<code class="docutils literal notranslate"><span class="pre">FortranEvaluator::interruptible()</span></code>), it ends only its cell:
+the runtime prints its message, as in a program, to the cell’s stderr, and
+returns to <code class="docutils literal notranslate"><span class="pre">execute()</span></code> the way an interrupt does, with <code class="docutils literal notranslate"><span class="pre">longjmp</span></code>. The cell
+fails with a <code class="docutils literal notranslate"><span class="pre">CellResult</span></code> named <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>, whose message is empty, as
+the error was already written. Runtime errors include failed checks of
+bounds, shapes and allocation status, and I/O errors without <code class="docutils literal notranslate"><span class="pre">iostat=</span></code>.
+The session goes on as after an interrupt: what the cell did before the
+error stays done, what it allocated leaks, and the next cells run.</p>
+<p>Its message quotes the line of the cell that failed, or of the earlier cell
+that defined the procedure that failed. A cell has no file to read that line
+from, so while a cell runs, <code class="docutils literal notranslate"><span class="pre">execute()</span></code> gives the runtime the session’s cell
+sources (<code class="docutils literal notranslate"><span class="pre">_lfortran_set_source_provider</span></code>).</p>
+<p>The runtime’s <code class="docutils literal notranslate"><span class="pre">error_exit()</span></code>, which every runtime error calls, does this.
+The few checks that the generated code prints itself call it through
+<code class="docutils literal notranslate"><span class="pre">_lcompilers_error_exit()</span></code> when compiled with <code class="docutils literal notranslate"><span class="pre">CompilerOptions::cell_interrupts</span></code>.
+STOP and ERROR STOP still end the process, and so does a crash. Elsewhere
+(Windows, WASM, <code class="docutils literal notranslate"><span class="pre">--openmp</span></code>) a runtime error ends the process as it ends a
+program. The <code class="docutils literal notranslate"><span class="pre">test_lfortran</span></code> case <code class="docutils literal notranslate"><span class="pre">FortranEvaluator:</span> <span class="pre">a</span> <span class="pre">runtime</span> <span class="pre">error</span> <span class="pre">ends</span> <span class="pre">only</span> <span class="pre">its</span> <span class="pre">cell</span></code> and the <code class="docutils literal notranslate"><span class="pre">test_session_regressions</span></code> cases <code class="docutils literal notranslate"><span class="pre">runtime_errors</span></code>,
+<code class="docutils literal notranslate"><span class="pre">read_errors</span></code> and <code class="docutils literal notranslate"><span class="pre">read_disconnect</span></code> cover this.</p>
 </section>
 </section>
 
