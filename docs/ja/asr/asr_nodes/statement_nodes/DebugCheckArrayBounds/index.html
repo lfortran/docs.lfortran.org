@@ -1066,7 +1066,7 @@
 <section id="syntax">
 <h3 id="syntax">Syntax<a class="headerlink" href="#syntax" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>DebugCheckArrayBounds(expr target, expr* components,
-    array_extent_check* checks, bool move_allocation)
+    array_extent_check* checks, bool move_allocation, bool scalar_rhs)
 </pre></div>
 </div>
 </section>
@@ -1090,6 +1090,9 @@
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">move_allocation</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when the assignment it guards moves an allocation instead of copying.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scalar_rhs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when the assignment has a scalar right-hand side (<code class="docutils literal notranslate"><span class="pre">checks</span></code> must be empty); omits the <code class="docutils literal notranslate"><span class="pre">--realloc-lhs-arrays</span></code> hint from the unallocated target diagnostic.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1177,6 +1180,7 @@ instead of its extents.</p>
 <span class="w">    </span><span class="p">)</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="w">  </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">  </span><span class="ss">:scalar_rhs</span><span class="w"> </span><span class="nv">false</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1331,6 +1335,7 @@ instead of its extents.</p>
 <span class="w">              </span><span class="p">)</span>
 <span class="w">            </span><span class="p">]</span>
 <span class="w">            </span><span class="ss">:move_allocation</span><span class="w"> </span><span class="nv">false</span>
+<span class="w">            </span><span class="ss">:scalar_rhs</span><span class="w"> </span><span class="nv">false</span>
 <span class="w">          </span><span class="p">)</span>
 <span class="w">          </span><span class="p">(</span><span class="nf">Assignment</span>
 <span class="w">            </span><span class="ss">:target</span><span class="w"> </span><span class="p">(</span><span class="nf">Var</span>

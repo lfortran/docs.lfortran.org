@@ -352,6 +352,8 @@
         <li class="md-nav__item"><a href="#interactive-evaluation--page-root" class="md-nav__link">Running a cell: the prompt and the Jupyter kernel</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#runtime-input" class="md-nav__link">Runtime input</a>
+        </li>
+        <li class="md-nav__item"><a href="#interrupting-a-cell" class="md-nav__link">Interrupting a cell</a>
         </li></ul>
             </nav>
         </li>
@@ -362,6 +364,13 @@
     
     
       <a href="#runtime-input" class="md-nav__link">Runtime input</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#interrupting-a-cell" class="md-nav__link">Interrupting a cell</a>
       
     
     </li></ul>
@@ -541,6 +550,8 @@
         <li class="md-nav__item"><a href="#interactive-evaluation--page-root" class="md-nav__link">Running a cell: the prompt and the Jupyter kernel</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#runtime-input" class="md-nav__link">Runtime input</a>
+        </li>
+        <li class="md-nav__item"><a href="#interrupting-a-cell" class="md-nav__link">Interrupting a cell</a>
         </li></ul>
             </nav>
         </li>
@@ -600,7 +611,11 @@ a compiled program does. An exception thrown by the hook becomes unavailable
 input. <code class="docutils literal notranslate"><span class="pre">execute()</span></code> installs the hook through the runtime's C API
 (<code class="docutils literal notranslate"><span class="pre">src/libasr/runtime/lfortran_stdin.h</span></code>) for that cell only and always removes
 it, so a later cell can read again after end of file and unread bytes are
-discarded.</p>
+discarded.
+If the cell can be interrupted (<code class="docutils literal notranslate"><span class="pre">FortranEvaluator::interruptible()</span></code>), the
+hook may return early, with any status, once <code class="docutils literal notranslate"><span class="pre">CellIO::interrupt_requested</span></code>
+returns true: the cell then stops without failing the READ. Otherwise it must
+keep waiting for input, as nothing would stop the cell.</p>
 <p>The runtime keeps the record's bytes, its cursor and delimiters, so one record
 can satisfy several list items and one READ can consume several records.
 Default stdin and units connected to it (normally unit 5) share this cursor
@@ -620,6 +635,80 @@ exercise the JIT result ABI on Windows: there complex(4) comes back as two
 float bit patterns in an integer register and complex(8) through an output
 pointer, and <code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span></code> calls those signatures explicitly rather than
 relying on the C++ <code class="docutils literal notranslate"><span class="pre">std::complex</span></code> return convention.</p>
+</section>
+<section id="interrupting-a-cell">
+<h2 id="interrupting-a-cell">Interrupting a cell<a class="headerlink" href="#interrupting-a-cell" title="এই শিরোনামের পার্মালিঙ্ক">¶</a></h2>
+<p>A frontend that sets <code class="docutils literal notranslate"><span class="pre">CellIO::interrupt_requested</span></code> can interrupt a running
+cell. The callback is bounded and nonblocking. <code class="docutils literal notranslate"><span class="pre">execute()</span></code> calls it on its
+caller about every 10 milliseconds, and after each of the other <code class="docutils literal notranslate"><span class="pre">CellIO</span></code>
+callbacks, which all run on the caller, while the cell runs on a thread of
+its own. Once it returns true, the cell fails with a <code class="docutils literal notranslate"><span class="pre">CellResult</span></code> named
+<code class="docutils literal notranslate"><span class="pre">KeyboardInterrupt</span></code> ("cell execution interrupted") and no value. Only one
+cell runs at a time: the request is a flag of the process.</p>
+<p>The cell's thread stops at a poll. <code class="docutils literal notranslate"><span class="pre">execute()</span></code> compiles the session's cells
+with <code class="docutils literal notranslate"><span class="pre">CompilerOptions::cell_interrupts</span></code> when it can interrupt them
+(<code class="docutils literal notranslate"><span class="pre">FortranEvaluator::interruptible()</span></code>). Such code loads a runtime flag at the
+back edge of a counted <code class="docutils literal notranslate"><span class="pre">do</span></code> (and of <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">concurrent</span></code>), at the head of a <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">while</span></code> or a <code class="docutils literal notranslate"><span class="pre">do</span></code> with no control, at a backward <code class="docutils literal notranslate"><span class="pre">goto</span></code>, and on entry to a
+procedure. When the flag is set, the poll <code class="docutils literal notranslate"><span class="pre">longjmp</span></code>s back to <code class="docutils literal notranslate"><span class="pre">execute()</span></code>
+(<code class="docutils literal notranslate"><span class="pre">LLVMEvaluator::run_interruptible</span></code>, <code class="docutils literal notranslate"><span class="pre">src/libasr/runtime/lfortran_interrupt.h</span></code>).
+Batch compilation has none of these checks, and no signal is involved.</p>
+<p>The polls are between ASR statements, or on entry to a procedure before it
+has done any work, so what the cell assigns stays consistent: an allocatable
+or a deferred-length string that it was assigning can be used, deallocated or
+passed to <code class="docutils literal notranslate"><span class="pre">move_alloc</span></code> by a later cell. A source statement can still stop
+partway when the compiler lowered it to a loop or it calls a procedure: an
+interrupted whole-array assignment such as <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">+</span> <span class="pre">1</span></code> may have updated only
+some elements.</p>
+<p>The abandoned frames are not unwound. What the interrupted cell allocated and
+did not free leaks; nothing is rolled back. What it did before the interrupt
+stays done, as in IPython: variables it had assigned keep their new values,
+and output it had written is shown. The session keeps everything that earlier
+cells and the interrupted cell defined. A request is not carried into the
+next cell: an interrupt that arrives while no cell runs does nothing, and
+compilation is not interrupted; a request that is already set stops the cell
+before its code runs.</p>
+<p>The runtime's waits stop at once too: SLEEP, which wakes every 10
+milliseconds to look at the request; EXECUTE_COMMAND_LINE, whose command runs
+in a process group of its own, which is killed (with its descendants that stay
+in the group) and reaped first; and a READ from stdin that waits for its
+input. In a process that is the foreground job of a terminal, the command
+runs as with <code class="docutils literal notranslate"><span class="pre">system()</span></code>: the terminal's Ctrl-C reaches it, and the cell waits
+for it.</p>
+<p>A poll inside a final subroutine, a defined assignment, or a defined input or
+output procedure returns: these run inside another statement, which must
+finish. The cell stops at the next poll after that statement, so a loop that
+does not end inside one of them is not stopped. A single long call into
+foreign code, or into one runtime or library routine, stops only when that
+call returns; a loop that calls it stops at its next iteration.</p>
+<p>Interruption is supported on Linux and macOS (x86-64 and AArch64). It is not
+supported on Windows, in WASM (JupyterLite) or with <code class="docutils literal notranslate"><span class="pre">--openmp</span></code>, where a cell
+runs to its end, and a READ keeps waiting for its input.</p>
+<p>The built-in kernel reads its control channel while a cell runs, through the
+callback, and answers <code class="docutils literal notranslate"><span class="pre">interrupt_request</span></code> at once; it defers other control
+requests until the cell ends, and publishes the <code class="docutils literal notranslate"><span class="pre">KeyboardInterrupt</span></code> as an
+<code class="docutils literal notranslate"><span class="pre">error</span></code> message before it replies. A READ waits for its <code class="docutils literal notranslate"><span class="pre">input_reply</span></code> on
+LFortran's <code class="docutils literal notranslate"><span class="pre">InputChannel</span></code>, which an interrupt cancels; replies to an older
+<code class="docutils literal notranslate"><span class="pre">input_request</span></code> are ignored. The kernel's <code class="docutils literal notranslate"><span class="pre">input_request</span></code> says whether it
+can end the READ (<code class="docutils literal notranslate"><span class="pre">lfortran_interruptible</span></code>), so that a client knows whether
+to keep forwarding input after an interrupt.</p>
+<p>The Xeus kernel uses Xeus's split server (<code class="docutils literal notranslate"><span class="pre">make_xserver_shell_main</span></code>), which
+runs shell requests on the main thread and control requests on their own
+thread, where <code class="docutils literal notranslate"><span class="pre">interrupt_request</span></code> sets the flag that the callback reads. It
+publishes the <code class="docutils literal notranslate"><span class="pre">KeyboardInterrupt</span></code> as an <code class="docutils literal notranslate"><span class="pre">error</span></code> message before it replies.
+For a READ it replaces only Xeus's stdin transport, with LFortran's
+<code class="docutils literal notranslate"><span class="pre">InputChannel</span></code>, so that an interrupt can end the wait. With Xeus registration
+configurations, IPv6 or non-TCP transports, a READ uses Xeus's blocking stdin
+transport, and an interrupt takes effect once the READ has its input.</p>
+<p>During a cell, Ctrl-C at the prompt (Linux and macOS) only marks the
+interrupt; the prompt's client loop sends the <code class="docutils literal notranslate"><span class="pre">interrupt_request</span></code> on the
+control channel and keeps reading the terminal without blocking, so that it
+also notices Ctrl-C while a READ waits for input. If the kernel cannot end
+the READ (<code class="docutils literal notranslate"><span class="pre">lfortran_interruptible</span></code> is false), the client keeps forwarding
+what is typed.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">test_lfortran</span></code> cases <code class="docutils literal notranslate"><span class="pre">FortranEvaluator</span> <span class="pre">interrupt*</span></code>, the
+<code class="docutils literal notranslate"><span class="pre">test_session_regressions</span></code> cases <code class="docutils literal notranslate"><span class="pre">terminal_command</span></code>, <code class="docutils literal notranslate"><span class="pre">read_errors</span></code> and
+<code class="docutils literal notranslate"><span class="pre">test_interrupt_prompt</span></code>, <code class="docutils literal notranslate"><span class="pre">test_repl</span></code> and <code class="docutils literal notranslate"><span class="pre">test_kernel_evaluation</span></code> cover
+this.</p>
 </section>
 </section>
 
